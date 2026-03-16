@@ -1,111 +1,69 @@
-name: Azure Active Directory (Azure AD)
-description: Microsoft's cloud-based identity and access management service that helps employees sign in and access resources
-image: https://docs.microsoft.com/en-us/azure/active-directory/media/index/azure-active-directory.svg
-created: '2024'
-modified: '2024'
-specificationVersion: '0.18'
-url: https://azure.microsoft.com/en-us/services/active-directory/
+aid: azure-ad
+name: Azure Active Directory
+description: >-
+  Microsoft's cloud-based identity and access management service that helps
+  employees sign in and access resources. Azure AD provides OAuth, OpenID
+  Connect, SAML, and other identity protocols for securing applications and
+  managing user identities.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-- Identity
-- Authentication
-- Authorization
-- Single Sign-On
-- Multi-Factor Authentication
-- Identity Management
-- Access Management
-- OAuth
-- OpenID Connect
+  - Identity
+  - Authentication
+  - Authorization
+  - Single Sign-On
+  - OAuth
+  - OpenID Connect
+url: https://raw.githubusercontent.com/api-evangelist/azure-ad/refs/heads/main/apis.yml
+created: '2024-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 apis:
-- name: Microsoft Graph API
-  description: The primary API for accessing Azure AD and other Microsoft 365 services
-  image: https://docs.microsoft.com/en-us/graph/images/microsoft-graph.png
-  humanUrl: https://docs.microsoft.com/en-us/graph/overview
-  baseUrl: https://graph.microsoft.com
-  version: v1.0
-  properties:
-  - type: Documentation
-    url: https://docs.microsoft.com/en-us/graph/api/overview
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml
-  - type: Authentication
-    url: https://docs.microsoft.com/en-us/graph/auth/
-  - type: SDKs
-    url: https://docs.microsoft.com/en-us/graph/sdks/sdks-overview
-  - type: Changelog
-    url: https://docs.microsoft.com/en-us/graph/changelog
-  - type: Samples
-    url: https://developer.microsoft.com/en-us/graph/gallery
-  - type: GraphExplorer
-    url: https://developer.microsoft.com/en-us/graph/graph-explorer
-  - type: Pricing
-    url: https://azure.microsoft.com/en-us/pricing/details/active-directory/
-  contact:
-  - type: Support
-    url: https://developer.microsoft.com/en-us/graph/support
-  - type: Twitter
-    url: https://twitter.com/AzureAD
-- name: Azure AD Authentication Library (ADAL)
-  description: Legacy authentication library for Azure AD (being replaced by MSAL)
-  humanUrl: https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-authentication-libraries
-  baseUrl: https://login.microsoftonline.com
-  properties:
-  - type: Documentation
-    url: https://docs.microsoft.com/en-us/azure/active-directory/azuread-dev/active-directory-authentication-libraries
-  - type: Migration
-    url: https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-migration
-- name: Microsoft Authentication Library (MSAL)
-  description: Modern authentication library for Microsoft identity platform
-  humanUrl: https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-overview
-  baseUrl: https://login.microsoftonline.com
-  properties:
-  - type: Documentation
-    url: https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-overview
-  - type: GitHub
-    url: https://github.com/AzureAD/microsoft-authentication-library-for-js
-  - type: Samples
-    url: https://docs.microsoft.com/en-us/azure/active-directory/develop/sample-v2-code
-  - type: QuickStarts
-    url: https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v2-javascript
-- name: Azure AD B2C API
-  description: Business-to-consumer identity management solution
-  humanUrl: https://docs.microsoft.com/en-us/azure/active-directory-b2c/
-  baseUrl: https://login.microsoftonline.com
-  properties:
-  - type: Documentation
-    url: https://docs.microsoft.com/en-us/azure/active-directory-b2c/overview
-  - type: REST API
-    url: https://docs.microsoft.com/en-us/azure/active-directory-b2c/microsoft-graph-operations
-  - type: Tutorials
-    url: https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-tenant
-- name: Azure AD B2B API
-  description: Business-to-business collaboration capabilities
-  humanUrl: https://docs.microsoft.com/en-us/azure/active-directory/external-identities/
-  baseUrl: https://graph.microsoft.com
-  properties:
-  - type: Documentation
-    url: https://docs.microsoft.com/en-us/azure/active-directory/external-identities/what-is-b2b
-  - type: API Reference
-    url: https://docs.microsoft.com/en-us/graph/api/resources/invitation
-maintainers:
-- name: Microsoft
-  twitter: '@AzureAD'
-  email: azuread@microsoft.com
-  url: https://azure.microsoft.com
+  - aid: azure-ad:microsoft-graph-api
+    name: Microsoft Graph API
+    description: The primary API for accessing Azure AD and other Microsoft 365 services.
+    humanURL: https://docs.microsoft.com/en-us/graph/overview
+    baseURL: https://graph.microsoft.com
+    tags:
+      - Identity
+      - Microsoft 365
+      - Directory
+    properties:
+      - type: Documentation
+        url: https://docs.microsoft.com/en-us/graph/api/overview
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml
+      - type: Authentication
+        url: https://docs.microsoft.com/en-us/graph/auth/
+      - type: SDKs
+        url: https://docs.microsoft.com/en-us/graph/sdks/sdks-overview
+      - type: Change Log
+        url: https://docs.microsoft.com/en-us/graph/changelog
+  - aid: azure-ad:azure-ad-b2c-api
+    name: Azure AD B2C API
+    description: Business-to-consumer identity management solution.
+    humanURL: https://docs.microsoft.com/en-us/azure/active-directory-b2c/
+    baseURL: https://login.microsoftonline.com
+    tags:
+      - B2C
+      - Consumer Identity
+      - Authentication
+    properties:
+      - type: Documentation
+        url: https://docs.microsoft.com/en-us/azure/active-directory-b2c/overview
 common:
-- type: Portal
-  url: https://portal.azure.com
-- type: Status
-  url: https://status.azure.com
-- type: Blog
-  url: https://techcommunity.microsoft.com/t5/azure-active-directory-identity/bg-p/Identity
-- type: PrivacyPolicy
-  url: https://privacy.microsoft.com/en-us/privacystatement
-- type: TermsOfService
-  url: https://azure.microsoft.com/en-us/support/legal/
-- type: GettingStarted
-  url: https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis
-- type: PricingCalculator
-  url: https://azure.microsoft.com/en-us/pricing/calculator/
-include:
-- name: Microsoft Identity Platform
-  url: https://docs.microsoft.com/en-us/azure/active-directory/develop/
+  - type: Portal
+    url: https://portal.azure.com
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/azure/active-directory/
+  - type: Status
+    url: https://status.azure.com
+  - type: Blog
+    url: https://techcommunity.microsoft.com/t5/azure-active-directory-identity/bg-p/Identity
+  - type: Privacy Policy
+    url: https://privacy.microsoft.com/en-us/privacystatement
+  - type: Terms of Service
+    url: https://azure.microsoft.com/en-us/support/legal/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
