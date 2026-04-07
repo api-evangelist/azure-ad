@@ -8,12 +8,12 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Identity
   - Authentication
   - Authorization
-  - Single Sign-On
+  - Identity
   - OAuth
   - OpenID Connect
+  - Single Sign-On
 url: https://raw.githubusercontent.com/api-evangelist/azure-ad/refs/heads/main/apis.yml
 created: '2024-01-01'
 modified: '2026-03-16'
@@ -25,9 +25,9 @@ apis:
     humanURL: https://docs.microsoft.com/en-us/graph/overview
     baseURL: https://graph.microsoft.com
     tags:
+      - Directory
       - Identity
       - Microsoft 365
-      - Directory
     properties:
       - type: Documentation
         url: https://docs.microsoft.com/en-us/graph/api/overview
@@ -45,9 +45,9 @@ apis:
     humanURL: https://docs.microsoft.com/en-us/azure/active-directory-b2c/
     baseURL: https://login.microsoftonline.com
     tags:
+      - Authentication
       - B2C
       - Consumer Identity
-      - Authentication
     properties:
       - type: Documentation
         url: https://docs.microsoft.com/en-us/azure/active-directory-b2c/overview
