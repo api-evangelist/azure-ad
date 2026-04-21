@@ -1,90 +1,47 @@
-# Azure Active Directory (Azure AD) (azure-ad)
-Microsoft's cloud-based identity and access management service that helps employees sign in and access resources
+# Azure Active Directory
 
-**URL:** [Visit APIs.json URL](https://azure.microsoft.com/en-us/services/active-directory/)
-
-## Tags:
-
- - Identity, Authentication, Authorization, Single Sign-On, Multi-Factor Authentication, Identity Management, Access Management, OAuth, OpenID Connect
-
-## Timestamps
-
-- **Created:** 2024 
-- **Modified:** 2024 
+Microsoft's cloud-based identity and access management service that helps employees sign in and access resources. Azure AD provides OAuth, OpenID Connect, SAML, and other identity protocols for securing applications and managing user identities.
 
 ## APIs
 
 ### Microsoft Graph API
-The primary API for accessing Azure AD and other Microsoft 365 services
-
-**Human URL:** [https://docs.microsoft.com/en-us/graph/overview](https://docs.microsoft.com/en-us/graph/overview)
-
-#### Properties
-
-- [Documentation](https://docs.microsoft.com/en-us/graph/api/overview)
-- [OpenAPI](https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml)
-- [Authentication](https://docs.microsoft.com/en-us/graph/auth/)
-- [SDKs](https://docs.microsoft.com/en-us/graph/sdks/sdks-overview)
-- [Changelog](https://docs.microsoft.com/en-us/graph/changelog)
-- [Samples](https://developer.microsoft.com/en-us/graph/gallery)
-- [GraphExplorer](https://developer.microsoft.com/en-us/graph/graph-explorer)
-- [Pricing](https://azure.microsoft.com/en-us/pricing/details/active-directory/)
-
-### Azure AD Authentication Library (ADAL)
-Legacy authentication library for Azure AD (being replaced by MSAL)
-
-**Human URL:** [https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-authentication-libraries](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-authentication-libraries)
-
-#### Properties
-
-- [Documentation](https://docs.microsoft.com/en-us/azure/active-directory/azuread-dev/active-directory-authentication-libraries)
-- [Migration](https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-migration)
-
-### Microsoft Authentication Library (MSAL)
-Modern authentication library for Microsoft identity platform
-
-**Human URL:** [https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-overview](https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-overview)
-
-#### Properties
-
-- [Documentation](https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-overview)
-- [GitHub](https://github.com/AzureAD/microsoft-authentication-library-for-js)
-- [Samples](https://docs.microsoft.com/en-us/azure/active-directory/develop/sample-v2-code)
-- [QuickStarts](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v2-javascript)
+The primary API for accessing Azure AD and other Microsoft 365 services.
+- **Documentation**: https://docs.microsoft.com/en-us/graph/api/overview
+- **Authentication**: https://docs.microsoft.com/en-us/graph/auth/
 
 ### Azure AD B2C API
-Business-to-consumer identity management solution
+Business-to-consumer identity management solution for customer-facing applications.
+- **Documentation**: https://docs.microsoft.com/en-us/azure/active-directory-b2c/overview
 
-**Human URL:** [https://docs.microsoft.com/en-us/azure/active-directory-b2c/](https://docs.microsoft.com/en-us/azure/active-directory-b2c/)
+## Features
 
-#### Properties
+- **Single Sign-On** — Enable users to sign in once and access all connected apps.
+- **Multi-Factor Authentication** — Enforce MFA for extra security beyond passwords.
+- **Conditional Access** — Define access policies based on user, device, location, and risk signals.
+- **OAuth 2.0 and OpenID Connect** — Industry-standard protocols for authorization and authentication.
+- **SAML 2.0 Support** — Federate with thousands of SAML-based SaaS applications.
+- **Identity Protection** — Detect and respond to identity-based risks with AI-powered signals.
+- **Privileged Identity Management** — Just-in-time privileged access with approval workflows.
+- **B2B Collaboration** — Invite external users from partner organizations.
+- **External Identities** — Customer and partner identity management with B2C and B2B.
 
-- [Documentation](https://docs.microsoft.com/en-us/azure/active-directory-b2c/overview)
-- [REST API](https://docs.microsoft.com/en-us/azure/active-directory-b2c/microsoft-graph-operations)
-- [Tutorials](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-tenant)
+## Use Cases
 
-### Azure AD B2B API
-Business-to-business collaboration capabilities
+- **Enterprise SSO** — Single sign-on for employees across thousands of SaaS applications.
+- **Zero Trust Security** — Zero trust architecture with identity as the control plane.
+- **Consumer Identity** — Customer-facing login with social identities via Azure AD B2C.
+- **API Security** — Secure APIs with OAuth 2.0 tokens issued by Azure AD.
+- **Hybrid Identity** — Extend on-premises Active Directory to the cloud.
 
-**Human URL:** [https://docs.microsoft.com/en-us/azure/active-directory/external-identities/](https://docs.microsoft.com/en-us/azure/active-directory/external-identities/)
+## Links
 
-#### Properties
-
-- [Documentation](https://docs.microsoft.com/en-us/azure/active-directory/external-identities/what-is-b2b)
-- [API Reference](https://docs.microsoft.com/en-us/graph/api/resources/invitation)
-
-## Common Properties
-
-- [Portal](https://portal.azure.com)
-- [Status](https://status.azure.com)
-- [Blog](https://techcommunity.microsoft.com/t5/azure-active-directory-identity/bg-p/Identity)
-- [PrivacyPolicy](https://privacy.microsoft.com/en-us/privacystatement)
-- [TermsOfService](https://azure.microsoft.com/en-us/support/legal/)
-- [GettingStarted](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis)
-- [PricingCalculator](https://azure.microsoft.com/en-us/pricing/calculator/)
+- **Portal**: https://portal.azure.com
+- **Documentation**: https://learn.microsoft.com/en-us/azure/active-directory/
+- **Getting Started**: https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/get-started-azure-ad
+- **Pricing**: https://azure.microsoft.com/en-us/pricing/details/active-directory/
+- **Blog**: https://techcommunity.microsoft.com/t5/azure-active-directory-identity/bg-p/Identity
+- **Status**: https://status.azure.com
 
 ## Maintainers
 
-**FN:** Microsoft
-
-**Email:** azuread@microsoft.com
+- **Kin Lane** — kin@apievangelist.com
