@@ -1,0 +1,14 @@
+{
+  "repo": "azure-ad",
+  "feeds": [
+    {
+      "source": "https://techcommunity.microsoft.com/t5/azure-active-directory-identity/bg-p/Identity",
+      "feed_url": "",
+      "title": "",
+      "saved": 0,
+      "error": "no_feed"
+    }
+  ],
+  "fetched": "2026-05-09T20:17:51Z",
+  "post_count": 0
+}
