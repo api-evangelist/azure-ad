@@ -2,13 +2,13 @@
   "repo": "azure-ad",
   "feeds": [
     {
-      "source": "https://techcommunity.microsoft.com/t5/azure-active-directory-identity/bg-p/Identity",
-      "feed_url": "",
+      "source": "https://status.azure.com",
+      "feed_url": "https://status.azure.com/feed/",
       "title": "",
       "saved": 0,
-      "error": "no_feed"
+      "method": "discovered"
     }
   ],
-  "fetched": "2026-05-17T20:48:52Z",
+  "fetched": "2026-06-01T23:35:02Z",
   "post_count": 0
 }
