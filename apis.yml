@@ -38,7 +38,7 @@ apis:
         https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml
     - type: Authentication
       url: https://docs.microsoft.com/en-us/graph/auth/
-    - type: SDK
+    - type: SDKs
       url: https://docs.microsoft.com/en-us/graph/sdks/sdks-overview
     - type: ChangeLog
       url: https://docs.microsoft.com/en-us/graph/changelog
