@@ -1,0 +1,62 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/azure-ad-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/azure-ad-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+    tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+  - flow: clientCredentials
+    tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+  description: Microsoft Entra ID OAuth 2.0
+scopes:
+- scope: Application.Read.All
+  description: Read applications
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/azure-ad-openapi.yml
+- scope: Directory.Read.All
+  description: Read directory data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/azure-ad-openapi.yml
+- scope: Group.Read.All
+  description: Read all groups
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/azure-ad-openapi.yml
+- scope: Group.ReadWrite.All
+  description: Read and write all groups
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/azure-ad-openapi.yml
+- scope: User.Read
+  description: Read the signed-in user's profile
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/azure-ad-openapi.yml
+- scope: User.Read.All
+  description: Read all users
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/azure-ad-openapi.yml
+- scope: User.ReadWrite.All
+  description: Read and write all users
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/azure-ad-openapi.yml
+- scope: https://graph.microsoft.com/.default
+  description: Application permissions configured for the app
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/azure-ad-openapi.yml
