@@ -55,6 +55,10 @@ apis:
     - type: Documentation
       url: https://docs.microsoft.com/en-us/azure/active-directory-b2c/overview
 common:
+  - type: DomainSecurity
+    url: security/azure-ad-domain-security.yml
+  - type: Authentication
+    url: authentication/azure-ad-authentication.yml
   - type: OAuthScopes
     url: scopes/azure-ad-scopes.yml
   - type: GitHubOrganization
