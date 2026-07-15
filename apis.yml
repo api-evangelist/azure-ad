@@ -55,6 +55,8 @@ apis:
     - type: Documentation
       url: https://docs.microsoft.com/en-us/azure/active-directory-b2c/overview
 common:
+  - type: AgenticAccess
+    url: agentic-access/azure-ad-agentic-access.yml
   - type: DomainSecurity
     url: security/azure-ad-domain-security.yml
   - type: Authentication
