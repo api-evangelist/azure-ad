@@ -1,0 +1,128 @@
+openapi: 3.1.0
+info:
+  title: Microsoft Graph API (Azure AD) Applications Groups API
+  version: v1.0
+  description: 'Microsoft Graph is the primary REST API for accessing Azure Active Directory
+
+    (Microsoft Entra ID) and other Microsoft 365 services. Requests are sent to
+
+    `https://graph.microsoft.com/v1.0/{resource}` and authenticated with OAuth 2.0
+
+    bearer tokens issued by Microsoft Entra ID.
+
+    '
+  contact:
+    name: Microsoft Graph
+    url: https://docs.microsoft.com/en-us/graph/api/overview
+servers:
+- url: https://graph.microsoft.com/v1.0
+  description: Microsoft Graph v1.0 endpoint
+- url: https://graph.microsoft.com/beta
+  description: Microsoft Graph beta endpoint
+tags:
+- name: Groups
+  description: Microsoft 365 and security groups
+paths:
+  /groups:
+    get:
+      summary: List groups
+      operationId: listGroups
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: A page of groups
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Group'
+      security:
+      - oauth2:
+        - Group.Read.All
+    post:
+      summary: Create a group
+      operationId: createGroup
+      tags:
+      - Groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '201':
+          description: Group created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+      security:
+      - oauth2:
+        - Group.ReadWrite.All
+  /groups/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Get a group
+      operationId: getGroup
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Group
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+      security:
+      - oauth2:
+        - Group.Read.All
+components:
+  schemas:
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        mailEnabled:
+          type: boolean
+        securityEnabled:
+          type: boolean
+        groupTypes:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: Microsoft Entra ID OAuth 2.0
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            User.Read: Read the signed-in user's profile
+            User.Read.All: Read all users
+            User.ReadWrite.All: Read and write all users
+            Group.Read.All: Read all groups
+            Group.ReadWrite.All: Read and write all groups
+            Application.Read.All: Read applications
+            Directory.Read.All: Read directory data
+        clientCredentials:
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            https://graph.microsoft.com/.default: Application permissions configured for the app

@@ -1,0 +1,67 @@
+openapi: 3.1.0
+info:
+  title: Microsoft Graph API (Azure AD) Applications Directory API
+  version: v1.0
+  description: 'Microsoft Graph is the primary REST API for accessing Azure Active Directory
+
+    (Microsoft Entra ID) and other Microsoft 365 services. Requests are sent to
+
+    `https://graph.microsoft.com/v1.0/{resource}` and authenticated with OAuth 2.0
+
+    bearer tokens issued by Microsoft Entra ID.
+
+    '
+  contact:
+    name: Microsoft Graph
+    url: https://docs.microsoft.com/en-us/graph/api/overview
+servers:
+- url: https://graph.microsoft.com/v1.0
+  description: Microsoft Graph v1.0 endpoint
+- url: https://graph.microsoft.com/beta
+  description: Microsoft Graph beta endpoint
+tags:
+- name: Directory
+  description: Directory roles and objects
+paths:
+  /directoryRoles:
+    get:
+      summary: List directory roles
+      operationId: listDirectoryRoles
+      tags:
+      - Directory
+      responses:
+        '200':
+          description: Directory roles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+      security:
+      - oauth2:
+        - Directory.Read.All
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: Microsoft Entra ID OAuth 2.0
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            User.Read: Read the signed-in user's profile
+            User.Read.All: Read all users
+            User.ReadWrite.All: Read and write all users
+            Group.Read.All: Read all groups
+            Group.ReadWrite.All: Read and write all groups
+            Application.Read.All: Read applications
+            Directory.Read.All: Read directory data
+        clientCredentials:
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            https://graph.microsoft.com/.default: Application permissions configured for the app
