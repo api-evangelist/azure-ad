@@ -6,7 +6,20 @@ description: >-
   Connect, SAML, and other identity protocols for securing applications and
   managing user identities.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/azure-ad.png
 tags:
   - Authentication
   - Authorization
@@ -20,40 +33,108 @@ created: '2024-01-01'
 modified: '2026-04-19'
 specificationVersion: '0.19'
 apis:
-  - aid: azure-ad:microsoft-graph-api
-    name: Microsoft Graph API
-    description: The primary API for accessing Azure AD and other Microsoft 365 
-      services.
-    humanURL: https://docs.microsoft.com/en-us/graph/overview
-    baseURL: https://graph.microsoft.com
-    tags:
-    - Directory
-    - Identity
-    - Microsoft 365
-    properties:
-    - type: Documentation
-      url: https://docs.microsoft.com/en-us/graph/api/overview
-    - type: OpenAPI
-      url: 
-        https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml
-    - type: Authentication
-      url: https://docs.microsoft.com/en-us/graph/auth/
-    - type: SDKs
-      url: https://docs.microsoft.com/en-us/graph/sdks/sdks-overview
-    - type: ChangeLog
-      url: https://docs.microsoft.com/en-us/graph/changelog
-  - aid: azure-ad:azure-ad-b2c-api
-    name: Azure AD B2C API
-    description: Business-to-consumer identity management solution.
-    humanURL: https://docs.microsoft.com/en-us/azure/active-directory-b2c/
-    baseURL: https://login.microsoftonline.com
-    tags:
-    - Authentication
-    - B2C
-    - Consumer Identity
-    properties:
-    - type: Documentation
-      url: https://docs.microsoft.com/en-us/azure/active-directory-b2c/overview
+- aid: azure-ad:azure-ad-b2c-api
+  name: Azure AD B2C API
+  description: Business-to-consumer identity management solution.
+  humanURL: https://docs.microsoft.com/en-us/azure/active-directory-b2c/
+  baseURL: https://login.microsoftonline.com
+  tags:
+  - Authentication
+  - B2C
+  - Consumer Identity
+  properties:
+  - type: Documentation
+    url: https://docs.microsoft.com/en-us/azure/active-directory-b2c/overview
+- aid: azure-ad:azure-ad-applications-api
+  name: Azure Active Directory Applications API
+  description: Application registrations in Entra ID
+  humanURL: https://docs.microsoft.com/en-us/graph/overview
+  baseURL: https://graph.microsoft.com
+  tags:
+  - Applications
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-ad-applications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.microsoft.com/en-us/graph/api/overview
+  - type: Authentication
+    url: https://docs.microsoft.com/en-us/graph/auth/
+  - type: SDKs
+    url: https://docs.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: ChangeLog
+    url: https://docs.microsoft.com/en-us/graph/changelog
+- aid: azure-ad:azure-ad-directory-api
+  name: Azure Active Directory Directory API
+  description: Directory roles and objects
+  humanURL: https://docs.microsoft.com/en-us/graph/overview
+  baseURL: https://graph.microsoft.com
+  tags:
+  - Directory
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-ad-directory-api-openapi.yml
+  - type: Documentation
+    url: https://docs.microsoft.com/en-us/graph/api/overview
+  - type: Authentication
+    url: https://docs.microsoft.com/en-us/graph/auth/
+  - type: SDKs
+    url: https://docs.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: ChangeLog
+    url: https://docs.microsoft.com/en-us/graph/changelog
+- aid: azure-ad:azure-ad-groups-api
+  name: Azure Active Directory Groups API
+  description: Microsoft 365 and security groups
+  humanURL: https://docs.microsoft.com/en-us/graph/overview
+  baseURL: https://graph.microsoft.com
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-ad-groups-api-openapi.yml
+  - type: Documentation
+    url: https://docs.microsoft.com/en-us/graph/api/overview
+  - type: Authentication
+    url: https://docs.microsoft.com/en-us/graph/auth/
+  - type: SDKs
+    url: https://docs.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: ChangeLog
+    url: https://docs.microsoft.com/en-us/graph/changelog
+- aid: azure-ad:azure-ad-me-api
+  name: Azure Active Directory Me API
+  description: Operations on the signed-in user
+  humanURL: https://docs.microsoft.com/en-us/graph/overview
+  baseURL: https://graph.microsoft.com
+  tags:
+  - Me
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-ad-me-api-openapi.yml
+  - type: Documentation
+    url: https://docs.microsoft.com/en-us/graph/api/overview
+  - type: Authentication
+    url: https://docs.microsoft.com/en-us/graph/auth/
+  - type: SDKs
+    url: https://docs.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: ChangeLog
+    url: https://docs.microsoft.com/en-us/graph/changelog
+- aid: azure-ad:azure-ad-users-api
+  name: Azure Active Directory Users API
+  description: User accounts in the directory
+  humanURL: https://docs.microsoft.com/en-us/graph/overview
+  baseURL: https://graph.microsoft.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-ad-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.microsoft.com/en-us/graph/api/overview
+  - type: Authentication
+    url: https://docs.microsoft.com/en-us/graph/auth/
+  - type: SDKs
+    url: https://docs.microsoft.com/en-us/graph/sdks/sdks-overview
+  - type: ChangeLog
+    url: https://docs.microsoft.com/en-us/graph/changelog
 common:
   - type: AgenticAccess
     url: agentic-access/azure-ad-agentic-access.yml
