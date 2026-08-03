@@ -1,0 +1,295 @@
+openapi: 3.1.0
+info:
+  title: Microsoft Graph API (Azure AD)
+  version: 'v1.0'
+  description: |
+    Microsoft Graph is the primary REST API for accessing Azure Active Directory
+    (Microsoft Entra ID) and other Microsoft 365 services. Requests are sent to
+    `https://graph.microsoft.com/v1.0/{resource}` and authenticated with OAuth 2.0
+    bearer tokens issued by Microsoft Entra ID.
+  contact:
+    name: Microsoft Graph
+    url: https://docs.microsoft.com/en-us/graph/api/overview
+servers:
+  - url: https://graph.microsoft.com/v1.0
+    description: Microsoft Graph v1.0 endpoint
+  - url: https://graph.microsoft.com/beta
+    description: Microsoft Graph beta endpoint
+tags:
+  - name: Users
+    description: User accounts in the directory
+  - name: Groups
+    description: Microsoft 365 and security groups
+  - name: Me
+    description: Operations on the signed-in user
+  - name: Applications
+    description: Application registrations in Entra ID
+  - name: Directory
+    description: Directory roles and objects
+paths:
+  /me:
+    get:
+      summary: Get the signed-in user
+      operationId: getMe
+      tags: [Me]
+      responses:
+        '200':
+          description: The signed-in user profile
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/User' }
+      security:
+        - oauth2: [User.Read]
+  /me/photo/$value:
+    get:
+      summary: Get the signed-in user's profile photo
+      operationId: getMyPhoto
+      tags: [Me]
+      responses:
+        '200':
+          description: Photo bytes
+          content:
+            image/jpeg:
+              schema: { type: string, format: binary }
+      security:
+        - oauth2: [User.Read]
+  /users:
+    get:
+      summary: List users
+      operationId: listUsers
+      tags: [Users]
+      parameters:
+        - { in: query, name: $select, schema: { type: string } }
+        - { in: query, name: $filter, schema: { type: string } }
+        - { in: query, name: $top, schema: { type: integer } }
+      responses:
+        '200':
+          description: A page of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items: { $ref: '#/components/schemas/User' }
+      security:
+        - oauth2: [User.Read.All]
+    post:
+      summary: Create a user
+      operationId: createUser
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/User' }
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/User' }
+      security:
+        - oauth2: [User.ReadWrite.All]
+  /users/{id}:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string }, description: User id or userPrincipalName }
+    get:
+      summary: Get a user
+      operationId: getUser
+      tags: [Users]
+      responses:
+        '200':
+          description: User
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/User' }
+      security:
+        - oauth2: [User.Read.All]
+    patch:
+      summary: Update a user
+      operationId: updateUser
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/User' }
+      responses:
+        '204': { description: Updated }
+      security:
+        - oauth2: [User.ReadWrite.All]
+    delete:
+      summary: Delete a user
+      operationId: deleteUser
+      tags: [Users]
+      responses:
+        '204': { description: Deleted }
+      security:
+        - oauth2: [User.ReadWrite.All]
+  /users/{id}/manager:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string } }
+    get:
+      summary: Get a user's manager
+      operationId: getUserManager
+      tags: [Users]
+      responses:
+        '200':
+          description: Manager
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/User' }
+      security:
+        - oauth2: [User.Read.All]
+  /users/{id}/directReports:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string } }
+    get:
+      summary: List a user's direct reports
+      operationId: listDirectReports
+      tags: [Users]
+      responses:
+        '200':
+          description: A list of direct reports
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items: { $ref: '#/components/schemas/User' }
+      security:
+        - oauth2: [User.Read.All]
+  /groups:
+    get:
+      summary: List groups
+      operationId: listGroups
+      tags: [Groups]
+      responses:
+        '200':
+          description: A page of groups
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items: { $ref: '#/components/schemas/Group' }
+      security:
+        - oauth2: [Group.Read.All]
+    post:
+      summary: Create a group
+      operationId: createGroup
+      tags: [Groups]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Group' }
+      responses:
+        '201':
+          description: Group created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Group' }
+      security:
+        - oauth2: [Group.ReadWrite.All]
+  /groups/{id}:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string } }
+    get:
+      summary: Get a group
+      operationId: getGroup
+      tags: [Groups]
+      responses:
+        '200':
+          description: Group
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Group' }
+      security:
+        - oauth2: [Group.Read.All]
+  /applications:
+    get:
+      summary: List applications
+      operationId: listApplications
+      tags: [Applications]
+      responses:
+        '200':
+          description: Applications
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items: { type: object }
+      security:
+        - oauth2: [Application.Read.All]
+  /directoryRoles:
+    get:
+      summary: List directory roles
+      operationId: listDirectoryRoles
+      tags: [Directory]
+      responses:
+        '200':
+          description: Directory roles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items: { type: object }
+      security:
+        - oauth2: [Directory.Read.All]
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: Microsoft Entra ID OAuth 2.0
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            User.Read: Read the signed-in user's profile
+            User.Read.All: Read all users
+            User.ReadWrite.All: Read and write all users
+            Group.Read.All: Read all groups
+            Group.ReadWrite.All: Read and write all groups
+            Application.Read.All: Read applications
+            Directory.Read.All: Read directory data
+        clientCredentials:
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            https://graph.microsoft.com/.default: Application permissions configured for the app
+  schemas:
+    User:
+      type: object
+      properties:
+        id: { type: string }
+        userPrincipalName: { type: string }
+        displayName: { type: string }
+        givenName: { type: string }
+        surname: { type: string }
+        mail: { type: string }
+        jobTitle: { type: string }
+        accountEnabled: { type: boolean }
+    Group:
+      type: object
+      properties:
+        id: { type: string }
+        displayName: { type: string }
+        description: { type: string }
+        mailEnabled: { type: boolean }
+        securityEnabled: { type: boolean }
+        groupTypes:
+          type: array
+          items: { type: string }
