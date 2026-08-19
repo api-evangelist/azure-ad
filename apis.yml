@@ -31,7 +31,7 @@ url:
   https://raw.githubusercontent.com/api-evangelist/azure-ad/refs/heads/main/apis.yml
 created: '2024-01-01'
 modified: '2026-04-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: azure-ad:azure-ad-b2c-api
   name: Azure AD B2C API
