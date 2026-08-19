@@ -1,0 +1,127 @@
+{
+  "item": [
+    {
+      "id": "19d1394b-ebbb-42fd-aa8c-37f6cbd58cd0",
+      "name": "Directory",
+      "description": {
+        "content": "Directory roles and objects",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6a369234-597c-4467-a9e0-efbbe55675ff",
+          "name": "List directory roles",
+          "request": {
+            "name": "List directory roles",
+            "description": {},
+            "url": {
+              "path": [
+                "directoryRoles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "User.Read User.Read.All User.ReadWrite.All Group.Read.All Group.ReadWrite.All Application.Read.All Directory.Read.All"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://login.microsoftonline.com/common/oauth2/v2.0/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "20d7fcd5-c3bf-442b-8e59-f4d25c1df408",
+              "name": "Directory roles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "directoryRoles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://graph.microsoft.com/v1.0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3e3a63f4-ba3f-4b5f-9ef5-bc55f0845a73",
+    "name": "Microsoft Graph API (Azure AD) Applications Directory API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Microsoft Graph is the primary REST API for accessing Azure Active Directory\n(Microsoft Entra ID) and other Microsoft 365 services. Requests are sent to\n`https://graph.microsoft.com/v1.0/{resource}` and authenticated with OAuth 2.0\nbearer tokens issued by Microsoft Entra ID.\n\n\nContact Support:\n Name: Microsoft Graph",
+      "type": "text/plain"
+    }
+  }
+}

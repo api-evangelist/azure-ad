@@ -1,0 +1,226 @@
+{
+  "item": [
+    {
+      "id": "e9ff3369-d59a-4825-aee2-68360b97f7ea",
+      "name": "Me",
+      "description": {
+        "content": "Operations on the signed-in user",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "792e3cd0-3404-409f-865a-330c475528ca",
+          "name": "Get the signed-in user",
+          "request": {
+            "name": "Get the signed-in user",
+            "description": {},
+            "url": {
+              "path": [
+                "me"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "User.Read User.Read.All User.ReadWrite.All Group.Read.All Group.ReadWrite.All Application.Read.All Directory.Read.All"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://login.microsoftonline.com/common/oauth2/v2.0/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1498e57c-fb53-48f6-bcd8-b4670f2b0f0c",
+              "name": "The signed-in user profile",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"userPrincipalName\": \"string\",\n  \"displayName\": \"string\",\n  \"givenName\": \"string\",\n  \"surname\": \"string\",\n  \"mail\": \"string\",\n  \"jobTitle\": \"string\",\n  \"accountEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae2aa788-7436-436a-bc72-731c14fefe25",
+          "name": "Get the signed-in user's profile photo",
+          "request": {
+            "name": "Get the signed-in user's profile photo",
+            "description": {},
+            "url": {
+              "path": [
+                "me",
+                "photo",
+                "$value"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "image/jpeg"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "User.Read User.Read.All User.ReadWrite.All Group.Read.All Group.ReadWrite.All Application.Read.All Directory.Read.All"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://login.microsoftonline.com/common/oauth2/v2.0/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5079122e-fd03-4ff1-9c1d-79c33c69ab31",
+              "name": "Photo bytes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "me",
+                    "photo",
+                    "$value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "image/jpeg"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "image/jpeg"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://graph.microsoft.com/v1.0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dcd66dbd-fabb-4c42-b6a3-44d12a5397b5",
+    "name": "Microsoft Graph API (Azure AD) Applications Me API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Microsoft Graph is the primary REST API for accessing Azure Active Directory\n(Microsoft Entra ID) and other Microsoft 365 services. Requests are sent to\n`https://graph.microsoft.com/v1.0/{resource}` and authenticated with OAuth 2.0\nbearer tokens issued by Microsoft Entra ID.\n\n\nContact Support:\n Name: Microsoft Graph",
+      "type": "text/plain"
+    }
+  }
+}
