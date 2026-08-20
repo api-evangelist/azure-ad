@@ -24,6 +24,12 @@ tags:
   - Authentication
   - Authorization
   - Identity
+  - OpenID Connect
+  - Single Sign-On
+tags_raw:
+  - Authentication
+  - Authorization
+  - Identity
   - OAuth
   - OpenID Connect
   - Single Sign-On
@@ -51,6 +57,8 @@ apis:
   humanURL: https://docs.microsoft.com/en-us/graph/overview
   baseURL: https://graph.microsoft.com
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
@@ -87,6 +95,8 @@ apis:
   humanURL: https://docs.microsoft.com/en-us/graph/overview
   baseURL: https://graph.microsoft.com
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -123,6 +133,8 @@ apis:
   humanURL: https://docs.microsoft.com/en-us/graph/overview
   baseURL: https://graph.microsoft.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
