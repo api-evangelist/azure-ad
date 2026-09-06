@@ -1,5 +1,5 @@
 aid: azure-ad
-name: Azure Active Directory
+name: Microsoft Entra ID (formerly Azure AD)
 description: >-
   Microsoft's cloud-based identity and access management service that helps
   employees sign in and access resources. Azure AD provides OAuth, OpenID
