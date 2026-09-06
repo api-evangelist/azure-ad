@@ -17,6 +17,13 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "azure-ad-applications-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "azure-ad-directory-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "azure-ad-groups-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "azure-ad-me-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "azure-ad-users-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

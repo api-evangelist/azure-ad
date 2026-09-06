@@ -1,0 +1,48 @@
+generated: '2026-09-06'
+method: generated
+source: Packaged from the harvested first-party Microsoft Graph OpenAPI in openapi/_original/ plus conventions/,
+  errors/, rate-limits/ and asyncapi/ in this repository. Every operationId named in a skill was grepped
+  out of a real spec; none was invented. Microsoft publishes no Agent Skills or AGENTS.md for this API,
+  so these are generated, not searched.
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+skills:
+- file: azure-ad-audit-access.md
+  name: azure-ad-audit-access
+  description: Read who has access to what in a Microsoft Entra tenant — group membership, directory roles,
+    app role assignments and Conditional Access policies — without writing anything and without being
+    throttled.
+  api: azure-ad:azure-ad-directory-api
+  operations: 7
+  scopes:
+  - Directory.Read.All
+  - Policy.Read.All
+  - AuditLog.Read.All
+- file: azure-ad-manage-app-registration.md
+  name: azure-ad-manage-app-registration
+  description: Register an application in Microsoft Entra ID, create and rotate its credentials, and grant
+    it an app role — without stranding a secret or an orphaned service principal.
+  api: azure-ad:azure-ad-applications-api
+  operations: 14
+  scopes:
+  - Application.ReadWrite.All
+  - AppRoleAssignment.ReadWrite.All
+- file: azure-ad-provision-user.md
+  name: azure-ad-provision-user
+  description: Create a user in Microsoft Entra ID, assign group membership and licences, and reverse
+    the change safely if it was wrong.
+  api: azure-ad:azure-ad-users-api
+  operations: 9
+  scopes:
+  - User.ReadWrite.All
+  - GroupMember.ReadWrite.All
+- file: azure-ad-subscribe-to-directory-changes.md
+  name: azure-ad-subscribe-to-directory-changes
+  description: Subscribe to created/updated/deleted change notifications for Entra ID users and groups,
+    keep the subscription alive, and interpret the events correctly.
+  api: azure-ad:azure-ad-change-notifications-api
+  operations: 6
+  scopes:
+  - User.Read.All
+  - Group.Read.All
+skill_count: 4

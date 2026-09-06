@@ -1,0 +1,72 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay — Microsoft Graph Applications
+  version: 1.0.0
+extends: ../openapi/_original/azure-ad-graph-applications-openapi.yml
+x-provenance:
+  generated: '2026-09-06'
+  method: generated
+  source: Derived from the artifacts in all/azure-ad/; the underlying OpenAPI is Microsoft's and is never
+    mutated.
+  note: This overlay records API Evangelist enrichment on top of the harvested first-party spec. It adds
+    runtime semantics Microsoft documents in prose but does not express in the contract — the error envelope,
+    the throttling model and its missing Retry-After header, the absence of an idempotency key, and the
+    30-day soft-delete reversal window.
+actions:
+- target: $.info
+  description: Attach the runtime contract an agent needs but the spec does not state.
+  update:
+    x-api-evangelist:
+      provider: azure-ad
+      workload: Applications
+      operations: 380
+      artifacts:
+        authentication: authentication/azure-ad-authentication.yml
+        scopes: scopes/azure-ad-scopes.yml
+        conventions: conventions/azure-ad-conventions.yml
+        errors: errors/azure-ad-problem-types.yml
+        rate_limits: rate-limits/azure-ad-rate-limits.yml
+        lifecycle: lifecycle/azure-ad-lifecycle.yml
+        data_model: data-model/azure-ad-data-model.yml
+    x-error-format:
+      rfc9457: false
+      media_type: application/json
+      envelope: '{"error":{"code","message","innerError","details"}}'
+      branch_on: error.code
+      docs: https://learn.microsoft.com/en-us/graph/errors
+    x-rate-limits:
+      status: 429
+      algorithm: token bucket over ResourceUnits per application+tenant pair
+      retry_after_header: false
+      retry_after_note: Identity and Access resources do NOT return Retry-After on 429. Use exponential
+        backoff.
+      docs: https://learn.microsoft.com/en-us/graph/throttling-limits
+    x-idempotency:
+      coverage: none
+      header: null
+      concurrency_control: If-Match / ETag, 412 Precondition Failed
+      note: No idempotency key exists. A retried POST can create a duplicate object.
+    x-pagination:
+      style: opaque cursor
+      next_field: '@odata.nextLink'
+      count_field: '@odata.count'
+      advanced_query_header: 'ConsistencyLevel: eventual (required for $search and $count)'
+    x-deprecation-policy:
+      notice_period: 24 months
+      sunset_header: false
+      announced_at: https://developer.microsoft.com/en-us/graph/changelog
+- target: $.servers.*
+  description: Name the production host explicitly for readers of the split documents.
+  update:
+    x-environment: production
+- target: $.info
+  description: Record the reversal path and window for the destructive operations in this document.
+  update:
+    x-reversibility:
+      grade: verified
+      soft_delete: true
+      restore_operation: directory.deletedItem_restore
+      restore_path: POST /directory/deletedItems/{id}/restore
+      window_days: 30
+      permanent_delete: directory_DeleteDeletedItem (irreversible)
+      docs: https://learn.microsoft.com/en-us/graph/api/resources/directory

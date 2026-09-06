@@ -1,0 +1,174 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://learn.microsoft.com/en-us/graph/errors and
+  https://learn.microsoft.com/en-us/graph/throttling, cross-checked against the
+  `odata.error` responses declared in openapi/_original/azure-ad-graph-*.yml
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+format: microsoft-graph-error
+media_type: application/json
+rfc9457: false
+note: >-
+  Microsoft Graph does NOT use RFC 9457 problem+json. It returns a single
+  top-level `error` object following the Microsoft REST API Guidelines. The
+  harvested Kiota-generated specs declare only `2XX` and `default` responses,
+  with `default` bound to the odata.error schema — so the per-status catalog
+  below is taken from Microsoft's published error reference rather than derived
+  from the spec, which cannot supply it.
+envelope:
+  shape: |
+    {
+      "error": {
+        "code": "string",
+        "message": "string",
+        "innerError": {
+          "code": "string",
+          "request-id": "string",
+          "client-request-id": "string",
+          "date": "date-time"
+        },
+        "details": []
+      }
+    }
+  fields:
+    - name: error.code
+      description: Machine-readable error code. This is the only field safe to branch on.
+    - name: error.message
+      description: >-
+        Developer-facing text. Not localized, not stable, and must never be shown
+        to an end user or matched in code.
+    - name: error.innerError
+      description: >-
+        Optional nested error, recursively more specific. Clients should walk the
+        chain and act on the most specific code they understand.
+    - name: error.innerError.request-id
+      description: Correlation id to quote in a support request.
+    - name: error.details
+      description: >-
+        Optional array of error objects, one per failed operation in a bulk or
+        JSON batch request.
+status_codes:
+  - status: 400
+    title: Bad Request
+    detail: Can't process the request because it's malformed or incorrect.
+  - status: 401
+    title: Unauthorized
+    detail: Required authentication information is either missing or not valid for the resource.
+    remediation: >-
+      Acquire a token from https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token
+      and send it as `Authorization: Bearer`. An empty token returns
+      code `InvalidAuthenticationToken`.
+  - status: 402
+    title: Payment Required
+    detail: The payment requirements for a metered API have not been met.
+  - status: 403
+    title: Forbidden
+    detail: >-
+      Access denied — insufficient permission or missing license. When a
+      Conditional Access policy applies, the response is
+      `HTTP 403; Forbidden error=insufficient_claims`.
+    remediation: >-
+      Check the delegated/application permission set against
+      https://learn.microsoft.com/en-us/graph/permissions-reference; on
+      insufficient_claims, re-authenticate with the returned claims challenge.
+  - status: 404
+    title: Not Found
+    detail: The requested resource doesn't exist.
+  - status: 405
+    title: Method Not Allowed
+    detail: The HTTP method in the request isn't allowed on the resource.
+  - status: 406
+    title: Not Acceptable
+    detail: The service doesn't support the format requested in the Accept header.
+  - status: 409
+    title: Conflict
+    detail: >-
+      Conflict with current state. For a Directory_ConcurrencyViolation the
+      request may be repeated after a delay with exponential backoff; honour
+      Retry-After when present.
+  - status: 410
+    title: Gone
+    detail: The requested resource is no longer available at the server.
+  - status: 411
+    title: Length Required
+    detail: A Content-Length header is required on the request.
+  - status: 412
+    title: Precondition Failed
+    detail: >-
+      A precondition such as If-Match doesn't match the resource's current
+      state. This is the optimistic-concurrency failure mode — see
+      conventions/azure-ad-conventions.yml.
+  - status: 413
+    title: Request Entity Too Large
+    detail: The request size exceeds the maximum limit.
+  - status: 415
+    title: Unsupported Media Type
+    detail: The content type of the request isn't supported by the service.
+  - status: 416
+    title: Requested Range Not Satisfiable
+    detail: The specified byte range is invalid or unavailable.
+  - status: 422
+    title: Unprocessable Entity
+    detail: The request is semantically incorrect.
+  - status: 423
+    title: Locked
+    detail: The resource being accessed is locked.
+  - status: 429
+    title: Too Many Requests
+    detail: >-
+      The client application has been throttled. Error code `TooManyRequests`
+      with innerError.code "429".
+    remediation: >-
+      Wait the number of seconds in the Retry-After header and retry. IMPORTANT:
+      the Identity and Access service resources — the Entra ID directory
+      endpoints this record covers — do NOT return Retry-After, so an exponential
+      backoff is required there. See rate-limits/azure-ad-rate-limits.yml.
+  - status: 500
+    title: Internal Server Error
+    detail: An internal server error occurred while processing the request.
+  - status: 501
+    title: Not Implemented
+    detail: The requested feature isn't implemented.
+  - status: 503
+    title: Service Unavailable
+    detail: >-
+      Temporarily unavailable for maintenance or overloaded. Retry after the
+      delay in Retry-After when present.
+  - status: 504
+    title: Gateway Timeout
+    detail: >-
+      The server, acting as a proxy, didn't receive a timely response from an
+      upstream server.
+  - status: 507
+    title: Insufficient Storage
+    detail: The maximum storage quota has been reached.
+  - status: 509
+    title: Bandwidth Limit Exceeded
+    detail: The app was throttled for exceeding the maximum bandwidth cap.
+codes:
+  - code: InvalidAuthenticationToken
+    status: 401
+    meaning: >-
+      Access token is missing, empty, expired or not valid for this resource.
+      Observed live on every anonymous request to graph.microsoft.com,
+      /.well-known/* included.
+    observed: '2026-09-06'
+  - code: TooManyRequests
+    status: 429
+    meaning: Throttling threshold exceeded for this app/tenant pair.
+  - code: badRequest
+    status: 400
+    meaning: Malformed request; innerError carries the specific cause.
+  - code: Directory_ConcurrencyViolation
+    status: 409
+    meaning: Concurrent modification of the same directory object; retry with backoff.
+batch_semantics:
+  note: >-
+    In a JSON batch the batch itself returns 200 while individual requests carry
+    their own status. A throttled sub-request returns 429 inside the batch body
+    and is NOT retried automatically by the SDKs; each failed sub-request must be
+    retried using its own retry-after value.
+docs: https://learn.microsoft.com/en-us/graph/errors
+status_code_count: 23
+code_count: 4

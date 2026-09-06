@@ -1,0 +1,88 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://learn.microsoft.com/en-us/graph/versioning-and-support,
+  https://developer.microsoft.com/en-us/graph/changelog,
+  https://azure.status.microsoft/en-us/status,
+  https://learn.microsoft.com/en-us/entra/fundamentals/whats-new
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+versioning:
+  scheme: path-segment major version
+  current: v1.0
+  base: https://graph.microsoft.com/v1.0
+  preview: beta
+  preview_base: https://graph.microsoft.com/beta
+  preview_policy: >-
+    APIs debut in beta. Breaking changes and deprecations can land in beta at any
+    time without notice; Microsoft explicitly states beta is not supported in
+    production. There is no guarantee a beta feature graduates to v1.0.
+  breaking_change_rule: >-
+    Non-backward-compatible changes increment the major version rather than
+    landing in the current one. URL/shape changes, removing or renaming a
+    declared property, removing or renaming an API or parameter, and adding a
+    required request header are all classed as breaking. Adding nullable or
+    defaulted properties, adding an enum member, introducing paging, and changing
+    error codes are classed as NON-breaking — so a client must tolerate new
+    properties, new enum members and changed error-code strings.
+  deprecated_versions: none
+  docs: https://learn.microsoft.com/en-us/graph/versioning-and-support
+deprecation:
+  policy: true
+  notice_period: 24 months
+  statement: >-
+    "Microsoft declares a version as deprecated at least 24 months in advance of
+    retiring it. Similarly, for individual APIs that reached general availability
+    (GA), Microsoft declares an API as deprecated at least 24 months in advance of
+    removing it from the GA version."
+  applies_to:
+    - whole API versions
+    - individual GA operations
+  exceptions: Service security or health reliability issues.
+  sdk_policy: >-
+    Only the latest major version of each Microsoft Graph SDK is supported and
+    updated. The preceding major version receives security fixes only, for 12
+    months from the release of the latest major version.
+  sunset_header: false
+  deprecation_header: false
+  header_note: >-
+    No RFC 8594 Sunset or Deprecation response header is documented for Microsoft
+    Graph, and none appears in the 4,498 harvested operations. Deprecation is
+    announced in the changelog and in the reference docs, not in the response —
+    so an agent cannot learn about a pending retirement at runtime.
+  announcement_channel: https://developer.microsoft.com/en-us/graph/changelog
+  docs: https://learn.microsoft.com/en-us/graph/versioning-and-support
+deprecated_operations:
+  count: 0
+  note: >-
+    No operation in the harvested Microsoft Graph v1.0 identity specs carries
+    `deprecated: true`. Microsoft records deprecations in the changelog rather
+    than in the v1.0 OpenAPI, so this zero means "not marked in the contract",
+    not "nothing is deprecated".
+status_page:
+  url: https://azure.status.microsoft/en-us/status
+  legacy_url: https://status.azure.com
+  scope: Azure services including Microsoft Entra ID, by region
+  history: https://azure.status.microsoft/en-us/status/history/
+  service_health: https://learn.microsoft.com/en-us/azure/service-health/service-health-overview
+sla:
+  documented: true
+  note: >-
+    Microsoft publishes a 99.99% uptime SLA for the Microsoft Entra ID paid
+    tiers (Basic and Premium P1/P2). The Free tier carries no financially backed
+    SLA.
+  url: https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services
+release_notes:
+  - name: Microsoft Graph changelog
+    url: https://developer.microsoft.com/en-us/graph/changelog
+    feed: https://developer.microsoft.com/en-us/graph/changelog/rss
+    format: RSS 2.0
+  - name: What's new in Microsoft Entra
+    url: https://learn.microsoft.com/en-us/entra/fundamentals/whats-new
+roadmap:
+  url: https://www.microsoft.com/en-us/microsoft-365/roadmap
+  note: >-
+    The Microsoft 365 roadmap carries Microsoft Entra items with target release
+    dates; there is no separate Entra-only roadmap surface.
+terms_of_use: https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use
+lifecycle_policy: https://support.microsoft.com/lifecycle

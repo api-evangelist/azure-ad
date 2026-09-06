@@ -1,0 +1,126 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://learn.microsoft.com/en-us/cli/azure/ad,
+  https://learn.microsoft.com/en-us/powershell/microsoftgraph/overview,
+  https://learn.microsoft.com/en-us/powershell/entra-powershell/installation,
+  package metadata from pypi.org and powershellgallery.com (2026-09-06)
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+note: >-
+  Three first-party command-line surfaces reach the Entra directory, and they are
+  not interchangeable. `az ad` is a subcommand group of the general Azure CLI;
+  the Microsoft Graph PowerShell SDK is a generated module covering the whole
+  Graph surface; Microsoft Entra PowerShell is the newer identity-focused module
+  that replaces the retired AzureAD/MSOnline modules.
+clis:
+  - name: Azure CLI
+    command: az
+    scope: az ad (Microsoft Entra objects) + az role
+    official: true
+    language: python
+    version: 2.90.0
+    published: '2026-09-01'
+    registry: pypi
+    install:
+      - method: macos-homebrew
+        command: brew install azure-cli
+      - method: windows-msi
+        command: winget install -e --id Microsoft.AzureCLI
+      - method: linux-script
+        command: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      - method: pip
+        command: pip install azure-cli
+    docs: https://learn.microsoft.com/en-us/cli/azure/ad
+    repository: https://github.com/Azure/azure-cli
+    command_groups:
+      - group: az ad app
+        description: Application registrations — create, list, update, delete, credentials, owners, permissions.
+      - group: az ad sp
+        description: Service principals — create-for-rbac, credentials, owners.
+      - group: az ad user
+        description: Directory users — create, list, show, update, delete, get-member-groups.
+      - group: az ad group
+        description: Groups and group membership/ownership.
+      - group: az ad signed-in-user
+        description: Operations on the signed-in identity.
+      - group: az role assignment
+        description: RBAC role assignments over Azure resources.
+    key_flows:
+      - name: Create an app registration and a client secret
+        commands:
+          - az ad app create --display-name my-app
+          - az ad app credential reset --id <appId>
+      - name: Create a service principal with a role assignment
+        commands:
+          - az ad sp create-for-rbac --name my-sp --role Contributor --scopes /subscriptions/<id>
+  - name: Microsoft Graph PowerShell SDK
+    command: Connect-MgGraph
+    official: true
+    language: powershell
+    version: 2.39.0
+    published: '2026-08-03'
+    registry: powershellgallery
+    install:
+      - method: powershellgallery
+        command: Install-Module Microsoft.Graph -Scope CurrentUser
+    docs: https://learn.microsoft.com/en-us/powershell/microsoftgraph/overview
+    repository: https://github.com/microsoftgraph/msgraph-sdk-powershell
+    note: >-
+      Generated from the same OpenAPI documents harvested into
+      openapi/_original/ — the cmdlet surface and the REST surface are the same
+      contract, which is why the specs in this repo carry PowerShell-module names
+      (Users, Groups, Applications, Identity.SignIns, Identity.Governance).
+    command_groups:
+      - group: Get-MgUser / New-MgUser / Update-MgUser / Remove-MgUser
+        description: Directory users.
+      - group: Get-MgGroup / New-MgGroup / Add-MgGroupMember
+        description: Groups and membership.
+      - group: Get-MgApplication / New-MgApplication / Add-MgApplicationPassword
+        description: Application registrations and credentials.
+      - group: Get-MgServicePrincipal
+        description: Service principals.
+      - group: Get-MgDirectoryDeletedItem / Restore-MgDirectoryDeletedItem
+        description: Soft-deleted directory objects and the 30-day restore path.
+      - group: Get-MgIdentityConditionalAccessPolicy
+        description: Conditional Access policies.
+    key_flows:
+      - name: Connect with explicit scopes
+        commands:
+          - Connect-MgGraph -Scopes "User.Read.All","Group.ReadWrite.All"
+      - name: Restore a deleted user inside the 30-day window
+        commands:
+          - Get-MgDirectoryDeletedItemAsUser
+          - Restore-MgDirectoryDeletedItem -DirectoryObjectId <id>
+  - name: Microsoft Entra PowerShell
+    command: Connect-Entra
+    official: true
+    language: powershell
+    version: 1.3.0
+    published: '2026-05-18'
+    registry: powershellgallery
+    install:
+      - method: powershellgallery
+        command: Install-Module Microsoft.Entra -Scope CurrentUser
+    docs: https://learn.microsoft.com/en-us/powershell/entra-powershell/installation
+    repository: https://github.com/microsoft/entra-powershell
+    note: >-
+      Identity-focused module built on the Graph PowerShell SDK, with a
+      compatibility layer for the retired AzureAD module's cmdlet names.
+    command_groups:
+      - group: Get-EntraUser / New-EntraUser
+        description: Users.
+      - group: Get-EntraGroup / New-EntraGroup
+        description: Groups.
+      - group: Get-EntraApplication / New-EntraApplication
+        description: Applications.
+      - group: Get-EntraDirectoryRole
+        description: Directory roles.
+retired:
+  - name: AzureAD PowerShell module
+    note: >-
+      Retired by Microsoft; superseded by Microsoft Graph PowerShell and
+      Microsoft Entra PowerShell. Listed so a reader does not resurrect it.
+  - name: MSOnline (MSOL) PowerShell module
+    note: Retired; superseded as above.
+cli_count: 3

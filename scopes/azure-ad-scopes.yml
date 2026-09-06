@@ -1,62 +1,365 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/azure-ad-openapi.yml
+generated: '2026-09-06'
+method: searched
+source: https://learn.microsoft.com/en-us/graph/permissions-reference (docs) and the first-party machine-readable
+  permission catalogue at https://raw.githubusercontent.com/microsoftgraph/microsoft-graph-devx-content/dev/permissions/permissions-descriptions.json
+  (fetched 200, 2026-09-06) — the same file that powers the consent UI in Graph Explorer. Scheme endpoints
+  corroborated by https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration and by
+  the azureaadv2 securityScheme in every harvested spec in openapi/_original/.
+docs: https://learn.microsoft.com/en-us/graph/permissions-reference
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+supersedes: The 2026-07-11 derived file, which carried 7 scopes read out of a hand-written scaffold spec.
+  Descriptions below are Microsoft's own admin-consent text, quoted verbatim.
+note: Microsoft Graph publishes TWO disjoint permission sets for the same resources — delegated (the app
+  acts as a signed-in user, effective access is the intersection of the scope and the user's own privileges)
+  and application (the app acts as itself, admin consent always required, no user context). The `types`
+  field on each entry says which sets a name appears in. The full published catalogue is 583 delegated
+  and 527 application permissions; the entries below are the Entra ID directory subset that this record
+  covers, not the whole list.
 schemes:
-- name: oauth2
-  source: openapi/azure-ad-openapi.yml
+- name: azureaadv2
+  type: oauth2
   flows:
   - flow: authorizationCode
-    authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
-    tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+    authorizationUrl: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize
+    tokenUrl: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token
+    permission_set: delegated
   - flow: clientCredentials
-    tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
-  description: Microsoft Entra ID OAuth 2.0
+    tokenUrl: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token
+    permission_set: application
+    note: Request scope https://graph.microsoft.com/.default; individual scopes are not requested at token
+      time.
+  - flow: deviceCode
+    deviceAuthorizationUrl: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/devicecode
+    tokenUrl: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token
+    permission_set: delegated
+  sources:
+  - openapi/_original/azure-ad-graph-users-openapi.yml
+  - well-known/azure-ad-openid-configuration.json
+oidc_scopes:
+- openid
+- profile
+- email
+- offline_access
+oidc_scopes_source: scopes_supported in well-known/azure-ad-openid-configuration.json
+consent:
+  delegated: User consent for low-privilege scopes; admin consent required for any *.All scope.
+  application: Always admin consent, granted tenant-wide.
+  least_privilege_guidance: https://learn.microsoft.com/en-us/graph/permissions-overview
+  note: The published catalogue flags a least-privilege permission per operation; Graph Explorer surfaces
+    it per query in the Modify permissions tab.
+catalogue_totals:
+  delegated: 583
+  application: 527
 scopes:
-- scope: Application.Read.All
-  description: Read applications
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/azure-ad-openapi.yml
-- scope: Directory.Read.All
-  description: Read directory data
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/azure-ad-openapi.yml
-- scope: Group.Read.All
-  description: Read all groups
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/azure-ad-openapi.yml
-- scope: Group.ReadWrite.All
-  description: Read and write all groups
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/azure-ad-openapi.yml
+- scope: openid
+  display_name: Sign users in
+  description: Allows users to sign in to the app with their work or school accounts and allows the app
+    to see basic user profile information.
+  types:
+  - delegated
+  admin_consent_required_delegated: false
+- scope: profile
+  display_name: View users' basic profile
+  description: Allows the app to see your users' basic profile (e.g., name, picture, user name, email
+    address)
+  types:
+  - delegated
+  admin_consent_required_delegated: false
+- scope: email
+  display_name: View users' email address
+  description: Allows the app to read your users' primary email address
+  types:
+  - delegated
+  admin_consent_required_delegated: false
+- scope: offline_access
+  display_name: Maintain access to data you have given it access to
+  description: Allows the app to see and update the data you gave it access to, even when users are not
+    currently using the app. This does not give the app any additional permissions.
+  types:
+  - delegated
+  admin_consent_required_delegated: false
 - scope: User.Read
-  description: Read the signed-in user's profile
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/azure-ad-openapi.yml
+  display_name: Sign in and read user profile
+  description: Allows users to sign-in to the app, and allows the app to read the profile of signed-in
+    users. It also allows the app to read basic company information of signed-in users.
+  types:
+  - delegated
+  admin_consent_required_delegated: false
+- scope: User.ReadBasic.All
+  display_name: Read all users' basic profiles
+  description: Allows the app to read a basic set of profile properties of other users in your organization
+    on behalf of the signed-in user. This includes display name, first and last name, email address, photo,
+    id and security identifier. Also allows the app to read the full profile of the signed-in user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: false
 - scope: User.Read.All
-  description: Read all users
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/azure-ad-openapi.yml
+  display_name: Read all users' full profiles and company properties
+  description: Allows the app to read the full set of user properties of all users in the organization
+    and read company properties, on behalf of the signed-in user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
 - scope: User.ReadWrite.All
-  description: Read and write all users
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/azure-ad-openapi.yml
-- scope: https://graph.microsoft.com/.default
-  description: Application permissions configured for the app
-  flows:
-  - clientCredentials
-  sources:
-  - openapi/azure-ad-openapi.yml
+  display_name: Read and write all users' full profiles
+  description: Allows the app to read and write the full set of profile properties, reports, and managers
+    of other users in your organization, and read basic company properties, on behalf of the signed-in
+    user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Directory.Read.All
+  display_name: Read directory data
+  description: Allows the app to read data in your organization's directory, such as users, groups and
+    apps.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Directory.ReadWrite.All
+  display_name: Read and write directory data
+  description: Allows the app to read and write data in your organization's directory, such as users,
+    and groups.  It does not allow the app to delete users or groups, or reset user passwords.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Directory.AccessAsUser.All
+  display_name: Access directory as the signed in user
+  description: Allows the app to have the same access to information in the directory as the signed-in
+    user.
+  types:
+  - delegated
+  admin_consent_required_delegated: true
+- scope: Group.Read.All
+  display_name: Read all groups
+  description: 'Allows the app to list groups, and to read their properties and all group memberships
+    on behalf of the signed-in user.  Also allows the app to read calendar, conversations, files, and
+    other group content for all groups the signed-in user can access. '
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Group.ReadWrite.All
+  display_name: Read and write all groups
+  description: Allows the app to create groups and read all group properties and memberships on behalf
+    of the signed-in user.  Additionally allows group owners to manage their groups and allows group members
+    to update group content.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: GroupMember.Read.All
+  display_name: Read group memberships
+  description: Allows the app to list groups, read basic group properties and read membership of all groups
+    the signed-in user has access to.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: GroupMember.ReadWrite.All
+  display_name: Read and write group memberships
+  description: Allows the app to list groups, read basic properties, read and update the membership of
+    the groups the signed-in user has access to. Group properties and owners cannot be updated and groups
+    cannot be deleted.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Application.Read.All
+  display_name: Read applications
+  description: Allows the app to read applications and service principals on behalf of the signed-in user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Application.ReadWrite.All
+  display_name: Read and write all applications
+  description: Allows the app to create, read, update and delete applications and service principals on
+    behalf of the signed-in user. Does not allow management of consent grants.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Application.ReadWrite.OwnedBy
+  display_name: Manage apps that this app creates or owns
+  description: Allows the app to create other applications, and fully manage those applications (read,
+    update, update application secrets and delete), without a signed-in user.  It cannot update any apps
+    that it is not an owner of.
+  types:
+  - application
+- scope: AppRoleAssignment.ReadWrite.All
+  display_name: Manage app permission grants and app role assignments
+  description: Allows the app to manage permission grants for application permissions to any API (including
+    Microsoft Graph) and application assignments for any app, on behalf of the signed-in user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: RoleManagement.Read.Directory
+  display_name: Read directory RBAC settings
+  description: Allows the app to read the role-based access control (RBAC) settings for your company's
+    directory, on behalf of the signed-in user.  This includes reading directory role templates, directory
+    roles and memberships.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: RoleManagement.ReadWrite.Directory
+  display_name: Read and write directory RBAC settings
+  description: Allows the app to read and manage the role-based access control (RBAC) settings for your
+    company's directory, on behalf of the signed-in user. This includes instantiating directory roles
+    and managing directory role membership, and reading directory role templates, directory roles and
+    memberships.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Policy.Read.All
+  display_name: Read your organization's policies
+  description: Allows the app to read your organization's policies on behalf of the signed-in user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Policy.ReadWrite.ConditionalAccess
+  display_name: Read and write your organization's conditional access policies
+  description: Allows the app to read and write your organization's conditional access policies on behalf
+    of the signed-in user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: AuditLog.Read.All
+  display_name: Read audit log data
+  description: Allows the app to read and query your audit log activities, on behalf of the signed-in
+    user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Device.Read.All
+  display_name: Read all devices
+  description: Allows the app to read your organization's devices' configuration information on behalf
+    of the signed-in user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Device.ReadWrite.All
+  display_name: Read and write devices
+  description: Allows the app to read and write all device properties without a signed in user.  Does
+    not allow device creation, device deletion or update of device alternative security identifiers.
+  types:
+  - application
+- scope: EntitlementManagement.Read.All
+  display_name: Read all entitlement management resources
+  description: Allows the app to read access packages and related entitlement management resources on
+    behalf of the signed-in user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: EntitlementManagement.ReadWrite.All
+  display_name: Read and write entitlement management resources
+  description: Allows the app to request access to and management of access packages and related entitlement
+    management resources on behalf of the signed-in user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: AccessReview.Read.All
+  display_name: Read all access reviews that user can access
+  description: Allows the app to read access reviews, reviewers, decisions and settings that the signed-in
+    user has access to in the organization.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: AccessReview.ReadWrite.All
+  display_name: Manage all access reviews that user can access
+  description: Allows the app to read, update, delete and perform actions on access reviews, reviewers,
+    decisions and settings that the signed-in user has access to in the organization.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: UserAuthenticationMethod.Read.All
+  display_name: Read all users' authentication methods
+  description: Allows the app to read authentication methods of all users in your organization that the
+    signed-in user has access to. Authentication methods include things like a user's phone numbers and
+    Authenticator app settings. This does not allow the app to see secret information like passwords,
+    or to sign-in or otherwise use the authentication methods.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: UserAuthenticationMethod.ReadWrite.All
+  display_name: Read and write all users' authentication methods
+  description: ' Allows the app to read and write authentication methods of all users in your organization
+    that the signed-in user has access to.                       Authentication methods include things
+    like a user''s phone numbers and Authenticator app settings. This                      does not allow
+    the app to see secret information like passwords, or to sign-in or otherwise use the authentication
+    methods.'
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: PrivilegedAccess.Read.AzureADGroup
+  display_name: Read privileged access to Azure AD groups
+  description: Allows the app to read time-based assignment and just-in-time elevation (including scheduled
+    elevation) of Azure AD groups, on behalf of the signed-in user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Organization.Read.All
+  display_name: Read organization information
+  description: Allows the app to read the organization and related resources, on behalf of the signed-in
+    user. Related resources include things like subscribed skus and tenant branding information.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Domain.Read.All
+  display_name: Read domains
+  description: Allows the app to read all domain properties on behalf of the signed-in user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: AdministrativeUnit.Read.All
+  display_name: Read administrative units
+  description: Allows the app to read administrative units and administrative unit membership on behalf
+    of the signed-in user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: IdentityProvider.Read.All
+  display_name: Read identity providers
+  description: Allows the app to read your organization's identity (authentication) providers' properties
+    on behalf of the user.
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: IdentityRiskEvent.Read.All
+  display_name: Read identity risk event information
+  description: 'Allows the app to read identity risk event information for all users in your organization
+    on behalf of the signed-in user. '
+  types:
+  - delegated
+  - application
+  admin_consent_required_delegated: true
+- scope: Subscription.Read.All
+  display_name: Read all webhook subscriptions
+  description: Allows the app to read all webhook subscriptions on behalf of the signed-in user.
+  types:
+  - delegated
+  admin_consent_required_delegated: true
+scope_count: 39

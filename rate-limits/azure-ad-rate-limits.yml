@@ -1,98 +1,143 @@
 specification: API Commons Rate Limits
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
-provider: Azure Active Directory
+provider: Azure Active Directory (Microsoft Entra ID)
 providerId: azure-ad
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://learn.microsoft.com/en-us/graph/throttling and
+  https://learn.microsoft.com/en-us/graph/throttling-limits (Identity and access
+  service limits), plus
+  https://learn.microsoft.com/en-us/graph/mcp-server/overview
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-06'
+supersedes: >-
+  The 2026-05-04 bulk-sweep scaffold, which asserted invented X-RateLimit-* headers
+  and a 10 requests/minute free tier. Microsoft publishes neither. Replaced with
+  the published Identity and access service limits.
+description: >-
+  Published throttling limits for the Microsoft Entra ID directory surface of
+  Microsoft Graph. The Identity and Access service meters a token bucket of
+  ResourceUnits per application+tenant pair rather than a flat request count, and
+  — unlike the rest of Microsoft Graph — returns no Retry-After header on 429.
 tags:
   - Authentication
   - Authorization
   - Identity
-  - OAuth
-  - OpenID Connect
-  - Single Sign-On
   - Rate Limiting
-  - Quotas
   - Throttling
-description: Machine-readable rate limit definitions for the Azure Active Directory API surface. Captures
-  per-tier quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values
-  to be replaced with published provider limits.
+  - Quotas
+algorithm: token bucket over ResourceUnits
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
   retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: null
+  remaining: null
+  reset: null
+  policy: null
+header_note: >-
+  Microsoft Graph publishes NO RateLimit-Limit / RateLimit-Remaining /
+  RateLimit-Reset headers and no X-RateLimit-* family. Retry-After is returned on
+  429 by most Graph services, but the documentation states plainly that the
+  resources in the Identity and Access service — the directory endpoints in this
+  record — do NOT return Retry-After on 429. A client here has no runtime budget
+  signal at all: it learns it is over the limit only by being refused, and must
+  use exponential backoff rather than waiting on a header.
 responseCodes:
   throttled: 429
   quotaExceeded: 429
   serviceUnavailable: 503
+error_body:
+  code: TooManyRequests
+  shape: '{"error":{"code":"TooManyRequests","message":"Please retry again later.","innerError":{"code":"429",...}}}'
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Microsoft Graph API
-      - Azure AD B2C API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Microsoft Graph API
-      - Azure AD B2C API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
+  - name: Identity and access — read quota, small tenant
+    scope: application+tenant pair
+    tenant_size: under 50 users
+    metric: resource_units
+    limit: 3500
+    window: 10 seconds
+  - name: Identity and access — read quota, medium tenant
+    scope: application+tenant pair
+    tenant_size: 50 to 500 users
+    metric: resource_units
+    limit: 5000
+    window: 10 seconds
+  - name: Identity and access — read quota, large tenant
+    scope: application+tenant pair
+    tenant_size: above 500 users
+    metric: resource_units
+    limit: 8000
+    window: 10 seconds
+  - name: Identity and access — write quota per application+tenant pair
+    scope: application+tenant pair
+    metric: requests
+    limit: 3000
+    window: 2 minutes 30 seconds
+  - name: Identity and access — read quota per application (all tenants)
+    scope: application
+    metric: resource_units
+    limit: 150000
+    window: 20 seconds
+  - name: Identity and access — write quota per application (all tenants)
+    scope: application
+    metric: requests
+    limit: 35000
+    window: 5 minutes
+  - name: Identity and access — write quota per tenant (all applications)
+    scope: tenant
+    metric: requests
+    limit: 18000
+    window: 5 minutes
+  - name: Microsoft MCP Server for Enterprise
+    scope: user
+    metric: requests
     limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Microsoft Graph API
-      - Azure AD B2C API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Microsoft Graph API
-      - Azure AD B2C API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Microsoft Graph API
-      - Azure AD B2C API
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+    window: 1 minute
+    source: https://learn.microsoft.com/en-us/graph/mcp-server/overview
+    note: >-
+      Applies on top of the Graph limits above; calls made through
+      microsoft_graph_get also consume the Identity and access quota.
+resource_unit_costs:
+  note: >-
+    Requests are not equal. Cost is charged in ResourceUnits and modified by the
+    query options used, so an agent can materially change its own budget by how
+    it shapes a request.
+  base:
+    - operation: GET /applications
+      units: 2
+    - operation: GET /applications/{id}/extensionProperties
+      units: 2
+    - operation: GET /contracts
+      units: 3
+    - operation: POST /directoryObjects/getByIds
+      units: 5
+    - operation: GET /groups/{id}/transitiveMembers
+      units: 5
+    - operation: any other GET
+      units: 1
+    - operation: any other POST/PATCH/PUT/DELETE
+      units: 1
+      write_cost: 1
+  modifiers:
+    - option: $select
+      delta: -1
+    - option: $expand
+      delta: 1
+    - option: $top with value under 20
+      delta: -1
+    - option: create a user in an Azure AD B2C tenant
+      delta: 4
+recovery:
+  strategy: exponential backoff
+  note: >-
+    Because Identity and access resources omit Retry-After, Microsoft's own
+    guidance for that case is an exponential backoff retry policy. The Graph SDKs
+    ship retry handlers that fall back to exponential backoff when the header is
+    absent. Batched sub-requests are never retried automatically.
+bulk_alternative:
+  name: Microsoft Graph Data Connect
+  note: Documented route for bulk extraction without throttling limits.
+  url: https://learn.microsoft.com/en-us/graph/data-connect-concept-overview
+limit_count: 8
+docs: https://learn.microsoft.com/en-us/graph/throttling-limits

@@ -1,0 +1,200 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://learn.microsoft.com/en-us/graph/errors,
+  https://learn.microsoft.com/en-us/graph/throttling,
+  https://learn.microsoft.com/en-us/graph/throttling-limits,
+  https://learn.microsoft.com/en-us/graph/versioning-and-support,
+  https://learn.microsoft.com/en-us/graph/api/resources/directory,
+  https://learn.microsoft.com/en-us/graph/paging, cross-checked against the
+  harvested specs in openapi/_original/azure-ad-graph-*.yml
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+auth:
+  style: OAuth 2.0 bearer token (Microsoft identity platform v2.0)
+  header: 'Authorization: Bearer <token>'
+  flows:
+    - authorizationCode (delegated — acts as a signed-in user)
+    - clientCredentials (application — acts as itself, admin-consented)
+  authorization_url: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize
+  token_url: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token
+  permission_model: >-
+    Two disjoint permission sets — delegated and application — with different
+    names and different consent paths for the same resource. An agent must know
+    which it holds; see scopes/azure-ad-scopes.yml.
+  detail: authentication/azure-ad-authentication.yml
+idempotency:
+  supported: false
+  coverage: none
+  header: null
+  scope: []
+  retention: null
+  note: >-
+    Microsoft Graph documents NO idempotency-key mechanism. There is no
+    Idempotency-Key (or equivalent) header anywhere in the Graph reference, and
+    none appears in the 4,498 harvested identity operations. The only replay
+    protection is optimistic concurrency: send If-Match with an ETag on a PATCH
+    or DELETE and the service returns 412 Precondition Failed if the object
+    changed. That prevents a stale overwrite; it does NOT make a retried
+    create-user or add-member safe. A retried POST after a network timeout can
+    produce a duplicate object, and the caller must reconcile by querying before
+    retrying.
+  concurrency_control:
+    mechanism: ETag / If-Match
+    failure_status: 412
+    conflict_status: 409 (Directory_ConcurrencyViolation — retry with backoff)
+reversibility:
+  grade: verified
+  note: >-
+    Entra ID soft-deletes its principal directory objects and publishes both the
+    reversal operation and the window it works in.
+  surfaces:
+    - write: delete a user
+      operationId: user_DeleteUser
+      reversal: directory.deletedItem_restore
+      reversal_path: POST /directory/deletedItems/{id}/restore
+      window: 30 days from deletion, after which the item is permanently deleted
+      docs: https://learn.microsoft.com/en-us/graph/api/resources/directory
+    - write: delete a group
+      operationId: group_DeleteGroup
+      reversal: directory.deletedItem_restore
+      window: 30 days
+      docs: https://learn.microsoft.com/en-us/graph/api/resources/directory
+    - write: delete an application registration
+      operationId: application_DeleteApplication
+      reversal: directory.deletedItem_restore
+      window: 30 days
+      docs: https://learn.microsoft.com/en-us/graph/api/resources/directory
+    - write: delete a service principal
+      operationId: servicePrincipal_DeleteServicePrincipal
+      reversal: directory.deletedItem_restore
+      window: 30 days
+      docs: https://learn.microsoft.com/en-us/graph/api/resources/directory
+    - write: permanently delete a soft-deleted item
+      operationId: directory_DeleteDeletedItem
+      reversal: null
+      window: null
+      note: >-
+        IRREVERSIBLE. DELETE /directory/deletedItems/{id} removes the object for
+        good and there is no restore path afterwards. An agent must treat this as
+        a terminal action.
+    - write: delete a change-notification subscription
+      operationId: subscription_DeleteSubscription
+      reversal: subscription_CreateSubscription
+      window: null
+      note: >-
+        Not a restore — a new subscription must be created, and events that
+        occurred while no subscription existed are not replayed.
+  not_soft_deleted:
+    - devices
+    - directory roles and role assignments
+    - conditional access policies
+    - administrative units
+    - entitlement management access packages
+  not_soft_deleted_note: >-
+    Deleted items functionality covers application, agentIdentity,
+    agentIdentityBlueprint, agentIdentityBlueprintPrincipal, group,
+    servicePrincipal and user only. A deleted conditional access policy or role
+    assignment is gone; restoring it means recreating it from your own record.
+dry_run_mode:
+  supported: false
+  note: >-
+    Microsoft Graph has no ?dry_run / validate-only mode on the identity write
+    surface. The nearest rehearsal affordances are the "What If" tool for
+    Conditional Access policy evaluation (a portal/API feature scoped to policy
+    simulation, not to arbitrary writes) and report-only mode for Conditional
+    Access policies.
+pagination:
+  style: opaque cursor (OData server-driven paging)
+  request_params:
+    - $top (page size; also lowers throttling cost when < 20)
+    - $skip
+    - $skiptoken (server-supplied, opaque — never construct one)
+  response_fields:
+    - '@odata.nextLink'
+    - '@odata.count'
+  rule: >-
+    Follow @odata.nextLink verbatim until it is absent. The link is opaque and
+    already carries the query; do not append or rewrite parameters.
+  docs: https://learn.microsoft.com/en-us/graph/paging
+query_semantics:
+  system_query_options:
+    - $select — narrows returned properties; also DECREASES the throttling cost of the request by 1
+    - $filter
+    - $orderby
+    - $search — requires ConsistencyLevel eventual
+    - $count — requires ConsistencyLevel eventual
+    - $expand — INCREASES the throttling cost of the request by 1
+    - $top
+    - $skip
+  advanced_queries:
+    header: 'ConsistencyLevel: eventual'
+    note: >-
+      $search and $count against directory objects require the client to set
+      ConsistencyLevel: eventual. This header is declared explicitly on the
+      collection operations in the harvested specs.
+    docs: https://learn.microsoft.com/en-us/graph/aad-advanced-queries
+  delta_query:
+    supported: true
+    note: >-
+      Directory resources expose a delta function for change tracking; prefer it
+      (or change notifications) over polling, which is the documented route to
+      being throttled.
+    docs: https://learn.microsoft.com/en-us/graph/delta-query-overview
+batching:
+  supported: true
+  endpoint: POST https://graph.microsoft.com/v1.0/$batch
+  note: >-
+    Up to 20 requests per JSON batch. Each sub-request is evaluated separately
+    against throttling limits; the batch returns 200 even when sub-requests
+    return 429, and throttled sub-requests are NOT auto-retried by the SDKs.
+  docs: https://learn.microsoft.com/en-us/graph/json-batching
+metadata_and_extensions:
+  mechanisms:
+    - open extensions (unstructured, per-object)
+    - schema extensions (typed, tenant-registered)
+    - directory (custom) extension properties on applications
+    - custom security attributes
+  note: >-
+    Graph offers four different extension models for custom data rather than a
+    single metadata bag; picking the wrong one is a migration.
+request_tracing:
+  request_headers:
+    - client-request-id (client-generated GUID, echoed back)
+  response_headers:
+    - request-id
+    - client-request-id
+    - x-ms-ags-diagnostic
+  error_field: error.innerError.request-id
+  note: >-
+    Observed live on a 2026-09-06 anonymous probe of graph.microsoft.com:
+    request-id, client-request-id and x-ms-ags-diagnostic were all returned on
+    the 401.
+versioning:
+  in: path
+  current: v1.0
+  detail: lifecycle/azure-ad-lifecycle.yml
+error_envelope:
+  media_type: application/json
+  rfc9457: false
+  shape: '{"error":{"code","message","innerError","details"}}'
+  detail: errors/azure-ad-problem-types.yml
+rate_limit_signaling:
+  status: 429
+  headers:
+    - Retry-After (Microsoft Graph generally; NOT returned by Identity and access resources)
+  algorithm: token bucket over ResourceUnits, per application+tenant pair
+  caveat: >-
+    This is the sharpest runtime trap on this API for an agent: the general Graph
+    guidance says "back off using Retry-After", but the Identity and Access
+    service — the directory endpoints in this record — explicitly does not send
+    that header. Client code that waits for Retry-After will hot-loop against a
+    429 here. Use exponential backoff.
+  detail: rate-limits/azure-ad-rate-limits.yml
+cross_links:
+  errors: errors/azure-ad-problem-types.yml
+  lifecycle: lifecycle/azure-ad-lifecycle.yml
+  authentication: authentication/azure-ad-authentication.yml
+  scopes: scopes/azure-ad-scopes.yml
+  rate_limits: rate-limits/azure-ad-rate-limits.yml
+  webhooks: asyncapi/azure-ad-change-notifications-webhooks.yml

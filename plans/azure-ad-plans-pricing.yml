@@ -1,163 +1,135 @@
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: Azure Active Directory
+provider: Azure Active Directory (Microsoft Entra ID)
 providerId: azure-ad
+generated: '2026-09-06'
+method: searched
+source: https://www.microsoft.com/en-us/security/business/microsoft-entra-pricing
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Authentication
-  - Authorization
-  - Identity
-  - OAuth
-  - OpenID Connect
-  - Single Sign-On
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+modified: '2026-09-06'
+supersedes: >-
+  The 2026-05-04 bulk-sweep scaffold, which invented a 1,000-requests/month free
+  quota and per-request prices. Microsoft prices Entra ID per user per month, not
+  per API call. Replaced with the published tiers.
+description: >-
+  Microsoft Entra ID is licensed per user (or per workload identity) per month on
+  an annual commitment, not per API request. Microsoft Graph access to the
+  directory is included with the tenant licence; there is no separate,
+  metered price for the identity API surface itself. Prices below are the
+  published US list prices read from Microsoft's own pricing page on 2026-09-06.
+currency: USD
+billing_period: month
+commitment: annual (paid yearly)
+metered_api: false
+metered_note: >-
+  The only metered identity API Microsoft prices separately is the Microsoft Entra
+  SCIM 2.0 Provisioning API
+  (https://azure.microsoft.com/en-us/pricing/details/entraid/scimapi/); the Graph
+  directory endpoints are included with the tenant licence and governed by
+  throttling limits rather than by a paid quota.
 plans:
-  - id: azure-ad-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Azure Active Directory API surface. Intended for evaluation,
-      prototyping, and low-volume integrations. Real limits and pricing must be reconciled with the provider's
-      published plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://graph.microsoft.com
-          - https://login.microsoftonline.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://graph.microsoft.com
-          - https://login.microsoftonline.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Microsoft Graph API
-      - name: Azure AD B2C API
-  - id: azure-ad-pro
-    name: Professional
+  - id: entra-id-free
+    name: Microsoft Entra ID Free
+    type: free
+    price: '0.00'
+    currency: USD
+    period: month
+    unit: user
+    description: >-
+      Multifactor authentication, unlimited SSO across any SaaS app, basic
+      reports, and self-service password change for cloud users.
+    sla: none
+  - id: entra-id-p1
+    name: Microsoft Entra ID P1
     type: paid
-    description: Production tier for Azure Active Directory. Provides higher quotas, priority support,
-      and access to the broader API portfolio. Pricing placeholder; align with the provider's pricing
-      page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://graph.microsoft.com
-          - https://login.microsoftonline.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://graph.microsoft.com
-          - https://login.microsoftonline.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://graph.microsoft.com
-          - https://login.microsoftonline.com
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Microsoft Graph API
-      - name: Azure AD B2C API
-  - id: azure-ad-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Azure Active Directory. Includes dedicated capacity, contractual
-      SLAs, security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://graph.microsoft.com
-          - https://login.microsoftonline.com
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://graph.microsoft.com
-          - https://login.microsoftonline.com
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Microsoft Graph API
-      - name: Azure AD B2C API
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+    price: '7.00'
+    currency: USD
+    period: month
+    unit: user
+    commitment: paid yearly
+    description: >-
+      Multifactor Authentication, Single Sign-On, Conditional Access,
+      Role-based access control (RBAC), Advanced group management.
+  - id: entra-id-p2
+    name: Microsoft Entra ID P2
+    type: paid
+    price: '10.00'
+    currency: USD
+    period: month
+    unit: user
+    commitment: paid yearly
+    description: >-
+      Everything in P1 plus identity protection — risk-based conditional access
+      and real-time dynamic sign-in assessment. Required for Privileged Identity
+      Management (PIM) data.
+  - id: entra-suite
+    name: Microsoft Entra Suite
+    type: paid
+    price: '12.00'
+    currency: USD
+    period: month
+    unit: user
+    commitment: paid yearly
+    requires: Microsoft Entra ID P1 subscription
+    description: >-
+      Network access, identity protection, governance and identity verification
+      solutions bundled.
+  - id: entra-id-governance
+    name: Microsoft Entra ID Governance
+    type: paid
+    price: '7.00'
+    currency: USD
+    period: month
+    unit: user
+    commitment: paid yearly
+    description: >-
+      Entitlement management, access reviews, lifecycle workflows and privileged
+      access governance. Licence gate for the 2,390 Identity.Governance
+      operations in openapi/_original/azure-ad-graph-identity-governance-openapi.yml.
+  - id: entra-workload-id
+    name: Microsoft Entra Workload ID
+    type: paid
+    price: '3.00'
+    currency: USD
+    period: month
+    unit: workload identity
+    commitment: paid yearly
+    description: Identity and access management for applications and services rather than people.
+  - id: entra-internet-access
+    name: Microsoft Entra Internet Access
+    type: paid
+    price: '5.00'
+    currency: USD
+    period: month
+    unit: user
+    commitment: paid yearly
+  - id: entra-private-access
+    name: Microsoft Entra Private Access
+    type: paid
+    price: '5.00'
+    currency: USD
+    period: month
+    unit: user
+    commitment: paid yearly
+  - id: entra-external-id
+    name: Microsoft Entra External ID
+    type: freemium
+    price: '0.00'
+    currency: USD
+    period: month
+    unit: monthly active user
+    description: Free for the first 50,000 monthly active users; usage-priced beyond that.
+    url: https://azure.microsoft.com/en-us/pricing/details/microsoft-entra-external-id/
+  - id: entra-verified-id
+    name: Microsoft Entra Verified ID
+    type: included
+    price: '0.00'
+    currency: USD
+    period: month
+    description: >-
+      Included with any Microsoft Entra ID subscription; Face Check is a premium
+      add-on priced separately.
+plan_count: 10
+free_tier: true
+enterprise_only: false

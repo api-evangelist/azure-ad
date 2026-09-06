@@ -1,0 +1,92 @@
+# Microsoft Entra ID (Azure Active Directory)
+
+> Microsoft's cloud identity and access management service. The programmable
+> surface is Microsoft Graph: the directory (users, groups, applications,
+> service principals, devices), the sign-in and policy surface (authentication
+> methods, Conditional Access, identity providers, B2X user flows) and identity
+> governance (entitlement management, access reviews, PIM, lifecycle workflows).
+> Every call is an OAuth 2.0 bearer request to https://graph.microsoft.com/v1.0.
+
+generated: 2026-09-06
+method: generated
+source: apis.yml plus the artifacts in this repository; no llms.txt is published
+        by Microsoft (https://learn.microsoft.com/llms.txt returns 404, probed
+        2026-09-06)
+
+## Facts an agent needs before its first call
+
+- Base URL: https://graph.microsoft.com/v1.0 (preview surface: /beta, not supported in production)
+- Auth: OAuth 2.0 bearer only. No API keys, no basic auth. Anonymous requests return 401 InvalidAuthenticationToken.
+- Token endpoint: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token
+- Two disjoint permission sets: delegated (acts as a user) and application (acts as itself, admin consent, tenant-wide).
+- Errors are NOT RFC 9457. The envelope is {"error":{"code","message","innerError","details"}}, application/json. Branch on error.code only.
+- Paging is OData: follow @odata.nextLink verbatim until absent. $search and $count need the header `ConsistencyLevel: eventual`.
+- There is NO idempotency key. A retried POST can create a duplicate. If-Match/ETag gives optimistic concurrency (412), not replay safety.
+- On 429 the Identity and Access resources do NOT send Retry-After. Use exponential backoff; waiting on the header will hot-loop.
+- Deleting a user, group, application or service principal is reversible for 30 days via POST /directory/deletedItems/{id}/restore. Deleting the deleted item is permanent.
+
+## Machine-readable contracts
+
+- OData 4.0 CSDL (authoritative, anonymous): https://graph.microsoft.com/v1.0/$metadata
+- OpenAPI, harvested first-party from github.com/microsoftgraph/msgraph-sdk-powershell:
+  - openapi/_original/azure-ad-graph-users-openapi.yml (272 operations)
+  - openapi/_original/azure-ad-graph-groups-openapi.yml (304 operations)
+  - openapi/_original/azure-ad-graph-applications-openapi.yml (380 operations)
+  - openapi/_original/azure-ad-graph-identity-directorymanagement-openapi.yml (513 operations)
+  - openapi/_original/azure-ad-graph-identity-signins-openapi.yml (602 operations)
+  - openapi/_original/azure-ad-graph-identity-governance-openapi.yml (2,390 operations)
+  - openapi/_original/azure-ad-graph-directoryobjects-openapi.yml (31 operations)
+  - openapi/_original/azure-ad-graph-changenotifications-openapi.yml (6 operations)
+- OpenID Provider metadata: https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+
+## Agent surfaces
+
+- MCP (remote, official, public preview): https://mcp.svc.cloud.microsoft/enterprise
+  Three tools — microsoft_graph_suggest_queries, microsoft_graph_get,
+  microsoft_graph_list_properties. Read-only. OAuth-gated (authorization server
+  https://login.microsoftonline.com/organizations/v2.0). 100 calls/minute/user.
+  Docs: https://learn.microsoft.com/en-us/graph/mcp-server/overview
+- No A2A agent card is published. /.well-known/agent-card.json and
+  /.well-known/agent.json were probed on ten Microsoft hosts on 2026-09-06 and
+  none returned one.
+- Change notifications (webhooks / Event Hubs / Event Grid) for user and group
+  created/updated/deleted: https://learn.microsoft.com/en-us/graph/change-notifications-overview
+
+## Documentation
+
+- Overview: https://learn.microsoft.com/en-us/graph/overview
+- API reference: https://learn.microsoft.com/en-us/graph/api/overview
+- Authentication: https://learn.microsoft.com/en-us/graph/auth/
+- Permissions reference: https://learn.microsoft.com/en-us/graph/permissions-reference
+- Errors: https://learn.microsoft.com/en-us/graph/errors
+- Throttling limits: https://learn.microsoft.com/en-us/graph/throttling-limits
+- Versioning and deprecation policy (24 months): https://learn.microsoft.com/en-us/graph/versioning-and-support
+- Changelog: https://developer.microsoft.com/en-us/graph/changelog (RSS: /changelog/rss)
+- Console: https://developer.microsoft.com/en-us/graph/graph-explorer (runs anonymously against a demo tenant)
+- Postman: https://www.postman.com/microsoftgraph
+- Status: https://azure.status.microsoft/en-us/status
+- Pricing: https://www.microsoft.com/en-us/security/business/microsoft-entra-pricing
+
+## First-party client libraries
+
+- JavaScript: @azure/msal-browser 5.21.0, @azure/msal-node 6.0.0, @microsoft/microsoft-graph-client 3.0.7 (last released 2023-09-19)
+- Python: msal 1.38.0, msgraph-sdk 1.62.0
+- .NET: Microsoft.Identity.Client 4.88.0, Microsoft.Graph 6.6.0
+- Java: com.microsoft.azure:msal4j 1.21.0, com.microsoft.graph:microsoft-graph 6.69.0
+- Go: msgraph-sdk-go v1.102.0, microsoft-authentication-library-for-go v1.9.0
+- PowerShell: Microsoft.Graph 2.39.0, Microsoft.Entra 1.3.0
+- CLI: az ad (Azure CLI 2.90.0)
+
+## Repository artifacts
+
+- authentication/azure-ad-authentication.yml — every auth flow and the token contract
+- scopes/azure-ad-scopes.yml — the Entra permission subset, delegated vs application
+- conventions/azure-ad-conventions.yml — pagination, query options, idempotency, reversibility, tracing
+- errors/azure-ad-problem-types.yml — the error envelope and every documented status
+- rate-limits/azure-ad-rate-limits.yml — ResourceUnit quotas and the missing Retry-After
+- lifecycle/azure-ad-lifecycle.yml — versioning, the 24-month deprecation policy, status page
+- plans/azure-ad-plans-pricing.yml — the per-user licence tiers
+- data-model/azure-ad-data-model.yml — the directoryObject entity graph
+- mcp/azure-ad-mcp.yml + mcp/azure-ad-tool-crosswalk.yml — the agent surface and what it does not reach
+- asyncapi/azure-ad-change-notifications-webhooks.yml — the event surface
+- skills/ — packaged agent skills grounded in real operationIds

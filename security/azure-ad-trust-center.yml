@@ -1,0 +1,74 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://www.microsoft.com/en-us/trust-center (probed 200),
+  https://servicetrust.microsoft.com/ (probed 200),
+  https://learn.microsoft.com/en-us/entra/standards/standards-overview,
+  https://learn.microsoft.com/en-us/azure/compliance/
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+trust_center:
+  url: https://www.microsoft.com/en-us/trust-center
+  http_status: 200
+  probed: '2026-09-06'
+audit_portal:
+  name: Microsoft Service Trust Portal
+  url: https://servicetrust.microsoft.com/
+  http_status: 200
+  probed: '2026-09-06'
+  note: >-
+    Where the actual audit reports (SOC 1/2/3, ISO certificates, FedRAMP
+    packages, penetration-test summaries) are downloaded. Access to the reports
+    requires sign-in with a Microsoft account; the portal itself is public.
+compliance_catalog:
+  url: https://learn.microsoft.com/en-us/azure/compliance/offerings/
+  claim: >-
+    "There are 90 Azure compliance certifications ... Azure has 35 compliance
+    offerings for key industries" — quoted from
+    https://learn.microsoft.com/en-us/entra/standards/standards-overview
+  industries_named:
+    - Health
+    - Government
+    - Finance
+    - Education
+    - Manufacturing
+    - Media
+certifications:
+  - name: FedRAMP
+    scope: US Federal Risk and Authorization Management Program
+    evidence: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-fedramp
+  - name: NIST SP 800-53
+    scope: US federal information systems control catalog
+    evidence: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-nist-800-53
+  - name: HIPAA / HITECH
+    scope: US healthcare
+    evidence: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-hipaa-us
+  - name: SOX
+    scope: Sarbanes-Oxley Act of 2002
+    evidence: https://learn.microsoft.com/en-us/compliance/regulatory/offering-sox
+certifications_note: >-
+  Only the frameworks Microsoft's own Entra standards page names directly are
+  listed above with evidence URLs. Microsoft's wider catalogue (ISO/IEC 27001,
+  27017, 27018, 27701, SOC 1/2/3, PCI DSS, CSA STAR and the rest of the 90) is
+  published per-offering under
+  https://learn.microsoft.com/en-us/azure/compliance/offerings/ and is
+  downloadable from the Service Trust Portal; it is not restated here because it
+  was not read item by item during this pass.
+shared_responsibility:
+  note: >-
+    Microsoft states plainly that compliance is shared: Azure certification is a
+    starting point, and the customer must still configure Microsoft Entra ID to
+    meet the identity standard they are held to. Entra publishes per-standard
+    configuration guidance (for example NIST authenticator assurance levels and
+    FedRAMP High) under https://learn.microsoft.com/en-us/entra/standards/.
+privacy:
+  privacy_statement: https://www.microsoft.com/en-us/privacy/privacystatement
+  gdpr: https://learn.microsoft.com/en-us/compliance/regulatory/gdpr
+  data_residency: https://learn.microsoft.com/en-us/entra/identity/data-residency-and-customer-data
+sovereign_clouds:
+  - name: Microsoft Azure Government (US Gov L4 / L5 DoD)
+  - name: Microsoft Azure operated by 21Vianet (China)
+sovereign_clouds_note: >-
+  Relevant to agent surfaces: the Microsoft MCP Server for Enterprise is global
+    service only and is NOT available in US Gov L4, US Gov L5 (DOD) or 21Vianet —
+    see mcp/azure-ad-mcp.yml availability.

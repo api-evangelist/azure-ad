@@ -1,0 +1,111 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://learn.microsoft.com/en-us/graph/mcp-server/overview plus a live probe
+  of https://mcp.svc.cloud.microsoft/enterprise on 2026-09-06
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+name: Microsoft MCP Server for Enterprise
+status: preview
+description: >-
+  Microsoft's own hosted MCP server for querying enterprise identity and
+  directory data in a Microsoft Entra tenant with natural language. Rather than
+  projecting one tool per Graph operation, it ships three tools that together
+  retrieve, plan and execute a read-only Microsoft Graph call, honouring the
+  signed-in user's roles and the MCP client's granted scopes.
+deployment:
+  mode: remote
+  endpoint: https://mcp.svc.cloud.microsoft/enterprise
+  auth: oauth
+  verified: probed
+verification:
+  probed: '2026-09-06'
+  method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  http_status: 401
+  www_authenticate: >-
+    Bearer realm="", authorization_uri="https://login.microsoftonline.com/common/oauth2/authorize",
+    client_id="e8c77dc2-69b3-43f4-bc51-3213c9d915b4",
+    resource_metadata="https://mcp.svc.cloud.microsoft/.well-known/oauth-protected-resource/enterprise"
+  note: >-
+    The endpoint is live and answers the MCP JSON-RPC handshake, but tools/list
+    is auth-gated — the live inputSchema for each tool requires an authenticated
+    introspection against a real tenant. The tool names and descriptions below
+    are taken verbatim from Microsoft's own documentation, NOT from a tools/list
+    response; treat their input schemas as unverified.
+  resource_metadata:
+    url: https://mcp.svc.cloud.microsoft/.well-known/oauth-protected-resource/enterprise
+    http_status: 200
+    file: ../well-known/azure-ad-oauth-protected-resource.json
+    resource: https://mcp.svc.cloud.microsoft/enterprise
+    authorization_servers:
+      - https://login.microsoftonline.com/organizations/v2.0
+    scopes_supported:
+      - api://e8c77dc2-69b3-43f4-bc51-3213c9d915b4/.default
+    bearer_methods_supported:
+      - header
+authentication:
+  type: oauth2
+  authorization_server: https://login.microsoftonline.com/organizations/v2.0
+  scope: api://e8c77dc2-69b3-43f4-bc51-3213c9d915b4/.default
+  app_id: e8c77dc2-69b3-43f4-bc51-3213c9d915b4
+  note: >-
+    Calls run under the signed-in user's Entra privileges and the scopes the MCP
+    client was granted; the server cannot exceed either.
+tools:
+  - name: microsoft_graph_suggest_queries
+    description: >-
+      Uses retrieval-augmented generation (RAG) to search a curated catalog of
+      Microsoft Graph API examples that align with the user's intent.
+    read_only: true
+    input_schema: unverified (tools/list is auth-gated)
+  - name: microsoft_graph_get
+    description: >-
+      Runs read-only Microsoft Graph API calls while honoring user roles,
+      granted scopes, and Graph throttling limits.
+    read_only: true
+    input_schema: unverified (tools/list is auth-gated)
+  - name: microsoft_graph_list_properties
+    description: >-
+      Retrieves the schema for Microsoft Graph entities so that the AI model
+      understands available properties and relationships before constructing
+      requests.
+    read_only: true
+    input_schema: unverified (tools/list is auth-gated)
+tool_count: 3
+scope:
+  surface: Microsoft Entra identity and directory read scenarios (users, groups, applications, devices, administrative reporting)
+  writes: false
+  note: Public preview is read-only; there is no write tool.
+limits:
+  - scope: per user
+    limit: 100
+    window: 1 minute
+    source: https://learn.microsoft.com/en-us/graph/mcp-server/overview
+  - scope: underlying Graph calls
+    note: >-
+      microsoft_graph_get is additionally subject to the standard Microsoft
+      Graph identity and access throttling limits — see
+      rate-limits/azure-ad-rate-limits.yml
+availability:
+  global_service: true
+  us_gov_l4: false
+  us_gov_l5_dod: false
+  china_21vianet: false
+cost: >-
+  No additional cost or separate license to enable the server; the caller must
+  hold the licenses for the data being read (for example Microsoft Entra ID
+  Governance or P2 for PIM content).
+observability:
+  logs: Microsoft Graph activity logs
+  filter_app_id: e8c77dc2-69b3-43f4-bc51-3213c9d915b4
+docs: https://learn.microsoft.com/en-us/graph/mcp-server/overview
+terms: https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use
+other_microsoft_mcp_servers:
+  - name: Microsoft Learn MCP Server
+    endpoint: https://learn.microsoft.com/api/mcp
+    probed_status: 405 on GET ("This is an MCP server")
+    note: >-
+      A live first-party Microsoft MCP server, but its subject is Microsoft Learn
+      documentation search, not the Entra ID / Graph directory surface this
+      record describes. Recorded here as context, not claimed as this provider's
+      agent surface.

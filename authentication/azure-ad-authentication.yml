@@ -1,23 +1,142 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/azure-ad-openapi.yml
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://learn.microsoft.com/en-us/graph/auth/ ,
+  https://learn.microsoft.com/en-us/entra/identity-platform/v2-overview ,
+  https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+  (fetched 200, saved at well-known/azure-ad-openid-configuration.json), and the
+  azureaadv2 securityScheme declared in every harvested spec under
+  openapi/_original/
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+supersedes: >-
+  The 2026-07-11 derived file, whose endpoints came from a hand-written scaffold
+  spec rather than from the provider's own discovery document.
 summary:
   types:
-  - oauth2
+    - oauth2
+    - openIdConnect
   oauth2_flows:
-  - authorizationCode
-  - clientCredentials
+    - authorizationCode
+    - clientCredentials
+    - deviceCode
+  api_keys: false
+  basic_auth: false
+  mtls: true
+  note: >-
+    Microsoft Graph accepts no API key and no basic auth. Every request carries an
+    OAuth 2.0 bearer token issued by the Microsoft identity platform v2.0
+    endpoint. An anonymous request to graph.microsoft.com returns 401
+    InvalidAuthenticationToken — verified live on 2026-09-06.
 schemes:
-- name: oauth2
-  type: oauth2
-  flows:
-  - flow: authorizationCode
-    authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
-    tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
-    scopes: 7
-  - flow: clientCredentials
-    tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
-    scopes: 1
-  description: Microsoft Entra ID OAuth 2.0
-  sources:
-  - openapi/azure-ad-openapi.yml
+  - name: azureaadv2
+    type: oauth2
+    description: Microsoft identity platform v2.0 (Microsoft Entra ID)
+    declared_in: every spec in openapi/_original/azure-ad-graph-*.yml
+    applied: global `security` requirement on each document
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize
+        tokenUrl: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token
+        permission_set: delegated
+        pkce: required for public clients
+        description: >-
+          The app acts on behalf of a signed-in user. Effective access is the
+          INTERSECTION of the granted scope and the user's own directory
+          privileges — a token carrying User.ReadWrite.All still cannot edit a
+          user the signed-in principal has no rights over.
+      - flow: clientCredentials
+        tokenUrl: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token
+        permission_set: application
+        scope_parameter: https://graph.microsoft.com/.default
+        description: >-
+          The app acts as itself, with no user context. Admin consent is always
+          required and access is tenant-wide, bounded only by the granted
+          application permissions. This is the daemon/agent path.
+        client_authentication:
+          - client_secret_post
+          - client_secret_basic
+          - private_key_jwt
+          - self_signed_tls_client_auth
+        note: >-
+          token_endpoint_auth_methods_supported read verbatim from the discovery
+          document. private_key_jwt (certificate credentials) and federated
+          identity credentials are the recommended alternatives to a shared
+          secret for unattended workloads.
+      - flow: deviceCode
+        deviceAuthorizationUrl: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/devicecode
+        tokenUrl: https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token
+        permission_set: delegated
+        description: RFC 8628 device authorization grant, for input-constrained clients.
+  - name: openIdConnect
+    type: openIdConnect
+    openIdConnectUrl: https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+    description: >-
+      Full OpenID Connect provider. Discovery returns issuer
+      https://login.microsoftonline.com/{tenantid}/v2.0, jwks_uri
+      https://login.microsoftonline.com/common/discovery/v2.0/keys, userinfo at
+      https://graph.microsoft.com/oidc/userinfo, RS256 id_token signing and
+      pairwise subject identifiers.
+  - name: mutualTLS
+    type: mutualTLS
+    description: >-
+      self_signed_tls_client_auth is advertised in
+      token_endpoint_auth_methods_supported — client certificates may
+      authenticate at the token endpoint. Not a transport-level mTLS requirement
+      on graph.microsoft.com itself.
+token:
+  transport: 'Authorization: Bearer <token>'
+  format: JWT
+  signing_alg: RS256
+  jwks_uri: https://login.microsoftonline.com/common/discovery/v2.0/keys
+  audience: https://graph.microsoft.com
+  issuer_template: https://login.microsoftonline.com/{tenantid}/v2.0
+  subject_type: pairwise
+  claims_supported:
+    - sub
+    - iss
+    - aud
+    - exp
+    - iat
+    - auth_time
+    - acr
+    - nonce
+    - preferred_username
+    - name
+    - tid
+    - ver
+    - at_hash
+    - c_hash
+    - email
+    - cloud_instance_name
+    - cloud_instance_host_name
+    - cloud_graph_host_name
+    - msgraph_host
+  note: >-
+    Graph access tokens are opaque to third parties by contract — Microsoft
+    documents that only the resource may validate them, and the token format can
+    change. Do not parse a Graph access token in client code.
+tenant_segment:
+  values:
+    - '{tenantId} — a single tenant'
+    - common — work, school or personal Microsoft accounts
+    - organizations — work or school accounts only
+    - consumers — personal Microsoft accounts only
+  note: >-
+    The tenant segment in the authority URL is part of the security boundary, not
+    a routing convenience. The Microsoft MCP Server for Enterprise names
+    https://login.microsoftonline.com/organizations/v2.0 specifically.
+authorization:
+  model: OAuth scopes + directory roles + Conditional Access
+  scopes: scopes/azure-ad-scopes.yml
+  conditional_access_note: >-
+    A Conditional Access policy can refuse an otherwise valid token with
+    HTTP 403 and `error=insufficient_claims`. A client must handle the claims
+    challenge and re-authenticate; retrying the same token will never succeed.
+  docs: https://learn.microsoft.com/en-us/entra/identity-platform/v2-conditional-access-dev-guide
+verification:
+  probed: '2026-09-06'
+  anonymous_request: https://graph.microsoft.com/v1.0/users
+  http_status: 401
+  error_code: InvalidAuthenticationToken
+docs: https://learn.microsoft.com/en-us/graph/auth/

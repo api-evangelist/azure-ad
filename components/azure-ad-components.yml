@@ -1,0 +1,93 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://learn.microsoft.com/en-us/graph/toolkit/overview,
+  https://github.com/microsoftgraph/microsoft-graph-toolkit, npm registry
+  metadata for @microsoft/mgt (2026-09-06)
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+note: >-
+  Distinct from the SDKs in packages/. These are client-side UI surfaces the
+  provider ships — web components that render directory data and hosted sign-in
+  pages Microsoft serves on the developer's behalf.
+families:
+  - name: Microsoft Graph Toolkit
+    kind: web components
+    official: true
+    version: 4.7.0
+    published: '2026-08-28'
+    loader_libs:
+      - package: '@microsoft/mgt'
+        registry: npm
+        note: Umbrella bundle of the components plus the MSAL2 provider.
+      - package: '@microsoft/mgt-element'
+        registry: npm
+        note: Base element and provider model; what a custom component extends.
+      - package: '@microsoft/mgt-react'
+        registry: npm
+        note: React wrappers around the same custom elements.
+    docs: https://learn.microsoft.com/en-us/graph/toolkit/overview
+    repository: https://github.com/microsoftgraph/microsoft-graph-toolkit
+    playground: https://mgt.dev
+    distribution:
+      - method: npm
+      - method: cdn
+        note: >-
+          Also distributed as a script tag from a CDN. Where the URL is not
+          version-pinned it floats to latest, so a consumer cannot tell which
+          build they are running — prefer the pinned npm package.
+    components:
+      - name: mgt-login
+        description: Sign-in button and identity chrome, wired to the configured provider.
+      - name: mgt-person
+        description: Renders a person's photo, name and presence from the directory.
+      - name: mgt-person-card
+        description: Expanded person card with contact details and organisational data.
+      - name: mgt-people
+        description: A list of people.
+      - name: mgt-people-picker
+        description: Type-ahead picker over directory users and groups.
+      - name: mgt-teams-channel-picker
+        description: Picker over Teams channels.
+      - name: mgt-agenda
+        description: Calendar agenda view.
+      - name: mgt-tasks
+        description: To Do / Planner task list.
+      - name: mgt-file / mgt-file-list
+        description: OneDrive/SharePoint file surfaces.
+      - name: mgt-get
+        description: Generic component that renders the result of an arbitrary Graph query.
+      - name: mgt-search-box / mgt-search-results
+        description: Microsoft Search surfaces.
+    providers:
+      - name: Msal2Provider
+        description: Browser auth via @azure/msal-browser.
+      - name: ProxyProvider
+        description: Delegates token acquisition to the developer's own backend.
+      - name: TeamsFxProvider
+        description: Auth inside a Teams tab.
+      - name: SharePointProvider
+        description: Auth inside a SharePoint Framework web part.
+  - name: Hosted sign-in and self-service surfaces
+    kind: hosted pages
+    official: true
+    note: >-
+      Microsoft-hosted, brandable end-user surfaces rather than embeddable
+      libraries — the developer redirects to them rather than importing them.
+    components:
+      - name: Microsoft identity platform sign-in page
+        description: >-
+          The hosted authorize endpoint at
+          https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize;
+          brandable per tenant through organizationalBranding (51 operations in
+          the harvested Identity.DirectoryManagement spec).
+      - name: Azure AD B2C / External ID user flows
+        description: >-
+          Hosted, customisable sign-up/sign-in, password reset and profile edit
+          journeys; the b2xIdentityUserFlow surface is 63 operations in the
+          harvested Identity.SignIns spec.
+      - name: My Account / My Apps / My Access portals
+        description: >-
+          Microsoft-hosted end-user self-service portals for security info, app
+          launch and access-package requests.
+family_count: 2

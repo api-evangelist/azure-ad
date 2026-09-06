@@ -1,0 +1,115 @@
+generated: '2026-09-06'
+method: derived
+source: >-
+  mcp/azure-ad-mcp.yml (tool list from
+  https://learn.microsoft.com/en-us/graph/mcp-server/overview) bound against the
+  harvested Microsoft Graph OpenAPI in openapi/_original/azure-ad-graph-*.yml
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+note: >-
+  Microsoft's Enterprise MCP server does NOT project one tool per Graph
+  operation. It ships a three-tool retrieval-plan-execute loop where
+  microsoft_graph_get is a generic executor bound at runtime to whichever
+  read-only Graph operation the LLM selects. The crosswalk therefore binds tools
+  to CLASSES of operations rather than to single operationIds, and confidence is
+  set accordingly. tools/list is auth-gated, so the tool input schemas could not
+  be read; bindings below are by documented semantics, not by observed schema.
+surfaces:
+  openapi:
+    gated: false
+    files:
+    - openapi/_original/azure-ad-graph-users-openapi.yml
+    - openapi/_original/azure-ad-graph-groups-openapi.yml
+    - openapi/_original/azure-ad-graph-applications-openapi.yml
+    - openapi/_original/azure-ad-graph-identity-directorymanagement-openapi.yml
+    - openapi/_original/azure-ad-graph-identity-signins-openapi.yml
+    - openapi/_original/azure-ad-graph-identity-governance-openapi.yml
+    - openapi/_original/azure-ad-graph-directoryobjects-openapi.yml
+    - openapi/_original/azure-ad-graph-changenotifications-openapi.yml
+  graphql: null
+  mcp:
+    url: https://mcp.svc.cloud.microsoft/enterprise
+    gated: true
+    note: 401 OAuth challenge on tools/list; schemas require an authenticated tenant
+  odata_metadata:
+    url: https://graph.microsoft.com/v1.0/$metadata
+    gated: false
+    note: anonymous OData 4.0 CSDL for the whole Graph surface
+crosswalk:
+  - tool: microsoft_graph_get
+    category: read
+    binding: generic-executor
+    confidence: medium
+    rest:
+      - user_ListUser
+      - user_GetUser
+      - group_ListGroup
+      - group_GetGroup
+      - group_ListMemberGraphBPreRef
+      - application_ListApplication
+      - application_GetApplication
+      - servicePrincipal_ListServicePrincipal
+      - servicePrincipal_GetServicePrincipal
+      - directory_GetDirectory
+      - directory_ListDeletedItem
+    note: >-
+      Representative bindings only. The tool executes any read-only Graph GET the
+      model selects, so the true bound set is every GET operation across the
+      2,000+ read operations in the harvested identity specs — not an enumerable
+      list. Write operations are explicitly out of scope in public preview.
+  - tool: microsoft_graph_list_properties
+    category: schema-introspection
+    binding: metadata
+    confidence: high
+    rest: []
+    note: >-
+      Backed by the OData entity schema, not by a REST operation. Its public
+      first-party equivalent is GET https://graph.microsoft.com/v1.0/$metadata
+      (anonymous, 200, OData 4.0 CSDL), which is why it has no operationId.
+  - tool: microsoft_graph_suggest_queries
+    category: discovery
+    binding: none
+    confidence: high
+    rest: []
+    note: >-
+      A RAG search over Microsoft's curated catalog of Graph query examples. It
+      has no backing REST operation at all; it returns candidate calls for the
+      model to then run through microsoft_graph_get.
+mcp_only:
+  - tool: microsoft_graph_suggest_queries
+    reason: >-
+      Semantic example retrieval — there is no public Graph endpoint that
+      answers "which API call answers this question".
+  - tool: microsoft_graph_list_properties
+    reason: >-
+      Entity schema lookup; served from OData metadata rather than a REST
+      operation with an operationId.
+rest_only:
+  - class: all write operations
+    reason: >-
+      Public preview is read-only. Every POST/PATCH/PUT/DELETE in the harvested
+      specs — user_CreateUser, user_UpdateUser, user_DeleteUser,
+      group_CreateGroup, application_CreateApplication,
+      application_addPassword, directory.deletedItem_restore,
+      subscription_CreateSubscription and ~2,000 others — has no MCP tool.
+  - class: change notification subscriptions
+    reason: >-
+      subscription_CreateSubscription / subscription_reauthorize (webhooks) have
+      no MCP equivalent; an agent cannot subscribe to directory change events
+      through this server.
+  - class: identity governance writes
+    reason: >-
+      Entitlement management, access reviews, PIM and lifecycle workflows expose
+      2,390 operations in Identity.Governance; none is reachable as an MCP tool.
+coverage:
+  mcp_tools: 3
+  mcp_tools_bound_to_rest: 1
+  mcp_only_tools: 2
+  rest_operations_total: 4498
+  rest_operations_with_a_tool: 0
+  note: >-
+    rest_operations_with_a_tool is 0 by design, not by omission: no Graph
+    operation has a dedicated MCP tool. The single executor tool can reach the
+    read subset at runtime, which is a different and weaker guarantee than a
+    named tool per operation — an agent cannot enumerate what it is allowed to
+    call before it calls it.

@@ -1,0 +1,78 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://learn.microsoft.com/en-us/graph/graph-explorer/graph-explorer-features,
+  https://learn.microsoft.com/en-us/graph/graph-explorer/graph-explorer-overview,
+  https://developer.microsoft.com/en-us/graph/graph-explorer (probed 200,
+  2026-09-06)
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+note: >-
+  This API has no test-mode key prefix and no fixture values to publish — it is
+  an identity directory, not a payments API. What Microsoft ships instead is a
+  hosted console plus disposable tenants. Nothing below is a credential and no
+  test values were invented.
+consoles:
+  - name: Graph Explorer
+    url: https://developer.microsoft.com/en-us/graph/graph-explorer
+    http_status: 200
+    anonymous: true
+    anonymous_note: >-
+      Runs against a Microsoft-hosted demo tenant without signing in, so an
+      unauthenticated developer can execute real Graph requests and see real
+      response shapes before ever creating a tenant.
+    features:
+      - Sample queries grouped by service
+      - Resource browser over both v1.0 and beta
+      - Per-permission consent UI ("Modify permissions" shows exactly which scope a query needs)
+      - Access token tab (copy the bearer token into your own REST client)
+      - Code snippets in C#, Java, JavaScript, Go and PowerShell
+      - Export selected resources as a downloadable Postman collection
+      - 30-day query history, exportable as .har
+      - Microsoft Graph Toolkit component preview per query
+      - Adaptive Cards preview per query
+    limits:
+      history_retention_days: 30
+    note: >-
+      The "Modify permissions" tab is the most useful thing here for an agent
+      author: it names the least-privileged scope for the exact request in the
+      address bar. It is documented as being in preview and can miss permissions
+      for some queries.
+sandbox_tenants:
+  - name: Graph Explorer instant sandbox
+    how: Graph Explorer → Settings → get a free instant sandbox preconfigured with sample data packs
+    cost: free
+    note: >-
+      A preconfigured tenant with sample data packs, obtained from inside Graph
+      Explorer without a separate signup flow.
+  - name: Microsoft Entra External ID free tier
+    how: Free for the first 50,000 monthly active users
+    url: https://azure.microsoft.com/en-us/pricing/details/microsoft-entra-external-id/
+    note: The realistic way to develop customer-identity flows without buying licences.
+  - name: Azure free account
+    url: https://azure.microsoft.com/en-us/free/
+    note: >-
+      Creates a tenant with Microsoft Entra ID Free; sufficient to register an
+      application and exercise the OAuth flows, not sufficient for P1/P2-gated
+      surfaces such as Conditional Access or PIM.
+test_credentials:
+  published: false
+  note: >-
+    Microsoft publishes no test client id, test secret or magic test identifier
+    for Entra ID. Every credential is tenant-specific and created by the
+    developer; there is nothing here to record and nothing was invented.
+policy_simulation:
+  - name: Conditional Access What If
+    description: >-
+      Evaluates which Conditional Access policies would apply to a hypothetical
+      sign-in without performing one.
+    docs: https://learn.microsoft.com/en-us/entra/identity/conditional-access/what-if-tool
+  - name: Conditional Access report-only mode
+    description: >-
+      Runs a policy against real sign-ins and logs the outcome without enforcing
+      it — the closest thing on this API to a dry run of a write.
+    docs: https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-report-only
+policy_simulation_note: >-
+  Both are scoped to Conditional Access policy evaluation. There is no
+  validate-only mode on the general directory write surface — see
+  conventions/azure-ad-conventions.yml dry_run_mode.

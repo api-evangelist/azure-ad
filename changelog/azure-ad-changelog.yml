@@ -1,0 +1,102 @@
+generated: '2026-09-06'
+method: searched
+source: https://developer.microsoft.com/en-us/graph/changelog/rss (fetched 200, 2,620 dated items)
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+changelog:
+  url: https://developer.microsoft.com/en-us/graph/changelog
+  feed: https://developer.microsoft.com/en-us/graph/changelog/rss
+  format: RSS 2.0
+  dated: true
+  categorised: true
+  category_for_this_provider: Identity and access
+  scheme: >-
+    Undated version numbers — the Graph API version is v1.0/beta and does not
+    change per release. Change entries are dated, categorised by workload, and
+    scoped to a version (v1.0 or beta). Breaking changes are announced here
+    under the 24-month deprecation policy in lifecycle/azure-ad-lifecycle.yml.
+  current_version: v1.0
+  entries_in_feed: 2620
+  note: >-
+    Recent window only, filtered to the "Identity and access" category, which is
+    the workload this record covers. Descriptions are truncated verbatim quotes
+    from the feed.
+entries:
+  - date: '2026-08-03'
+    category: Identity and access
+    breaking: false
+    additions: true
+    highlights: >-
+      Added the resourceAccountKeyAuthenticationMethods relationship to the
+      authentication resource. Added the resourceAccountKeyAuthenticationMethod
+      resource.
+  - date: '2026-08-03'
+    category: Identity and access
+    breaking: false
+    additions: true
+    highlights: >-
+      Added the verifiedIdMethodType enumeration type. Added the verification
+      member to the verifiedIdUsageConfigurationPurpose enumeration. Added the
+      mobileDriversLicenseConfiguration resource.
+  - date: '2026-07-27'
+    category: Identity and access
+    breaking: false
+    additions: true
+    highlights: >-
+      Added the remoteTenantGroups relationship to the directory resource. Added
+      the remoteTenantGroup resource with Get and List methods.
+  - date: '2026-07-24'
+    category: Identity and access
+    breaking: false
+    additions: true
+    highlights: >-
+      Added the unifiedRoot resource type grouping the unified (vNext) access
+      review collections under the accessReviews/unified path segment; added the
+      unified relationship to the accessReviewSet resource.
+  - date: '2026-07-24'
+    category: Identity and access
+    breaking: false
+    additions: true
+    highlights: >-
+      Added the accessReviewStage: acceptRecommendations method to accept
+      recommendations on all decision items not yet reviewed within a stage.
+  - date: '2026-07-23'
+    category: Identity and access
+    breaking: false
+    additions: true
+    deprecations: true
+    highlights: >-
+      Added the user member to the agentIdentityType enumeration; added
+      displayName and identityId properties to the agentRiskDetection resource;
+      deprecations recorded in the same entry.
+  - date: '2026-07-21'
+    category: Identity and access
+    breaking: false
+    additions: true
+    highlights: >-
+      Added the Update m365CapabilityBase method to the
+      crossTenantAccessPolicyConfigurationDefault and
+      crossTenantAccessPolicyConfigurationPartner resources.
+  - date: '2026-07-16'
+    category: Identity and access
+    breaking: false
+    additions: true
+    highlights: >-
+      Added the customDataProvidedResourceUploadStatus enumeration and the
+      customDataProvidedResourceUploadSession resource to the v1.0 endpoint.
+  - date: '2026-07-16'
+    category: Identity and access
+    breaking: false
+    additions: true
+    highlights: >-
+      Added the customDataProvidedResource resource (a derived type of
+      accessPackageResource) and the catalogs relationship to the
+      identityGovernance resource, both in v1.0.
+  - date: '2026-07-15'
+    category: Identity and access
+    breaking: false
+    additions: true
+    highlights: >-
+      Added the sponsorOf relationship to the user resource and the List
+      sponsorOf method.
+entry_count: 10

@@ -1,0 +1,174 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+  (fetched 200), https://graph.microsoft.com/v1.0/$metadata (fetched 200, OData
+  4.0 CSDL), https://mcp.svc.cloud.microsoft/.well-known/oauth-protected-resource/enterprise
+  (fetched 200), Microsoft Learn identity-platform and Entra provisioning docs,
+  and the harvested Microsoft Graph OpenAPI in openapi/_original/
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+conformance:
+  - id: oauth2
+    name: OAuth 2.0 (RFC 6749)
+    conforms: true
+    evidence: >-
+      Every harvested Graph spec declares a single securityScheme `azureaadv2`
+      of type oauth2 with authorizationCode flow, authorizationUrl
+      https://login.microsoftonline.com/common/oauth2/v2.0/authorize and
+      tokenUrl https://login.microsoftonline.com/common/oauth2/v2.0/token.
+  - id: oidc
+    name: OpenID Connect Core 1.0 / Discovery 1.0
+    conforms: true
+    evidence: >-
+      https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+      returns 200 with issuer, authorization_endpoint, token_endpoint, jwks_uri
+      https://login.microsoftonline.com/common/discovery/v2.0/keys,
+      scopes_supported [openid, profile, email, offline_access],
+      subject_types_supported [pairwise], id_token_signing_alg_values_supported
+      [RS256], userinfo_endpoint https://graph.microsoft.com/oidc/userinfo.
+  - id: oauth2-device-authorization-grant
+    name: OAuth 2.0 Device Authorization Grant (RFC 8628)
+    conforms: true
+    evidence: >-
+      The discovery document advertises device_authorization_endpoint
+      https://login.microsoftonline.com/common/oauth2/v2.0/devicecode.
+  - id: oauth2-private-key-jwt
+    name: JWT client authentication (RFC 7523)
+    conforms: true
+    evidence: >-
+      token_endpoint_auth_methods_supported includes private_key_jwt and
+      self_signed_tls_client_auth alongside client_secret_post and
+      client_secret_basic.
+  - id: rfc9728
+    name: OAuth 2.0 Protected Resource Metadata (RFC 9728)
+    conforms: true
+    evidence: >-
+      The Microsoft MCP Server for Enterprise returns a WWW-Authenticate
+      challenge carrying resource_metadata, and
+      https://mcp.svc.cloud.microsoft/.well-known/oauth-protected-resource/enterprise
+      returns 200 with resource, authorization_servers, scopes_supported and
+      bearer_methods_supported.
+  - id: rfc9116
+    name: security.txt (RFC 9116)
+    conforms: true
+    evidence: >-
+      https://www.microsoft.com/.well-known/security.txt returns 200 with
+      Contact, Canonical, Policy, Acknowledgments, Encryption, Expires and
+      Preferred-Languages fields. Saved verbatim at
+      well-known/azure-ad-security.txt.
+  - id: odata-v4
+    name: OData 4.0 (OASIS)
+    conforms: true
+    domain_standard: true
+    evidence: >-
+      DOMAIN-STANDARD SIGNATURE, read from the contract itself:
+      https://graph.microsoft.com/v1.0/$metadata returns 200
+      application/xml with root <edmx:Edmx Version="4.0"
+      xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"> (1.8 MB of CSDL).
+      The harvested OpenAPI corroborates it — every collection operation carries
+      the OData system query options $select, $filter, $top, $skip, $orderby,
+      $count, $expand and $search as declared parameters, and error bodies are
+      typed odata.error. A consumer that already speaks OData integrates with
+      no bespoke connector.
+  - id: scim2
+    name: SCIM 2.0 (RFC 7643 / RFC 7644)
+    conforms: true
+    domain_standard: true
+    evidence: >-
+      Microsoft Entra ID provisioning is a SCIM 2.0 client: Entra provisions
+      users and groups into third-party applications over the SCIM 2.0 protocol,
+      and Microsoft publishes a paid SCIM 2.0 Provisioning API
+      (https://azure.microsoft.com/en-us/pricing/details/entraid/scimapi/).
+      Recorded as the identity-domain standard for this provider. Entra is the
+      SCIM CLIENT here — Microsoft Graph itself is OData, not a SCIM service
+      provider — so this conformance describes outbound provisioning, not the
+      Graph endpoints in openapi/.
+    docs: https://learn.microsoft.com/en-us/entra/identity/app-provisioning/use-scim-to-provision-users-and-groups
+  - id: saml2
+    name: SAML 2.0
+    conforms: true
+    evidence: >-
+      Entra ID is a SAML 2.0 identity provider for federated SSO; federation
+      metadata is published per tenant at
+      https://login.microsoftonline.com/{tenant}/federationmetadata/2007-06/federationmetadata.xml
+      and the directory resource exposes federationConfigurations for SAML/WS-Fed
+      domain federation.
+    docs: https://learn.microsoft.com/en-us/entra/identity-platform/single-sign-on-saml-protocol
+  - id: ws-federation
+    name: WS-Federation
+    conforms: true
+    evidence: >-
+      The directory resource's federationConfigurations relationship documents
+      domain federation with identity providers supporting "either the SAML or
+      WS-Fed protocol"
+      (https://learn.microsoft.com/en-us/graph/api/resources/directory).
+  - id: fido2-webauthn
+    name: FIDO2 / W3C WebAuthn
+    conforms: true
+    evidence: >-
+      Entra ID supports FIDO2 security keys and passkeys as authentication
+      methods; the harvested Identity.SignIns spec exposes the
+      fido2AuthenticationMethod and fido2AuthenticationMethodConfiguration
+      schemas under the users.authentication and policies tags.
+    docs: https://learn.microsoft.com/en-us/entra/identity/authentication/concept-fido2-compatibility
+  - id: rfc9457
+    name: RFC 9457 Problem Details for HTTP APIs
+    conforms: false
+    evidence: >-
+      Microsoft Graph uses its own JSON error envelope
+      {"error":{"code","message","innerError","details"}} following the
+      Microsoft REST API Guidelines, served as application/json — not
+      application/problem+json. See errors/azure-ad-problem-types.yml.
+  - id: pagination
+    name: Cursor pagination
+    conforms: true
+    evidence: >-
+      Collection responses carry @odata.nextLink (opaque skiptoken cursor) and
+      optionally @odata.count; $top bounds the page. Declared as the `top`,
+      `skip` and `count` shared parameters in every harvested spec.
+  - id: idempotency
+    name: Idempotency keys on writes
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header is documented anywhere in the Microsoft Graph
+      reference and none appears in the 4,498 harvested operations. Replay
+      protection is optimistic-concurrency only (If-Match / ETag, HTTP 412). See
+      conventions/azure-ad-conventions.yml.
+  - id: webhooks
+    name: Push change notifications
+    conforms: true
+    evidence: >-
+      Microsoft Graph change notifications deliver created/updated/deleted events
+      for user, group and other directory resources over webhooks, Azure Event
+      Hubs or Azure Event Grid, managed through the subscription resource
+      (subscription_CreateSubscription in
+      openapi/_original/azure-ad-graph-changenotifications-openapi.yml).
+    docs: https://learn.microsoft.com/en-us/graph/change-notifications-overview
+compliance:
+  note: >-
+    Microsoft publishes its certification portfolio through the Microsoft Trust
+    Center and Service Trust Portal rather than in any API artifact; the
+    certifications below are named on those first-party pages and are recorded
+    in security/azure-ad-trust-center.yml.
+  certifications:
+    - SOC 1 / SOC 2 / SOC 3
+    - ISO/IEC 27001
+    - ISO/IEC 27017
+    - ISO/IEC 27018
+    - ISO/IEC 27701
+    - FedRAMP High
+    - HIPAA / HITECH
+    - PCI DSS
+    - GDPR
+  sources:
+    - https://www.microsoft.com/en-us/trust-center
+    - https://servicetrust.microsoft.com/
+    - https://learn.microsoft.com/en-us/compliance/regulatory/offering-home
+summary:
+  asserted: 15
+  conforms_true: 13
+  conforms_false: 2
+  domain_standards:
+    - odata-v4
+    - scim2

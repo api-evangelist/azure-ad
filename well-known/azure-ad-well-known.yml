@@ -1,0 +1,204 @@
+generated: '2026-09-06'
+method: probed
+source: live HTTPS probes of every host this record knows, 2026-09-06
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+note: >-
+  Every host in apis.yml (baseURL + link properties), every OpenAPI servers[]
+  host, the docs/console hosts, and the authorization server named by the MCP
+  server's RFC 9728 resource-metadata document were probed for the five named
+  well-known paths plus both A2A agent-card paths. Three real documents were
+  found. Microsoft does NOT serve /.well-known/openid-configuration at the root
+  of login.microsoftonline.com — the OpenID Provider metadata is tenant-scoped
+  and lives under /{tenant}/v2.0/.well-known/openid-configuration, which is
+  recorded below at the exact path that answers.
+hosts:
+  - host: www.microsoft.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: azure-ad-security.txt
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: microsoft.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: azure-ad-security.txt
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: login.microsoftonline.com
+    documents:
+      - path: /common/v2.0/.well-known/openid-configuration
+        status: 200
+        file: azure-ad-openid-configuration.json
+        note: >-
+          OpenID Provider metadata for the Microsoft identity platform v2.0
+          endpoint. issuer https://login.microsoftonline.com/{tenantid}/v2.0,
+          jwks_uri https://login.microsoftonline.com/common/discovery/v2.0/keys.
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: mcp.svc.cloud.microsoft
+    documents:
+      - path: /.well-known/oauth-protected-resource/enterprise
+        status: 200
+        file: azure-ad-oauth-protected-resource.json
+        note: >-
+          RFC 9728 OAuth 2.0 Protected Resource Metadata for the Microsoft MCP
+          Server for Enterprise. Discovered from the WWW-Authenticate challenge
+          the MCP endpoint returns; names
+          https://login.microsoftonline.com/organizations/v2.0 as the
+          authorization server.
+      - path: /.well-known/oauth-protected-resource
+        status: 400
+      - path: /.well-known/oauth-authorization-server
+        status: 400
+      - path: /.well-known/security.txt
+        status: 400
+      - path: /.well-known/api-catalog
+        status: 400
+      - path: /.well-known/ai-plugin.json
+        status: 400
+      - path: /.well-known/agent-card.json
+        status: 400
+      - path: /.well-known/agent.json
+        status: 400
+  - host: graph.microsoft.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 401
+      - path: /.well-known/openid-configuration
+        status: 401
+      - path: /.well-known/oauth-authorization-server
+        status: 401
+      - path: /.well-known/api-catalog
+        status: 401
+      - path: /.well-known/ai-plugin.json
+        status: 401
+      - path: /.well-known/agent-card.json
+        status: 401
+      - path: /.well-known/agent.json
+        status: 401
+    note: >-
+      graph.microsoft.com answers 401 InvalidAuthenticationToken for every path,
+      /.well-known/* included — the API host has no anonymous discovery surface.
+  - host: azure.microsoft.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: learn.microsoft.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: developer.microsoft.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: portal.azure.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: entra.microsoft.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+summary:
+  hosts_probed: 10
+  documents_found: 3
+  api_catalog: false
+  agent_card: false
+  security_txt: true
+  openid_configuration: true
+  oauth_protected_resource: true

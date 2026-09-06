@@ -1,0 +1,256 @@
+generated: '2026-09-06'
+method: derived
+source: >-
+  openapi/_original/azure-ad-graph-*.yml (harvested first-party Microsoft Graph
+  v1.0 specs) — schema $ref graph and inheritance chains read directly from
+  components.schemas; entity descriptions cross-checked against
+  https://learn.microsoft.com/en-us/graph/api/resources/directory
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+model: OData 4.0 entity model
+model_note: >-
+  The authoritative shape is the OData CSDL served anonymously at
+  https://graph.microsoft.com/v1.0/$metadata (200, 1.8 MB). The OpenAPI documents
+  in openapi/_original/ are a projection of that same model, which is why every
+  schema is namespaced microsoft.graph.* and every directory entity inherits from
+  microsoft.graph.directoryObject.
+identifiers:
+  scheme: GUID
+  note: >-
+    Directory object ids are opaque GUIDs with no type prefix — a user id and a
+    group id are indistinguishable by inspection, unlike prefix-encoded ids on
+    many APIs. Type is carried by @odata.type on polymorphic collections. The
+    canonical alternate key on users is userPrincipalName; on groups,
+    mailNickname; on applications, appId (distinct from the object id — a
+    long-standing source of integration bugs).
+inheritance:
+  root: microsoft.graph.entity
+  base: microsoft.graph.directoryObject
+  note: >-
+    directoryObject inherits from entity and is itself the base for user, group,
+    application, servicePrincipal, device, directoryRole, administrativeUnit,
+    organization and appRoleAssignment. Membership and ownership collections are
+    typed directoryObject and are POLYMORPHIC — /groups/{id}/members returns
+    users, groups, devices and service principals in one collection, so a client
+    must switch on @odata.type rather than assume users.
+entities:
+  - name: user
+    schema: microsoft.graph.user
+    extends: microsoft.graph.directoryObject
+    properties: 135
+    operations: 272
+    spec: openapi/_original/azure-ad-graph-users-openapi.yml
+    key_operations: [user_ListUser, user_GetUser, user_CreateUser, user_UpdateUser, user_DeleteUser]
+    soft_deleted: true
+    restore_window_days: 30
+  - name: group
+    schema: microsoft.graph.group
+    extends: microsoft.graph.directoryObject
+    properties: 79
+    operations: 304
+    spec: openapi/_original/azure-ad-graph-groups-openapi.yml
+    key_operations: [group_ListGroup, group_GetGroup, group_CreateGroup, group_UpdateGroup, group_DeleteGroup]
+    soft_deleted: true
+    restore_window_days: 30
+  - name: application
+    schema: microsoft.graph.application
+    extends: microsoft.graph.directoryObject
+    properties: 51
+    spec: openapi/_original/azure-ad-graph-applications-openapi.yml
+    key_operations: [application_ListApplication, application_GetApplication, application_CreateApplication, application_addPassword]
+    soft_deleted: true
+    restore_window_days: 30
+  - name: servicePrincipal
+    schema: microsoft.graph.servicePrincipal
+    extends: microsoft.graph.directoryObject
+    properties: 54
+    spec: openapi/_original/azure-ad-graph-applications-openapi.yml
+    key_operations: [servicePrincipal_ListServicePrincipal, servicePrincipal_GetServicePrincipal, servicePrincipal_CreateServicePrincipal]
+    soft_deleted: true
+    restore_window_days: 30
+    note: >-
+      The tenant-local instance of an application. application and
+      servicePrincipal are two objects for one logical app and are the most
+      commonly conflated pair in this model.
+  - name: device
+    schema: microsoft.graph.device
+    extends: microsoft.graph.directoryObject
+    properties: 35
+    spec: openapi/_original/azure-ad-graph-identity-directorymanagement-openapi.yml
+    soft_deleted: false
+  - name: directoryRole
+    schema: microsoft.graph.directoryRole
+    extends: microsoft.graph.directoryObject
+    properties: 5
+    spec: openapi/_original/azure-ad-graph-identity-directorymanagement-openapi.yml
+    soft_deleted: false
+  - name: administrativeUnit
+    schema: microsoft.graph.administrativeUnit
+    extends: microsoft.graph.directoryObject
+    properties: 10
+    spec: openapi/_original/azure-ad-graph-identity-directorymanagement-openapi.yml
+    soft_deleted: false
+  - name: organization
+    schema: microsoft.graph.organization
+    extends: microsoft.graph.directoryObject
+    properties: 27
+    spec: openapi/_original/azure-ad-graph-identity-directorymanagement-openapi.yml
+    note: The tenant itself.
+  - name: appRoleAssignment
+    schema: microsoft.graph.appRoleAssignment
+    extends: microsoft.graph.directoryObject
+    properties: 7
+    note: Join object binding a principal (user, group or servicePrincipal) to an appRole on a resource servicePrincipal.
+  - name: oAuth2PermissionGrant
+    schema: microsoft.graph.oAuth2PermissionGrant
+    extends: microsoft.graph.entity
+    properties: 5
+    note: A delegated-permission consent grant; the runtime record of which scopes a client holds for a resource.
+  - name: subscription
+    schema: microsoft.graph.subscription
+    extends: microsoft.graph.entity
+    properties: 14
+    spec: openapi/_original/azure-ad-graph-changenotifications-openapi.yml
+    note: A change-notification subscription; see asyncapi/azure-ad-change-notifications-webhooks.yml.
+relationships:
+  - from: user
+    to: directoryObject
+    field: memberOf
+    cardinality: has_many
+    note: Polymorphic — groups, directory roles and administrative units.
+  - from: user
+    to: directoryObject
+    field: transitiveMemberOf
+    cardinality: has_many
+  - from: user
+    to: directoryObject
+    field: manager
+    cardinality: has_one
+  - from: user
+    to: directoryObject
+    field: directReports
+    cardinality: has_many
+  - from: user
+    to: microsoft.graph.appRoleAssignment
+    field: appRoleAssignments
+    cardinality: has_many
+  - from: user
+    to: microsoft.graph.oAuth2PermissionGrant
+    field: oauth2PermissionGrants
+    cardinality: has_many
+  - from: user
+    to: microsoft.graph.assignedLicense
+    field: assignedLicenses
+    cardinality: has_many
+  - from: user
+    to: microsoft.graph.objectIdentity
+    field: identities
+    cardinality: has_many
+    note: Federated and local sign-in identities; the B2C/External ID join point.
+  - from: user
+    to: microsoft.graph.authentication
+    field: authentication
+    cardinality: has_one
+    note: Authentication methods (FIDO2, passkeys, phone, TAP) hang off here — 68 operations in Identity.SignIns.
+  - from: group
+    to: directoryObject
+    field: members
+    cardinality: has_many
+    note: Polymorphic — users, groups, devices, service principals.
+  - from: group
+    to: directoryObject
+    field: owners
+    cardinality: has_many
+  - from: group
+    to: directoryObject
+    field: transitiveMembers
+    cardinality: has_many
+    note: Costs 5 ResourceUnits per call — see rate-limits/.
+  - from: group
+    to: microsoft.graph.appRoleAssignment
+    field: appRoleAssignments
+    cardinality: has_many
+  - from: application
+    to: microsoft.graph.passwordCredential
+    field: passwordCredentials
+    cardinality: has_many
+  - from: application
+    to: microsoft.graph.keyCredential
+    field: keyCredentials
+    cardinality: has_many
+  - from: application
+    to: microsoft.graph.appRole
+    field: appRoles
+    cardinality: has_many
+  - from: application
+    to: microsoft.graph.requiredResourceAccess
+    field: requiredResourceAccess
+    cardinality: has_many
+    note: The declared permission set the app requests — the static side of consent.
+  - from: application
+    to: directoryObject
+    field: owners
+    cardinality: has_many
+  - from: servicePrincipal
+    to: microsoft.graph.permissionScope
+    field: oauth2PermissionScopes
+    cardinality: has_many
+    note: The delegated scopes this resource publishes; the source list behind scopes/azure-ad-scopes.yml.
+  - from: servicePrincipal
+    to: microsoft.graph.appRole
+    field: appRoles
+    cardinality: has_many
+    note: The application permissions this resource publishes.
+  - from: servicePrincipal
+    to: microsoft.graph.appRoleAssignment
+    field: appRoleAssignedTo
+    cardinality: has_many
+  - from: servicePrincipal
+    to: microsoft.graph.samlSingleSignOnSettings
+    field: samlSingleSignOnSettings
+    cardinality: has_one
+  - from: device
+    to: directoryObject
+    field: registeredOwners
+    cardinality: has_many
+  - from: device
+    to: directoryObject
+    field: registeredUsers
+    cardinality: has_many
+  - from: directoryRole
+    to: directoryObject
+    field: members
+    cardinality: has_many
+  - from: directoryRole
+    to: microsoft.graph.scopedRoleMembership
+    field: scopedMembers
+    cardinality: has_many
+  - from: administrativeUnit
+    to: directoryObject
+    field: members
+    cardinality: has_many
+  - from: organization
+    to: microsoft.graph.verifiedDomain
+    field: verifiedDomains
+    cardinality: has_many
+  - from: organization
+    to: microsoft.graph.organizationalBranding
+    field: branding
+    cardinality: has_one
+extension_points:
+  - name: open extensions
+    note: Unstructured key/value data attached to an instance.
+  - name: schema extensions
+    note: Typed, tenant-registered extension schemas.
+  - name: directory extension properties
+    note: Registered on an application, applied to directory objects.
+  - name: custom security attributes
+    note: Access-controlled attribute sets used in attribute-based access control.
+counts:
+  entities_profiled: 11
+  relationships: 29
+  schemas_in_harvested_specs: 4991
+  note: >-
+    schemas_in_harvested_specs counts component schemas across the eight
+    harvested workload specs with duplicates (each spec restates the shared
+    microsoft.graph.* types it needs).

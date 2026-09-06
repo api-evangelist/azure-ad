@@ -1,11 +1,11 @@
-generated: '2026-07-11'
+generated: '2026-09-06'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
 - host: portal.azure.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Jan  5 19:53:18 2027 GMT
+  cert_expires: Feb 25 12:39:07 2027 GMT
   hsts: true
   hsts_max_age: 31536000
 - host: docs.microsoft.com
@@ -14,11 +14,12 @@ hosts:
   cert_expires: Dec 10 06:59:10 2026 GMT
   hsts: true
   hsts_max_age: 31536000
-- host: graph.microsoft.com
+- host: login.microsoftonline.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Dec  6 07:59:33 2026 GMT
-  hsts: null
+  cert_expires: Nov 22 03:32:13 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
 domains:
 - domain: azure.com
   dnssec: false

@@ -1,0 +1,151 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://learn.microsoft.com/en-us/graph/change-notifications-overview and
+  openapi/_original/azure-ad-graph-changenotifications-openapi.yml (harvested
+  first-party spec, 6 operations)
+provider: Azure Active Directory (Microsoft Entra ID)
+providerId: azure-ad
+type: Webhooks
+asyncapi_published: false
+asyncapi_note: >-
+  Microsoft publishes no AsyncAPI document for Microsoft Graph change
+  notifications. The event surface is real and first-party, but it is described
+  in prose plus an OpenAPI for the subscription lifecycle; nothing was fabricated
+  to fill the AsyncAPI slot.
+name: Microsoft Graph change notifications
+description: >-
+  Push notifications for created / updated / deleted events on Microsoft Entra
+  directory resources. An app creates a subscription against a resource path, and
+  Microsoft Graph delivers change notifications to the chosen channel until the
+  subscription expires or is deleted.
+delivery_channels:
+  - name: webhook
+    transport: HTTPS POST to a client-supplied notificationUrl
+    docs: https://learn.microsoft.com/en-us/graph/change-notifications-delivery-webhooks
+  - name: azure-event-hubs
+    transport: Azure Event Hubs
+    docs: https://learn.microsoft.com/en-us/graph/change-notifications-delivery-event-hubs
+  - name: azure-event-grid
+    transport: Azure Event Grid partner topic
+    docs: https://learn.microsoft.com/en-us/azure/event-grid/subscribe-to-graph-api-events
+notification_types:
+  - name: basic
+    description: Carries only the id of the changed resource; the client re-queries Graph for the data.
+  - name: rich
+    description: >-
+      Carries the resource data of the changed object, encrypted with a
+      client-supplied public key.
+    docs: https://learn.microsoft.com/en-us/graph/change-notifications-with-resource-data
+  - name: lifecycle
+    description: >-
+      Alerts the client that it is at risk of missing notifications (subscription
+      nearing expiry, reauthorization required, missed notifications).
+    docs: https://learn.microsoft.com/en-us/graph/change-notifications-lifecycle-events
+change_types:
+  - created
+  - updated
+  - deleted
+events:
+  - resource: user
+    paths:
+      - /users
+      - /users/{id}
+    change_types: [created, updated, deleted]
+    quotas:
+      per_app_all_tenants: 50000
+      per_tenant_all_apps: 1000
+      per_app_and_tenant: 100
+    max_expiration_minutes: 41760
+    max_expiration_note: under 29 days
+    limitations: >-
+      Not supported for personal Microsoft accounts or Azure AD B2C tenants.
+      Creation and SOFT-DELETION of users both surface as the `updated`
+      changeType, not as `created`/`deleted` — a consumer that switches on
+      changeType alone will misread both.
+  - resource: group
+    paths:
+      - /groups
+      - /groups/{id}
+      - /groups/{id}/owners
+      - /groups/{id}/members
+    change_types: [created, updated, deleted]
+    quotas:
+      per_app_all_tenants: 50000
+      per_tenant_all_apps: 1000
+      per_app_and_tenant: 100
+    max_expiration_minutes: 41760
+    max_expiration_note: under 29 days
+    limitations: >-
+      Not supported for Azure AD B2C tenants. Creation and soft-deletion of
+      groups also trigger the `updated` changeType.
+  - resource: healthmonitoring alert
+    paths:
+      - /reports/healthmonitoring/alerts
+    change_types: [created, updated]
+    max_expiration_minutes: 42300
+    max_expiration_note: under 30 days
+    note: Microsoft Entra Health Monitoring alerts.
+  - resource: other directory resources
+    paths: []
+    max_expiration_minutes: 41760
+    max_expiration_note: under 29 days
+    note: >-
+      The subscription lifetime table groups "user, group, other directory
+      resources" under one maximum expiration.
+subscription_lifecycle:
+  spec: openapi/_original/azure-ad-graph-changenotifications-openapi.yml
+  operations:
+    - operationId: subscription_ListSubscription
+      method: GET
+      path: /subscriptions
+    - operationId: subscription_CreateSubscription
+      method: POST
+      path: /subscriptions
+    - operationId: subscription_GetSubscription
+      method: GET
+      path: /subscriptions/{subscription-id}
+    - operationId: subscription_UpdateSubscription
+      method: PATCH
+      path: /subscriptions/{subscription-id}
+      note: Renewal — extend expirationDateTime before it lapses.
+    - operationId: subscription_DeleteSubscription
+      method: DELETE
+      path: /subscriptions/{subscription-id}
+    - operationId: subscription_reauthorize
+      method: POST
+      path: /subscriptions/{subscription-id}/reauthorize
+  renewal_required: true
+  renewal_note: >-
+    Subscriptions expire. An app must renew before expirationDateTime or create a
+    new subscription; events occurring while no subscription exists are not
+    replayed. Lifecycle notifications are the documented way to be told this is
+    about to happen.
+validation:
+  handshake: >-
+    On subscription creation Graph POSTs a validationToken to the notificationUrl;
+    the endpoint must echo it back as text/plain within the timeout or the
+    subscription is refused.
+  client_state: >-
+    A clientState secret set at subscription time is echoed in every notification
+    so the receiver can verify the sender.
+errors:
+  quota_exceeded:
+    status: 403
+    note: >-
+      Exceeding a subscription quota returns 403 Forbidden; the error message
+      names the limit that was hit.
+latency:
+  user: not published by Microsoft ("Unknown" in the latency table)
+  group: not published by Microsoft ("Unknown" in the latency table)
+  note: >-
+    Microsoft publishes average/maximum notification latency for many workloads
+    but records "Unknown" for both user and group — the two directory resources
+    that matter here. An event-driven agent cannot bound its own staleness from
+    the published data.
+alternative:
+  name: delta query (change tracking)
+  docs: https://learn.microsoft.com/en-us/graph/delta-query-overview
+  note: Pull-based change tracking; the documented alternative to polling.
+docs: https://learn.microsoft.com/en-us/graph/change-notifications-overview
+event_count: 4
