@@ -45,7 +45,7 @@ tags_raw:
   - OAuth
   - OpenID Connect
   - Single Sign-On
-url: 
+url: https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id
   https://raw.githubusercontent.com/api-evangelist/azure-ad/refs/heads/main/apis.yml
 created: '2024-01-01'
 modified: '2026-09-06'
@@ -414,5 +414,5 @@ x-enrichment:
   status: enriched
   artifacts_added: 42
   pass: local-v3
-x-parent: microsoft
+x-parent: microsoft-entra
 x-relationship: product
