@@ -1,10 +1,8 @@
 aid: azure-ad
 name: Microsoft Entra ID (formerly Azure AD)
-description: >-
-  Microsoft's cloud-based identity and access management service that helps
-  employees sign in and access resources. Azure AD provides OAuth, OpenID
-  Connect, SAML, and other identity protocols for securing applications and
-  managing user identities.
+description: Microsoft's cloud-based identity and access management service that helps employees sign
+  in and access resources. Azure AD provides OAuth, OpenID Connect, SAML, and other identity protocols
+  for securing applications and managing user identities.
 type: Index
 deliveryModel:
   model: saas
@@ -33,22 +31,21 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/azure-ad.png
 tags:
-  - Authentication
-  - Authorization
-  - Identity
-  - OpenID Connect
-  - Single Sign-On
+- Authentication
+- Authorization
+- Identity
+- OpenID Connect
+- Single Sign-On
 tags_raw:
-  - Authentication
-  - Authorization
-  - Identity
-  - OAuth
-  - OpenID Connect
-  - Single Sign-On
-url: https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id
-  https://raw.githubusercontent.com/api-evangelist/azure-ad/refs/heads/main/apis.yml
+- Authentication
+- Authorization
+- Identity
+- OAuth
+- OpenID Connect
+- Single Sign-On
+url: https://raw.githubusercontent.com/api-evangelist/azure-ad/refs/heads/main/apis.yml
 created: '2024-01-01'
-modified: '2026-09-06'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
 - aid: azure-ad:azure-ad-b2c-api
@@ -86,7 +83,7 @@ apis:
   - type: ChangeLog
     url: https://developer.microsoft.com/en-us/graph/changelog
 - aid: azure-ad:azure-ad-directory-api
-  name: Azure Active Directory Directory API
+  name: Azure Active Directory API
   description: Directory roles and objects
   humanURL: https://learn.microsoft.com/en-us/graph/overview
   baseURL: https://graph.microsoft.com/v1.0
@@ -169,8 +166,8 @@ apis:
     url: https://developer.microsoft.com/en-us/graph/changelog
 - aid: azure-ad:azure-ad-signins-api
   name: Microsoft Entra ID Sign-Ins and Policies API
-  description: Authentication methods, Conditional Access policies, identity providers,
-    cross-tenant access policies and External ID (B2X) user flows in Microsoft Entra ID.
+  description: Authentication methods, Conditional Access policies, identity providers, cross-tenant access
+    policies and External ID (B2X) user flows in Microsoft Entra ID.
   humanURL: https://learn.microsoft.com/en-us/graph/api/resources/conditionalaccesspolicy
   baseURL: https://graph.microsoft.com/v1.0
   tags:
@@ -192,8 +189,8 @@ apis:
     url: https://developer.microsoft.com/en-us/graph/changelog
 - aid: azure-ad:azure-ad-governance-api
   name: Microsoft Entra ID Governance API
-  description: Entitlement management, access packages, access reviews, privileged
-    identity management and lifecycle workflows.
+  description: Entitlement management, access packages, access reviews, privileged identity management
+    and lifecycle workflows.
   humanURL: https://learn.microsoft.com/en-us/graph/api/resources/identitygovernance-overview
   baseURL: https://graph.microsoft.com/v1.0
   tags:
@@ -215,8 +212,8 @@ apis:
     url: https://developer.microsoft.com/en-us/graph/changelog
 - aid: azure-ad:azure-ad-directory-objects-api
   name: Microsoft Entra ID Directory Objects API
-  description: Generic directory object operations - check member groups and objects,
-    resolve objects by id, validate properties - plus the tenant public key infrastructure.
+  description: Generic directory object operations - check member groups and objects, resolve objects
+    by id, validate properties - plus the tenant public key infrastructure.
   humanURL: https://learn.microsoft.com/en-us/graph/api/resources/directoryobject
   baseURL: https://graph.microsoft.com/v1.0
   tags:
@@ -232,12 +229,14 @@ apis:
     url: https://developer.microsoft.com/en-us/graph/changelog
 - aid: azure-ad:azure-ad-change-notifications-api
   name: Microsoft Entra ID Change Notifications API
-  description: Subscription lifecycle for Microsoft Graph change notifications - push
-    events for created, updated and deleted directory objects over webhooks, Azure
-    Event Hubs or Azure Event Grid.
+  description: Subscription lifecycle for Microsoft Graph change notifications - push events for created,
+    updated and deleted directory objects over webhooks, Azure Event Hubs or Azure Event Grid.
   humanURL: https://learn.microsoft.com/en-us/graph/change-notifications-overview
   baseURL: https://graph.microsoft.com/v1.0
   tags:
+  - Webhook
+  - Event
+  tags_raw:
   - Webhooks
   - Events
   properties:
@@ -250,165 +249,149 @@ apis:
   - type: Documentation
     url: https://learn.microsoft.com/en-us/graph/change-notifications-overview
 common:
-  - type: Website
-    url: https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id
-  - type: SDKs
-    url: packages/azure-ad-packages.yml
-  - type: Security
-    url: security/azure-ad-vulnerability-disclosure.yml
-  - type: Deprecation
-    url: lifecycle/azure-ad-lifecycle.yml
-  - type: Idempotency
-    url: conventions/azure-ad-conventions.yml
-  - type: TrustCenter
-    url: security/azure-ad-trust-center.yml
-  - type: APIReference
-    url: https://learn.microsoft.com/en-us/graph/api/overview
-  - type: Webhooks
-    url: asyncapi/azure-ad-change-notifications-webhooks.yml
-  - type: Console
-    url: https://developer.microsoft.com/en-us/graph/graph-explorer
-  - type: Postman
-    url: https://www.postman.com/microsoftgraph
-  - type: SignUp
-    url: https://azure.microsoft.com/en-us/free/
-  - type: Roadmap
-    url: https://www.microsoft.com/en-us/microsoft-365/roadmap
-  - type: Support
-    url: https://developer.microsoft.com/en-us/graph/support
-  - type: DeveloperPortal
-    url: https://developer.microsoft.com/en-us/graph
-  - type: RateLimits
-    url: rate-limits/azure-ad-rate-limits.yml
-  - type: Plans
-    url: plans/azure-ad-plans-pricing.yml
-  - type: AgentSkill
-    url: skills/_index.yml
-  - type: Sandbox
-    url: sandbox/azure-ad-sandbox.yml
-  - type: DataModel
-    url: data-model/azure-ad-data-model.yml
-  - type: Components
-    url: components/azure-ad-components.yml
-  - type: CLI
-    url: cli/azure-ad-cli.yml
-  - type: ChangeLog
-    url: changelog/azure-ad-changelog.yml
-  - type: Conventions
-    url: conventions/azure-ad-conventions.yml
-  - type: Lifecycle
-    url: lifecycle/azure-ad-lifecycle.yml
-  - type: ErrorCatalog
-    url: errors/azure-ad-problem-types.yml
-  - type: Compliance
-    url: security/azure-ad-trust-center.yml
-  - type: Conformance
-    url: conformance/azure-ad-conformance.yml
-  - type: LLMsTxt
-    url: llms/azure-ad-llms.txt
-  - type: ToolCrosswalk
-    url: mcp/azure-ad-tool-crosswalk.yml
-  - type: MCPServer
-    url: mcp/azure-ad-mcp.yml
-  - type: SecurityTxt
-    url: well-known/azure-ad-security.txt
-  - type: WellKnown
-    url: well-known/azure-ad-well-known.yml
-  - type: Packages
-    url: packages/azure-ad-packages.yml
-  - type: VulnerabilityDisclosure
-    url: security/azure-ad-vulnerability-disclosure.yml
-  - type: AgenticAccess
-    url: agentic-access/azure-ad-agentic-access.yml
-  - type: DomainSecurity
-    url: security/azure-ad-domain-security.yml
-  - type: Authentication
-    url: authentication/azure-ad-authentication.yml
-  - type: OAuthScopes
-    url: scopes/azure-ad-scopes.yml
-  - type: GitHubOrganization
-    url: https://github.com/AzureAD
-  - type: Portal
-    url: https://portal.azure.com
-  - type: Documentation
-    url: https://learn.microsoft.com/en-us/azure/active-directory/
-  - type: StatusPage
-    url: https://status.azure.com
-  - type: Blog
-    url: https://www.microsoft.com/en-us/security/blog/
-  - type: BlogRSS
-    url: https://www.microsoft.com/en-us/security/blog/feed/
-  - type: PrivacyPolicy
-    url: https://privacy.microsoft.com/en-us/privacystatement
-  - type: TermsOfService
-    url: https://azure.microsoft.com/en-us/support/legal/
-  - type: Pricing
-    url: https://azure.microsoft.com/en-us/pricing/details/active-directory/
-  - type: GettingStarted
-    url: 
-      https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/get-started-azure-ad
-  - type: Features
-    data:
-    - name: Single Sign-On
-      description: Enable users to sign in once and access all connected apps 
-        without re-authenticating.
-    - name: Multi-Factor Authentication
-      description: Enforce MFA to add an extra layer of security beyond passwords.
-    - name: Conditional Access
-      description: Define access policies based on user, device, location, and 
-        risk signals.
-    - name: OAuth 2.0 and OpenID Connect
-      description: Industry-standard protocols for authorization and 
-        authentication.
-    - name: SAML 2.0 Support
-      description: Federate with thousands of SAML-based SaaS applications.
-    - name: Identity Protection
-      description: Detect and respond to identity-based risks with AI-powered 
-        signals.
-    - name: Privileged Identity Management
-      description: Just-in-time privileged access with approval workflows and 
-        audit.
-    - name: B2B Collaboration
-      description: Invite external users from partner organizations to access your
-        resources.
-    - name: External Identities
-      description: Enable customer and partner identity management with Azure AD 
-        B2C and B2B.
-  - type: UseCases
-    data:
-    - name: Enterprise SSO
-      description: Provide single sign-on for employees across thousands of SaaS 
-        applications.
-    - name: Zero Trust Security
-      description: Implement zero trust architecture with identity as the control 
-        plane.
-    - name: Consumer Identity
-      description: Build customer-facing login with Azure AD B2C supporting social
-        identities.
-    - name: API Security
-      description: Secure APIs with OAuth 2.0 tokens issued by Azure AD.
-    - name: Hybrid Identity
-      description: Extend on-premises Active Directory to the cloud with Azure AD 
-        Connect.
-  - type: Integrations
-    data:
-    - name: Microsoft 365
-      description: Provides identity and access management for all Microsoft 365 
-        applications.
-    - name: Salesforce
-      description: SAML-based SSO integration with Salesforce CRM and Platform.
-    - name: ServiceNow
-      description: Federated SSO and user provisioning for ServiceNow via SAML and
-        SCIM.
-    - name: GitHub Enterprise
-      description: SAML SSO and SCIM provisioning for GitHub Enterprise 
-        organizations.
-    - name: AWS
-      description: Federate Azure AD with AWS IAM Identity Center for cross-cloud 
-        SSO.
+- type: Website
+  url: https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id
+- type: SDKs
+  url: packages/azure-ad-packages.yml
+- type: Security
+  url: security/azure-ad-vulnerability-disclosure.yml
+- type: Deprecation
+  url: lifecycle/azure-ad-lifecycle.yml
+- type: Idempotency
+  url: conventions/azure-ad-conventions.yml
+- type: TrustCenter
+  url: security/azure-ad-trust-center.yml
+- type: APIReference
+  url: https://learn.microsoft.com/en-us/graph/api/overview
+- type: Webhooks
+  url: asyncapi/azure-ad-change-notifications-webhooks.yml
+- type: Console
+  url: https://developer.microsoft.com/en-us/graph/graph-explorer
+- type: Postman
+  url: https://www.postman.com/microsoftgraph
+- type: SignUp
+  url: https://azure.microsoft.com/en-us/free/
+- type: Roadmap
+  url: https://www.microsoft.com/en-us/microsoft-365/roadmap
+- type: Support
+  url: https://developer.microsoft.com/en-us/graph/support
+- type: DeveloperPortal
+  url: https://developer.microsoft.com/en-us/graph
+- type: RateLimits
+  url: rate-limits/azure-ad-rate-limits.yml
+- type: Plans
+  url: plans/azure-ad-plans-pricing.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Sandbox
+  url: sandbox/azure-ad-sandbox.yml
+- type: DataModel
+  url: data-model/azure-ad-data-model.yml
+- type: Components
+  url: components/azure-ad-components.yml
+- type: CLI
+  url: cli/azure-ad-cli.yml
+- type: ChangeLog
+  url: changelog/azure-ad-changelog.yml
+- type: Conventions
+  url: conventions/azure-ad-conventions.yml
+- type: Lifecycle
+  url: lifecycle/azure-ad-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/azure-ad-problem-types.yml
+- type: Compliance
+  url: security/azure-ad-trust-center.yml
+- type: Conformance
+  url: conformance/azure-ad-conformance.yml
+- type: LLMsTxt
+  url: llms/azure-ad-llms.txt
+- type: ToolCrosswalk
+  url: mcp/azure-ad-tool-crosswalk.yml
+- type: MCPServer
+  url: mcp/azure-ad-mcp.yml
+- type: SecurityTxt
+  url: well-known/azure-ad-security.txt
+- type: WellKnown
+  url: well-known/azure-ad-well-known.yml
+- type: Packages
+  url: packages/azure-ad-packages.yml
+- type: VulnerabilityDisclosure
+  url: security/azure-ad-vulnerability-disclosure.yml
+- type: AgenticAccess
+  url: agentic-access/azure-ad-agentic-access.yml
+- type: DomainSecurity
+  url: security/azure-ad-domain-security.yml
+- type: Authentication
+  url: authentication/azure-ad-authentication.yml
+- type: OAuthScopes
+  url: scopes/azure-ad-scopes.yml
+- type: GitHubOrganization
+  url: https://github.com/AzureAD
+- type: Portal
+  url: https://portal.azure.com
+- type: Documentation
+  url: https://learn.microsoft.com/en-us/azure/active-directory/
+- type: StatusPage
+  url: https://status.azure.com
+- type: Blog
+  url: https://www.microsoft.com/en-us/security/blog/
+- type: BlogRSS
+  url: https://www.microsoft.com/en-us/security/blog/feed/
+- type: PrivacyPolicy
+  url: https://privacy.microsoft.com/en-us/privacystatement
+- type: TermsOfService
+  url: https://azure.microsoft.com/en-us/support/legal/
+- type: Pricing
+  url: https://azure.microsoft.com/en-us/pricing/details/active-directory/
+- type: GettingStarted
+  url: https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/get-started-azure-ad
+- type: Features
+  data:
+  - name: Single Sign-On
+    description: Enable users to sign in once and access all connected apps without re-authenticating.
+  - name: Multi-Factor Authentication
+    description: Enforce MFA to add an extra layer of security beyond passwords.
+  - name: Conditional Access
+    description: Define access policies based on user, device, location, and risk signals.
+  - name: OAuth 2.0 and OpenID Connect
+    description: Industry-standard protocols for authorization and authentication.
+  - name: SAML 2.0 Support
+    description: Federate with thousands of SAML-based SaaS applications.
+  - name: Identity Protection
+    description: Detect and respond to identity-based risks with AI-powered signals.
+  - name: Privileged Identity Management
+    description: Just-in-time privileged access with approval workflows and audit.
+  - name: B2B Collaboration
+    description: Invite external users from partner organizations to access your resources.
+  - name: External Identities
+    description: Enable customer and partner identity management with Azure AD B2C and B2B.
+- type: UseCases
+  data:
+  - name: Enterprise SSO
+    description: Provide single sign-on for employees across thousands of SaaS applications.
+  - name: Zero Trust Security
+    description: Implement zero trust architecture with identity as the control plane.
+  - name: Consumer Identity
+    description: Build customer-facing login with Azure AD B2C supporting social identities.
+  - name: API Security
+    description: Secure APIs with OAuth 2.0 tokens issued by Azure AD.
+  - name: Hybrid Identity
+    description: Extend on-premises Active Directory to the cloud with Azure AD Connect.
+- type: Integrations
+  data:
+  - name: Microsoft 365
+    description: Provides identity and access management for all Microsoft 365 applications.
+  - name: Salesforce
+    description: SAML-based SSO integration with Salesforce CRM and Platform.
+  - name: ServiceNow
+    description: Federated SSO and user provisioning for ServiceNow via SAML and SCIM.
+  - name: GitHub Enterprise
+    description: SAML SSO and SCIM provisioning for GitHub Enterprise organizations.
+  - name: AWS
+    description: Federate Azure AD with AWS IAM Identity Center for cross-cloud SSO.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 x-enrichment:
   date: '2026-09-06'
   status: enriched
