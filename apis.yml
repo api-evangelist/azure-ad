@@ -35,7 +35,7 @@ tags:
 - Authorization
 - Identity
 - OpenID Connect
-- Single Sign-On
+- SSO
 - Identity Federation
 tags_raw:
 - Authentication
@@ -86,7 +86,8 @@ apis:
     for admin.peopleadminsettings.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - admin.peopleAdminSettings
   properties:
   - type: OpenAPI
@@ -110,6 +111,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Agreements.agreement
+  tags_raw:
   - agreements.agreement
   properties:
   - type: OpenAPI
@@ -132,7 +135,8 @@ apis:
     operation(s) for agreements.agreementacceptance.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - agreements.agreementAcceptance
   properties:
   - type: OpenAPI
@@ -155,7 +159,8 @@ apis:
     for agreements.agreementfile.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - agreements.agreementFile
   properties:
   - type: OpenAPI
@@ -178,7 +183,8 @@ apis:
     — 6 operation(s) for agreements.agreementfilelocalization.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - agreements.agreementFileLocalization
   properties:
   - type: OpenAPI
@@ -201,6 +207,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
@@ -223,7 +231,8 @@ apis:
     14 operation(s) for applications.application.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - applications.application.Actions
   properties:
   - type: OpenAPI
@@ -247,6 +256,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Applications.application
+  tags_raw:
   - applications.application
   properties:
   - type: OpenAPI
@@ -269,7 +280,8 @@ apis:
     — 1 operation(s) for applications.application.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - applications.application.Functions
   properties:
   - type: OpenAPI
@@ -292,7 +304,8 @@ apis:
     4 operation(s) for applications.appmanagementpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - applications.appManagementPolicy
   properties:
   - type: OpenAPI
@@ -315,7 +328,8 @@ apis:
     for applications.directoryobject.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - applications.directoryObject
   properties:
   - type: OpenAPI
@@ -338,7 +352,8 @@ apis:
     operation(s) for applications.extensionproperty.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - applications.extensionProperty
   properties:
   - type: OpenAPI
@@ -361,7 +376,8 @@ apis:
     AD) — 4 operation(s) for applications.federatedidentitycredential.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - applications.federatedIdentityCredential
   properties:
   - type: OpenAPI
@@ -384,7 +400,8 @@ apis:
     — 3 operation(s) for applications.homerealmdiscoverypolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - applications.homeRealmDiscoveryPolicy
   properties:
   - type: OpenAPI
@@ -408,6 +425,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Applications Synchronization
+  tags_raw:
   - applications.synchronization
   properties:
   - type: OpenAPI
@@ -430,7 +449,8 @@ apis:
     4 operation(s) for applications.tokenissuancepolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - applications.tokenIssuancePolicy
   properties:
   - type: OpenAPI
@@ -453,7 +473,8 @@ apis:
     4 operation(s) for applications.tokenlifetimepolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - applications.tokenLifetimePolicy
   properties:
   - type: OpenAPI
@@ -476,7 +497,8 @@ apis:
     Azure AD) — 1 operation(s) for applicationtemplates.applicationtemplate.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - applicationTemplates.applicationTemplate.Actions
   properties:
   - type: OpenAPI
@@ -499,7 +521,8 @@ apis:
     AD) — 3 operation(s) for applicationtemplates.applicationtemplate.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - applicationTemplates.applicationTemplate
   properties:
   - type: OpenAPI
@@ -522,7 +545,8 @@ apis:
     for contacts.directoryobject.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - contacts.directoryObject
   properties:
   - type: OpenAPI
@@ -545,7 +569,8 @@ apis:
     operation(s) for contacts.onpremisessyncbehavior.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - contacts.onPremisesSyncBehavior
   properties:
   - type: OpenAPI
@@ -568,7 +593,8 @@ apis:
     for contacts.orgcontact.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - contacts.orgContact.Actions
   properties:
   - type: OpenAPI
@@ -591,7 +617,8 @@ apis:
     for contacts.orgcontact.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - contacts.orgContact
   properties:
   - type: OpenAPI
@@ -614,7 +641,8 @@ apis:
     for contacts.orgcontact.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - contacts.orgContact.Functions
   properties:
   - type: OpenAPI
@@ -637,7 +665,8 @@ apis:
     2 operation(s) for contacts.serviceprovisioningerror.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - contacts.serviceProvisioningError
   properties:
   - type: OpenAPI
@@ -660,7 +689,8 @@ apis:
     for contracts.contract.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - contracts.contract.Actions
   properties:
   - type: OpenAPI
@@ -684,6 +714,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Contracts.contract
+  tags_raw:
   - contracts.contract
   properties:
   - type: OpenAPI
@@ -706,7 +738,8 @@ apis:
     for contracts.contract.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - contracts.contract.Functions
   properties:
   - type: OpenAPI
@@ -729,7 +762,8 @@ apis:
     AD) — 3 operation(s) for datapolicyoperations.datapolicyoperation.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - dataPolicyOperations.dataPolicyOperation
   properties:
   - type: OpenAPI
@@ -752,7 +786,8 @@ apis:
     for devices.device.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - devices.device.Actions
   properties:
   - type: OpenAPI
@@ -776,6 +811,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Devices.device
+  tags_raw:
   - devices.device
   properties:
   - type: OpenAPI
@@ -798,7 +835,8 @@ apis:
     for devices.device.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - devices.device.Functions
   properties:
   - type: OpenAPI
@@ -821,7 +859,8 @@ apis:
     for devices.directoryobject.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - devices.directoryObject
   properties:
   - type: OpenAPI
@@ -845,6 +884,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Devices.extension
+  tags_raw:
   - devices.extension
   properties:
   - type: OpenAPI
@@ -867,7 +908,8 @@ apis:
     for directory.administrativeunit.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directory.administrativeUnit
   properties:
   - type: OpenAPI
@@ -912,7 +954,8 @@ apis:
     for directory.attributeset.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directory.attributeSet
   properties:
   - type: OpenAPI
@@ -935,7 +978,8 @@ apis:
     for directory.companysubscription.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directory.companySubscription
   properties:
   - type: OpenAPI
@@ -958,7 +1002,8 @@ apis:
     AD) — 6 operation(s) for directory.customsecurityattributedefinition.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directory.customSecurityAttributeDefinition
   properties:
   - type: OpenAPI
@@ -981,7 +1026,8 @@ apis:
     — 3 operation(s) for directory.devicelocalcredentialinfo.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directory.deviceLocalCredentialInfo
   properties:
   - type: OpenAPI
@@ -1005,6 +1051,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Directory.directory
+  tags_raw:
   - directory.directory
   properties:
   - type: OpenAPI
@@ -1027,7 +1075,8 @@ apis:
     for directory.directoryobject.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directory.directoryObject
   properties:
   - type: OpenAPI
@@ -1050,7 +1099,8 @@ apis:
     operation(s) for directory.identityproviderbase.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directory.identityProviderBase
   properties:
   - type: OpenAPI
@@ -1073,7 +1123,8 @@ apis:
     Azure AD) — 3 operation(s) for directory.onpremisesdirectorysynchronization.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directory.onPremisesDirectorySynchronization
   properties:
   - type: OpenAPI
@@ -1096,7 +1147,8 @@ apis:
     — 8 operation(s) for directory.publickeyinfrastructureroot.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directory.publicKeyInfrastructureRoot
   properties:
   - type: OpenAPI
@@ -1119,7 +1171,8 @@ apis:
     for directory.recovery.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directory.recovery
   properties:
   - type: OpenAPI
@@ -1142,7 +1195,8 @@ apis:
     for directory.remotetenantgroup.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directory.remoteTenantGroup
   properties:
   - type: OpenAPI
@@ -1165,7 +1219,8 @@ apis:
     AD) — 8 operation(s) for directoryobjects.directoryobject.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directoryObjects.directoryObject.Actions
   properties:
   - type: OpenAPI
@@ -1188,7 +1243,8 @@ apis:
     3 operation(s) for directoryobjects.directoryobject.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directoryObjects.directoryObject
   properties:
   - type: OpenAPI
@@ -1211,7 +1267,8 @@ apis:
     AD) — 1 operation(s) for directoryobjects.directoryobject.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directoryObjects.directoryObject.Functions
   properties:
   - type: OpenAPI
@@ -1234,7 +1291,8 @@ apis:
     operation(s) for directoryroles.directoryobject.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directoryRoles.directoryObject
   properties:
   - type: OpenAPI
@@ -1257,7 +1315,8 @@ apis:
     — 8 operation(s) for directoryroles.directoryrole.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directoryRoles.directoryRole.Actions
   properties:
   - type: OpenAPI
@@ -1280,7 +1339,8 @@ apis:
     for directoryroles.directoryrole.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directoryRoles.directoryRole
   properties:
   - type: OpenAPI
@@ -1303,7 +1363,8 @@ apis:
     AD) — 1 operation(s) for directoryroles.directoryrole.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directoryRoles.directoryRole.Functions
   properties:
   - type: OpenAPI
@@ -1326,7 +1387,8 @@ apis:
     — 3 operation(s) for directoryroles.scopedrolemembership.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directoryRoles.scopedRoleMembership
   properties:
   - type: OpenAPI
@@ -1350,7 +1412,8 @@ apis:
     Azure AD) — 8 operation(s) for directoryroletemplates.directoryroletemplate.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directoryRoleTemplates.directoryRoleTemplate.Actions
   properties:
   - type: OpenAPI
@@ -1373,7 +1436,8 @@ apis:
     Azure AD) — 3 operation(s) for directoryroletemplates.directoryroletemplate.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directoryRoleTemplates.directoryRoleTemplate
   properties:
   - type: OpenAPI
@@ -1397,7 +1461,8 @@ apis:
     (formerly Azure AD) — 1 operation(s) for directoryroletemplates.directoryroletemplate.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - directoryRoleTemplates.directoryRoleTemplate.Functions
   properties:
   - type: OpenAPI
@@ -1420,7 +1485,8 @@ apis:
     for domains.directoryobject.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - domains.directoryObject
   properties:
   - type: OpenAPI
@@ -1443,7 +1509,8 @@ apis:
     for domains.domain.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - domains.domain.Actions
   properties:
   - type: OpenAPI
@@ -1467,6 +1534,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Domains.domain
+  tags_raw:
   - domains.domain
   properties:
   - type: OpenAPI
@@ -1489,7 +1558,8 @@ apis:
     for domains.domaindnsrecord.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - domains.domainDnsRecord
   properties:
   - type: OpenAPI
@@ -1512,7 +1582,8 @@ apis:
     3 operation(s) for domains.internaldomainfederation.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - domains.internalDomainFederation
   properties:
   - type: OpenAPI
@@ -1536,7 +1607,8 @@ apis:
     Azure AD) — 2 operation(s) for grouplifecyclepolicies.grouplifecyclepolicy.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groupLifecyclePolicies.groupLifecyclePolicy.Actions
   properties:
   - type: OpenAPI
@@ -1559,7 +1631,8 @@ apis:
     AD) — 3 operation(s) for grouplifecyclepolicies.grouplifecyclepolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groupLifecyclePolicies.groupLifecyclePolicy
   properties:
   - type: OpenAPI
@@ -1582,6 +1655,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -1604,7 +1679,8 @@ apis:
     for groups.approleassignment.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groups.appRoleAssignment
   properties:
   - type: OpenAPI
@@ -1628,6 +1704,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Groups.conversation
+  tags_raw:
   - groups.conversation
   properties:
   - type: OpenAPI
@@ -1650,7 +1728,8 @@ apis:
     for groups.conversationthread.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groups.conversationThread
   properties:
   - type: OpenAPI
@@ -1673,7 +1752,8 @@ apis:
     for groups.directoryobject.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groups.directoryObject
   properties:
   - type: OpenAPI
@@ -1697,6 +1777,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Groups.extension
+  tags_raw:
   - groups.extension
   properties:
   - type: OpenAPI
@@ -1719,7 +1801,8 @@ apis:
     for groups.group.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groups.group.Actions
   properties:
   - type: OpenAPI
@@ -1742,6 +1825,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Groups.group
+  tags_raw:
   - groups.group
   properties:
   - type: OpenAPI
@@ -1764,7 +1849,8 @@ apis:
     for groups.group.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groups.group.Functions
   properties:
   - type: OpenAPI
@@ -1787,7 +1873,8 @@ apis:
     for groups.grouplifecyclepolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groups.groupLifecyclePolicy
   properties:
   - type: OpenAPI
@@ -1810,7 +1897,8 @@ apis:
     for groups.groupsetting.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groups.groupSetting
   properties:
   - type: OpenAPI
@@ -1833,7 +1921,8 @@ apis:
     for groups.onpremisessyncbehavior.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groups.onPremisesSyncBehavior
   properties:
   - type: OpenAPI
@@ -1856,7 +1945,8 @@ apis:
     for groups.profilephoto.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groups.profilePhoto
   properties:
   - type: OpenAPI
@@ -1879,7 +1969,8 @@ apis:
     AD) — 3 operation(s) for groups.resourcespecificpermissiongrant.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groups.resourceSpecificPermissionGrant
   properties:
   - type: OpenAPI
@@ -1902,7 +1993,8 @@ apis:
     for groupsettings.groupsetting.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groupSettings.groupSetting
   properties:
   - type: OpenAPI
@@ -1926,7 +2018,8 @@ apis:
     Azure AD) — 8 operation(s) for groupsettingtemplates.groupsettingtemplate.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groupSettingTemplates.groupSettingTemplate.Actions
   properties:
   - type: OpenAPI
@@ -1949,7 +2042,8 @@ apis:
     AD) — 3 operation(s) for groupsettingtemplates.groupsettingtemplate.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groupSettingTemplates.groupSettingTemplate
   properties:
   - type: OpenAPI
@@ -1973,7 +2067,8 @@ apis:
     Azure AD) — 1 operation(s) for groupsettingtemplates.groupsettingtemplate.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - groupSettingTemplates.groupSettingTemplate.Functions
   properties:
   - type: OpenAPI
@@ -1996,7 +2091,8 @@ apis:
     — 3 operation(s) for identity.authenticationeventlistener.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identity.authenticationEventListener
   properties:
   - type: OpenAPI
@@ -2019,7 +2115,8 @@ apis:
     26 operation(s) for identity.authenticationeventsflow.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identity.authenticationEventsFlow
   properties:
   - type: OpenAPI
@@ -2042,7 +2139,8 @@ apis:
     for identity.b2xidentityuserflow.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identity.b2xIdentityUserFlow
   properties:
   - type: OpenAPI
@@ -2065,7 +2163,8 @@ apis:
     operation(s) for identity.conditionalaccessroot.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identity.conditionalAccessRoot
   properties:
   - type: OpenAPI
@@ -2088,7 +2187,8 @@ apis:
     AD) — 5 operation(s) for identity.customauthenticationextension.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identity.customAuthenticationExtension
   properties:
   - type: OpenAPI
@@ -2111,7 +2211,8 @@ apis:
     for identity.identityapiconnector.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identity.identityApiConnector
   properties:
   - type: OpenAPI
@@ -2134,7 +2235,8 @@ apis:
     for identity.identitycontainer.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identity.identityContainer
   properties:
   - type: OpenAPI
@@ -2157,7 +2259,8 @@ apis:
     for identity.identityproviderbase.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identity.identityProviderBase
   properties:
   - type: OpenAPI
@@ -2180,7 +2283,8 @@ apis:
     — 3 operation(s) for identity.identityuserflowattribute.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identity.identityUserFlowAttribute
   properties:
   - type: OpenAPI
@@ -2203,7 +2307,8 @@ apis:
     operation(s) for identity.identityverifiedidroot.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identity.identityVerifiedIdRoot
   properties:
   - type: OpenAPI
@@ -2226,7 +2331,8 @@ apis:
     12 operation(s) for identity.riskpreventioncontainer.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identity.riskPreventionContainer
   properties:
   - type: OpenAPI
@@ -2249,7 +2355,8 @@ apis:
     AD) — 146 operation(s) for identitygovernance.accesspackagecatalog.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityGovernance.accessPackageCatalog
   properties:
   - type: OpenAPI
@@ -2272,7 +2379,8 @@ apis:
     — 45 operation(s) for identitygovernance.accessreviewset.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityGovernance.accessReviewSet
   properties:
   - type: OpenAPI
@@ -2295,7 +2403,8 @@ apis:
     AD) — 13 operation(s) for identitygovernance.appconsentapprovalroute.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityGovernance.appConsentApprovalRoute
   properties:
   - type: OpenAPI
@@ -2318,7 +2427,8 @@ apis:
     AD) — 737 operation(s) for identitygovernance.entitlementmanagement.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityGovernance.entitlementManagement
   properties:
   - type: OpenAPI
@@ -2341,7 +2451,8 @@ apis:
     — 1 operation(s) for identitygovernance.identitygovernance.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityGovernance.identityGovernance
   properties:
   - type: OpenAPI
@@ -2364,7 +2475,8 @@ apis:
     Azure AD) — 311 operation(s) for identitygovernance.lifecycleworkflowscontainer.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityGovernance.lifecycleWorkflowsContainer
   properties:
   - type: OpenAPI
@@ -2387,7 +2499,8 @@ apis:
     AD) — 64 operation(s) for identitygovernance.privilegedaccessroot.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityGovernance.privilegedAccessRoot
   properties:
   - type: OpenAPI
@@ -2410,7 +2523,8 @@ apis:
     AD) — 23 operation(s) for identitygovernance.termsofusecontainer.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityGovernance.termsOfUseContainer
   properties:
   - type: OpenAPI
@@ -2433,7 +2547,8 @@ apis:
     AD) — 1 operation(s) for identityprotection.identityprotectionroot.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityProtection.identityProtectionRoot
   properties:
   - type: OpenAPI
@@ -2456,7 +2571,8 @@ apis:
     3 operation(s) for identityprotection.riskdetection.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityProtection.riskDetection
   properties:
   - type: OpenAPI
@@ -2479,7 +2595,8 @@ apis:
     AD) — 8 operation(s) for identityprotection.riskyserviceprincipal.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityProtection.riskyServicePrincipal
   properties:
   - type: OpenAPI
@@ -2502,7 +2619,8 @@ apis:
     for identityprotection.riskyuser.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityProtection.riskyUser
   properties:
   - type: OpenAPI
@@ -2525,7 +2643,8 @@ apis:
     Azure AD) — 3 operation(s) for identityprotection.serviceprincipalriskdetection.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityProtection.servicePrincipalRiskDetection
   properties:
   - type: OpenAPI
@@ -2548,7 +2667,8 @@ apis:
     — 3 operation(s) for identityproviders.identityprovider.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityProviders.identityProvider
   properties:
   - type: OpenAPI
@@ -2571,7 +2691,8 @@ apis:
     Azure AD) — 1 operation(s) for identityproviders.identityprovider.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - identityProviders.identityProvider.Functions
   properties:
   - type: OpenAPI
@@ -2594,7 +2715,8 @@ apis:
     operation(s) for informationprotection.bitlocker.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - informationProtection.bitlocker
   properties:
   - type: OpenAPI
@@ -2617,7 +2739,8 @@ apis:
     AD) — 1 operation(s) for informationprotection.informationprotection.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - informationProtection.informationProtection
   properties:
   - type: OpenAPI
@@ -2640,7 +2763,8 @@ apis:
     Azure AD) — 6 operation(s) for informationprotection.threatassessmentrequest.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - informationProtection.threatAssessmentRequest
   properties:
   - type: OpenAPI
@@ -2663,7 +2787,8 @@ apis:
     for invitations.directoryobject.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - invitations.directoryObject
   properties:
   - type: OpenAPI
@@ -2687,6 +2812,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Invitations.invitation
+  tags_raw:
   - invitations.invitation
   properties:
   - type: OpenAPI
@@ -2710,6 +2837,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Invitations.user
+  tags_raw:
   - invitations.user
   properties:
   - type: OpenAPI
@@ -2754,7 +2883,8 @@ apis:
     Azure AD) — 3 operation(s) for oauth2permissiongrants.oauth2permissiongrant.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - oauth2PermissionGrants.oAuth2PermissionGrant
   properties:
   - type: OpenAPI
@@ -2778,7 +2908,8 @@ apis:
     (formerly Azure AD) — 1 operation(s) for oauth2permissiongrants.oauth2permissiongrant.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - oauth2PermissionGrants.oAuth2PermissionGrant.Functions
   properties:
   - type: OpenAPI
@@ -2801,7 +2932,8 @@ apis:
     Azure AD) — 3 operation(s) for organization.certificatebasedauthconfiguration.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - organization.certificateBasedAuthConfiguration
   properties:
   - type: OpenAPI
@@ -2825,6 +2957,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Organization.extension
+  tags_raw:
   - organization.extension
   properties:
   - type: OpenAPI
@@ -2847,7 +2981,8 @@ apis:
     9 operation(s) for organization.organization.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - organization.organization.Actions
   properties:
   - type: OpenAPI
@@ -2871,6 +3006,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Organization.organization
+  tags_raw:
   - organization.organization
   properties:
   - type: OpenAPI
@@ -2893,7 +3030,8 @@ apis:
     — 18 operation(s) for organization.organizationalbranding.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - organization.organizationalBranding
   properties:
   - type: OpenAPI
@@ -2916,7 +3054,8 @@ apis:
     — 6 operation(s) for policies.activitybasedtimeoutpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.activityBasedTimeoutPolicy
   properties:
   - type: OpenAPI
@@ -2939,7 +3078,8 @@ apis:
     — 1 operation(s) for policies.adminconsentrequestpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.adminConsentRequestPolicy
   properties:
   - type: OpenAPI
@@ -2962,7 +3102,8 @@ apis:
     for policies.appmanagementpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.appManagementPolicy
   properties:
   - type: OpenAPI
@@ -2985,7 +3126,8 @@ apis:
     — 1 operation(s) for policies.authenticationflowspolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.authenticationFlowsPolicy
   properties:
   - type: OpenAPI
@@ -3008,7 +3150,8 @@ apis:
     — 4 operation(s) for policies.authenticationmethodspolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.authenticationMethodsPolicy
   properties:
   - type: OpenAPI
@@ -3031,7 +3174,8 @@ apis:
     — 8 operation(s) for policies.authenticationstrengthpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.authenticationStrengthPolicy
   properties:
   - type: OpenAPI
@@ -3054,7 +3198,8 @@ apis:
     for policies.authorizationpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.authorizationPolicy
   properties:
   - type: OpenAPI
@@ -3077,7 +3222,8 @@ apis:
     for policies.claimsmappingpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.claimsMappingPolicy
   properties:
   - type: OpenAPI
@@ -3100,7 +3246,8 @@ apis:
     4 operation(s) for policies.conditionalaccesspolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.conditionalAccessPolicy
   properties:
   - type: OpenAPI
@@ -3123,7 +3270,8 @@ apis:
     13 operation(s) for policies.crosstenantaccesspolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.crossTenantAccessPolicy
   properties:
   - type: OpenAPI
@@ -3146,7 +3294,8 @@ apis:
     1 operation(s) for policies.deviceregistrationpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.deviceRegistrationPolicy
   properties:
   - type: OpenAPI
@@ -3169,7 +3318,8 @@ apis:
     for policies.featurerolloutpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.featureRolloutPolicy
   properties:
   - type: OpenAPI
@@ -3192,7 +3342,8 @@ apis:
     AD) — 1 operation(s) for policies.federatedtokenvalidationpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.federatedTokenValidationPolicy
   properties:
   - type: OpenAPI
@@ -3215,7 +3366,8 @@ apis:
     6 operation(s) for policies.homerealmdiscoverypolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.homeRealmDiscoveryPolicy
   properties:
   - type: OpenAPI
@@ -3239,7 +3391,8 @@ apis:
     Azure AD) — 1 operation(s) for policies.identitysecuritydefaultsenforcementpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.identitySecurityDefaultsEnforcementPolicy
   properties:
   - type: OpenAPI
@@ -3262,7 +3415,8 @@ apis:
     for policies.ownerlessgrouppolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.ownerlessGroupPolicy
   properties:
   - type: OpenAPI
@@ -3285,7 +3439,8 @@ apis:
     operation(s) for policies.permissiongrantpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.permissionGrantPolicy
   properties:
   - type: OpenAPI
@@ -3308,7 +3463,8 @@ apis:
     for policies.policyroot.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.policyRoot
   properties:
   - type: OpenAPI
@@ -3331,7 +3487,8 @@ apis:
     — 1 operation(s) for policies.tenantappmanagementpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.tenantAppManagementPolicy
   properties:
   - type: OpenAPI
@@ -3354,7 +3511,8 @@ apis:
     for policies.tokenissuancepolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.tokenIssuancePolicy
   properties:
   - type: OpenAPI
@@ -3377,7 +3535,8 @@ apis:
     for policies.tokenlifetimepolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.tokenLifetimePolicy
   properties:
   - type: OpenAPI
@@ -3400,7 +3559,8 @@ apis:
     — 9 operation(s) for policies.unifiedrolemanagementpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.unifiedRoleManagementPolicy
   properties:
   - type: OpenAPI
@@ -3423,7 +3583,8 @@ apis:
     Azure AD) — 4 operation(s) for policies.unifiedrolemanagementpolicyassignment.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - policies.unifiedRoleManagementPolicyAssignment
   properties:
   - type: OpenAPI
@@ -3446,7 +3607,8 @@ apis:
     operation(s) for rolemanagement.rbacapplication.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - roleManagement.rbacApplication
   properties:
   - type: OpenAPI
@@ -3469,7 +3631,8 @@ apis:
     — 3 operation(s) for serviceprincipals.appmanagementpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.appManagementPolicy
   properties:
   - type: OpenAPI
@@ -3492,7 +3655,8 @@ apis:
     — 6 operation(s) for serviceprincipals.approleassignment.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.appRoleAssignment
   properties:
   - type: OpenAPI
@@ -3515,7 +3679,8 @@ apis:
     — 4 operation(s) for serviceprincipals.claimsmappingpolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.claimsMappingPolicy
   properties:
   - type: OpenAPI
@@ -3539,7 +3704,8 @@ apis:
     Azure AD) — 3 operation(s) for serviceprincipals.delegatedpermissionclassification.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.delegatedPermissionClassification
   properties:
   - type: OpenAPI
@@ -3562,7 +3728,8 @@ apis:
     64 operation(s) for serviceprincipals.directoryobject.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.directoryObject
   properties:
   - type: OpenAPI
@@ -3585,7 +3752,8 @@ apis:
     for serviceprincipals.endpoint.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.endpoint
   properties:
   - type: OpenAPI
@@ -3608,7 +3776,8 @@ apis:
     Azure AD) — 4 operation(s) for serviceprincipals.federatedidentitycredential.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.federatedIdentityCredential
   properties:
   - type: OpenAPI
@@ -3631,7 +3800,8 @@ apis:
     AD) — 4 operation(s) for serviceprincipals.homerealmdiscoverypolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.homeRealmDiscoveryPolicy
   properties:
   - type: OpenAPI
@@ -3654,7 +3824,8 @@ apis:
     AD) — 3 operation(s) for serviceprincipals.oauth2permissiongrant.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.oAuth2PermissionGrant
   properties:
   - type: OpenAPI
@@ -3678,7 +3849,8 @@ apis:
     Azure AD) — 7 operation(s) for serviceprincipals.remotedesktopsecurityconfiguration.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.remoteDesktopSecurityConfiguration
   properties:
   - type: OpenAPI
@@ -3701,7 +3873,8 @@ apis:
     AD) — 13 operation(s) for serviceprincipals.serviceprincipal.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.servicePrincipal.Actions
   properties:
   - type: OpenAPI
@@ -3724,7 +3897,8 @@ apis:
     — 4 operation(s) for serviceprincipals.serviceprincipal.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.servicePrincipal
   properties:
   - type: OpenAPI
@@ -3747,7 +3921,8 @@ apis:
     Azure AD) — 1 operation(s) for serviceprincipals.serviceprincipal.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.servicePrincipal.Functions
   properties:
   - type: OpenAPI
@@ -3770,7 +3945,8 @@ apis:
     34 operation(s) for serviceprincipals.synchronization.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.synchronization
   properties:
   - type: OpenAPI
@@ -3793,7 +3969,8 @@ apis:
     — 4 operation(s) for serviceprincipals.tokenissuancepolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.tokenIssuancePolicy
   properties:
   - type: OpenAPI
@@ -3816,7 +3993,8 @@ apis:
     — 4 operation(s) for serviceprincipals.tokenlifetimepolicy.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - servicePrincipals.tokenLifetimePolicy
   properties:
   - type: OpenAPI
@@ -3839,7 +4017,8 @@ apis:
     for subscribedskus.subscribedsku.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - subscribedSkus.subscribedSku
   properties:
   - type: OpenAPI
@@ -3862,7 +4041,8 @@ apis:
     — 1 operation(s) for subscriptions.subscription.actions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - subscriptions.subscription.Actions
   properties:
   - type: OpenAPI
@@ -3886,6 +4066,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Subscriptions.subscription
+  tags_raw:
   - subscriptions.subscription
   properties:
   - type: OpenAPI
@@ -3908,7 +4090,8 @@ apis:
     AD) — 5 operation(s) for tenantrelationships.multitenantorganization.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - tenantRelationships.multiTenantOrganization
   properties:
   - type: OpenAPI
@@ -3931,7 +4114,8 @@ apis:
     Azure AD) — 2 operation(s) for tenantrelationships.tenantrelationship.functions.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - tenantRelationships.tenantRelationship.Functions
   properties:
   - type: OpenAPI
@@ -3954,7 +4138,8 @@ apis:
     for users.agreementacceptance.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - users.agreementAcceptance
   properties:
   - type: OpenAPI
@@ -3977,6 +4162,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -3999,7 +4186,8 @@ apis:
     for users.approleassignment.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - users.appRoleAssignment
   properties:
   - type: OpenAPI
@@ -4023,6 +4211,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Users.authentication
+  tags_raw:
   - users.authentication
   properties:
   - type: OpenAPI
@@ -4045,7 +4235,8 @@ apis:
     for users.directoryobject.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - users.directoryObject
   properties:
   - type: OpenAPI
@@ -4069,6 +4260,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Users-Extension
+  tags_raw:
   - users.extension
   properties:
   - type: OpenAPI
@@ -4091,7 +4284,8 @@ apis:
     for users.iteminsights.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - users.itemInsights
   properties:
   - type: OpenAPI
@@ -4114,7 +4308,8 @@ apis:
     for users.licensedetails.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - users.licenseDetails
   properties:
   - type: OpenAPI
@@ -4137,7 +4332,8 @@ apis:
     for users.mailboxsettings.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - users.mailboxSettings
   properties:
   - type: OpenAPI
@@ -4160,7 +4356,8 @@ apis:
     for users.oauth2permissiongrant.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - users.oAuth2PermissionGrant
   properties:
   - type: OpenAPI
@@ -4183,7 +4380,8 @@ apis:
     for users.onpremisessyncbehavior.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - users.onPremisesSyncBehavior
   properties:
   - type: OpenAPI
@@ -4206,7 +4404,8 @@ apis:
     for users.outlookuser.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - users.outlookUser
   properties:
   - type: OpenAPI
@@ -4229,7 +4428,8 @@ apis:
     for users.profilephoto.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - users.profilePhoto
   properties:
   - type: OpenAPI
@@ -4252,7 +4452,8 @@ apis:
     for users.scopedrolemembership.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - users.scopedRoleMembership
   properties:
   - type: OpenAPI
@@ -4275,6 +4476,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Users.todo
+  tags_raw:
   - users.todo
   properties:
   - type: OpenAPI
@@ -4297,6 +4500,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
   tags:
+  - Users.user
+  tags_raw:
   - users.user
   properties:
   - type: OpenAPI
@@ -4319,7 +4524,8 @@ apis:
     for users.usersettings.
   humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
   baseURL: https://login.microsoftonline.com
-  tags:
+  tags: []
+  tags_raw:
   - users.userSettings
   properties:
   - type: OpenAPI
