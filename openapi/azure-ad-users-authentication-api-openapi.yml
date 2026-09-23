@@ -1,0 +1,4111 @@
+openapi: 3.2.0
+info:
+  title: Identity.SignIns Users.authentication API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: Users authentication
+paths:
+  /users/{user-id}/authentication:
+    get:
+      tags:
+      - Users authentication
+      summary: Get authentication from users
+      description: The authentication methods that are supported for the user.
+      operationId: user_GetAuthentication
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authentication'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - Users authentication
+      summary: Update the navigation property authentication in users
+      operationId: user_UpdateAuthentication
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.authentication'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authentication'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Users authentication
+      summary: Delete navigation property authentication for users
+      operationId: user_DeleteAuthentication
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/emailMethods:
+    get:
+      tags:
+      - Users authentication
+      summary: Get emailMethods from users
+      description: The email address registered to a user for authentication.
+      operationId: user.authentication_ListEmailMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.emailAuthenticationMethodCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - Users authentication
+      summary: Create emailMethod
+      description: Set a user's emailAuthenticationMethod object. Email authentication is a self-service password reset method. A user may only have one email authentication method. Self-service operations aren't supported.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/authentication-post-emailmethods?view=graph-rest-1.0
+      operationId: user.authentication_CreateEmailMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.emailAuthenticationMethod'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.emailAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/emailMethods/{emailAuthenticationMethod-id}:
+    get:
+      tags:
+      - Users authentication
+      summary: Get emailMethods from users
+      description: The email address registered to a user for authentication.
+      operationId: user.authentication_GetEmailMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: emailAuthenticationMethod-id
+        in: path
+        description: The unique identifier of emailAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: emailAuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.emailAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - Users authentication
+      summary: Update emailAuthenticationMethod
+      description: Update a user's email address represented by an emailAuthenticationMethod object. Self-service operations aren't supported.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/emailauthenticationmethod-update?view=graph-rest-1.0
+      operationId: user.authentication_UpdateEmailMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: emailAuthenticationMethod-id
+        in: path
+        description: The unique identifier of emailAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: emailAuthenticationMethod
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.emailAuthenticationMethod'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.emailAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Users authentication
+      summary: Delete emailAuthenticationMethod
+      description: Deletes a user's emailAuthenticationMethod object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/emailauthenticationmethod-delete?view=graph-rest-1.0
+      operationId: user.authentication_DeleteEmailMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: emailAuthenticationMethod-id
+        in: path
+        description: The unique identifier of emailAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: emailAuthenticationMethod
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/emailMethods/$count:
+    get:
+      tags:
+      - Users authentication
+      summary: Get the number of the resource
+      operationId: user.authentication.emailMethod_GetCount
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /users/{user-id}/authentication/externalAuthenticationMethods:
+    get:
+      tags:
+      - Users authentication
+      summary: Get externalAuthenticationMethods from users
+      description: Represents the external MFA registered to a user for authentication using an external identity provider.
+      operationId: user.authentication_ListExternalAuthenticationMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.externalAuthenticationMethodCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - Users authentication
+      summary: Create externalAuthenticationMethod
+      description: Create a new externalAuthenticationMethod object. This API doesn't support self-service operations.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/authentication-post-externalauthenticationmethods?view=graph-rest-1.0
+      operationId: user.authentication_CreateExternalAuthenticationMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.externalAuthenticationMethod'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.externalAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/externalAuthenticationMethods/{externalAuthenticationMethod-id}:
+    get:
+      tags:
+      - Users authentication
+      summary: Get externalAuthenticationMethods from users
+      description: Represents the external MFA registered to a user for authentication using an external identity provider.
+      operationId: user.authentication_GetExternalAuthenticationMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: externalAuthenticationMethod-id
+        in: path
+        description: The unique identifier of externalAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: externalAuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.externalAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - Users authentication
+      summary: Update the navigation property externalAuthenticationMethods in users
+      operationId: user.authentication_UpdateExternalAuthenticationMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: externalAuthenticationMethod-id
+        in: path
+        description: The unique identifier of externalAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: externalAuthenticationMethod
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.externalAuthenticationMethod'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.externalAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Users authentication
+      summary: Delete externalAuthenticationMethod
+      description: Delete an externalAuthenticationMethod object. This API doesn't support self-service operations.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/authentication-delete-externalauthenticationmethods?view=graph-rest-1.0
+      operationId: user.authentication_DeleteExternalAuthenticationMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: externalAuthenticationMethod-id
+        in: path
+        description: The unique identifier of externalAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: externalAuthenticationMethod
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/externalAuthenticationMethods/$count:
+    get:
+      tags:
+      - Users authentication
+      summary: Get the number of the resource
+      operationId: user.authentication.externalAuthenticationMethod_GetCount
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /users/{user-id}/authentication/fido2Methods:
+    get:
+      tags:
+      - Users authentication
+      summary: Get fido2Methods from users
+      description: Represents the FIDO2 security keys registered to a user for authentication.
+      operationId: user.authentication_ListFido2Method
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.fido2AuthenticationMethodCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/fido2Methods/{fido2AuthenticationMethod-id}:
+    get:
+      tags:
+      - Users authentication
+      summary: Get fido2Methods from users
+      description: Represents the FIDO2 security keys registered to a user for authentication.
+      operationId: user.authentication_GetFido2Method
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: fido2AuthenticationMethod-id
+        in: path
+        description: The unique identifier of fido2AuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: fido2AuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.fido2AuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Users authentication
+      summary: Delete fido2AuthenticationMethod
+      description: Deletes a user's FIDO2 security key authentication method object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/fido2authenticationmethod-delete?view=graph-rest-1.0
+      operationId: user.authentication_DeleteFido2Method
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: fido2AuthenticationMethod-id
+        in: path
+        description: The unique identifier of fido2AuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: fido2AuthenticationMethod
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/fido2Methods/$count:
+    get:
+      tags:
+      - Users authentication
+      summary: Get the number of the resource
+      operationId: user.authentication.fido2Method_GetCount
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /users/{user-id}/authentication/fido2Methods/microsoft.graph.creationOptions():
+    get:
+      tags:
+      - Users authentication
+      summary: Invoke function creationOptions
+      description: Retrieve creation options required to generate and register a Microsoft Entra ID-compatible passkey. This function returns WebAuthn credential creation options that include a challenge, relying party information, and user information, which are used by the client to create a new FIDO2 credential. The challenge property and credential IDs in excludeCredentials are Base64URL-encoded without padding. All binary data in the response follows Base64URL encoding as defined in RFC 4648 Section 5.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/fido2authenticationmethod-creationoptions?view=graph-rest-1.0
+      operationId: user.authentication.fido2Method_creationOption
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.webauthnCredentialCreationOptions'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+  /users/{user-id}/authentication/methods:
+    get:
+      tags:
+      - Users authentication
+      summary: Get methods from users
+      description: Represents all authentication methods registered to a user.
+      operationId: user.authentication_ListMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.authenticationMethodCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - Users authentication
+      summary: Create new navigation property to methods for users
+      operationId: user.authentication_CreateMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/methods/{authenticationMethod-id}:
+    get:
+      tags:
+      - Users authentication
+      summary: Get methods from users
+      description: Represents all authentication methods registered to a user.
+      operationId: user.authentication_GetMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: authenticationMethod-id
+        in: path
+        description: The unique identifier of authenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: authenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - Users authentication
+      summary: Update the navigation property methods in users
+      operationId: user.authentication_UpdateMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: authenticationMethod-id
+        in: path
+        description: The unique identifier of authenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: authenticationMethod
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/methods/{authenticationMethod-id}/microsoft.graph.resetPassword:
+    post:
+      tags:
+      - Users authentication
+      summary: Invoke action resetPassword
+      description: Reset a user's password, represented by a password authentication method object. This can only be done by an administrator with appropriate permissions and can't be performed on a user's own account. To reset a user's password in Azure AD B2C, use the Update user API operation and update the passwordProfile > forceChangePasswordNextSignIn object. This flow writes the new password to Microsoft Entra ID and pushes it to on-premises Active Directory if configured using password writeback. The admin can either provide a new password or have the system generate one. The user is prompted to change their password on their next sign in. This reset is a long-running operation and returns a Location header with a link where the caller can periodically check for the status of the reset operation.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/authenticationmethod-resetpassword?view=graph-rest-1.0
+      operationId: user.authentication.method_resetPassword
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: authenticationMethod-id
+        in: path
+        description: The unique identifier of authenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: authenticationMethod
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newPassword:
+                  type:
+                  - string
+                  - 'null'
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.passwordResetResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /users/{user-id}/authentication/methods/$count:
+    get:
+      tags:
+      - Users authentication
+      summary: Get the number of the resource
+      operationId: user.authentication.method_GetCount
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /users/{user-id}/authentication/microsoftAuthenticatorMethods:
+    get:
+      tags:
+      - Users authentication
+      summary: List microsoftAuthenticatorAuthenticationMethods
+      description: Get a list of the microsoftAuthenticatorAuthenticationMethod objects and their properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/microsoftauthenticatorauthenticationmethod-list?view=graph-rest-1.0
+      operationId: user.authentication_ListMicrosoftAuthenticatorMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.microsoftAuthenticatorAuthenticationMethodCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/microsoftAuthenticatorMethods/{microsoftAuthenticatorAuthenticationMethod-id}:
+    get:
+      tags:
+      - Users authentication
+      summary: Get microsoftAuthenticatorAuthenticationMethod
+      description: Read the properties and relationships of a microsoftAuthenticatorAuthenticationMethod object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/microsoftauthenticatorauthenticationmethod-get?view=graph-rest-1.0
+      operationId: user.authentication_GetMicrosoftAuthenticatorMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: microsoftAuthenticatorAuthenticationMethod-id
+        in: path
+        description: The unique identifier of microsoftAuthenticatorAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: microsoftAuthenticatorAuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.microsoftAuthenticatorAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Users authentication
+      summary: Delete microsoftAuthenticatorAuthenticationMethod
+      description: Delete a microsoftAuthenticatorAuthenticationMethod object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/microsoftauthenticatorauthenticationmethod-delete?view=graph-rest-1.0
+      operationId: user.authentication_DeleteMicrosoftAuthenticatorMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: microsoftAuthenticatorAuthenticationMethod-id
+        in: path
+        description: The unique identifier of microsoftAuthenticatorAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: microsoftAuthenticatorAuthenticationMethod
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/microsoftAuthenticatorMethods/{microsoftAuthenticatorAuthenticationMethod-id}/device:
+    get:
+      tags:
+      - Users authentication
+      summary: Get device from users
+      description: The registered device on which Microsoft Authenticator resides. This property is null if the device isn't registered for passwordless Phone Sign-In.
+      operationId: user.authentication.microsoftAuthenticatorMethod_GetDevice
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: microsoftAuthenticatorAuthenticationMethod-id
+        in: path
+        description: The unique identifier of microsoftAuthenticatorAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: microsoftAuthenticatorAuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.device'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/microsoftAuthenticatorMethods/$count:
+    get:
+      tags:
+      - Users authentication
+      summary: Get the number of the resource
+      operationId: user.authentication.microsoftAuthenticatorMethod_GetCount
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /users/{user-id}/authentication/operations:
+    get:
+      tags:
+      - Users authentication
+      summary: Get longRunningOperation
+      description: Read the properties and relationships of a longRunningOperation object. This API allows you to retrieve the details and status of the following long-running Microsoft Graph API operations. The possible states of the long-running operation are notStarted, running, succeeded, failed, unknownFutureValue where succeeded and failed are terminal states.
+      operationId: user.authentication_ListOperation
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.longRunningOperationCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - Users authentication
+      summary: Create new navigation property to operations for users
+      operationId: user.authentication_CreateOperation
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.longRunningOperation'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.longRunningOperation'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/operations/{longRunningOperation-id}:
+    get:
+      tags:
+      - Users authentication
+      summary: Get longRunningOperation
+      description: Read the properties and relationships of a longRunningOperation object. This API allows you to retrieve the details and status of the following long-running Microsoft Graph API operations. The possible states of the long-running operation are notStarted, running, succeeded, failed, unknownFutureValue where succeeded and failed are terminal states.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/longrunningoperation-get?view=graph-rest-1.0
+      operationId: user.authentication_GetOperation
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: longRunningOperation-id
+        in: path
+        description: The unique identifier of longRunningOperation
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: longRunningOperation
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.longRunningOperation'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - Users authentication
+      summary: Update the navigation property operations in users
+      operationId: user.authentication_UpdateOperation
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: longRunningOperation-id
+        in: path
+        description: The unique identifier of longRunningOperation
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: longRunningOperation
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.longRunningOperation'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.longRunningOperation'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Users authentication
+      summary: Delete navigation property operations for users
+      operationId: user.authentication_DeleteOperation
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: longRunningOperation-id
+        in: path
+        description: The unique identifier of longRunningOperation
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: longRunningOperation
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/operations/$count:
+    get:
+      tags:
+      - Users authentication
+      summary: Get the number of the resource
+      operationId: user.authentication.operation_GetCount
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /users/{user-id}/authentication/passwordMethods:
+    get:
+      tags:
+      - Users authentication
+      summary: Get passwordMethods from users
+      description: Represents the password registered to a user for authentication. For security, the password itself is never returned in the object, but action can be taken to reset a password.
+      operationId: user.authentication_ListPasswordMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.passwordAuthenticationMethodCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - Users authentication
+      summary: Create new navigation property to passwordMethods for users
+      operationId: user.authentication_CreatePasswordMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.passwordAuthenticationMethod'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.passwordAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/passwordMethods/{passwordAuthenticationMethod-id}:
+    get:
+      tags:
+      - Users authentication
+      summary: Get passwordMethods from users
+      description: Represents the password registered to a user for authentication. For security, the password itself is never returned in the object, but action can be taken to reset a password.
+      operationId: user.authentication_GetPasswordMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: passwordAuthenticationMethod-id
+        in: path
+        description: The unique identifier of passwordAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: passwordAuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.passwordAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/passwordMethods/$count:
+    get:
+      tags:
+      - Users authentication
+      summary: Get the number of the resource
+      operationId: user.authentication.passwordMethod_GetCount
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /users/{user-id}/authentication/phoneMethods:
+    get:
+      tags:
+      - Users authentication
+      summary: Get phoneMethods from users
+      description: The phone numbers registered to a user for authentication.
+      operationId: user.authentication_ListPhoneMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.phoneAuthenticationMethodCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - Users authentication
+      summary: Create phoneMethod
+      description: Add a new phone authentication method for a user. A user may only have one phone of each type, captured in the phoneType property. This means, for example, adding a mobile phone to a user with a pre-existing mobile phone fails. Additionally, a user must always have a mobile phone before adding an alternateMobile phone. Adding a phone number makes it available for use in both Azure multi-factor authentication (MFA) and self-service password reset (SSPR), if enabled. Additionally, if a user is enabled by policy to use SMS sign-in and a mobile number is added, the system attempts to register the number for use in that system.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/authentication-post-phonemethods?view=graph-rest-1.0
+      operationId: user.authentication_CreatePhoneMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.phoneAuthenticationMethod'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.phoneAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/phoneMethods/{phoneAuthenticationMethod-id}:
+    get:
+      tags:
+      - Users authentication
+      summary: Get phoneMethods from users
+      description: The phone numbers registered to a user for authentication.
+      operationId: user.authentication_GetPhoneMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: phoneAuthenticationMethod-id
+        in: path
+        description: The unique identifier of phoneAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: phoneAuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.phoneAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - Users authentication
+      summary: Update phoneAuthenticationMethod
+      description: Update a user's phone number associated with a phone authentication method object. You can't change a phone's type. To change a phone's type, add a new number of the desired type and then delete the object with the original type. If a user is enabled by policy to use SMS to sign in and the mobile number is changed, the system will attempt to register the number for use in that system. Self-service operations aren't supported.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/phoneauthenticationmethod-update?view=graph-rest-1.0
+      operationId: user.authentication_UpdatePhoneMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: phoneAuthenticationMethod-id
+        in: path
+        description: The unique identifier of phoneAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: phoneAuthenticationMethod
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.phoneAuthenticationMethod'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.phoneAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Users authentication
+      summary: Delete navigation property phoneMethods for users
+      operationId: user.authentication_DeletePhoneMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: phoneAuthenticationMethod-id
+        in: path
+        description: The unique identifier of phoneAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: phoneAuthenticationMethod
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/phoneMethods/{phoneAuthenticationMethod-id}/microsoft.graph.disableSmsSignIn:
+    post:
+      tags:
+      - Users authentication
+      summary: Invoke action disableSmsSignIn
+      description: Disable SMS sign-in for an existing mobile phone number registered to a user. The number will no longer be available for SMS sign-in, which can prevent your user from signing in.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/phoneauthenticationmethod-disablesmssignin?view=graph-rest-1.0
+      operationId: user.authentication.phoneMethod_disableSmsSignIn
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: phoneAuthenticationMethod-id
+        in: path
+        description: The unique identifier of phoneAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: phoneAuthenticationMethod
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /users/{user-id}/authentication/phoneMethods/{phoneAuthenticationMethod-id}/microsoft.graph.enableSmsSignIn:
+    post:
+      tags:
+      - Users authentication
+      summary: Invoke action enableSmsSignIn
+      description: 'Enable SMS sign-in for an existing mobile phone number registered to a user. To be successfully enabled:'
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/phoneauthenticationmethod-enablesmssignin?view=graph-rest-1.0
+      operationId: user.authentication.phoneMethod_enableSmsSignIn
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: phoneAuthenticationMethod-id
+        in: path
+        description: The unique identifier of phoneAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: phoneAuthenticationMethod
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /users/{user-id}/authentication/phoneMethods/$count:
+    get:
+      tags:
+      - Users authentication
+      summary: Get the number of the resource
+      operationId: user.authentication.phoneMethod_GetCount
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /users/{user-id}/authentication/platformCredentialMethods:
+    get:
+      tags:
+      - Users authentication
+      summary: Get platformCredentialMethods from users
+      description: Represents a platform credential instance registered to a user on Mac OS.
+      operationId: user.authentication_ListPlatformCredentialMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.platformCredentialAuthenticationMethodCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/platformCredentialMethods/{platformCredentialAuthenticationMethod-id}:
+    get:
+      tags:
+      - Users authentication
+      summary: Get platformCredentialMethods from users
+      description: Represents a platform credential instance registered to a user on Mac OS.
+      operationId: user.authentication_GetPlatformCredentialMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: platformCredentialAuthenticationMethod-id
+        in: path
+        description: The unique identifier of platformCredentialAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: platformCredentialAuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.platformCredentialAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Users authentication
+      summary: Delete platformCredentialAuthenticationMethod
+      description: Delete a platformCredentialAuthenticationMethod object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/platformcredentialauthenticationmethod-delete?view=graph-rest-1.0
+      operationId: user.authentication_DeletePlatformCredentialMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: platformCredentialAuthenticationMethod-id
+        in: path
+        description: The unique identifier of platformCredentialAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: platformCredentialAuthenticationMethod
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/platformCredentialMethods/{platformCredentialAuthenticationMethod-id}/device:
+    get:
+      tags:
+      - Users authentication
+      summary: Get device from users
+      description: The registered device on which this Platform Credential resides. Supports $expand. When you get a user's Platform Credential registration information, this property is returned only on a single GET and when you specify ?$expand. For example, GET /users/admin@contoso.com/authentication/platformCredentialAuthenticationMethod/_jpuR-TGZtk6aQCLF3BQjA2?$expand=device.
+      operationId: user.authentication.platformCredentialMethod_GetDevice
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: platformCredentialAuthenticationMethod-id
+        in: path
+        description: The unique identifier of platformCredentialAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: platformCredentialAuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.device'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/platformCredentialMethods/$count:
+    get:
+      tags:
+      - Users authentication
+      summary: Get the number of the resource
+      operationId: user.authentication.platformCredentialMethod_GetCount
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /users/{user-id}/authentication/softwareOathMethods:
+    get:
+      tags:
+      - Users authentication
+      summary: Get softwareOathMethods from users
+      description: The software OATH time-based one-time password (TOTP) applications registered to a user for authentication.
+      operationId: user.authentication_ListSoftwareOathMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.softwareOathAuthenticationMethodCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/softwareOathMethods/{softwareOathAuthenticationMethod-id}:
+    get:
+      tags:
+      - Users authentication
+      summary: Get softwareOathMethods from users
+      description: The software OATH time-based one-time password (TOTP) applications registered to a user for authentication.
+      operationId: user.authentication_GetSoftwareOathMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: softwareOathAuthenticationMethod-id
+        in: path
+        description: The unique identifier of softwareOathAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: softwareOathAuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.softwareOathAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Users authentication
+      summary: Delete softwareOathAuthenticationMethod
+      description: Delete a user's Software OATH token authentication method object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/softwareoathauthenticationmethod-delete?view=graph-rest-1.0
+      operationId: user.authentication_DeleteSoftwareOathMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: softwareOathAuthenticationMethod-id
+        in: path
+        description: The unique identifier of softwareOathAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: softwareOathAuthenticationMethod
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/softwareOathMethods/$count:
+    get:
+      tags:
+      - Users authentication
+      summary: Get the number of the resource
+      operationId: user.authentication.softwareOathMethod_GetCount
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /users/{user-id}/authentication/temporaryAccessPassMethods:
+    get:
+      tags:
+      - Users authentication
+      summary: List temporaryAccessPassMethods
+      description: Retrieve a list of a user's temporaryAccessPassAuthenticationMethod objects and their properties. This API will only return a single object in the collection as a user can have only one Temporary Access Pass method.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/authentication-list-temporaryaccesspassmethods?view=graph-rest-1.0
+      operationId: user.authentication_ListTemporaryAccessPassMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.temporaryAccessPassAuthenticationMethodCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - Users authentication
+      summary: Create temporaryAccessPassMethod
+      description: Create a new temporaryAccessPassAuthenticationMethod object on a user. A user can only have one Temporary Access Pass that's usable within its specified lifetime. If the user requires a new Temporary Access Pass while the current Temporary Access Pass is valid, the admin can create a new Temporary Access Pass for the user, the previous Temporary Access Pass will be deleted, and a new Temporary Access Pass will be created.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/authentication-post-temporaryaccesspassmethods?view=graph-rest-1.0
+      operationId: user.authentication_CreateTemporaryAccessPassMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.temporaryAccessPassAuthenticationMethod'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.temporaryAccessPassAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/temporaryAccessPassMethods/{temporaryAccessPassAuthenticationMethod-id}:
+    get:
+      tags:
+      - Users authentication
+      summary: Get temporaryAccessPassAuthenticationMethod
+      description: Retrieve a user's single temporaryAccessPassAuthenticationMethod object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/temporaryaccesspassauthenticationmethod-get?view=graph-rest-1.0
+      operationId: user.authentication_GetTemporaryAccessPassMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: temporaryAccessPassAuthenticationMethod-id
+        in: path
+        description: The unique identifier of temporaryAccessPassAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: temporaryAccessPassAuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.temporaryAccessPassAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Users authentication
+      summary: Delete temporaryAccessPassAuthenticationMethod
+      description: Delete a users's temporaryAccessPassAuthenticationMethod object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/temporaryaccesspassauthenticationmethod-delete?view=graph-rest-1.0
+      operationId: user.authentication_DeleteTemporaryAccessPassMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: temporaryAccessPassAuthenticationMethod-id
+        in: path
+        description: The unique identifier of temporaryAccessPassAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: temporaryAccessPassAuthenticationMethod
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/temporaryAccessPassMethods/$count:
+    get:
+      tags:
+      - Users authentication
+      summary: Get the number of the resource
+      operationId: user.authentication.temporaryAccessPassMethod_GetCount
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /users/{user-id}/authentication/windowsHelloForBusinessMethods:
+    get:
+      tags:
+      - Users authentication
+      summary: List windowsHelloForBusinessAuthenticationMethods
+      description: Get a list of the windowsHelloForBusinessAuthenticationMethod objects and their properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/windowshelloforbusinessauthenticationmethod-list?view=graph-rest-1.0
+      operationId: user.authentication_ListWindowsHelloGraphFPreBusinessMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.windowsHelloForBusinessAuthenticationMethodCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/windowsHelloForBusinessMethods/{windowsHelloForBusinessAuthenticationMethod-id}:
+    get:
+      tags:
+      - Users authentication
+      summary: Get windowsHelloForBusinessAuthenticationMethod
+      description: Read the properties and relationships of a windowsHelloForBusinessAuthenticationMethod object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/windowshelloforbusinessauthenticationmethod-get?view=graph-rest-1.0
+      operationId: user.authentication_GetWindowsHelloGraphFPreBusinessMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: windowsHelloForBusinessAuthenticationMethod-id
+        in: path
+        description: The unique identifier of windowsHelloForBusinessAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: windowsHelloForBusinessAuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.windowsHelloForBusinessAuthenticationMethod'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Users authentication
+      summary: Delete windowsHelloForBusinessAuthenticationMethod
+      description: Deletes a windowsHelloForBusinessAuthenticationMethod object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/windowshelloforbusinessauthenticationmethod-delete?view=graph-rest-1.0
+      operationId: user.authentication_DeleteWindowsHelloGraphFPreBusinessMethod
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: windowsHelloForBusinessAuthenticationMethod-id
+        in: path
+        description: The unique identifier of windowsHelloForBusinessAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: windowsHelloForBusinessAuthenticationMethod
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/windowsHelloForBusinessMethods/{windowsHelloForBusinessAuthenticationMethod-id}/device:
+    get:
+      tags:
+      - Users authentication
+      summary: Get device from users
+      description: The registered device on which this Windows Hello for Business key resides. Supports $expand. When you get a user's Windows Hello for Business registration information, this property is returned only on a single GET and when you specify ?$expand. For example, GET /users/admin@contoso.com/authentication/windowsHelloForBusinessMethods/_jpuR-TGZtk6aQCLF3BQjA2?$expand=device.
+      operationId: user.authentication.windowsHelloGraphFPreBusinessMethod_GetDevice
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - name: windowsHelloForBusinessAuthenticationMethod-id
+        in: path
+        description: The unique identifier of windowsHelloForBusinessAuthenticationMethod
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: windowsHelloForBusinessAuthenticationMethod
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.device'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /users/{user-id}/authentication/windowsHelloForBusinessMethods/$count:
+    get:
+      tags:
+      - Users authentication
+      summary: Get the number of the resource
+      operationId: user.authentication.windowsHelloGraphFPreBusinessMethod_GetCount
+      parameters:
+      - name: user-id
+        in: path
+        description: The unique identifier of user
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: user
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    microsoft.graph.platformCredentialAuthenticationMethodCollectionResponse:
+      title: Collection of platformCredentialAuthenticationMethod
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.platformCredentialAuthenticationMethod'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.phoneAuthenticationMethod:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+      - title: phoneAuthenticationMethod
+        type: object
+        properties:
+          phoneNumber:
+            type:
+            - string
+            - 'null'
+            description: The phone number to text or call for authentication. Phone numbers use the format +{country code} {number}x{extension}, with extension optional. For example, +1 5555551234 or +1 5555551234x123 are valid. Numbers are rejected when creating or updating if they don't match the required format.
+          phoneType:
+            $ref: '#/components/schemas/microsoft.graph.authenticationPhoneType'
+          smsSignInState:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodSignInState'
+        additionalProperties:
+          type: object
+    microsoft.graph.extension:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: extension
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.fido2AuthenticationMethod:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+      - title: fido2AuthenticationMethod
+        type: object
+        properties:
+          aaGuid:
+            type:
+            - string
+            - 'null'
+            description: Authenticator Attestation GUID, an identifier that indicates the type (such as make and model) of the authenticator.
+          attestationCertificates:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: The attestation certificate or certificates attached to this passkey.
+          attestationLevel:
+            $ref: '#/components/schemas/microsoft.graph.attestationLevel'
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The display name of the key as given by the user.
+          model:
+            type:
+            - string
+            - 'null'
+            description: The manufacturer-assigned model of the FIDO2 passkey.
+          passkeyType:
+            $ref: '#/components/schemas/microsoft.graph.passkeyType'
+          publicKeyCredential:
+            $ref: '#/components/schemas/microsoft.graph.webauthnPublicKeyCredential'
+        additionalProperties:
+          type: object
+    microsoft.graph.alternativeSecurityId:
+      title: alternativeSecurityId
+      type: object
+      properties:
+        identityProvider:
+          type:
+          - string
+          - 'null'
+          description: For internal use only.
+        key:
+          type:
+          - string
+          - 'null'
+          description: For internal use only.
+          format: base64url
+        type:
+          maximum: 2147483647
+          minimum: -2147483648
+          type:
+          - number
+          - 'null'
+          description: For internal use only.
+          format: int32
+      additionalProperties:
+        type: object
+    microsoft.graph.microsoftAuthenticatorAuthenticationMethod:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+      - title: microsoftAuthenticatorAuthenticationMethod
+        type: object
+        properties:
+          deviceTag:
+            type:
+            - string
+            - 'null'
+            description: Tags containing app metadata.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The name of the device on which this app is registered.
+          phoneAppVersion:
+            type:
+            - string
+            - 'null'
+            description: Numerical version of this instance of the Authenticator app.
+          device:
+            $ref: '#/components/schemas/microsoft.graph.device'
+        additionalProperties:
+          type: object
+    microsoft.graph.webauthnAuthenticationExtensionsClientInputs:
+      title: webauthnAuthenticationExtensionsClientInputs
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.windowsHelloForBusinessAuthenticationMethodCollectionResponse:
+      title: Collection of windowsHelloForBusinessAuthenticationMethod
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.windowsHelloForBusinessAuthenticationMethod'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.passwordResetResponse:
+      title: passwordResetResponse
+      type: object
+      properties:
+        newPassword:
+          type:
+          - string
+          - 'null'
+          description: The Microsoft Entra ID-generated password.
+      additionalProperties:
+        type: object
+    microsoft.graph.emailAuthenticationMethodCollectionResponse:
+      title: Collection of emailAuthenticationMethod
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.emailAuthenticationMethod'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.microsoftAuthenticatorAuthenticationMethodCollectionResponse:
+      title: Collection of microsoftAuthenticatorAuthenticationMethod
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.microsoftAuthenticatorAuthenticationMethod'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.webauthnPublicKeyCredentialParameters:
+      title: webauthnPublicKeyCredentialParameters
+      type: object
+      properties:
+        alg:
+          maximum: 2147483647
+          minimum: -2147483648
+          type:
+          - number
+          - 'null'
+          description: A COSE algorithm identifier representing the cryptographic algorithm to use for this credential type. For example, -7 represents ES256.
+          format: int32
+        type:
+          type:
+          - string
+          - 'null'
+          description: The type of credential to create. Currently, the only supported value is public-key.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.authenticationPhoneType:
+      title: authenticationPhoneType
+      enum:
+      - mobile
+      - alternateMobile
+      - office
+      - unknownFutureValue
+      type: string
+    microsoft.graph.authentication:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: authentication
+        type: object
+        properties:
+          emailMethods:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.emailAuthenticationMethod'
+            description: The email address registered to a user for authentication.
+            x-ms-navigationProperty: true
+          externalAuthenticationMethods:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.externalAuthenticationMethod'
+            description: Represents the external MFA registered to a user for authentication using an external identity provider.
+            x-ms-navigationProperty: true
+          fido2Methods:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.fido2AuthenticationMethod'
+            description: Represents the FIDO2 security keys registered to a user for authentication.
+            x-ms-navigationProperty: true
+          methods:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+            description: Represents all authentication methods registered to a user.
+            x-ms-navigationProperty: true
+          microsoftAuthenticatorMethods:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.microsoftAuthenticatorAuthenticationMethod'
+            description: The details of the Microsoft Authenticator app registered to a user for authentication.
+            x-ms-navigationProperty: true
+          operations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.longRunningOperation'
+            description: Represents the status of a long-running operation, such as a password reset operation.
+            x-ms-navigationProperty: true
+          passwordMethods:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.passwordAuthenticationMethod'
+            description: Represents the password registered to a user for authentication. For security, the password itself is never returned in the object, but action can be taken to reset a password.
+            x-ms-navigationProperty: true
+          phoneMethods:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.phoneAuthenticationMethod'
+            description: The phone numbers registered to a user for authentication.
+            x-ms-navigationProperty: true
+          platformCredentialMethods:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.platformCredentialAuthenticationMethod'
+            description: Represents a platform credential instance registered to a user on Mac OS.
+            x-ms-navigationProperty: true
+          softwareOathMethods:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.softwareOathAuthenticationMethod'
+            description: The software OATH time-based one-time password (TOTP) applications registered to a user for authentication.
+            x-ms-navigationProperty: true
+          temporaryAccessPassMethods:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.temporaryAccessPassAuthenticationMethod'
+            description: Represents a Temporary Access Pass registered to a user for authentication through time-limited passcodes.
+            x-ms-navigationProperty: true
+          windowsHelloForBusinessMethods:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.windowsHelloForBusinessAuthenticationMethod'
+            description: Represents the Windows Hello for Business authentication method registered to a user for authentication.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.authenticationMethod:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: authenticationMethod
+        type: object
+        properties:
+          createdDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Represents the date and time when an entity was created. Read-only.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.phoneAuthenticationMethodCollectionResponse:
+      title: Collection of phoneAuthenticationMethod
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.phoneAuthenticationMethod'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.webauthnPublicKeyCredentialCreationOptions:
+      title: webauthnPublicKeyCredentialCreationOptions
+      type: object
+      properties:
+        attestation:
+          type:
+          - string
+          - 'null'
+          description: Specifies the relying party's preference for attestation conveyance.
+        authenticatorSelection:
+          $ref: '#/components/schemas/microsoft.graph.webauthnAuthenticatorSelectionCriteria'
+        challenge:
+          type:
+          - string
+          - 'null'
+          description: The challenge that the authenticator must sign to prove possession of the credential. This value is Base64URL-encoded without padding.
+        excludeCredentials:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.webauthnPublicKeyCredentialDescriptor'
+          description: A list of credentials that are already registered for this user, which should be excluded from selection.
+        extensions:
+          $ref: '#/components/schemas/microsoft.graph.webauthnAuthenticationExtensionsClientInputs'
+        pubKeyCredParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.webauthnPublicKeyCredentialParameters'
+          description: The cryptographic parameters that the relying party supports, in order of preference.
+        rp:
+          $ref: '#/components/schemas/microsoft.graph.webauthnPublicKeyCredentialRpEntity'
+        timeout:
+          maximum: 2147483647
+          minimum: -2147483648
+          type:
+          - number
+          - 'null'
+          description: The time, in milliseconds, that the caller is willing to wait for the operation to complete.
+          format: int32
+        user:
+          $ref: '#/components/schemas/microsoft.graph.webauthnPublicKeyCredentialUserEntity'
+      additionalProperties:
+        type: object
+    microsoft.graph.longRunningOperation:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: longRunningOperation
+        type: object
+        properties:
+          createdDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The start time of the operation. The timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+            format: date-time
+          lastActionDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The time of the last action in the operation. The timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+            format: date-time
+          resourceLocation:
+            type:
+            - string
+            - 'null'
+            description: URI of the resource that the operation is performed on.
+          status:
+            $ref: '#/components/schemas/microsoft.graph.longRunningOperationStatus'
+          statusDetail:
+            type:
+            - string
+            - 'null'
+            description: Details about the status of the operation.
+        additionalProperties:
+          type: object
+        description: The status of a long-running operation.
+    microsoft.graph.webauthnPublicKeyCredentialRpEntity:
+      title: webauthnPublicKeyCredentialRpEntity
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: The relying party identifier. For web applications, this value is typically the domain name.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The human-readable name for the relying party.
+      additionalProperties:
+        type: object
+    microsoft.graph.passwordAuthenticationMethod:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+      - title: passwordAuthenticationMethod
+        type: object
+        properties:
+          password:
+            type:
+            - string
+            - 'null'
+            description: For security, the password is always returned as null from a LIST or GET operation.
+        additionalProperties:
+          type: object
+    microsoft.graph.temporaryAccessPassAuthenticationMethod:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+      - title: temporaryAccessPassAuthenticationMethod
+        type: object
+        properties:
+          isUsable:
+            type:
+            - boolean
+            - 'null'
+            description: The state of the authentication method that indicates whether it's currently usable by the user.
+          isUsableOnce:
+            type:
+            - boolean
+            - 'null'
+            description: Determines whether the pass is limited to a one-time use. If true, the pass can be used once; if false, the pass can be used multiple times within the Temporary Access Pass lifetime.
+          lifetimeInMinutes:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            description: The lifetime of the Temporary Access Pass in minutes starting at startDateTime. Must be between 10 and 43200 inclusive (equivalent to 30 days).
+            format: int32
+          methodUsabilityReason:
+            type:
+            - string
+            - 'null'
+            description: 'Details about the usability state (isUsable). Reasons can include: EnabledByPolicy, DisabledByPolicy, Expired, NotYetValid, OneTimeUsed.'
+          startDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The date and time when the Temporary Access Pass becomes available to use and when isUsable is true is enforced.
+            format: date-time
+          temporaryAccessPass:
+            type:
+            - string
+            - 'null'
+            description: The Temporary Access Pass used to authenticate. Returned only on creation of a new temporaryAccessPassAuthenticationMethod object; Hidden in subsequent read operations and returned as null with GET.
+        additionalProperties:
+          type: object
+    microsoft.graph.webauthnAuthenticatorAttestationResponse:
+      title: webauthnAuthenticatorAttestationResponse
+      type: object
+      properties:
+        attestationObject:
+          type:
+          - string
+          - 'null'
+          description: A CBOR-encoded attestation object containing the authenticator data and attestation statement. This value is Base64URL-encoded without padding.
+        clientDataJSON:
+          type:
+          - string
+          - 'null'
+          description: Contains the JSON-compatible serialization of client data passed to the authenticator by the client. This value is Base64URL-encoded without padding.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.webauthnPublicKeyCredentialUserEntity:
+      title: webauthnPublicKeyCredentialUserEntity
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: A human-readable name for the user account, intended for display.
+        id:
+          type:
+          - string
+          - 'null'
+          description: A user identifier, determined by the relying party. This value is opaque to the authenticator and is Base64URL-encoded without padding.
+        name:
+          type:
+          - string
+          - 'null'
+          description: A human-readable identifier for the user account, such as a username or email address.
+      additionalProperties:
+        type: object
+    microsoft.graph.emailAuthenticationMethod:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+      - title: emailAuthenticationMethod
+        type: object
+        properties:
+          emailAddress:
+            type:
+            - string
+            - 'null'
+            description: The email address registered to this user.
+        additionalProperties:
+          type: object
+    microsoft.graph.webauthnPublicKeyCredential:
+      title: webauthnPublicKeyCredential
+      type: object
+      properties:
+        clientExtensionResults:
+          $ref: '#/components/schemas/microsoft.graph.webauthnAuthenticationExtensionsClientOutputs'
+        id:
+          type:
+          - string
+          - 'null'
+          description: The credential ID created by the WebAuthn Authenticator. This value is Base64URL-encoded without padding.
+        response:
+          $ref: '#/components/schemas/microsoft.graph.webauthnAuthenticatorAttestationResponse'
+      additionalProperties:
+        type: object
+    microsoft.graph.passkeyType:
+      title: passkeyType
+      enum:
+      - deviceBound
+      - synced
+      - unknownFutureValue
+      type: string
+    microsoft.graph.windowsHelloForBusinessAuthenticationMethod:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+      - title: windowsHelloForBusinessAuthenticationMethod
+        type: object
+        properties:
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The name of the device on which Windows Hello for Business is registered
+          keyStrength:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodKeyStrength'
+          device:
+            $ref: '#/components/schemas/microsoft.graph.device'
+        additionalProperties:
+          type: object
+    microsoft.graph.webauthnCredentialCreationOptions:
+      title: webauthnCredentialCreationOptions
+      type: object
+      properties:
+        challengeTimeoutDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: The date and time when the challenge times out and can no longer be used to create a credential.
+          format: date-time
+        publicKey:
+          $ref: '#/components/schemas/microsoft.graph.webauthnPublicKeyCredentialCreationOptions'
+      additionalProperties:
+        type: object
+    microsoft.graph.longRunningOperationStatus:
+      title: longRunningOperationStatus
+      enum:
+      - notStarted
+      - running
+      - succeeded
+      - failed
+      - unknownFutureValue
+      type: string
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodPlatform:
+      title: authenticationMethodPlatform
+      enum:
+      - unknown
+      - windows
+      - macOS
+      - iOS
+      - android
+      - linux
+      - unknownFutureValue
+      type: string
+    microsoft.graph.authenticationMethodKeyStrength:
+      title: authenticationMethodKeyStrength
+      enum:
+      - normal
+      - weak
+      - unknown
+      type: string
+    microsoft.graph.externalAuthenticationMethodCollectionResponse:
+      title: Collection of externalAuthenticationMethod
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.externalAuthenticationMethod'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodCollectionResponse:
+      title: Collection of authenticationMethod
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodSignInState:
+      title: authenticationMethodSignInState
+      enum:
+      - notSupported
+      - notAllowedByPolicy
+      - notEnabled
+      - phoneNumberNotUnique
+      - ready
+      - notConfigured
+      - unknownFutureValue
+      type: string
+    microsoft.graph.attestationLevel:
+      title: attestationLevel
+      enum:
+      - attested
+      - notAttested
+      - unknownFutureValue
+      type: string
+    microsoft.graph.device:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: device
+        type: object
+        properties:
+          accountEnabled:
+            type:
+            - boolean
+            - 'null'
+            description: true if the account is enabled; otherwise, false. Required. Default is true.  Supports $filter (eq, ne, not, in). Only callers with at least the Cloud Device Administrator role can set this property.
+          alternativeSecurityIds:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.alternativeSecurityId'
+            description: For internal use only. Not nullable. Supports $filter (eq, not, ge, le).
+          approximateLastSignInDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only. Supports $filter (eq, ne, not, ge, le, and eq on null values) and $orderby.
+            format: date-time
+          complianceExpirationDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The timestamp when the device is no longer deemed compliant. The timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
+            format: date-time
+          deviceCategory:
+            type:
+            - string
+            - 'null'
+            description: User-defined property set by Intune to automatically add devices to groups and simplify managing devices.
+          deviceId:
+            type:
+            - string
+            - 'null'
+            description: Unique identifier set by Azure Device Registration Service at the time of registration. This alternate key can be used to reference the device object. Supports $filter (eq, ne, not, startsWith).
+          deviceMetadata:
+            type:
+            - string
+            - 'null'
+            description: For internal use only. Set to null.
+          deviceOwnership:
+            type:
+            - string
+            - 'null'
+            description: 'Ownership of the device. Intune sets this property. The possible values are: unknown, company, personal.'
+          deviceVersion:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            description: For internal use only.
+            format: int32
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The display name for the device. Maximum length is 256 characters. Required. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq on null values), $search, and $orderby.
+          enrollmentProfileName:
+            type:
+            - string
+            - 'null'
+            description: Enrollment profile applied to the device. For example, Apple Device Enrollment Profile, Device enrollment - Corporate device identifiers, or Windows Autopilot profile name. This property is set by Intune.
+          enrollmentType:
+            type:
+            - string
+            - 'null'
+            description: 'Enrollment type of the device. Intune sets this property. The possible values are: unknown, userEnrollment, deviceEnrollmentManager, appleBulkWithUser, appleBulkWithoutUser, windowsAzureADJoin, windowsBulkUserless, windowsAutoEnrollment, windowsBulkAzureDomainJoin, windowsCoManagement, windowsAzureADJoinUsingDeviceAuth,appleUserEnrollment, appleUserEnrollmentWithServiceAccount. NOTE: This property might return other values apart from those listed.'
+          isCompliant:
+            type:
+            - boolean
+            - 'null'
+            description: true if the device complies with Mobile Device Management (MDM) policies; otherwise, false. Read-only. This can only be updated by Intune for any device OS type or by an approved MDM app for Windows OS devices. Supports $filter (eq, ne, not).
+          isManaged:
+            type:
+            - boolean
+            - 'null'
+            description: true if the device is managed by a Mobile Device Management (MDM) app; otherwise, false. This can only be updated by Intune for any device OS type or by an approved MDM app for Windows OS devices. Supports $filter (eq, ne, not).
+          isManagementRestricted:
+            type:
+            - boolean
+            - 'null'
+            description: Indicates whether the device is a member of a restricted management administrative unit. If not set, the default value is null and the default behavior is false. Read-only.  To manage a device that's a member of a restricted management administrative unit, the administrator or calling app must be assigned a Microsoft Entra role at the scope of the restricted management administrative unit. Requires $select to retrieve.
+          isRooted:
+            type:
+            - boolean
+            - 'null'
+            description: true if the device is rooted or jail-broken. This property can only be updated by Intune.
+          managementType:
+            type:
+            - string
+            - 'null'
+            description: 'The management channel of the device. This property is set by Intune. The possible values are: eas, mdm, easMdm, intuneClient, easIntuneClient, configurationManagerClient, configurationManagerClientMdm, configurationManagerClientMdmEas, unknown, jamf, googleCloudDevicePolicyController.'
+          manufacturer:
+            type:
+            - string
+            - 'null'
+            description: Manufacturer of the device. Read-only.
+          mdmAppId:
+            type:
+            - string
+            - 'null'
+            description: Application identifier used to register device into MDM. Read-only. Supports $filter (eq, ne, not, startsWith).
+          model:
+            type:
+            - string
+            - 'null'
+            description: Model of the device. Read-only.
+          onPremisesLastSyncDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The last time at which the object was synced with the on-premises directory. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z Read-only. Supports $filter (eq, ne, not, ge, le, in).
+            format: date-time
+          onPremisesSecurityIdentifier:
+            type:
+            - string
+            - 'null'
+            description: The on-premises security identifier (SID) for the user who was synchronized from on-premises to the cloud. Read-only. Requires $select to retrieve. Supports $filter (eq).
+          onPremisesSyncEnabled:
+            type:
+            - boolean
+            - 'null'
+            description: true if this object is synced from an on-premises directory; false if this object was originally synced from an on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory (default). Read-only. Supports $filter (eq, ne, not, in, and eq on null values).
+          operatingSystem:
+            type:
+            - string
+            - 'null'
+            description: The type of operating system on the device. Required. Supports $filter (eq, ne, not, ge, le, startsWith, and eq on null values).
+          operatingSystemVersion:
+            type:
+            - string
+            - 'null'
+            description: The version of the operating system on the device. Required. Supports $filter (eq, ne, not, ge, le, startsWith, and eq on null values).
+          physicalIds:
+            type: array
+            items:
+              type: string
+            description: For internal use only. Not nullable. Supports $filter (eq, not, ge, le, startsWith,/$count eq 0, /$count ne 0).
+          profileType:
+            type:
+            - string
+            - 'null'
+            description: 'The profile type of the device. Possible values: RegisteredDevice (default), SecureVM, Printer, Shared, IoT.'
+          registrationDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time of when the device was registered. The timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
+            format: date-time
+          systemLabels:
+            type: array
+            items:
+              type: string
+            description: List of labels applied to the device by the system. Supports $filter (/$count eq 0, /$count ne 0).
+          trustType:
+            type:
+            - string
+            - 'null'
+            description: 'Type of trust for the joined device. Read-only. Possible values:  Workplace (indicates bring your own personal devices), AzureAd (Cloud-only joined devices), ServerAd (on-premises domain joined devices joined to Microsoft Entra ID). For more information, see Introduction to device management in Microsoft Entra ID. Supports $filter (eq, ne, not, in).'
+          extensions:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.extension'
+            description: The collection of open extensions defined for the device. Read-only. Nullable.
+            x-ms-navigationProperty: true
+          memberOf:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            description: Groups and administrative units that this device is a member of. Read-only. Nullable. Supports $expand.
+            x-ms-navigationProperty: true
+          registeredOwners:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            description: The user that cloud joined the device or registered their personal device. The registered owner is set at the time of registration. Read-only. Nullable. Supports $expand.
+            x-ms-navigationProperty: true
+          registeredUsers:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            description: Collection of registered users of the device. For cloud joined devices and registered personal devices, registered users are set to the same value as registered owners at the time of registration. Read-only. Nullable. Supports $expand.
+            x-ms-navigationProperty: true
+          transitiveMemberOf:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            description: Groups and administrative units that the device is a member of. This operation is transitive. Supports $expand.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.webauthnPublicKeyCredentialDescriptor:
+      title: webauthnPublicKeyCredentialDescriptor
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: The credential ID of the credential being described. This value is Base64URL-encoded without padding.
+        transports:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: 'A hint about the types of transport that the authenticator supports. Possible values include: usb, nfc, ble, internal.'
+        type:
+          type:
+          - string
+          - 'null'
+          description: The type of credential. Currently, the only supported value is public-key.
+      additionalProperties:
+        type: object
+    microsoft.graph.webauthnAuthenticatorSelectionCriteria:
+      title: webauthnAuthenticatorSelectionCriteria
+      type: object
+      properties:
+        authenticatorAttachment:
+          type:
+          - string
+          - 'null'
+          description: 'Specifies the preferred attachment modality for the authenticator. Possible values: platform (device-bound authenticator, such as Windows Hello), cross-platform (removable authenticator, such as a USB security key), or null (no preference).'
+        requireResidentKey:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the authenticator must create a client-side-resident credential (also known as a discoverable credential). If true, the credential can be used without providing a credential ID.
+        userVerification:
+          type:
+          - string
+          - 'null'
+          description: 'Specifies the relying party''s preference for user verification during credential creation. Possible values: required, preferred, or discouraged.'
+      additionalProperties:
+        type: object
+    microsoft.graph.softwareOathAuthenticationMethod:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+      - title: softwareOathAuthenticationMethod
+        type: object
+        properties:
+          secretKey:
+            type:
+            - string
+            - 'null'
+            description: The secret key of the method. Always returns null.
+        additionalProperties:
+          type: object
+    microsoft.graph.fido2AuthenticationMethodCollectionResponse:
+      title: Collection of fido2AuthenticationMethod
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.fido2AuthenticationMethod'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.softwareOathAuthenticationMethodCollectionResponse:
+      title: Collection of softwareOathAuthenticationMethod
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.softwareOathAuthenticationMethod'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.webauthnAuthenticationExtensionsClientOutputs:
+      title: webauthnAuthenticationExtensionsClientOutputs
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.longRunningOperationCollectionResponse:
+      title: Collection of longRunningOperation
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.longRunningOperation'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.passwordAuthenticationMethodCollectionResponse:
+      title: Collection of passwordAuthenticationMethod
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.passwordAuthenticationMethod'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.platformCredentialAuthenticationMethod:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+      - title: platformCredentialAuthenticationMethod
+        type: object
+        properties:
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The name of the device on which Platform Credential is registered.
+          keyStrength:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodKeyStrength'
+          platform:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodPlatform'
+          device:
+            $ref: '#/components/schemas/microsoft.graph.device'
+        additionalProperties:
+          type: object
+    microsoft.graph.externalAuthenticationMethod:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.authenticationMethod'
+      - title: externalAuthenticationMethod
+        type: object
+        properties:
+          configurationId:
+            type: string
+            description: A unique identifier used to manage the external auth method within Microsoft Entra ID.
+          displayName:
+            type: string
+            description: Custom name given to the registered external MFA.
+        additionalProperties:
+          type: object
+    microsoft.graph.temporaryAccessPassAuthenticationMethodCollectionResponse:
+      title: Collection of temporaryAccessPassAuthenticationMethod
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.temporaryAccessPassAuthenticationMethod'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  responses:
+    microsoft.graph.emailAuthenticationMethodCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.emailAuthenticationMethodCollectionResponse'
+    microsoft.graph.microsoftAuthenticatorAuthenticationMethodCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.microsoftAuthenticatorAuthenticationMethodCollectionResponse'
+    microsoft.graph.externalAuthenticationMethodCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.externalAuthenticationMethodCollectionResponse'
+    microsoft.graph.fido2AuthenticationMethodCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.fido2AuthenticationMethodCollectionResponse'
+    microsoft.graph.platformCredentialAuthenticationMethodCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.platformCredentialAuthenticationMethodCollectionResponse'
+    microsoft.graph.authenticationMethodCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodCollectionResponse'
+    microsoft.graph.passwordAuthenticationMethodCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.passwordAuthenticationMethodCollectionResponse'
+    microsoft.graph.longRunningOperationCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.longRunningOperationCollectionResponse'
+    microsoft.graph.temporaryAccessPassAuthenticationMethodCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.temporaryAccessPassAuthenticationMethodCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.softwareOathAuthenticationMethodCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.softwareOathAuthenticationMethodCollectionResponse'
+    microsoft.graph.phoneAuthenticationMethodCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.phoneAuthenticationMethodCollectionResponse'
+    microsoft.graph.windowsHelloForBusinessAuthenticationMethodCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.windowsHelloForBusinessAuthenticationMethodCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

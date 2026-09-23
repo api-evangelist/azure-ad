@@ -1,0 +1,457 @@
+openapi: 3.2.0
+info:
+  title: Groups.group Setting API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: groups.groupSetting
+paths:
+  /groups/{group-id}/settings:
+    get:
+      tags:
+      - groups.groupSetting
+      summary: List settings
+      description: Retrieve a list of tenant-level or group-specific group settings objects.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/group-list-settings?view=graph-rest-1.0
+      operationId: group_ListSetting
+      parameters:
+      - name: group-id
+        in: path
+        description: The unique identifier of group
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: group
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.groupSettingCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - groups.groupSetting
+      summary: Create settings
+      description: 'Create a new group setting based on the templates available in groupSettingTemplates. These settings can be at the tenant-level or at the group level. The following group setting templates are available for groups:'
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/group-post-settings?view=graph-rest-1.0
+      operationId: group_CreateSetting
+      parameters:
+      - name: group-id
+        in: path
+        description: The unique identifier of group
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: group
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.groupSetting'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.groupSetting'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /groups/{group-id}/settings/{groupSetting-id}:
+    get:
+      tags:
+      - groups.groupSetting
+      summary: Get groupSetting
+      description: Retrieve the properties of a specific group setting object. The setting can be a tenant-level or group-specific setting.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/groupsetting-get?view=graph-rest-1.0
+      operationId: group_GetSetting
+      parameters:
+      - name: group-id
+        in: path
+        description: The unique identifier of group
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: group
+      - name: groupSetting-id
+        in: path
+        description: The unique identifier of groupSetting
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: groupSetting
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.groupSetting'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - groups.groupSetting
+      summary: Update groupSetting
+      description: Update the properties of a groupSetting object for tenant-wide group settings or a specific group setting.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/groupsetting-update?view=graph-rest-1.0
+      operationId: group_UpdateSetting
+      parameters:
+      - name: group-id
+        in: path
+        description: The unique identifier of group
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: group
+      - name: groupSetting-id
+        in: path
+        description: The unique identifier of groupSetting
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: groupSetting
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.groupSetting'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.groupSetting'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - groups.groupSetting
+      summary: Delete navigation property settings for groups
+      operationId: group_DeleteSetting
+      parameters:
+      - name: group-id
+        in: path
+        description: The unique identifier of group
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: group
+      - name: groupSetting-id
+        in: path
+        description: The unique identifier of groupSetting
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: groupSetting
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /groups/{group-id}/settings/$count:
+    get:
+      tags:
+      - groups.groupSetting
+      summary: Get the number of the resource
+      operationId: group.setting_GetCount
+      parameters:
+      - name: group-id
+        in: path
+        description: The unique identifier of group
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: group
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.groupSettingCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.groupSettingCollectionResponse'
+  schemas:
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.groupSetting:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: groupSetting
+        type: object
+        properties:
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Display name of this group of settings, which comes from the associated template.
+          templateId:
+            type:
+            - string
+            - 'null'
+            description: Unique identifier for the tenant-level groupSettingTemplates object that's been customized for this group-level settings object. Read-only.
+          values:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.settingValue'
+            description: Collection of name-value pairs corresponding to the name and defaultValue properties in the referenced groupSettingTemplates object.
+        additionalProperties:
+          type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.settingValue:
+      title: settingValue
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the setting (as defined by the groupSettingTemplate).
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value of the setting.
+      additionalProperties:
+        type: object
+    microsoft.graph.groupSettingCollectionResponse:
+      title: Collection of groupSetting
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.groupSetting'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

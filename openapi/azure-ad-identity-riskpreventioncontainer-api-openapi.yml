@@ -1,0 +1,1149 @@
+openapi: 3.2.0
+info:
+  title: Identity.SignIns Identity.risk Prevention Container API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: identity.riskPreventionContainer
+paths:
+  /identity/riskPrevention:
+    get:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Get riskPrevention from identity
+      description: Represents the entry point for fraud and risk prevention configurations in Microsoft Entra External ID, including third-party provider settings.
+      operationId: identity_GetRiskPrevention
+      parameters:
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.riskPreventionContainer'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Update the navigation property riskPrevention in identity
+      operationId: identity_UpdateRiskPrevention
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.riskPreventionContainer'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.riskPreventionContainer'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Delete navigation property riskPrevention for identity
+      operationId: identity_DeleteRiskPrevention
+      parameters:
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identity/riskPrevention/fraudProtectionProviders:
+    get:
+      tags:
+      - identity.riskPreventionContainer
+      summary: List fraudProtectionProviders
+      description: 'Get a list of the fraudProtectionProvider object and their properties. The following derived types are supported:'
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/riskpreventioncontainer-list-fraudprotectionproviders?view=graph-rest-1.0
+      operationId: identity.riskPrevention_ListFraudProtectionProvider
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.fraudProtectionProviderCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Create fraudProtectionProviders
+      description: Create a new fraudProtectionProvider object. You can create one of the following subtypes that are derived from fraudProtectionProvider.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/riskpreventioncontainer-post-fraudprotectionproviders?view=graph-rest-1.0
+      operationId: identity.riskPrevention_CreateFraudProtectionProvider
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.fraudProtectionProvider'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.fraudProtectionProvider'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identity/riskPrevention/fraudProtectionProviders/{fraudProtectionProvider-id}:
+    get:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Get fraudProtectionProvider
+      description: Read the properties and relationships of fraudProtectionProvider object. The following derived types are currently supported.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/fraudprotectionprovider-get?view=graph-rest-1.0
+      operationId: identity.riskPrevention_GetFraudProtectionProvider
+      parameters:
+      - name: fraudProtectionProvider-id
+        in: path
+        description: The unique identifier of fraudProtectionProvider
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: fraudProtectionProvider
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.fraudProtectionProvider'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Update fraudProtectionProvider
+      description: Update the properties of a fraudProtectionProvider object. The following derived types are currently supported.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/fraudprotectionprovider-update?view=graph-rest-1.0
+      operationId: identity.riskPrevention_UpdateFraudProtectionProvider
+      parameters:
+      - name: fraudProtectionProvider-id
+        in: path
+        description: The unique identifier of fraudProtectionProvider
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: fraudProtectionProvider
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.fraudProtectionProvider'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.fraudProtectionProvider'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Delete fraudProtectionProviders
+      description: Delete a fraudProtectionProvider object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/riskpreventioncontainer-delete-fraudprotectionproviders?view=graph-rest-1.0
+      operationId: identity.riskPrevention_DeleteFraudProtectionProvider
+      parameters:
+      - name: fraudProtectionProvider-id
+        in: path
+        description: The unique identifier of fraudProtectionProvider
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: fraudProtectionProvider
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identity/riskPrevention/fraudProtectionProviders/$count:
+    get:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Get the number of the resource
+      operationId: identity.riskPrevention.fraudProtectionProvider_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /identity/riskPrevention/webApplicationFirewallProviders:
+    get:
+      tags:
+      - identity.riskPreventionContainer
+      summary: List webApplicationFirewallProvider objects
+      description: Get a list of the webApplicationFirewallProvider objects and their properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/riskpreventioncontainer-list-webapplicationfirewallproviders?view=graph-rest-1.0
+      operationId: identity.riskPrevention_ListWebApplicationFirewallProvider
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.webApplicationFirewallProviderCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Create webApplicationFirewallProvider
+      description: Create a new webApplicationFirewallProvider object. You can create one of the following subtypes that are derived from webApplicationFirewallProvider.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/riskpreventioncontainer-post-webapplicationfirewallproviders?view=graph-rest-1.0
+      operationId: identity.riskPrevention_CreateWebApplicationFirewallProvider
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identity/riskPrevention/webApplicationFirewallProviders/{webApplicationFirewallProvider-id}:
+    get:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Get webApplicationFirewallProvider
+      description: Read the properties and relationships of webApplicationFirewallProvider object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/webapplicationfirewallprovider-get?view=graph-rest-1.0
+      operationId: identity.riskPrevention_GetWebApplicationFirewallProvider
+      parameters:
+      - name: webApplicationFirewallProvider-id
+        in: path
+        description: The unique identifier of webApplicationFirewallProvider
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: webApplicationFirewallProvider
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Update webApplicationFirewallProvider
+      description: Update the properties of a webApplicationFirewallProvider object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/webapplicationfirewallprovider-update?view=graph-rest-1.0
+      operationId: identity.riskPrevention_UpdateWebApplicationFirewallProvider
+      parameters:
+      - name: webApplicationFirewallProvider-id
+        in: path
+        description: The unique identifier of webApplicationFirewallProvider
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: webApplicationFirewallProvider
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Delete webApplicationFirewallProvider
+      description: Delete a webApplicationFirewallProvider object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/riskpreventioncontainer-delete-webapplicationfirewallproviders?view=graph-rest-1.0
+      operationId: identity.riskPrevention_DeleteWebApplicationFirewallProvider
+      parameters:
+      - name: webApplicationFirewallProvider-id
+        in: path
+        description: The unique identifier of webApplicationFirewallProvider
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: webApplicationFirewallProvider
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identity/riskPrevention/webApplicationFirewallProviders/{webApplicationFirewallProvider-id}/microsoft.graph.verify:
+    post:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Invoke action verify
+      description: Initiate a verification operation for a webApplicationFirewallProvider object. This API triggers provider-specific verification logic and returns a webApplicationFirewallVerificationModel object describing the verification result.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/webapplicationfirewallprovider-verify?view=graph-rest-1.0
+      operationId: identity.riskPrevention.webApplicationFirewallProvider_verify
+      parameters:
+      - name: webApplicationFirewallProvider-id
+        in: path
+        description: The unique identifier of webApplicationFirewallProvider
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: webApplicationFirewallProvider
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hostName:
+                  type:
+                  - string
+                  - 'null'
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModel'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /identity/riskPrevention/webApplicationFirewallProviders/$count:
+    get:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Get the number of the resource
+      operationId: identity.riskPrevention.webApplicationFirewallProvider_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /identity/riskPrevention/webApplicationFirewallVerifications:
+    get:
+      tags:
+      - identity.riskPreventionContainer
+      summary: List webApplicationFirewallVerificationModel objects
+      description: Get a list of the webApplicationFirewallVerificationModel objects and their properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/riskpreventioncontainer-list-webapplicationfirewallverifications?view=graph-rest-1.0
+      operationId: identity.riskPrevention_ListWebApplicationFirewallVerification
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.webApplicationFirewallVerificationModelCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Create new navigation property to webApplicationFirewallVerifications for…
+      operationId: identity.riskPrevention_CreateWebApplicationFirewallVerification
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModel'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModel'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identity/riskPrevention/webApplicationFirewallVerifications/{webApplicationFirewallVerificationModel-id}:
+    get:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Get webApplicationFirewallVerificationModel
+      description: Read the properties and relationships of webApplicationFirewallVerificationModel object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/webapplicationfirewallverificationmodel-get?view=graph-rest-1.0
+      operationId: identity.riskPrevention_GetWebApplicationFirewallVerification
+      parameters:
+      - name: webApplicationFirewallVerificationModel-id
+        in: path
+        description: The unique identifier of webApplicationFirewallVerificationModel
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: webApplicationFirewallVerificationModel
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModel'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Update the navigation property webApplicationFirewallVerifications in identity
+      operationId: identity.riskPrevention_UpdateWebApplicationFirewallVerification
+      parameters:
+      - name: webApplicationFirewallVerificationModel-id
+        in: path
+        description: The unique identifier of webApplicationFirewallVerificationModel
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: webApplicationFirewallVerificationModel
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModel'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModel'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Delete webApplicationFirewallVerificationModel
+      description: Delete a webApplicationFirewallVerificationModel object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/riskpreventioncontainer-delete-webapplicationfirewallverifications?view=graph-rest-1.0
+      operationId: identity.riskPrevention_DeleteWebApplicationFirewallVerification
+      parameters:
+      - name: webApplicationFirewallVerificationModel-id
+        in: path
+        description: The unique identifier of webApplicationFirewallVerificationModel
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: webApplicationFirewallVerificationModel
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identity/riskPrevention/webApplicationFirewallVerifications/{webApplicationFirewallVerificationModel-id}/provider:
+    get:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Get provider from identity
+      description: Reference to a provider resource associated with this verification model. Represents a WAF provider that can be used to verify or manage the host.
+      operationId: identity.riskPrevention.webApplicationFirewallVerification_GetProvider
+      parameters:
+      - name: webApplicationFirewallVerificationModel-id
+        in: path
+        description: The unique identifier of webApplicationFirewallVerificationModel
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: webApplicationFirewallVerificationModel
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identity/riskPrevention/webApplicationFirewallVerifications/$count:
+    get:
+      tags:
+      - identity.riskPreventionContainer
+      summary: Get the number of the resource
+      operationId: identity.riskPrevention.webApplicationFirewallVerification_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.webApplicationFirewallVerificationModelCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModelCollectionResponse'
+    microsoft.graph.webApplicationFirewallProviderCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProviderCollectionResponse'
+    microsoft.graph.fraudProtectionProviderCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.fraudProtectionProviderCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.fraudProtectionProvider:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: fraudProtectionProvider
+        type: object
+        properties:
+          displayName:
+            type: string
+            description: The display name of the fraud protection provider configuration.
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.webApplicationFirewallDnsRecordType:
+      title: webApplicationFirewallDnsRecordType
+      enum:
+      - cname
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.webApplicationFirewallVerificationResult:
+      title: webApplicationFirewallVerificationResult
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.genericError'
+          description: List of errors encountered during the verification process.
+        status:
+          $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationStatus'
+        verifiedOnDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type: string
+          description: UTC timestamp when the verification was performed or last updated. This indicates when the verification result was produced.
+          format: date-time
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.genericError'
+          description: List of warnings produced during verification.
+      additionalProperties:
+        type: object
+    microsoft.graph.webApplicationFirewallVerificationModelCollectionResponse:
+      title: Collection of webApplicationFirewallVerificationModel
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModel'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.riskPreventionContainer:
+      title: riskPreventionContainer
+      type: object
+      properties:
+        fraudProtectionProviders:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.fraudProtectionProvider'
+          description: Represents entry point for fraud protection provider configurations for Microsoft Entra External ID tenants.
+          x-ms-navigationProperty: true
+        webApplicationFirewallProviders:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
+          description: Collection of WAF provider configurations registered in the External ID tenant.
+          x-ms-navigationProperty: true
+        webApplicationFirewallVerifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModel'
+          description: Collection of verification operations performed for domains or hosts with WAF providers registered in the External ID tenant.
+          x-ms-navigationProperty: true
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.webApplicationFirewallVerificationStatus:
+      title: webApplicationFirewallVerificationStatus
+      enum:
+      - success
+      - warning
+      - failure
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.webApplicationFirewallProvider:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: webApplicationFirewallProvider
+        type: object
+        properties:
+          displayName:
+            type: string
+            description: The display name of the WAF provider.
+        additionalProperties:
+          type: object
+    microsoft.graph.webApplicationFirewallVerificationModel:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: webApplicationFirewallVerificationModel
+        type: object
+        properties:
+          providerType:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProviderType'
+          verificationResult:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationResult'
+          verifiedDetails:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerifiedDetails'
+          verifiedHost:
+            type:
+            - string
+            - 'null'
+            description: The host (domain or subdomain) that was verified as part of this verification operation.
+          provider:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
+        additionalProperties:
+          type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.webApplicationFirewallVerifiedDetails:
+      title: webApplicationFirewallVerifiedDetails
+      type: object
+      properties:
+        dnsConfiguration:
+          $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallDnsConfiguration'
+      additionalProperties:
+        type: object
+    microsoft.graph.webApplicationFirewallDnsConfiguration:
+      title: webApplicationFirewallDnsConfiguration
+      type: object
+      properties:
+        isDomainVerified:
+          type: boolean
+          description: Indicates whether the domain owning this DNS record has been verified by the WAF provider.
+        isProxied:
+          type: boolean
+          description: Indicates whether traffic for this DNS record is proxied through the WAF provider's network (for example, using a CDN or reverse proxy).
+        name:
+          type:
+          - string
+          - 'null'
+          description: The DNS record name (for example, www.contoso.com or contoso.com). This is the host or zone name to which the configuration applies.
+        recordType:
+          $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallDnsRecordType'
+        value:
+          type:
+          - string
+          - 'null'
+          description: The value of the DNS record.
+      additionalProperties:
+        type: object
+    microsoft.graph.genericError:
+      title: genericError
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The error code.
+        message:
+          type:
+          - string
+          - 'null'
+          description: The error message.
+      additionalProperties:
+        type: object
+    microsoft.graph.webApplicationFirewallProviderCollectionResponse:
+      title: Collection of webApplicationFirewallProvider
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.fraudProtectionProviderCollectionResponse:
+      title: Collection of fraudProtectionProvider
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.fraudProtectionProvider'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.webApplicationFirewallProviderType:
+      title: webApplicationFirewallProviderType
+      enum:
+      - akamai
+      - cloudflare
+      - unknownFutureValue
+      type: string
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

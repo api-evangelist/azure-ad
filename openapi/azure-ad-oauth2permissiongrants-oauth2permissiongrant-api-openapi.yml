@@ -1,0 +1,402 @@
+openapi: 3.2.0
+info:
+  title: Identity.SignIns Oauth2 Permission Grants.o Auth2…
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: oauth2PermissionGrants.oAuth2PermissionGrant
+paths:
+  /oauth2PermissionGrants:
+    get:
+      tags:
+      - oauth2PermissionGrants.oAuth2PermissionGrant
+      summary: List oauth2PermissionGrants (delegated permission grants)
+      description: Retrieve a list of oAuth2PermissionGrant objects, representing delegated permissions which have been granted for client applications to access APIs on behalf of signed-in users.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/oauth2permissiongrant-list?view=graph-rest-1.0
+      operationId: oauth2PermissionGrant_ListOAuth2PermissionGrant
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.oAuth2PermissionGrantCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - oauth2PermissionGrants.oAuth2PermissionGrant
+      summary: Create oAuth2PermissionGrant (a delegated permission grant)
+      description: Create a delegated permission grant represented by an oAuth2PermissionGrant object. A delegated permission grant authorizes a client service principal (representing a client application) to access a resource service principal (representing an API), on behalf of a signed-in user, for the level of access limited by the delegated permissions which were granted.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/oauth2permissiongrant-post?view=graph-rest-1.0
+      operationId: oauth2PermissionGrant_CreateOAuth2PermissionGrant
+      requestBody:
+        description: New entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.oAuth2PermissionGrant'
+        required: true
+      responses:
+        2XX:
+          description: Created entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.oAuth2PermissionGrant'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /oauth2PermissionGrants/{oAuth2PermissionGrant-id}:
+    get:
+      tags:
+      - oauth2PermissionGrants.oAuth2PermissionGrant
+      summary: Get oAuth2PermissionGrant (a delegated permission grant)
+      description: Retrieve the properties of a single delegated permission grant represented by an oAuth2PermissionGrant object. An oAuth2PermissionGrant represents delegated permissions which have been granted for a client application to access an API on behalf of a signed-in user.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/oauth2permissiongrant-get?view=graph-rest-1.0
+      operationId: oauth2PermissionGrant_GetOAuth2PermissionGrant
+      parameters:
+      - name: oAuth2PermissionGrant-id
+        in: path
+        description: The unique identifier of oAuth2PermissionGrant
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: oAuth2PermissionGrant
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.oAuth2PermissionGrant'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - oauth2PermissionGrants.oAuth2PermissionGrant
+      summary: Update a delegated permission grant (oAuth2PermissionGrant)
+      description: Update the properties of oAuth2PermissionGrant object, representing a delegated permission grant. An oAuth2PermissionGrant can be updated to change which delegated permissions are granted, by adding or removing items from the list in scopes.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/oauth2permissiongrant-update?view=graph-rest-1.0
+      operationId: oauth2PermissionGrant_UpdateOAuth2PermissionGrant
+      parameters:
+      - name: oAuth2PermissionGrant-id
+        in: path
+        description: The unique identifier of oAuth2PermissionGrant
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: oAuth2PermissionGrant
+      requestBody:
+        description: New property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.oAuth2PermissionGrant'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.oAuth2PermissionGrant'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - oauth2PermissionGrants.oAuth2PermissionGrant
+      summary: Delete oAuth2PermissionGrant (a delegated permission grant)
+      description: Delete a delegated permission grant, represented by an oAuth2PermissionGrant object. When a delegated permission grant is deleted, the access it granted is revoked. Existing access tokens will continue to be valid for their lifetime, but new access tokens will not be granted for the delegated permissions identified in the deleted oAuth2PermissionGrant.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/oauth2permissiongrant-delete?view=graph-rest-1.0
+      operationId: oauth2PermissionGrant_DeleteOAuth2PermissionGrant
+      parameters:
+      - name: oAuth2PermissionGrant-id
+        in: path
+        description: The unique identifier of oAuth2PermissionGrant
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: oAuth2PermissionGrant
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /oauth2PermissionGrants/$count:
+    get:
+      tags:
+      - oauth2PermissionGrants.oAuth2PermissionGrant
+      summary: Get the number of the resource
+      operationId: oauth2PermissionGrant_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.oAuth2PermissionGrantCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.oAuth2PermissionGrantCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.oAuth2PermissionGrant:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: oAuth2PermissionGrant
+        type: object
+        properties:
+          clientId:
+            type: string
+            description: The object id (not appId) of the client service principal for the application that's authorized to act on behalf of a signed-in user when accessing an API. Required. Supports $filter (eq only).
+          consentType:
+            type:
+            - string
+            - 'null'
+            description: Indicates if authorization is granted for the client application to impersonate all users or only a specific user. AllPrincipals indicates authorization to impersonate all users. Principal indicates authorization to impersonate a specific user. Consent on behalf of all users can be granted by an administrator. Nonadmin users might be authorized to consent on behalf of themselves in some cases, for some delegated permissions. Required. Supports $filter (eq only).
+          principalId:
+            type:
+            - string
+            - 'null'
+            description: The id of the user on behalf of whom the client is authorized to access the resource, when consentType is Principal. If consentType is AllPrincipals this value is null. Required when consentType is Principal. Supports $filter (eq only).
+          resourceId:
+            type: string
+            description: The id of the resource service principal to which access is authorized. This identifies the API that the client is authorized to attempt to call on behalf of a signed-in user. Supports $filter (eq only).
+          scope:
+            type:
+            - string
+            - 'null'
+            description: A space-separated list of the claim values for delegated permissions that should be included in access tokens for the resource application (the API). For example, openid User.Read GroupMember.Read.All. Each claim value should match the value field of one of the delegated permissions defined by the API, listed in the oauth2PermissionScopes property of the resource service principal. Must not exceed 3,850 characters in length.
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.oAuth2PermissionGrantCollectionResponse:
+      title: Collection of oAuth2PermissionGrant
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.oAuth2PermissionGrant'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

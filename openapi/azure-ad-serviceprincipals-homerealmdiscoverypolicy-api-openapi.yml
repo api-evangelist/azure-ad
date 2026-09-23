@@ -1,0 +1,493 @@
+openapi: 3.2.0
+info:
+  title: Applications Service Principals.home Realm Discovery Policy…
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: servicePrincipals.homeRealmDiscoveryPolicy
+paths:
+  /servicePrincipals/{servicePrincipal-id}/homeRealmDiscoveryPolicies:
+    get:
+      tags:
+      - servicePrincipals.homeRealmDiscoveryPolicy
+      summary: List assigned homeRealmDiscoveryPolicy
+      description: List the homeRealmDiscoveryPolicy objects that are assigned to a servicePrincipal.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/serviceprincipal-list-homerealmdiscoverypolicies?view=graph-rest-1.0
+      operationId: servicePrincipal_ListHomeRealmDiscoveryPolicy
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.homeRealmDiscoveryPolicyCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+  /servicePrincipals/{servicePrincipal-id}/homeRealmDiscoveryPolicies/{homeRealmDiscoveryPolicy-id}/$ref:
+    delete:
+      tags:
+      - servicePrincipals.homeRealmDiscoveryPolicy
+      summary: Remove homeRealmDiscoveryPolicy
+      description: Remove a homeRealmDiscoveryPolicy from a servicePrincipal.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/serviceprincipal-delete-homerealmdiscoverypolicies?view=graph-rest-1.0
+      operationId: servicePrincipal.homeRealmDiscoveryPolicy_DeleteHomeRealmDiscoveryPolicyGraphBPreRef
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: homeRealmDiscoveryPolicy-id
+        in: path
+        description: The unique identifier of homeRealmDiscoveryPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: homeRealmDiscoveryPolicy
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /servicePrincipals/{servicePrincipal-id}/homeRealmDiscoveryPolicies/$count:
+    get:
+      tags:
+      - servicePrincipals.homeRealmDiscoveryPolicy
+      summary: Get the number of the resource
+      operationId: servicePrincipal.homeRealmDiscoveryPolicy_GetCount
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /servicePrincipals/{servicePrincipal-id}/homeRealmDiscoveryPolicies/$ref:
+    get:
+      tags:
+      - servicePrincipals.homeRealmDiscoveryPolicy
+      summary: List assigned homeRealmDiscoveryPolicy
+      description: List the homeRealmDiscoveryPolicy objects that are assigned to a servicePrincipal.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/serviceprincipal-list-homerealmdiscoverypolicies?view=graph-rest-1.0
+      operationId: servicePrincipal_ListHomeRealmDiscoveryPolicyGraphBPreRef
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/StringCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - servicePrincipals.homeRealmDiscoveryPolicy
+      summary: Assign homeRealmDiscoveryPolicy
+      description: Assign a homeRealmDiscoveryPolicy to a servicePrincipal.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/serviceprincipal-post-homerealmdiscoverypolicies?view=graph-rest-1.0
+      operationId: servicePrincipal_CreateHomeRealmDiscoveryPolicyGraphBPreRef
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      requestBody:
+        $ref: '#/components/requestBodies/refPostBody'
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - servicePrincipals.homeRealmDiscoveryPolicy
+      summary: Remove homeRealmDiscoveryPolicy
+      description: Remove a homeRealmDiscoveryPolicy from a servicePrincipal.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/serviceprincipal-delete-homerealmdiscoverypolicies?view=graph-rest-1.0
+      operationId: servicePrincipal_DeleteHomeRealmDiscoveryPolicyGraphBPreRef
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      - name: '@id'
+        in: query
+        description: The delete Uri
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.homeRealmDiscoveryPolicyCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.homeRealmDiscoveryPolicyCollectionResponse'
+    StringCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StringCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    StringCollectionResponse:
+      title: Collection of string
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            type: string
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.homeRealmDiscoveryPolicyCollectionResponse:
+      title: Collection of homeRealmDiscoveryPolicy
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.homeRealmDiscoveryPolicy'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.policyBase:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: policyBase
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: Description for this policy. Required.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Display name for this policy. Required.
+        additionalProperties:
+          type: object
+    microsoft.graph.stsPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.policyBase'
+      - title: stsPolicy
+        type: object
+        properties:
+          definition:
+            type: array
+            items:
+              type: string
+            description: A string collection containing a JSON string that defines the rules and settings for a policy. The syntax for the definition differs for each derived policy type. Required.
+          isOrganizationDefault:
+            type:
+            - boolean
+            - 'null'
+            description: If set to true, activates this policy. There can be many policies for the same policy type, but only one can be activated as the organization default. Optional, default value is false.
+          appliesTo:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    ReferenceCreate:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+      additionalProperties:
+        type: object
+    microsoft.graph.homeRealmDiscoveryPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.stsPolicy'
+      - title: homeRealmDiscoveryPolicy
+        type: object
+        additionalProperties:
+          type: object
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  requestBodies:
+    refPostBody:
+      description: New navigation property ref value
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ReferenceCreate'
+      required: true
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

@@ -1,0 +1,655 @@
+openapi: 3.2.0
+info:
+  title: Applications.app Management Policy API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: applications.appManagementPolicy
+paths:
+  /applications/{application-id}/appManagementPolicies:
+    get:
+      tags:
+      - applications.appManagementPolicy
+      summary: Get appManagementPolicies from applications
+      description: The appManagementPolicy applied to this application.
+      operationId: application_ListAppManagementPolicy
+      parameters:
+      - name: application-id
+        in: path
+        description: The unique identifier of application
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: application
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.appManagementPolicyCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+  /applications/{application-id}/appManagementPolicies/{appManagementPolicy-id}/$ref:
+    delete:
+      tags:
+      - applications.appManagementPolicy
+      summary: Remove appliesTo
+      description: Remove an appManagementPolicy policy object from an application or service principal object. When you remove the appManagementPolicy, the application or service principal adopts the tenant-wide tenantAppManagementPolicy setting.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/appmanagementpolicy-delete-appliesto?view=graph-rest-1.0
+      operationId: application.appManagementPolicy_DeleteAppManagementPolicyGraphBPreRef
+      parameters:
+      - name: application-id
+        in: path
+        description: The unique identifier of application
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: application
+      - name: appManagementPolicy-id
+        in: path
+        description: The unique identifier of appManagementPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: appManagementPolicy
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /applications/{application-id}/appManagementPolicies/$count:
+    get:
+      tags:
+      - applications.appManagementPolicy
+      summary: Get the number of the resource
+      operationId: application.appManagementPolicy_GetCount
+      parameters:
+      - name: application-id
+        in: path
+        description: The unique identifier of application
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: application
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /applications/{application-id}/appManagementPolicies/$ref:
+    get:
+      tags:
+      - applications.appManagementPolicy
+      summary: Get ref of appManagementPolicies from applications
+      description: The appManagementPolicy applied to this application.
+      operationId: application_ListAppManagementPolicyGraphBPreRef
+      parameters:
+      - name: application-id
+        in: path
+        description: The unique identifier of application
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: application
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/StringCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - applications.appManagementPolicy
+      summary: Assign appliesTo
+      description: Assign an appManagementPolicy policy object to an application or service principal object. The application or service principal adopts this policy over the tenant-wide tenantAppManagementPolicy setting. Only one policy object can be assigned to an application or service principal.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/appmanagementpolicy-post-appliesto?view=graph-rest-1.0
+      operationId: application_CreateAppManagementPolicyGraphBPreRef
+      parameters:
+      - name: application-id
+        in: path
+        description: The unique identifier of application
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: application
+      requestBody:
+        $ref: '#/components/requestBodies/refPostBody'
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - applications.appManagementPolicy
+      summary: Remove appliesTo
+      description: Remove an appManagementPolicy policy object from an application or service principal object. When you remove the appManagementPolicy, the application or service principal adopts the tenant-wide tenantAppManagementPolicy setting.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/appmanagementpolicy-delete-appliesto?view=graph-rest-1.0
+      operationId: application_DeleteAppManagementPolicyGraphBPreRef
+      parameters:
+      - name: application-id
+        in: path
+        description: The unique identifier of application
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: application
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      - name: '@id'
+        in: query
+        description: The delete Uri
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.appManagementPolicyCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.appManagementPolicyCollectionResponse'
+    StringCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StringCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.appCredentialRestrictionType:
+      title: appCredentialRestrictionType
+      enum:
+      - passwordAddition
+      - passwordLifetime
+      - symmetricKeyAddition
+      - symmetricKeyLifetime
+      - customPasswordAddition
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.customSecurityAttributeComparisonOperator:
+      title: customSecurityAttributeComparisonOperator
+      enum:
+      - equals
+      - unknownFutureValue
+      type: string
+    microsoft.graph.appManagementConfiguration:
+      title: appManagementConfiguration
+      type: object
+      properties:
+        keyCredentials:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.keyCredentialConfiguration'
+          description: Collection of keyCredential restrictions settings to be applied to an application or service principal.
+        passwordCredentials:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.passwordCredentialConfiguration'
+          description: Collection of password restrictions settings to be applied to an application or service principal.
+      additionalProperties:
+        type: object
+    StringCollectionResponse:
+      title: Collection of string
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            type: string
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.customSecurityAttributeExemption:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: customSecurityAttributeExemption
+        type: object
+        properties:
+          id:
+            type: string
+          operator:
+            $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeComparisonOperator'
+        additionalProperties:
+          type: object
+    microsoft.graph.appManagementRestrictionState:
+      title: appManagementRestrictionState
+      enum:
+      - enabled
+      - disabled
+      - unknownFutureValue
+      type: string
+    microsoft.graph.appManagementPolicyActorExemptions:
+      title: appManagementPolicyActorExemptions
+      type: object
+      properties:
+        customSecurityAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeExemption'
+          description: The collection of customSecurityAttributeExemption to exempt from the policy enforcement. Limit of 5.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.passwordCredentialConfiguration:
+      title: passwordCredentialConfiguration
+      type: object
+      properties:
+        excludeActors:
+          $ref: '#/components/schemas/microsoft.graph.appManagementPolicyActorExemptions'
+        maxLifetime:
+          pattern: ^-?P([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+([.][0-9]+)?S)?)?$
+          type:
+          - string
+          - 'null'
+          description: String value that indicates the maximum lifetime for password expiration, defined as an ISO 8601 duration. For example, P4DT12H30M5S represents four days, 12 hours, 30 minutes, and five seconds. This property is required when restrictionType is set to passwordLifetime.
+          format: duration
+        restrictForAppsCreatedAfterDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Specifies the date from which the policy restriction applies to newly created applications. For existing applications, the enforcement date can be retroactively applied.
+          format: date-time
+        restrictionType:
+          $ref: '#/components/schemas/microsoft.graph.appCredentialRestrictionType'
+        state:
+          $ref: '#/components/schemas/microsoft.graph.appManagementRestrictionState'
+      additionalProperties:
+        type: object
+    microsoft.graph.identifierUriRestriction:
+      title: identifierUriRestriction
+      type: object
+      properties:
+        excludeActors:
+          $ref: '#/components/schemas/microsoft.graph.appManagementPolicyActorExemptions'
+        excludeAppsReceivingV2Tokens:
+          type:
+          - boolean
+          - 'null'
+          description: If true, the restriction isn't enforced for applications that are configured to receive V2 tokens in Microsoft Entra ID; else, the restriction is enforced for those applications.
+        excludeSaml:
+          type:
+          - boolean
+          - 'null'
+          description: If true, the restriction isn't enforced for SAML applications in Microsoft Entra ID; else, the restriction is enforced for those applications.
+        isStateSetByMicrosoft:
+          type: boolean
+          description: If true, Microsoft sets the identifierUriRestriction state. If false, the tenant modifies the identifierUriRestriction state. Read-only.
+          readOnly: true
+        restrictForAppsCreatedAfterDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Specifies the date from which the policy restriction applies to newly created applications. For existing applications, the enforcement date can be retroactively applied.
+          format: date-time
+        state:
+          $ref: '#/components/schemas/microsoft.graph.appManagementRestrictionState'
+      additionalProperties:
+        type: object
+    microsoft.graph.customAppManagementConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.appManagementConfiguration'
+      - title: customAppManagementConfiguration
+        type: object
+        properties:
+          applicationRestrictions:
+            $ref: '#/components/schemas/microsoft.graph.customAppManagementApplicationConfiguration'
+        additionalProperties:
+          type: object
+    microsoft.graph.customAppManagementApplicationConfiguration:
+      title: customAppManagementApplicationConfiguration
+      type: object
+      properties:
+        identifierUris:
+          $ref: '#/components/schemas/microsoft.graph.identifierUriConfiguration'
+      additionalProperties:
+        type: object
+    microsoft.graph.identifierUriConfiguration:
+      title: identifierUriConfiguration
+      type: object
+      properties:
+        nonDefaultUriAddition:
+          $ref: '#/components/schemas/microsoft.graph.identifierUriRestriction'
+        uriAdditionWithoutUniqueTenantIdentifier:
+          $ref: '#/components/schemas/microsoft.graph.identifierUriRestriction'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.appManagementPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.policyBase'
+      - title: appManagementPolicy
+        type: object
+        properties:
+          isEnabled:
+            type: boolean
+            description: Denotes whether the policy is enabled.
+          restrictions:
+            $ref: '#/components/schemas/microsoft.graph.customAppManagementConfiguration'
+          appliesTo:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            description: Collection of applications and service principals to which the policy is applied.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.keyCredentialConfiguration:
+      title: keyCredentialConfiguration
+      type: object
+      properties:
+        excludeActors:
+          $ref: '#/components/schemas/microsoft.graph.appManagementPolicyActorExemptions'
+        maxLifetime:
+          pattern: ^-?P([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+([.][0-9]+)?S)?)?$
+          type:
+          - string
+          - 'null'
+          description: String value that indicates the maximum lifetime for key expiration, defined as an ISO 8601 duration. For example, P4DT12H30M5S represents four days, 12 hours, 30 minutes, and five seconds. This property is required when restrictionType is set to asymmetricKeyLifetime.
+          format: duration
+        restrictForAppsCreatedAfterDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Specifies the date from which the policy restriction applies to newly created applications. For existing applications, the enforcement date can be retroactively applied.
+          format: date-time
+        restrictionType:
+          $ref: '#/components/schemas/microsoft.graph.appKeyCredentialRestrictionType'
+        state:
+          $ref: '#/components/schemas/microsoft.graph.appManagementRestrictionState'
+      additionalProperties:
+        type: object
+    microsoft.graph.appManagementPolicyCollectionResponse:
+      title: Collection of appManagementPolicy
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.appManagementPolicy'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.appKeyCredentialRestrictionType:
+      title: appKeyCredentialRestrictionType
+      enum:
+      - asymmetricKeyLifetime
+      - unknownFutureValue
+      type: string
+    microsoft.graph.policyBase:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: policyBase
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: Description for this policy. Required.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Display name for this policy. Required.
+        additionalProperties:
+          type: object
+    ReferenceCreate:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+      additionalProperties:
+        type: object
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  requestBodies:
+    refPostBody:
+      description: New navigation property ref value
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ReferenceCreate'
+      required: true
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

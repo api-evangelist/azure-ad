@@ -1,0 +1,205 @@
+openapi: 3.2.0
+info:
+  title: Identity.SignIns Policies.authentication Flows Policy API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: policies.authenticationFlowsPolicy
+paths:
+  /policies/authenticationFlowsPolicy:
+    get:
+      tags:
+      - policies.authenticationFlowsPolicy
+      summary: Get authenticationFlowsPolicy
+      description: Read the properties and relationships of an authenticationFlowsPolicy object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/authenticationflowspolicy-get?view=graph-rest-1.0
+      operationId: policy_GetAuthenticationFlowsPolicy
+      parameters:
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authenticationFlowsPolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - policies.authenticationFlowsPolicy
+      summary: Update authenticationFlowsPolicy
+      description: Update the selfServiceSignUp property of an authenticationFlowsPolicy object. The properties id, type, and description cannot be modified.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/authenticationflowspolicy-update?view=graph-rest-1.0
+      operationId: policy_UpdateAuthenticationFlowsPolicy
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.authenticationFlowsPolicy'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authenticationFlowsPolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - policies.authenticationFlowsPolicy
+      summary: Delete navigation property authenticationFlowsPolicy for policies
+      operationId: policy_DeleteAuthenticationFlowsPolicy
+      parameters:
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+  schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationFlowsPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: authenticationFlowsPolicy
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: Inherited property. A description of the policy. Optional. Read-only.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Inherited property. The human-readable name of the policy. Optional. Read-only.
+          selfServiceSignUp:
+            $ref: '#/components/schemas/microsoft.graph.selfServiceSignUpAuthenticationFlowConfiguration'
+        additionalProperties:
+          type: object
+    microsoft.graph.selfServiceSignUpAuthenticationFlowConfiguration:
+      title: selfServiceSignUpAuthenticationFlowConfiguration
+      type: object
+      properties:
+        isEnabled:
+          type: boolean
+          description: Indicates whether self-service sign-up flow is enabled or disabled. The default value is false. This property isn't a key. Required.
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

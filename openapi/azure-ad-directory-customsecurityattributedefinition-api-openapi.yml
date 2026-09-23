@@ -1,0 +1,700 @@
+openapi: 3.2.0
+info:
+  title: Identity.DirectoryManagement Directory.custom Security…
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: directory.customSecurityAttributeDefinition
+paths:
+  /directory/customSecurityAttributeDefinitions:
+    get:
+      tags:
+      - directory.customSecurityAttributeDefinition
+      summary: List customSecurityAttributeDefinitions
+      description: Get a list of the customSecurityAttributeDefinition objects and their properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/directory-list-customsecurityattributedefinitions?view=graph-rest-1.0
+      operationId: directory_ListCustomSecurityAttributeDefinition
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.customSecurityAttributeDefinitionCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - directory.customSecurityAttributeDefinition
+      summary: Create customSecurityAttributeDefinition
+      description: Create a new customSecurityAttributeDefinition object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/directory-post-customsecurityattributedefinitions?view=graph-rest-1.0
+      operationId: directory_CreateCustomSecurityAttributeDefinition
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeDefinition'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /directory/customSecurityAttributeDefinitions/{customSecurityAttributeDefinition-id}:
+    get:
+      tags:
+      - directory.customSecurityAttributeDefinition
+      summary: Get customSecurityAttributeDefinition
+      description: Read the properties and relationships of a customSecurityAttributeDefinition object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/customsecurityattributedefinition-get?view=graph-rest-1.0
+      operationId: directory_GetCustomSecurityAttributeDefinition
+      parameters:
+      - name: customSecurityAttributeDefinition-id
+        in: path
+        description: The unique identifier of customSecurityAttributeDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customSecurityAttributeDefinition
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - directory.customSecurityAttributeDefinition
+      summary: Update customSecurityAttributeDefinition
+      description: Update the properties of a customSecurityAttributeDefinition object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/customsecurityattributedefinition-update?view=graph-rest-1.0
+      operationId: directory_UpdateCustomSecurityAttributeDefinition
+      parameters:
+      - name: customSecurityAttributeDefinition-id
+        in: path
+        description: The unique identifier of customSecurityAttributeDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customSecurityAttributeDefinition
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeDefinition'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - directory.customSecurityAttributeDefinition
+      summary: Delete navigation property customSecurityAttributeDefinitions for directory
+      operationId: directory_DeleteCustomSecurityAttributeDefinition
+      parameters:
+      - name: customSecurityAttributeDefinition-id
+        in: path
+        description: The unique identifier of customSecurityAttributeDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customSecurityAttributeDefinition
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /directory/customSecurityAttributeDefinitions/{customSecurityAttributeDefinition-id}/allowedValues:
+    get:
+      tags:
+      - directory.customSecurityAttributeDefinition
+      summary: List allowedValues
+      description: Get a list of the allowedValue objects and their properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/customsecurityattributedefinition-list-allowedvalues?view=graph-rest-1.0
+      operationId: directory.customSecurityAttributeDefinition_ListAllowedValue
+      parameters:
+      - name: customSecurityAttributeDefinition-id
+        in: path
+        description: The unique identifier of customSecurityAttributeDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customSecurityAttributeDefinition
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.allowedValueCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - directory.customSecurityAttributeDefinition
+      summary: Create allowedValue
+      description: Create a new allowedValue object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/customsecurityattributedefinition-post-allowedvalues?view=graph-rest-1.0
+      operationId: directory.customSecurityAttributeDefinition_CreateAllowedValue
+      parameters:
+      - name: customSecurityAttributeDefinition-id
+        in: path
+        description: The unique identifier of customSecurityAttributeDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customSecurityAttributeDefinition
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.allowedValue'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.allowedValue'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /directory/customSecurityAttributeDefinitions/{customSecurityAttributeDefinition-id}/allowedValues/{allowedValue-id}:
+    get:
+      tags:
+      - directory.customSecurityAttributeDefinition
+      summary: Get allowedValue
+      description: Read the properties and relationships of an allowedValue object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/allowedvalue-get?view=graph-rest-1.0
+      operationId: directory.customSecurityAttributeDefinition_GetAllowedValue
+      parameters:
+      - name: customSecurityAttributeDefinition-id
+        in: path
+        description: The unique identifier of customSecurityAttributeDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customSecurityAttributeDefinition
+      - name: allowedValue-id
+        in: path
+        description: The unique identifier of allowedValue
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: allowedValue
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.allowedValue'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - directory.customSecurityAttributeDefinition
+      summary: Update allowedValue
+      description: Update the properties of an allowedValue object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/allowedvalue-update?view=graph-rest-1.0
+      operationId: directory.customSecurityAttributeDefinition_UpdateAllowedValue
+      parameters:
+      - name: customSecurityAttributeDefinition-id
+        in: path
+        description: The unique identifier of customSecurityAttributeDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customSecurityAttributeDefinition
+      - name: allowedValue-id
+        in: path
+        description: The unique identifier of allowedValue
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: allowedValue
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.allowedValue'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.allowedValue'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - directory.customSecurityAttributeDefinition
+      summary: Delete navigation property allowedValues for directory
+      operationId: directory.customSecurityAttributeDefinition_DeleteAllowedValue
+      parameters:
+      - name: customSecurityAttributeDefinition-id
+        in: path
+        description: The unique identifier of customSecurityAttributeDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customSecurityAttributeDefinition
+      - name: allowedValue-id
+        in: path
+        description: The unique identifier of allowedValue
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: allowedValue
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /directory/customSecurityAttributeDefinitions/{customSecurityAttributeDefinition-id}/allowedValues/$count:
+    get:
+      tags:
+      - directory.customSecurityAttributeDefinition
+      summary: Get the number of the resource
+      operationId: directory.customSecurityAttributeDefinition.allowedValue_GetCount
+      parameters:
+      - name: customSecurityAttributeDefinition-id
+        in: path
+        description: The unique identifier of customSecurityAttributeDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customSecurityAttributeDefinition
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /directory/customSecurityAttributeDefinitions/$count:
+    get:
+      tags:
+      - directory.customSecurityAttributeDefinition
+      summary: Get the number of the resource
+      operationId: directory.customSecurityAttributeDefinition_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.allowedValueCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.allowedValueCollectionResponse'
+    microsoft.graph.customSecurityAttributeDefinitionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeDefinitionCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.allowedValue:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: allowedValue
+        type: object
+        properties:
+          isActive:
+            type:
+            - boolean
+            - 'null'
+            description: Indicates whether the predefined value is active or deactivated. If set to false, this predefined value can't be assigned to any other supported directory objects.
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.customSecurityAttributeDefinition:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: customSecurityAttributeDefinition
+        type: object
+        properties:
+          attributeSet:
+            type: string
+            description: Name of the attribute set. Case insensitive.
+          description:
+            type:
+            - string
+            - 'null'
+            description: Description of the custom security attribute. Can be up to 128 characters long and include Unicode characters. Can be changed later.
+          isCollection:
+            type: boolean
+            description: Indicates whether multiple values can be assigned to the custom security attribute. Cannot be changed later. If type is set to Boolean, isCollection cannot be set to true.
+          isSearchable:
+            type:
+            - boolean
+            - 'null'
+            description: Indicates whether custom security attribute values are indexed for searching on objects that are assigned attribute values. Cannot be changed later.
+          name:
+            type: string
+            description: Name of the custom security attribute. Must be unique within an attribute set. Can be up to 32 characters long and include Unicode characters. Cannot contain spaces or special characters. Cannot be changed later. Case insensitive.
+          status:
+            type: string
+            description: 'Specifies whether the custom security attribute is active or deactivated. Acceptable values are: Available and Deprecated. Can be changed later.'
+          type:
+            type: string
+            description: 'Data type for the custom security attribute values. Supported types are: Boolean, Integer, and String. Cannot be changed later.'
+          usePreDefinedValuesOnly:
+            type:
+            - boolean
+            - 'null'
+            description: Indicates whether only predefined values can be assigned to the custom security attribute. If set to false, free-form values are allowed. Can later be changed from true to false, but cannot be changed from false to true. If type is set to Boolean, usePreDefinedValuesOnly cannot be set to true.
+          allowedValues:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.allowedValue'
+            description: Values that are predefined for this custom security attribute. This navigation property is not returned by default and must be specified in an $expand query. For example, /directory/customSecurityAttributeDefinitions?$expand=allowedValues.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.allowedValueCollectionResponse:
+      title: Collection of allowedValue
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.allowedValue'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.customSecurityAttributeDefinitionCollectionResponse:
+      title: Collection of customSecurityAttributeDefinition
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeDefinition'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

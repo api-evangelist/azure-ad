@@ -8,9 +8,7 @@ info:
 
     `https://graph.microsoft.com/v1.0/{resource}` and authenticated with OAuth 2.0
 
-    bearer tokens issued by Microsoft Entra ID.
-
-    '
+    bearer tokens issued by Microsoft Entra ID.'
   contact:
     name: Microsoft Graph
     url: https://docs.microsoft.com/en-us/graph/api/overview

@@ -1,0 +1,601 @@
+openapi: 3.2.0
+info:
+  title: Identity.SignIns Policies.authentication Methods Policy API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: policies.authenticationMethodsPolicy
+paths:
+  /policies/authenticationMethodsPolicy:
+    get:
+      tags:
+      - policies.authenticationMethodsPolicy
+      summary: Get authenticationMethodsPolicy
+      description: Read the properties and relationships of an authenticationMethodsPolicy object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/authenticationmethodspolicy-get?view=graph-rest-1.0
+      operationId: policy_GetAuthenticationMethodsPolicy
+      parameters:
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authenticationMethodsPolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - policies.authenticationMethodsPolicy
+      summary: Update authenticationMethodsPolicy
+      description: Update the properties of an authenticationMethodsPolicy object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/authenticationmethodspolicy-update?view=graph-rest-1.0
+      operationId: policy_UpdateAuthenticationMethodsPolicy
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.authenticationMethodsPolicy'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authenticationMethodsPolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - policies.authenticationMethodsPolicy
+      summary: Delete navigation property authenticationMethodsPolicy for policies
+      operationId: policy_DeleteAuthenticationMethodsPolicy
+      parameters:
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /policies/authenticationMethodsPolicy/authenticationMethodConfigurations:
+    get:
+      tags:
+      - policies.authenticationMethodsPolicy
+      summary: Get externalAuthenticationMethodConfiguration
+      description: Read the properties and relationships of an externalAuthenticationMethodConfiguration object.
+      operationId: policy.authenticationMethodsPolicy_ListAuthenticationMethodConfiguration
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.authenticationMethodConfigurationCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - policies.authenticationMethodsPolicy
+      summary: Create new navigation property to authenticationMethodConfigurations for…
+      operationId: policy.authenticationMethodsPolicy_CreateAuthenticationMethodConfiguration
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.authenticationMethodConfiguration'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authenticationMethodConfiguration'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /policies/authenticationMethodsPolicy/authenticationMethodConfigurations/{authenticationMethodConfiguration-id}:
+    get:
+      tags:
+      - policies.authenticationMethodsPolicy
+      summary: Get externalAuthenticationMethodConfiguration
+      description: Read the properties and relationships of an externalAuthenticationMethodConfiguration object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/externalauthenticationmethodconfiguration-get?view=graph-rest-1.0
+      operationId: policy.authenticationMethodsPolicy_GetAuthenticationMethodConfiguration
+      parameters:
+      - name: authenticationMethodConfiguration-id
+        in: path
+        description: The unique identifier of authenticationMethodConfiguration
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: authenticationMethodConfiguration
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authenticationMethodConfiguration'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - policies.authenticationMethodsPolicy
+      summary: Update externalAuthenticationMethodConfiguration
+      description: Update the properties of an externalAuthenticationMethodConfiguration object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/externalauthenticationmethodconfiguration-update?view=graph-rest-1.0
+      operationId: policy.authenticationMethodsPolicy_UpdateAuthenticationMethodConfiguration
+      parameters:
+      - name: authenticationMethodConfiguration-id
+        in: path
+        description: The unique identifier of authenticationMethodConfiguration
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: authenticationMethodConfiguration
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.authenticationMethodConfiguration'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authenticationMethodConfiguration'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - policies.authenticationMethodsPolicy
+      summary: Delete externalAuthenticationMethodConfiguration
+      description: Delete an externalAuthenticationMethodConfiguration object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/externalauthenticationmethodconfiguration-delete?view=graph-rest-1.0
+      operationId: policy.authenticationMethodsPolicy_DeleteAuthenticationMethodConfiguration
+      parameters:
+      - name: authenticationMethodConfiguration-id
+        in: path
+        description: The unique identifier of authenticationMethodConfiguration
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: authenticationMethodConfiguration
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /policies/authenticationMethodsPolicy/authenticationMethodConfigurations/$count:
+    get:
+      tags:
+      - policies.authenticationMethodsPolicy
+      summary: Get the number of the resource
+      operationId: policy.authenticationMethodsPolicy.authenticationMethodConfiguration_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.authenticationMethodConfigurationCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodConfigurationCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.authenticationMethodsPolicyMigrationState:
+      title: authenticationMethodsPolicyMigrationState
+      enum:
+      - preMigration
+      - migrationInProgress
+      - migrationComplete
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.authenticationMethodsRegistrationCampaignIncludeTarget:
+      title: authenticationMethodsRegistrationCampaignIncludeTarget
+      type: object
+      properties:
+        id:
+          type: string
+          description: The object identifier of a Microsoft Entra user or group.
+        targetedAuthenticationMethod:
+          type:
+          - string
+          - 'null'
+          description: The authentication method that the user is prompted to register. The value can be Fido2 or microsoftAuthenticator.
+        targetType:
+          $ref: '#/components/schemas/microsoft.graph.authenticationMethodTargetType'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.registrationEnforcement:
+      title: registrationEnforcement
+      type: object
+      properties:
+        authenticationMethodsRegistrationCampaign:
+          $ref: '#/components/schemas/microsoft.graph.authenticationMethodsRegistrationCampaign'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.advancedConfigState:
+      title: advancedConfigState
+      enum:
+      - default
+      - enabled
+      - disabled
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodConfigurationCollectionResponse:
+      title: Collection of authenticationMethodConfiguration
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodConfiguration'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: authenticationMethodConfiguration
+        type: object
+        properties:
+          excludeTargets:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.excludeTarget'
+            description: Groups of users that are excluded from a policy.
+          state:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodState'
+        additionalProperties:
+          type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodState:
+      title: authenticationMethodState
+      enum:
+      - enabled
+      - disabled
+      type: string
+    microsoft.graph.excludeTarget:
+      title: excludeTarget
+      type: object
+      properties:
+        id:
+          type: string
+          description: The object identifier of a Microsoft Entra user or group.
+        targetType:
+          $ref: '#/components/schemas/microsoft.graph.authenticationMethodTargetType'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodsPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: authenticationMethodsPolicy
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: A description of the policy. Read-only.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The name of the policy. Read-only.
+          lastModifiedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The date and time of the last update to the policy. Read-only.
+            format: date-time
+          policyMigrationState:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodsPolicyMigrationState'
+          policyVersion:
+            type:
+            - string
+            - 'null'
+            description: The version of the policy in use. Read-only.
+          reconfirmationInDays:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            format: int32
+          registrationEnforcement:
+            $ref: '#/components/schemas/microsoft.graph.registrationEnforcement'
+          authenticationMethodConfigurations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.authenticationMethodConfiguration'
+            description: Represents the settings for each authentication method. Automatically expanded on GET /policies/authenticationMethodsPolicy.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.authenticationMethodsRegistrationCampaign:
+      title: authenticationMethodsRegistrationCampaign
+      type: object
+      properties:
+        excludeTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.excludeTarget'
+          description: Users and groups of users that are excluded from being prompted to set up the authentication method.
+        includeTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodsRegistrationCampaignIncludeTarget'
+          description: Users and groups of users that are prompted to set up the authentication method.
+        snoozeDurationInDays:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: 'Specifies the number of days that the user sees a prompt again if they select ''Not now'' and snoozes the prompt. Minimum: 0 days. Maximum: 14 days. If the value is ''0'', the user is prompted during every MFA attempt.'
+          format: int32
+        state:
+          $ref: '#/components/schemas/microsoft.graph.advancedConfigState'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodTargetType:
+      title: authenticationMethodTargetType
+      enum:
+      - user
+      - group
+      - unknownFutureValue
+      type: string
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

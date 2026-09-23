@@ -1,0 +1,1324 @@
+openapi: 3.2.0
+info:
+  title: Identity.DirectoryManagement Admin.people Admin Settings API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: admin.peopleAdminSettings
+paths:
+  /admin/people:
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Get peopleAdminSettings
+      description: Retrieve the properties and relationships of a peopleAdminSettings object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/peopleadminsettings-get?view=graph-rest-1.0
+      operationId: admin_GetPerson
+      parameters:
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.peopleAdminSettings'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /admin/people/itemInsights:
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: List itemInsights
+      description: Get the properties of an insightsSettings object to display or return item insights in an organization. To learn how to customize the privacy of item insights in an organization, see Customize item insights privacy in Microsoft Graph.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/peopleadminsettings-list-iteminsights?view=graph-rest-1.0
+      operationId: admin.person_GetItemInsight
+      parameters:
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.insightsSettings'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Update insightsSettings
+      description: Update privacy settings to display or return the specified type of insights in an organization. Currently, itemInsights is the only supported type of settings. To learn more about customizing insights privacy for your organization, see Customize item insights privacy in Microsoft Graph.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/insightssettings-update?view=graph-rest-1.0
+      operationId: admin.person_UpdateItemInsight
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.insightsSettings'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.insightsSettings'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Delete navigation property itemInsights for admin
+      operationId: admin.person_DeleteItemInsight
+      parameters:
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /admin/people/profileCardProperties:
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: List profileCardProperties
+      description: Get a collection of profileCardProperty resources for an organization. Each resource is identified by its directoryPropertyName property.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/peopleadminsettings-list-profilecardproperties?view=graph-rest-1.0
+      operationId: admin.person_ListProfileCardProperty
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.profileCardPropertyCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Create profileCardProperty
+      description: Create a new profileCardProperty for an organization. The new property is identified by its directoryPropertyName property. For more information about how to add properties to the profile card for an organization, see Add or remove custom attributes on a profile card using the profile card API.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/peopleadminsettings-post-profilecardproperties?view=graph-rest-1.0
+      operationId: admin.person_CreateProfileCardProperty
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.profileCardProperty'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.profileCardProperty'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /admin/people/profileCardProperties/{profileCardProperty-id}:
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Get profileCardProperty
+      description: Retrieve the properties of a profileCardProperty entity. The profileCardProperty is identified by its directoryPropertyName property.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/profilecardproperty-get?view=graph-rest-1.0
+      operationId: admin.person_GetProfileCardProperty
+      parameters:
+      - name: profileCardProperty-id
+        in: path
+        description: The unique identifier of profileCardProperty
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: profileCardProperty
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.profileCardProperty'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Update profileCardProperty
+      description: Update the properties of a profileCardProperty object, identified by its directoryPropertyName property.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/profilecardproperty-update?view=graph-rest-1.0
+      operationId: admin.person_UpdateProfileCardProperty
+      parameters:
+      - name: profileCardProperty-id
+        in: path
+        description: The unique identifier of profileCardProperty
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: profileCardProperty
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.profileCardProperty'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.profileCardProperty'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Delete profileCardProperty
+      description: Delete the profileCardProperty object specified by its directoryPropertyName from the organization's profile card, and remove any localized customizations for that property.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/profilecardproperty-delete?view=graph-rest-1.0
+      operationId: admin.person_DeleteProfileCardProperty
+      parameters:
+      - name: profileCardProperty-id
+        in: path
+        description: The unique identifier of profileCardProperty
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: profileCardProperty
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /admin/people/profileCardProperties/$count:
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Get the number of the resource
+      operationId: admin.person.profileCardProperty_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /admin/people/profilePropertySettings:
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: List profilePropertySettings
+      description: Get a collection of profilePropertySetting objects that define the configuration for user profile properties in an organization. The id property identifies each resource object uniquely.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/peopleadminsettings-list-profilepropertysettings?view=graph-rest-1.0
+      operationId: admin.person_ListProfilePropertySetting
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.profilePropertySettingCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Create profilePropertySetting
+      description: Create a new profilePropertySetting object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/peopleadminsettings-post-profilepropertysettings?view=graph-rest-1.0
+      operationId: admin.person_CreateProfilePropertySetting
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.profilePropertySetting'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.profilePropertySetting'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /admin/people/profilePropertySettings/{profilePropertySetting-id}:
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Get profilePropertySetting
+      description: Read the properties and relationships of profilePropertySetting object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/profilepropertysetting-get?view=graph-rest-1.0
+      operationId: admin.person_GetProfilePropertySetting
+      parameters:
+      - name: profilePropertySetting-id
+        in: path
+        description: The unique identifier of profilePropertySetting
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: profilePropertySetting
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.profilePropertySetting'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Update profilePropertySetting
+      description: Update the properties of a profilePropertySetting object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/profilepropertysetting-update?view=graph-rest-1.0
+      operationId: admin.person_UpdateProfilePropertySetting
+      parameters:
+      - name: profilePropertySetting-id
+        in: path
+        description: The unique identifier of profilePropertySetting
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: profilePropertySetting
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.profilePropertySetting'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.profilePropertySetting'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Delete profilePropertySetting
+      description: Delete a profilePropertySetting object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/profilepropertysetting-delete?view=graph-rest-1.0
+      operationId: admin.person_DeleteProfilePropertySetting
+      parameters:
+      - name: profilePropertySetting-id
+        in: path
+        description: The unique identifier of profilePropertySetting
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: profilePropertySetting
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /admin/people/profilePropertySettings/$count:
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Get the number of the resource
+      operationId: admin.person.profilePropertySetting_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /admin/people/profileSources:
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: List profileSources
+      description: Get a list of the profileSource objects and their properties, which represent both external data sources and out-of-the-box Microsoft data sources configured for user profiles in an organization.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/peopleadminsettings-list-profilesources?view=graph-rest-1.0
+      operationId: admin.person_ListProfileSource
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.profileSourceCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Create profileSource
+      description: Create a new profileSource object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/peopleadminsettings-post-profilesources?view=graph-rest-1.0
+      operationId: admin.person_CreateProfileSource
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.profileSource'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.profileSource'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /admin/people/profileSources/{profileSource-id}:
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Get profileSources from admin
+      description: A collection of profile source settings configured by an administrator in an organization.
+      operationId: admin.person_GetProfileSource
+      parameters:
+      - name: profileSource-id
+        in: path
+        description: The unique identifier of profileSource
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: profileSource
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.profileSource'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Update profileSource
+      description: Update the properties of a profileSource object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/profilesource-update?view=graph-rest-1.0
+      operationId: admin.person_UpdateProfileSource
+      parameters:
+      - name: profileSource-id
+        in: path
+        description: The unique identifier of profileSource
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: profileSource
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.profileSource'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.profileSource'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Delete profileSource
+      description: Delete a profileSource object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/profilesource-delete?view=graph-rest-1.0
+      operationId: admin.person_DeleteProfileSource
+      parameters:
+      - name: profileSource-id
+        in: path
+        description: The unique identifier of profileSource
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: profileSource
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /admin/people/profileSources(sourceId='{sourceId}'):
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Get profileSources from admin
+      description: A collection of profile source settings configured by an administrator in an organization.
+      operationId: admin.person.profileSource_GetGraphBPreSourceId
+      parameters:
+      - name: sourceId
+        in: path
+        description: Alternate key of profileSource
+        required: true
+        style: simple
+        schema:
+          type:
+          - string
+          - 'null'
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.profileSource'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Update profileSource
+      description: Update the properties of a profileSource object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/profilesource-update?view=graph-rest-1.0
+      operationId: admin.person.profileSource_UpdateGraphBPreSourceId
+      parameters:
+      - name: sourceId
+        in: path
+        description: Alternate key of profileSource
+        required: true
+        style: simple
+        schema:
+          type:
+          - string
+          - 'null'
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.profileSource'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.profileSource'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Delete profileSource
+      description: Delete a profileSource object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/profilesource-delete?view=graph-rest-1.0
+      operationId: admin.person.profileSource_DeleteGraphBPreSourceId
+      parameters:
+      - name: sourceId
+        in: path
+        description: Alternate key of profileSource
+        required: true
+        style: simple
+        schema:
+          type:
+          - string
+          - 'null'
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /admin/people/profileSources/$count:
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Get the number of the resource
+      operationId: admin.person.profileSource_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /admin/people/pronouns:
+    get:
+      tags:
+      - admin.peopleAdminSettings
+      summary: List pronounsSettings
+      description: Get the properties of the pronounsSettings resource for an organization. For more information on settings to manage pronouns support, see Manage pronouns settings for an organization using the Microsoft Graph API.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/peopleadminsettings-list-pronouns?view=graph-rest-1.0
+      operationId: admin.person_GetPronoun
+      parameters:
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.pronounsSettings'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - admin.peopleAdminSettings
+      summary: Update pronounsSettings
+      description: Update the properties of a pronounsSettings object in an organization. For more information on settings to manage pronouns support, see Manage pronouns settings for an organization using the Microsoft Graph API.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/pronounssettings-update?view=graph-rest-1.0
+      operationId: admin.person_UpdatePronoun
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.pronounsSettings'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.pronounsSettings'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.profileSourceCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.profileSourceCollectionResponse'
+    microsoft.graph.profilePropertySettingCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.profilePropertySettingCollectionResponse'
+    microsoft.graph.profileCardPropertyCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.profileCardPropertyCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.profileCardAnnotation:
+      title: profileCardAnnotation
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: If present, the value of this field is used by the profile card as the default property label in the experience (for example, 'Cost Center').
+        localizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.displayNameLocalization'
+          description: Each resource in this collection represents the localized value of the attribute name for a given language, used as the default label for that locale. For example, a user with a nb-NO client gets 'Kostnadssenter' as the attribute label, rather than 'Cost Center.'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.profileSourceCollectionResponse:
+      title: Collection of profileSource
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.profileSource'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.insightsSettings:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: insightsSettings
+        type: object
+        properties:
+          disabledForGroup:
+            type:
+            - string
+            - 'null'
+            description: The ID of a Microsoft Entra group, of which the specified type of insights are disabled for its members. The default value is null. Optional.
+          isEnabledInOrganization:
+            type:
+            - boolean
+            - 'null'
+            description: true if insights of the specified type are enabled for the organization; false if insights of the specified type are disabled for all users without exceptions. The default value is true. Optional.
+        additionalProperties:
+          type: object
+    microsoft.graph.displayNameLocalization:
+      title: displayNameLocalization
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: If present, the value of this field contains the displayName string that has been set for the language present in the languageTag field.
+        languageTag:
+          type:
+          - string
+          - 'null'
+          description: Provides the language culture-code and friendly name of the language that the displayName field has been provided in.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.peopleAdminSettings:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: peopleAdminSettings
+        type: object
+        properties:
+          itemInsights:
+            $ref: '#/components/schemas/microsoft.graph.insightsSettings'
+          profileCardProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.profileCardProperty'
+            description: Contains a collection of the properties an administrator has defined as visible on the Microsoft 365 profile card.
+            x-ms-navigationProperty: true
+          profilePropertySettings:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.profilePropertySetting'
+            description: A collection of profile property configuration settings defined by an administrator for an organization.
+            x-ms-navigationProperty: true
+          profileSources:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.profileSource'
+            description: A collection of profile source settings configured by an administrator in an organization.
+            x-ms-navigationProperty: true
+          pronouns:
+            $ref: '#/components/schemas/microsoft.graph.pronounsSettings'
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.profileCardProperty:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: profileCardProperty
+        type: object
+        properties:
+          annotations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.profileCardAnnotation'
+            description: Allows an administrator to set a custom display label for the directory property and localize it for the users in their tenant.
+          directoryPropertyName:
+            type:
+            - string
+            - 'null'
+            description: 'Identifies a profileCardProperty resource in Get, Update, or Delete operations. Allows an administrator to surface hidden Microsoft Entra ID properties on the Microsoft 365 profile card within their tenant. When present, the Microsoft Entra ID field referenced in this property is visible to all users in your tenant on the contact pane of the profile card. Allowed values for this field are: UserPrincipalName, Fax, StreetAddress, PostalCode, StateOrProvince, Alias, CustomAttribute1,  CustomAttribute2, CustomAttribute3, CustomAttribute4, CustomAttribute5, CustomAttribute6, CustomAttribute7, CustomAttribute8, CustomAttribute9, CustomAttribute10, CustomAttribute11, CustomAttribute12, CustomAttribute13, CustomAttribute14, CustomAttribute15.'
+          isVisible:
+            type: boolean
+            description: Indicates whether the given directory property should be shown on a user’s profile card.
+        additionalProperties:
+          type: object
+    microsoft.graph.profileCardPropertyCollectionResponse:
+      title: Collection of profileCardProperty
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.profileCardProperty'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.profilePropertySettingCollectionResponse:
+      title: Collection of profilePropertySetting
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.profilePropertySetting'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.profileSourceLocalization:
+      title: profileSourceLocalization
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: Localized display name.
+        languageTag:
+          type:
+          - string
+          - 'null'
+          description: Language locale.
+        webUrl:
+          type:
+          - string
+          - 'null'
+          description: Localized profile source URL.
+      additionalProperties:
+        type: object
+    microsoft.graph.profileSource:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: profileSource
+        type: object
+        properties:
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Name of the profile source intended to inform users about the profile source name.
+          kind:
+            type:
+            - string
+            - 'null'
+            description: Type of the profile source.
+          localizations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.profileSourceLocalization'
+            description: Alternative localized labels specified by an administrator.
+          sourceId:
+            type:
+            - string
+            - 'null'
+            description: Profile source identifier used as an alternate key.
+          webUrl:
+            type:
+            - string
+            - 'null'
+            description: Web URL of the profile source that directs users to the page view of the profile data.
+        additionalProperties:
+          type: object
+    microsoft.graph.pronounsSettings:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: pronounsSettings
+        type: object
+        properties:
+          isEnabledInOrganization:
+            type: boolean
+            description: true to enable pronouns in the organization; otherwise, false. The default value is false, and pronouns are disabled.
+        additionalProperties:
+          type: object
+    microsoft.graph.profilePropertySetting:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: profilePropertySetting
+        type: object
+        properties:
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Name of the property-level setting.
+          name:
+            type:
+            - string
+            - 'null'
+            description: Other name of the property-level setting. For backward compatibility.
+          prioritizedSourceUrls:
+            type: array
+            items:
+              type: string
+            description: A collection of prioritized profile source URLs ordered by data precedence within an organization.
+        additionalProperties:
+          type: object
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

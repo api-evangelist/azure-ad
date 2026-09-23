@@ -1,0 +1,176 @@
+openapi: 3.2.0
+info:
+  title: Groups Group Lifecycle Policies.group Lifecycle…
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: groupLifecyclePolicies.groupLifecyclePolicy.Actions
+paths:
+  /groupLifecyclePolicies/{groupLifecyclePolicy-id}/microsoft.graph.addGroup:
+    post:
+      tags:
+      - groupLifecyclePolicies.groupLifecyclePolicy.Actions
+      summary: Invoke action addGroup
+      description: Add a group to a groupLifecyclePolicy. This action is supported only if the managedGroupTypes property of the policy is set to Selected.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/grouplifecyclepolicy-addgroup?view=graph-rest-1.0
+      operationId: groupLifecyclePolicy_addGroup
+      parameters:
+      - name: groupLifecyclePolicy-id
+        in: path
+        description: The unique identifier of groupLifecyclePolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: groupLifecyclePolicy
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupId:
+                  type: string
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: boolean
+                    default: false
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /groupLifecyclePolicies/{groupLifecyclePolicy-id}/microsoft.graph.removeGroup:
+    post:
+      tags:
+      - groupLifecyclePolicies.groupLifecyclePolicy.Actions
+      summary: Invoke action removeGroup
+      description: Removes a group from a lifecycle policy.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/grouplifecyclepolicy-removegroup?view=graph-rest-1.0
+      operationId: groupLifecyclePolicy_removeGroup
+      parameters:
+      - name: groupLifecyclePolicy-id
+        in: path
+        description: The unique identifier of groupLifecyclePolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: groupLifecyclePolicy
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupId:
+                  type: string
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: boolean
+                    default: false
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+  schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

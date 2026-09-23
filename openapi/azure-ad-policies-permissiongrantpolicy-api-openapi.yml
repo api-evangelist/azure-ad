@@ -1,0 +1,1008 @@
+openapi: 3.2.0
+info:
+  title: Identity.SignIns Policies.permission Grant Policy API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: policies.permissionGrantPolicy
+paths:
+  /policies/permissionGrantPolicies:
+    get:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: List permissionGrantPolicies
+      description: Retrieve the list of permissionGrantPolicy objects.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/permissiongrantpolicy-list?view=graph-rest-1.0
+      operationId: policy_ListPermissionGrantPolicy
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.permissionGrantPolicyCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Create permissionGrantPolicy
+      description: Creates a permissionGrantPolicy. A permission grant policy is used to describe the conditions under which permissions can be granted (for example, during application consent). After creating the permission grant policy, you can add include condition sets to add matching rules, and add exclude condition sets to add exclusion rules.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/permissiongrantpolicy-post-permissiongrantpolicies?view=graph-rest-1.0
+      operationId: policy_CreatePermissionGrantPolicy
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.permissionGrantPolicy'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.permissionGrantPolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /policies/permissionGrantPolicies/{permissionGrantPolicy-id}:
+    get:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Get permissionGrantPolicy
+      description: Retrieve a single permissionGrantPolicy object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/permissiongrantpolicy-get?view=graph-rest-1.0
+      operationId: policy_GetPermissionGrantPolicy
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.permissionGrantPolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Update permissionGrantPolicy
+      description: Update properties of a permissionGrantPolicy.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/permissiongrantpolicy-update?view=graph-rest-1.0
+      operationId: policy_UpdatePermissionGrantPolicy
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.permissionGrantPolicy'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.permissionGrantPolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Delete permissionGrantPolicy
+      description: Delete a permissionGrantPolicy object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/permissiongrantpolicy-delete?view=graph-rest-1.0
+      operationId: policy_DeletePermissionGrantPolicy
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /policies/permissionGrantPolicies/{permissionGrantPolicy-id}/excludes:
+    get:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: List excludes collection of permissionGrantPolicy
+      description: Retrieve the condition sets which are *excluded* in a permissionGrantPolicy.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/permissiongrantpolicy-list-excludes?view=graph-rest-1.0
+      operationId: policy.permissionGrantPolicy_ListExclude
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.permissionGrantConditionSetCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Create permissionGrantConditionSet in excludes collection of…
+      description: Add conditions under which a permission grant event is *excluded* in a permission grant policy. You do this by adding a permissionGrantConditionSet to the excludes collection of a permissionGrantPolicy.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/permissiongrantpolicy-post-excludes?view=graph-rest-1.0
+      operationId: policy.permissionGrantPolicy_CreateExclude
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /policies/permissionGrantPolicies/{permissionGrantPolicy-id}/excludes/{permissionGrantConditionSet-id}:
+    get:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Get excludes from policies
+      description: Condition sets that are excluded in this permission grant policy. Automatically expanded on GET.
+      operationId: policy.permissionGrantPolicy_GetExclude
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      - name: permissionGrantConditionSet-id
+        in: path
+        description: The unique identifier of permissionGrantConditionSet
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantConditionSet
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Update the navigation property excludes in policies
+      operationId: policy.permissionGrantPolicy_UpdateExclude
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      - name: permissionGrantConditionSet-id
+        in: path
+        description: The unique identifier of permissionGrantConditionSet
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantConditionSet
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Delete permissionGrantConditionSet from excludes collection of…
+      description: Deletes a permissionGrantConditionSet from the excludes collection of a permissionGrantPolicy.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/permissiongrantpolicy-delete-excludes?view=graph-rest-1.0
+      operationId: policy.permissionGrantPolicy_DeleteExclude
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      - name: permissionGrantConditionSet-id
+        in: path
+        description: The unique identifier of permissionGrantConditionSet
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantConditionSet
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /policies/permissionGrantPolicies/{permissionGrantPolicy-id}/excludes/$count:
+    get:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Get the number of the resource
+      operationId: policy.permissionGrantPolicy.exclude_GetCount
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /policies/permissionGrantPolicies/{permissionGrantPolicy-id}/includes:
+    get:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: List includes collection of permissionGrantPolicy
+      description: Retrieve the condition sets which are *included* in a permissionGrantPolicy.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/permissiongrantpolicy-list-includes?view=graph-rest-1.0
+      operationId: policy.permissionGrantPolicy_ListInclude
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.permissionGrantConditionSetCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Create permissionGrantConditionSet in includes collection of…
+      description: Add conditions under which a permission grant event is *included* in a permission grant policy. You do this by adding a permissionGrantConditionSet to the includes collection of a permissionGrantPolicy.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/permissiongrantpolicy-post-includes?view=graph-rest-1.0
+      operationId: policy.permissionGrantPolicy_CreateInclude
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /policies/permissionGrantPolicies/{permissionGrantPolicy-id}/includes/{permissionGrantConditionSet-id}:
+    get:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Get includes from policies
+      description: Condition sets that are included in this permission grant policy. Automatically expanded on GET.
+      operationId: policy.permissionGrantPolicy_GetInclude
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      - name: permissionGrantConditionSet-id
+        in: path
+        description: The unique identifier of permissionGrantConditionSet
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantConditionSet
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Update the navigation property includes in policies
+      operationId: policy.permissionGrantPolicy_UpdateInclude
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      - name: permissionGrantConditionSet-id
+        in: path
+        description: The unique identifier of permissionGrantConditionSet
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantConditionSet
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Delete permissionGrantConditionSet from includes collection of…
+      description: Deletes a permissionGrantConditionSet from the includes collection of a permissionGrantPolicy.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/permissiongrantpolicy-delete-includes?view=graph-rest-1.0
+      operationId: policy.permissionGrantPolicy_DeleteInclude
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      - name: permissionGrantConditionSet-id
+        in: path
+        description: The unique identifier of permissionGrantConditionSet
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantConditionSet
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /policies/permissionGrantPolicies/{permissionGrantPolicy-id}/includes/$count:
+    get:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Get the number of the resource
+      operationId: policy.permissionGrantPolicy.include_GetCount
+      parameters:
+      - name: permissionGrantPolicy-id
+        in: path
+        description: The unique identifier of permissionGrantPolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: permissionGrantPolicy
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /policies/permissionGrantPolicies/$count:
+    get:
+      tags:
+      - policies.permissionGrantPolicy
+      summary: Get the number of the resource
+      operationId: policy.permissionGrantPolicy_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.permissionGrantPolicyCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.permissionGrantPolicyCollectionResponse'
+    microsoft.graph.permissionGrantConditionSetCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSetCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.permissionGrantPolicyCollectionResponse:
+      title: Collection of permissionGrantPolicy
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.permissionGrantPolicy'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.permissionGrantConditionSet:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: permissionGrantConditionSet
+        type: object
+        properties:
+          clientApplicationIds:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: A list of appId values for the client applications to match with, or a list with the single value all to match any client application. Default is the single value all.
+          clientApplicationPublisherIds:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: A list of Microsoft Partner Network (MPN) IDs for verified publishers of the client application, or a list with the single value all to match with client apps from any publisher. Default is the single value all.
+          clientApplicationsFromVerifiedPublisherOnly:
+            type:
+            - boolean
+            - 'null'
+            description: Set to true to only match on client applications with a verified publisher. Set to false to match on any client app, even if it doesn't have a verified publisher. Default is false.
+          clientApplicationTenantIds:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: A list of Microsoft Entra tenant IDs in which the client application is registered, or a list with the single value all to match with client apps registered in any tenant. Default is the single value all.
+          permissionClassification:
+            type:
+            - string
+            - 'null'
+            description: The permission classification for the permission being granted, or all to match with any permission classification (including permissions that aren't classified). Default is all.
+          permissions:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: The list of id values for the specific permissions to match with, or a list with the single value all to match with any permission. The id of delegated permissions can be found in the oauth2PermissionScopes property of the API's servicePrincipal object. The id of application permissions can be found in the appRoles property of the API's servicePrincipal object. The id of resource-specific application permissions can be found in the resourceSpecificApplicationPermissions property of the API's servicePrincipal object. Default is the single value all.
+          permissionType:
+            $ref: '#/components/schemas/microsoft.graph.permissionType'
+          resourceApplication:
+            type:
+            - string
+            - 'null'
+            description: The appId of the resource application (for example the API) for which a permission is being granted, or any to match with any resource application or API. Default is any.
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.permissionGrantPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.policyBase'
+      - title: permissionGrantPolicy
+        type: object
+        properties:
+          excludes:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+            description: Condition sets that are excluded in this permission grant policy. Automatically expanded on GET.
+            x-ms-navigationProperty: true
+          includes:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+            description: Condition sets that are included in this permission grant policy. Automatically expanded on GET.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.permissionGrantConditionSetCollectionResponse:
+      title: Collection of permissionGrantConditionSet
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.permissionType:
+      title: permissionType
+      enum:
+      - delegatedUserConsentable
+      - delegated
+      - application
+      type: string
+    microsoft.graph.policyBase:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: policyBase
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: Description for this policy. Required.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Display name for this policy. Required.
+        additionalProperties:
+          type: object
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

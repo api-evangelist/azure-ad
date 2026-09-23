@@ -1,0 +1,437 @@
+openapi: 3.2.0
+info:
+  title: Identity.SignIns Identity Providers.identity Provider API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: identityProviders.identityProvider
+paths:
+  /identityProviders:
+    get:
+      tags:
+      - identityProviders.identityProvider
+      summary: List identityProviders (deprecated)
+      description: Retrieve all identityProviders in the directory.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/identityprovider-list?view=graph-rest-1.0
+      operationId: identityProvider_ListIdentityProvider
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.identityProviderCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      deprecated: true
+      x-ms-deprecation:
+        removalDate: '2023-03-15'
+        date: '2021-08-24'
+        version: 2021-05/identityProvider
+        description: The identityProvider API is deprecated and will stop returning data on March 2023. Please use the new identityProviderBase API.
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identityProviders.identityProvider
+      summary: Create identityProvider (deprecated)
+      description: Create a new identityProvider by specifying display name, identityProvider type, client ID, and client secret.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/identityprovider-post-identityproviders?view=graph-rest-1.0
+      operationId: identityProvider_CreateIdentityProvider
+      requestBody:
+        description: New entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.identityProvider'
+        required: true
+      responses:
+        2XX:
+          description: Created entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.identityProvider'
+        default:
+          $ref: '#/components/responses/error'
+      deprecated: true
+      x-ms-deprecation:
+        removalDate: '2023-03-15'
+        date: '2021-08-24'
+        version: 2021-05/identityProvider
+        description: The identityProvider API is deprecated and will stop returning data on March 2023. Please use the new identityProviderBase API.
+      x-ms-docs-operation-type: operation
+  /identityProviders/{identityProvider-id}:
+    get:
+      tags:
+      - identityProviders.identityProvider
+      summary: Get identityProvider (deprecated)
+      description: Retrieve the properties of an existing identityProvider.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/identityprovider-get?view=graph-rest-1.0
+      operationId: identityProvider_GetIdentityProvider
+      parameters:
+      - name: identityProvider-id
+        in: path
+        description: The unique identifier of identityProvider
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: identityProvider
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.identityProvider'
+        default:
+          $ref: '#/components/responses/error'
+      deprecated: true
+      x-ms-deprecation:
+        removalDate: '2023-03-15'
+        date: '2021-08-24'
+        version: 2021-05/identityProvider
+        description: The identityProvider API is deprecated and will stop returning data on March 2023. Please use the new identityProviderBase API.
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identityProviders.identityProvider
+      summary: Update identityProvider (deprecated)
+      description: Update properties in an existing identityProvider.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/identityprovider-update?view=graph-rest-1.0
+      operationId: identityProvider_UpdateIdentityProvider
+      parameters:
+      - name: identityProvider-id
+        in: path
+        description: The unique identifier of identityProvider
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: identityProvider
+      requestBody:
+        description: New property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.identityProvider'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.identityProvider'
+        default:
+          $ref: '#/components/responses/error'
+      deprecated: true
+      x-ms-deprecation:
+        removalDate: '2023-03-15'
+        date: '2021-08-24'
+        version: 2021-05/identityProvider
+        description: The identityProvider API is deprecated and will stop returning data on March 2023. Please use the new identityProviderBase API.
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identityProviders.identityProvider
+      summary: Delete identityProvider (deprecated)
+      description: Delete an existing identityProvider.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/identityprovider-delete?view=graph-rest-1.0
+      operationId: identityProvider_DeleteIdentityProvider
+      parameters:
+      - name: identityProvider-id
+        in: path
+        description: The unique identifier of identityProvider
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: identityProvider
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      deprecated: true
+      x-ms-deprecation:
+        removalDate: '2023-03-15'
+        date: '2021-08-24'
+        version: 2021-05/identityProvider
+        description: The identityProvider API is deprecated and will stop returning data on March 2023. Please use the new identityProviderBase API.
+      x-ms-docs-operation-type: operation
+  /identityProviders/$count:
+    get:
+      tags:
+      - identityProviders.identityProvider
+      summary: Get the number of the resource
+      operationId: identityProvider_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+      deprecated: true
+      x-ms-deprecation:
+        removalDate: '2023-03-15'
+        date: '2021-08-24'
+        version: 2021-05/identityProvider
+        description: The identityProvider API is deprecated and will stop returning data on March 2023. Please use the new identityProviderBase API.
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.identityProviderCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.identityProviderCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.identityProvider:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: identityProvider
+        type: object
+        properties:
+          clientId:
+            type:
+            - string
+            - 'null'
+            description: The client ID for the application. This is the client ID obtained when registering the application with the identity provider. Required. Not nullable.
+          clientSecret:
+            type:
+            - string
+            - 'null'
+            description: The client secret for the application. This is the client secret obtained when registering the application with the identity provider. This is write-only. A read operation will return .  Required. Not nullable.
+          name:
+            type:
+            - string
+            - 'null'
+            description: The display name of the identity provider. Not nullable.
+          type:
+            type:
+            - string
+            - 'null'
+            description: 'The identity provider type is a required field. For B2B scenario: Google, Facebook. For B2C scenario: Microsoft, Google, Amazon, LinkedIn, Facebook, GitHub, Twitter, Weibo, QQ, WeChat, OpenIDConnect. Not nullable.'
+        additionalProperties:
+          type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.identityProviderCollectionResponse:
+      title: Collection of identityProvider
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.identityProvider'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

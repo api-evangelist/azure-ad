@@ -1,0 +1,4790 @@
+openapi: 3.2.0
+info:
+  title: Identity.Governance Identity Governance.access Review Set…
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: identityGovernance.accessReviewSet
+paths:
+  /identityGovernance/accessReviews:
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get accessReviews from identityGovernance
+      operationId: identityGovernance_GetAccessReview
+      parameters:
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewSet'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Update the navigation property accessReviews in identityGovernance
+      operationId: identityGovernance_UpdateAccessReview
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewSet'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewSet'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Delete navigation property accessReviews for identityGovernance
+      operationId: identityGovernance_DeleteAccessReview
+      parameters:
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identityGovernance/accessReviews/definitions:
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: List definitions
+      description: Get a list of the accessReviewScheduleDefinition objects and their properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewset-list-definitions?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview_ListDefinition
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.accessReviewScheduleDefinitionCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Create definitions
+      description: Create a new accessReviewScheduleDefinition object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewset-post-definitions?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview_CreateDefinition
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewScheduleDefinition'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewScheduleDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}:
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get accessReviewScheduleDefinition
+      description: Read the properties and relationships of an accessReviewScheduleDefinition object. To retrieve the instances of the access review series, use the list accessReviewInstance API.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewscheduledefinition-get?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview_GetDefinition
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewScheduleDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    put:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Update accessReviewScheduleDefinition
+      description: Update an existing accessReviewScheduleDefinition object to change one or more of its properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewscheduledefinition-update?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview_SetDefinition
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewScheduleDefinition'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewScheduleDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Delete accessReviewScheduleDefinition
+      description: Deletes an accessReviewScheduleDefinition object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewscheduledefinition-delete?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview_DeleteDefinition
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances:
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: List instances
+      description: Get a list of the accessReviewInstance objects and their properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewscheduledefinition-list-instances?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition_ListInstance
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.accessReviewInstanceCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Create new navigation property to instances for identityGovernance
+      operationId: identityGovernance.accessReview.definition_CreateInstance
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewInstance'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewInstance'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}:
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get accessReviewInstance
+      description: Read the properties and relationships of an accessReviewInstance object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstance-get?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition_GetInstance
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewInstance'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Update accessReviewInstance
+      description: Update the properties of an accessReviewInstance object. Only the reviewers and fallbackReviewers properties can be updated but the scope property is also required in the request body. You can only add reviewers to the fallbackReviewers property but can't remove existing fallbackReviewers. To update an accessReviewInstance, it's status must be InProgress.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstance-update?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition_UpdateInstance
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewInstance'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewInstance'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Delete navigation property instances for identityGovernance
+      operationId: identityGovernance.accessReview.definition_DeleteInstance
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/contactedReviewers
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: List contactedReviewers
+      description: Get the reviewers for an access review instance, irrespective of whether or not they have received a notification. The reviewers are represented by an accessReviewReviewer object. A list of zero or more objects are returned, including all of their nested properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstance-list-contactedreviewers?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_ListContactedReviewer
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.accessReviewReviewerCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Create new navigation property to contactedReviewers for identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance_CreateContactedReviewer
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewReviewer'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewReviewer'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/contactedReviewers/{accessReviewReviewer-id}
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get contactedReviewers from identityGovernance
+      description: Returns the collection of reviewers who were contacted to complete this review. While the reviewers and fallbackReviewers properties of the accessReviewScheduleDefinition might specify group owners or managers as reviewers, contactedReviewers returns their individual identities. Supports $select. Read-only.
+      operationId: identityGovernance.accessReview.definition.instance_GetContactedReviewer
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewReviewer-id
+        in: path
+        description: The unique identifier of accessReviewReviewer
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewReviewer
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewReviewer'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Update the navigation property contactedReviewers in identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance_UpdateContactedReviewer
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewReviewer-id
+        in: path
+        description: The unique identifier of accessReviewReviewer
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewReviewer
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewReviewer'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewReviewer'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Delete navigation property contactedReviewers for identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance_DeleteContactedReviewer
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewReviewer-id
+        in: path
+        description: The unique identifier of accessReviewReviewer
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewReviewer
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/contactedReviewers/$count
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get the number of the resource
+      operationId: identityGovernance.accessReview.definition.instance.contactedReviewer_GetCount
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/decisions
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: List decisions
+      description: Retrieve the accessReviewInstanceDecisionItem objects for a specific accessReviewInstance. A list of zero or more accessReviewInstanceDecisionItem objects are returned, including all of their nested properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstance-list-decisions?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_ListDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.accessReviewInstanceDecisionItemCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Create new navigation property to decisions for identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance_CreateDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/decisions/{accessReviewInstanceDecisionItem-id}
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get accessReviewInstanceDecisionItem
+      description: Read the properties and relationships of an accessReviewInstanceDecisionItem object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstancedecisionitem-get?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_GetDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Update the navigation property decisions in identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance_UpdateDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Delete navigation property decisions for identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance_DeleteDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/decisions/{accessReviewInstanceDecisionItem-id}/insights
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get insights from identityGovernance
+      description: Insights are recommendations to reviewers on whether to approve or deny a decision. There can be multiple insights associated with an accessReviewInstanceDecisionItem.
+      operationId: identityGovernance.accessReview.definition.instance.decision_ListInsight
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.governanceInsightCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Create new navigation property to insights for identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance.decision_CreateInsight
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.governanceInsight'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.governanceInsight'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/decisions/{accessReviewInstanceDecisionItem-id}/insights/{governanceInsight-id}
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get insights from identityGovernance
+      description: Insights are recommendations to reviewers on whether to approve or deny a decision. There can be multiple insights associated with an accessReviewInstanceDecisionItem.
+      operationId: identityGovernance.accessReview.definition.instance.decision_GetInsight
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - name: governanceInsight-id
+        in: path
+        description: The unique identifier of governanceInsight
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: governanceInsight
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.governanceInsight'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Update the navigation property insights in identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance.decision_UpdateInsight
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - name: governanceInsight-id
+        in: path
+        description: The unique identifier of governanceInsight
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: governanceInsight
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.governanceInsight'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.governanceInsight'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Delete navigation property insights for identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance.decision_DeleteInsight
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - name: governanceInsight-id
+        in: path
+        description: The unique identifier of governanceInsight
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: governanceInsight
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/decisions/{accessReviewInstanceDecisionItem-id}/insights/$count
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get the number of the resource
+      operationId: identityGovernance.accessReview.definition.instance.decision.insight_GetCount
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/decisions/$count
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get the number of the resource
+      operationId: identityGovernance.accessReview.definition.instance.decision_GetCount
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/decisions/microsoft.graph.filterByCurrentUser(on='{on}')
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke function filterByCurrentUser
+      description: Retrieve all decision items for an instance of an access review or a stage of an instance of a multi-stage access review for which the calling user is the reviewer. The decision items are presented as accessReviewInstanceDecisionItem objects on a given accessReviewInstance or accessReviewStage for which the calling user is the reviewer.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstancedecisionitem-filterbycurrentuser?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance.decision_filterGraphBPreCurrentUser
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: true
+        in: path
+        description: 'Usage: on=''{on}'''
+        required: true
+        style: simple
+        schema:
+          $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItemFilterByCurrentUserOptions'
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Collection of accessReviewInstanceDecisionItem
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+                  '@odata.nextLink':
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/microsoft.graph.acceptRecommendations
+  : post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke action acceptRecommendations
+      description: Allows the acceptance of recommendations on all accessReviewInstanceDecisionItem objects that haven't been reviewed on an accessReviewInstance object for which the calling user is a reviewer.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstance-acceptrecommendations?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_acceptRecommendation
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/microsoft.graph.applyDecisions
+  : post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke action applyDecisions
+      description: Apply review decisions on an accessReviewInstance if the decisions were not applied automatically because the autoApplyDecisionsEnabled property is false in the review's accessReviewScheduleSettings. The status of the accessReviewInstance must be Completed to call this method.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstance-applydecisions?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_applyDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/microsoft.graph.batchRecordDecisions
+  : post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke action batchRecordDecisions
+      description: Enables reviewers to review all accessReviewInstanceDecisionItem objects in a specific accessReviewInstance in batches by using principalId, resourceId, or neither.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstance-batchrecorddecisions?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_batchRecordDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                decision:
+                  type:
+                  - string
+                  - 'null'
+                justification:
+                  type:
+                  - string
+                  - 'null'
+                principalId:
+                  type:
+                  - string
+                  - 'null'
+                resourceId:
+                  type:
+                  - string
+                  - 'null'
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/microsoft.graph.resetDecisions
+  : post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke action resetDecisions
+      description: Resets all accessReviewInstanceDecisionItem objects on an accessReviewInstance to notReviewed.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstance-resetdecisions?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_resetDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/microsoft.graph.sendReminder
+  : post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke action sendReminder
+      description: Send a reminder to the reviewers of an active accessReviewInstance.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstance-sendreminder?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_sendReminder
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/microsoft.graph.stop
+  : post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke action stop
+      description: Stop a currently active accessReviewInstance. After the access review instance stops, the instance status is marked as Completed, the reviewers can no longer give input, and the access review decisions are applied. Stopping an instance will not stop future instances. To prevent a recurring access review from starting future instances, update the schedule definition to change its scheduled end date.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstance-stop?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_stop
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/stages
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: List stages (of an access review)
+      description: Retrieve the accessReviewStage objects for a specific accessReviewInstance in a multi-stage access review.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstance-list-stages?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_ListStage
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.accessReviewStageCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Create new navigation property to stages for identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance_CreateStage
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewStage'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewStage'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/stages/{accessReviewStage-id}
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get accessReviewStage
+      description: Retrieve the properties and relationships of an accessReviewStage object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewstage-get?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_GetStage
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewStage'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Update accessReviewStage
+      description: Update the properties of an accessReviewStage object. Only the reviewers and fallbackReviewers properties can be updated. You can only add reviewers to the fallbackReviewers property but can't remove existing fallbackReviewers. To update an accessReviewStage, its status must be NotStarted, Initializing, or InProgress.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewstage-update?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_UpdateStage
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewStage'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewStage'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Delete navigation property stages for identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance_DeleteStage
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/stages/{accessReviewStage-id}/decisions
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: List decisions (from a multi-stage access review)
+      description: Get the accessReviewInstanceDecisionItem objects from an accessReviewStage in a multi-stage access review.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewstage-list-decisions?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance.stage_ListDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.accessReviewInstanceDecisionItemCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Create new navigation property to decisions for identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance.stage_CreateDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/stages/{accessReviewStage-id}/decisions/{accessReviewInstanceDecisionItem-id}
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get accessReviewInstanceDecisionItem
+      description: Read the properties and relationships of an accessReviewInstanceDecisionItem object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstancedecisionitem-get?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance.stage_GetDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Update accessReviewInstanceDecisionItem
+      description: Update access decisions, known as accessReviewInstanceDecisionItems, for which the user is the reviewer.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstancedecisionitem-update?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance.stage_UpdateDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Delete navigation property decisions for identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance.stage_DeleteDecision
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/stages/{accessReviewStage-id}/decisions/{accessReviewInstanceDecisionItem-id}/insights
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get insights from identityGovernance
+      description: Insights are recommendations to reviewers on whether to approve or deny a decision. There can be multiple insights associated with an accessReviewInstanceDecisionItem.
+      operationId: identityGovernance.accessReview.definition.instance.stage.decision_ListInsight
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.governanceInsightCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Create new navigation property to insights for identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance.stage.decision_CreateInsight
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.governanceInsight'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.governanceInsight'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/stages/{accessReviewStage-id}/decisions/{accessReviewInstanceDecisionItem-id}/insights/{governanceInsight-id}
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get insights from identityGovernance
+      description: Insights are recommendations to reviewers on whether to approve or deny a decision. There can be multiple insights associated with an accessReviewInstanceDecisionItem.
+      operationId: identityGovernance.accessReview.definition.instance.stage.decision_GetInsight
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - name: governanceInsight-id
+        in: path
+        description: The unique identifier of governanceInsight
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: governanceInsight
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.governanceInsight'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Update the navigation property insights in identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance.stage.decision_UpdateInsight
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - name: governanceInsight-id
+        in: path
+        description: The unique identifier of governanceInsight
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: governanceInsight
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.governanceInsight'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.governanceInsight'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Delete navigation property insights for identityGovernance
+      operationId: identityGovernance.accessReview.definition.instance.stage.decision_DeleteInsight
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - name: governanceInsight-id
+        in: path
+        description: The unique identifier of governanceInsight
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: governanceInsight
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/stages/{accessReviewStage-id}/decisions/{accessReviewInstanceDecisionItem-id}/insights/$count
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get the number of the resource
+      operationId: identityGovernance.accessReview.definition.instance.stage.decision.insight_GetCount
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - name: accessReviewInstanceDecisionItem-id
+        in: path
+        description: The unique identifier of accessReviewInstanceDecisionItem
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstanceDecisionItem
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/stages/{accessReviewStage-id}/decisions/$count
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get the number of the resource
+      operationId: identityGovernance.accessReview.definition.instance.stage.decision_GetCount
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/stages/{accessReviewStage-id}/decisions/microsoft.graph.filterByCurrentUser(on='{on}')
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke function filterByCurrentUser
+      description: Retrieve all decision items for an instance of an access review or a stage of an instance of a multi-stage access review for which the calling user is the reviewer. The decision items are presented as accessReviewInstanceDecisionItem objects on a given accessReviewInstance or accessReviewStage for which the calling user is the reviewer.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstancedecisionitem-filterbycurrentuser?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance.stage.decision_filterGraphBPreCurrentUser
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      - name: true
+        in: path
+        description: 'Usage: on=''{on}'''
+        required: true
+        style: simple
+        schema:
+          $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItemFilterByCurrentUserOptions'
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Collection of accessReviewInstanceDecisionItem
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+                  '@odata.nextLink':
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/stages/{accessReviewStage-id}/microsoft.graph.stop
+  : post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke action stop
+      description: Stop an access review stage that is inProgress. After the access review stage stops, the stage status will be Completed and the reviewers can no longer give input. If there are subsequent stages that depend on the completed stage, the next stage will be created. The accessReviewInstanceDecisionItem objects will always reflect the last decisions recorded across all stages at that given time, regardless of the status of the stages.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewstage-stop?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance.stage_stop
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: accessReviewStage-id
+        in: path
+        description: The unique identifier of accessReviewStage
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewStage
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/stages/$count
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get the number of the resource
+      operationId: identityGovernance.accessReview.definition.instance.stage_GetCount
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/{accessReviewInstance-id}/stages/microsoft.graph.filterByCurrentUser(on='{on}')
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke function filterByCurrentUser
+      description: Return all accessReviewStage objects on a given accessReviewInstance where the calling user is a reviewer on one or more accessReviewInstanceDecisionItem objects.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewstage-filterbycurrentuser?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance.stage_filterGraphBPreCurrentUser
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: accessReviewInstance-id
+        in: path
+        description: The unique identifier of accessReviewInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewInstance
+      - name: true
+        in: path
+        description: 'Usage: on=''{on}'''
+        required: true
+        style: simple
+        schema:
+          $ref: '#/components/schemas/microsoft.graph.accessReviewStageFilterByCurrentUserOptions'
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Collection of accessReviewStage
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/microsoft.graph.accessReviewStage'
+                  '@odata.nextLink':
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+  /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/$count:
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get the number of the resource
+      operationId: identityGovernance.accessReview.definition.instance_GetCount
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  ? /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/instances/microsoft.graph.filterByCurrentUser(on='{on}')
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke function filterByCurrentUser
+      description: Retrieve all accessReviewInstance objects on a given accessReviewScheduleDefinition where the calling user is a reviewer on one or more accessReviewInstanceDecisionItem objects.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewinstance-filterbycurrentuser?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition.instance_filterGraphBPreCurrentUser
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      - name: true
+        in: path
+        description: 'Usage: on=''{on}'''
+        required: true
+        style: simple
+        schema:
+          $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceFilterByCurrentUserOptions'
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Collection of accessReviewInstance
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/microsoft.graph.accessReviewInstance'
+                  '@odata.nextLink':
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+  /identityGovernance/accessReviews/definitions/{accessReviewScheduleDefinition-id}/microsoft.graph.stop:
+    post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke action stop
+      operationId: identityGovernance.accessReview.definition_stop
+      parameters:
+      - name: accessReviewScheduleDefinition-id
+        in: path
+        description: The unique identifier of accessReviewScheduleDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewScheduleDefinition
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /identityGovernance/accessReviews/definitions/$count:
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get the number of the resource
+      operationId: identityGovernance.accessReview.definition_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /identityGovernance/accessReviews/definitions/microsoft.graph.filterByCurrentUser(on='{on}'):
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke function filterByCurrentUser
+      description: Returns accessReviewScheduleDefinition objects where the calling user is a reviewer on one or more accessReviewInstance objects.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewscheduledefinition-filterbycurrentuser?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.definition_filterGraphBPreCurrentUser
+      parameters:
+      - name: true
+        in: path
+        description: 'Usage: on=''{on}'''
+        required: true
+        style: simple
+        schema:
+          $ref: '#/components/schemas/microsoft.graph.accessReviewScheduleDefinitionFilterByCurrentUserOptions'
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Collection of accessReviewScheduleDefinition
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/microsoft.graph.accessReviewScheduleDefinition'
+                  '@odata.nextLink':
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+  /identityGovernance/accessReviews/historyDefinitions:
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: List historyDefinitions
+      description: Retrieve the accessReviewHistoryDefinition objects created in the last 30 days, including all nested properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewset-list-historydefinitions?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview_ListHistoryDefinition
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.accessReviewHistoryDefinitionCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Create historyDefinitions
+      description: Create a new accessReviewHistoryDefinition object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewset-post-historydefinitions?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview_CreateHistoryDefinition
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryDefinition'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identityGovernance/accessReviews/historyDefinitions/{accessReviewHistoryDefinition-id}:
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get accessReviewHistoryDefinition
+      description: Retrieve an accessReviewHistoryDefinition object by its identifier. All the properties of the access review history definition object are returned. If the definition is 30 days or older, a 404 Not Found error is returned.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewhistorydefinition-get?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview_GetHistoryDefinition
+      parameters:
+      - name: accessReviewHistoryDefinition-id
+        in: path
+        description: The unique identifier of accessReviewHistoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryDefinition
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Update the navigation property historyDefinitions in identityGovernance
+      operationId: identityGovernance.accessReview_UpdateHistoryDefinition
+      parameters:
+      - name: accessReviewHistoryDefinition-id
+        in: path
+        description: The unique identifier of accessReviewHistoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryDefinition
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryDefinition'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Delete navigation property historyDefinitions for identityGovernance
+      operationId: identityGovernance.accessReview_DeleteHistoryDefinition
+      parameters:
+      - name: accessReviewHistoryDefinition-id
+        in: path
+        description: The unique identifier of accessReviewHistoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryDefinition
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identityGovernance/accessReviews/historyDefinitions/{accessReviewHistoryDefinition-id}/instances:
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: List instances (of an accessReviewHistoryDefinition)
+      description: Retrieve the instances of an access review history definition created in the last 30 days.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewhistorydefinition-list-instances?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.historyDefinition_ListInstance
+      parameters:
+      - name: accessReviewHistoryDefinition-id
+        in: path
+        description: The unique identifier of accessReviewHistoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryDefinition
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.accessReviewHistoryInstanceCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Create new navigation property to instances for identityGovernance
+      operationId: identityGovernance.accessReview.historyDefinition_CreateInstance
+      parameters:
+      - name: accessReviewHistoryDefinition-id
+        in: path
+        description: The unique identifier of accessReviewHistoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryDefinition
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryInstance'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryInstance'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/historyDefinitions/{accessReviewHistoryDefinition-id}/instances/{accessReviewHistoryInstance-id}
+  : get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get instances from identityGovernance
+      description: If the accessReviewHistoryDefinition is a recurring definition, instances represent each recurrence. A definition that doesn't recur will have exactly one instance.
+      operationId: identityGovernance.accessReview.historyDefinition_GetInstance
+      parameters:
+      - name: accessReviewHistoryDefinition-id
+        in: path
+        description: The unique identifier of accessReviewHistoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryDefinition
+      - name: accessReviewHistoryInstance-id
+        in: path
+        description: The unique identifier of accessReviewHistoryInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryInstance
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryInstance'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Update the navigation property instances in identityGovernance
+      operationId: identityGovernance.accessReview.historyDefinition_UpdateInstance
+      parameters:
+      - name: accessReviewHistoryDefinition-id
+        in: path
+        description: The unique identifier of accessReviewHistoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryDefinition
+      - name: accessReviewHistoryInstance-id
+        in: path
+        description: The unique identifier of accessReviewHistoryInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryInstance
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryInstance'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryInstance'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Delete navigation property instances for identityGovernance
+      operationId: identityGovernance.accessReview.historyDefinition_DeleteInstance
+      parameters:
+      - name: accessReviewHistoryDefinition-id
+        in: path
+        description: The unique identifier of accessReviewHistoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryDefinition
+      - name: accessReviewHistoryInstance-id
+        in: path
+        description: The unique identifier of accessReviewHistoryInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryInstance
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identityGovernance/accessReviews/historyDefinitions/{accessReviewHistoryDefinition-id}/instances/{accessReviewHistoryInstance-id}/microsoft.graph.generateDownloadUri
+  : post:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Invoke action generateDownloadUri
+      description: Generates a URI for an accessReviewHistoryInstance object the status for which is done. Each URI can be used to retrieve the instance's review history data. Each URI is valid for 24 hours and can be retrieved by fetching the downloadUri property from the accessReviewHistoryInstance object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/accessreviewhistoryinstance-generatedownloaduri?view=graph-rest-1.0
+      operationId: identityGovernance.accessReview.historyDefinition.instance_generateDownloadUri
+      parameters:
+      - name: accessReviewHistoryDefinition-id
+        in: path
+        description: The unique identifier of accessReviewHistoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryDefinition
+      - name: accessReviewHistoryInstance-id
+        in: path
+        description: The unique identifier of accessReviewHistoryInstance
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryInstance
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryInstance'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /identityGovernance/accessReviews/historyDefinitions/{accessReviewHistoryDefinition-id}/instances/$count:
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get the number of the resource
+      operationId: identityGovernance.accessReview.historyDefinition.instance_GetCount
+      parameters:
+      - name: accessReviewHistoryDefinition-id
+        in: path
+        description: The unique identifier of accessReviewHistoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: accessReviewHistoryDefinition
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /identityGovernance/accessReviews/historyDefinitions/$count:
+    get:
+      tags:
+      - identityGovernance.accessReviewSet
+      summary: Get the number of the resource
+      operationId: identityGovernance.accessReview.historyDefinition_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    microsoft.graph.governanceInsightCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.governanceInsightCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.accessReviewScheduleDefinitionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewScheduleDefinitionCollectionResponse'
+    microsoft.graph.accessReviewHistoryInstanceCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryInstanceCollectionResponse'
+    microsoft.graph.accessReviewReviewerCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewReviewerCollectionResponse'
+    microsoft.graph.accessReviewStageCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewStageCollectionResponse'
+    microsoft.graph.accessReviewInstanceCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceCollectionResponse'
+    microsoft.graph.accessReviewInstanceDecisionItemCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItemCollectionResponse'
+    microsoft.graph.accessReviewHistoryDefinitionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryDefinitionCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.identity:
+      title: identity
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.dayOfWeek:
+      title: dayOfWeek
+      enum:
+      - sunday
+      - monday
+      - tuesday
+      - wednesday
+      - thursday
+      - friday
+      - saturday
+      type: string
+    microsoft.graph.accessReviewHistoryInstance:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: accessReviewHistoryInstance
+        type: object
+        properties:
+          downloadUri:
+            type:
+            - string
+            - 'null'
+            description: Uri that can be used to retrieve review history data. This URI will be active for 24 hours after being generated. Required.
+          expirationDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type: string
+            description: Timestamp when this instance and associated data expires and the history is deleted. Required.
+            format: date-time
+          fulfilledDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Timestamp when all of the available data for this instance was collected and is set after this instance's status is set to done. Required.
+            format: date-time
+          reviewHistoryPeriodEndDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Timestamp reviews ending on or before this date will be included in the fetched history data.
+            format: date-time
+          reviewHistoryPeriodStartDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Timestamp reviews starting on or after this date will be included in the fetched history data.
+            format: date-time
+          runDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type: string
+            description: Timestamp when the instance's history data is scheduled to be generated.
+            format: date-time
+          status:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryStatus'
+        additionalProperties:
+          type: object
+    microsoft.graph.accessReviewRecommendationInsightSetting:
+      title: accessReviewRecommendationInsightSetting
+      type: object
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.recurrencePattern:
+      title: recurrencePattern
+      type: object
+      properties:
+        dayOfMonth:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: The day of the month on which the event occurs. Required if type is absoluteMonthly or absoluteYearly.
+          format: int32
+        daysOfWeek:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.dayOfWeek'
+          description: 'A collection of the days of the week on which the event occurs. The possible values are: sunday, monday, tuesday, wednesday, thursday, friday, saturday. If type is relativeMonthly or relativeYearly, and daysOfWeek specifies more than one day, the event falls on the first day that satisfies the pattern.  Required if type is weekly, relativeMonthly, or relativeYearly.'
+        firstDayOfWeek:
+          $ref: '#/components/schemas/microsoft.graph.dayOfWeek'
+        index:
+          $ref: '#/components/schemas/microsoft.graph.weekIndex'
+        interval:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: The number of units between occurrences, where units can be in days, weeks, months, or years, depending on the type. Required.
+          format: int32
+        month:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: The month in which the event occurs.  This is a number from 1 to 12.
+          format: int32
+        type:
+          $ref: '#/components/schemas/microsoft.graph.recurrencePatternType'
+      additionalProperties:
+        type: object
+    microsoft.graph.governanceInsight:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: governanceInsight
+        type: object
+        properties:
+          insightCreatedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Indicates when the insight was created.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.accessReviewInstance:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: accessReviewInstance
+        type: object
+        properties:
+          endDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: DateTime when review instance is scheduled to end.The DatetimeOffset type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Supports $select. Read-only.
+            format: date-time
+          fallbackReviewers:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewReviewerScope'
+            description: This collection of reviewer scopes is used to define the list of fallback reviewers. These fallback reviewers will be notified to take action if no users are found from the list of reviewers specified. This could occur when either the group owner is specified as the reviewer but the group owner does not exist, or manager is specified as reviewer but a user's manager does not exist. Supports $select.
+          reviewers:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewReviewerScope'
+            description: This collection of access review scopes is used to define who the reviewers are. Supports $select. For examples of options for assigning reviewers, see Assign reviewers to your access review definition using the Microsoft Graph API.
+          scope:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewScope'
+          startDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: DateTime when review instance is scheduled to start. May be in the future. The DateTimeOffset type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Supports $select. Read-only.
+            format: date-time
+          status:
+            type:
+            - string
+            - 'null'
+            description: 'Specifies the status of an accessReview. Possible values: Initializing, NotStarted, Starting, InProgress, Completing, Completed, AutoReviewing, and AutoReviewed. Supports $select, $orderby, and $filter (eq only). Read-only.'
+          contactedReviewers:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewReviewer'
+            description: Returns the collection of reviewers who were contacted to complete this review. While the reviewers and fallbackReviewers properties of the accessReviewScheduleDefinition might specify group owners or managers as reviewers, contactedReviewers returns their individual identities. Supports $select. Read-only.
+            x-ms-navigationProperty: true
+          decisions:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+            description: Each user reviewed in an accessReviewInstance has a decision item representing if they were approved, denied, or not yet reviewed.
+            x-ms-navigationProperty: true
+          stages:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewStage'
+            description: If the instance has multiple stages, this returns the collection of stages. A new stage will only be created when the previous stage ends. The existence, number, and settings of stages on a review instance are created based on the accessReviewStageSettings on the parent accessReviewScheduleDefinition.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.recurrenceRangeType:
+      title: recurrenceRangeType
+      enum:
+      - endDate
+      - noEnd
+      - numbered
+      type: string
+    microsoft.graph.recurrenceRange:
+      title: recurrenceRange
+      type: object
+      properties:
+        endDate:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
+          type:
+          - string
+          - 'null'
+          description: The date to stop applying the recurrence pattern. Depending on the recurrence pattern of the event, the last occurrence of the meeting may not be this date. Required if type is endDate.
+          format: date
+        numberOfOccurrences:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: The number of times to repeat the event. Required and must be positive if type is numbered.
+          format: int32
+        recurrenceTimeZone:
+          type:
+          - string
+          - 'null'
+          description: Time zone for the startDate and endDate properties. Optional. If not specified, the time zone of the event is used.
+        startDate:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
+          type:
+          - string
+          - 'null'
+          description: The date to start applying the recurrence pattern. The first occurrence of the meeting may be this date or later, depending on the recurrence pattern of the event. Must be the same value as the start property of the recurring event. Required.
+          format: date
+        type:
+          $ref: '#/components/schemas/microsoft.graph.recurrenceRangeType'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.accessReviewApplyAction:
+      title: accessReviewApplyAction
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewStageCollectionResponse:
+      title: Collection of accessReviewStage
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewStage'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewHistoryScheduleSettings:
+      title: accessReviewHistoryScheduleSettings
+      type: object
+      properties:
+        recurrence:
+          $ref: '#/components/schemas/microsoft.graph.patternedRecurrence'
+        reportRange:
+          type: string
+          description: 'A duration string in ISO 8601 duration format specifying the lookback period of the generated review history data. For example, if a history definition is scheduled to run on the first of every month, the reportRange is P1M. In this case, on the first of every month, access review history data is collected containing only the previous month''s review data. Note: Only years, months, and days ISO 8601 properties are supported. Required.'
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewScheduleDefinition:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: accessReviewScheduleDefinition
+        type: object
+        properties:
+          additionalNotificationRecipients:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewNotificationRecipientItem'
+            description: Defines the list of additional users or group members to be notified of the access review progress.
+          createdBy:
+            $ref: '#/components/schemas/microsoft.graph.userIdentity'
+          createdDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Timestamp when the access review series was created. Supports $select. Read-only.
+            format: date-time
+          descriptionForAdmins:
+            type:
+            - string
+            - 'null'
+            description: Description provided by review creators to provide more context of the review to admins. Supports $select.
+          descriptionForReviewers:
+            type:
+            - string
+            - 'null'
+            description: Description provided  by review creators to provide more context of the review to reviewers. Reviewers see this description in the email sent to them requesting their review. Email notifications support up to 256 characters. Supports $select.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Name of the access review series. Supports $select and $orderby. Required on create.
+          fallbackReviewers:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewReviewerScope'
+            description: 'This collection of reviewer scopes is used to define the list of fallback reviewers. These fallback reviewers are notified to take action if no users are found from the list of reviewers specified. This could occur when either the group owner is specified as the reviewer but the group owner doesn''t exist, or manager is specified as reviewer but a user''s manager doesn''t exist. See accessReviewReviewerScope. Replaces backupReviewers. Supports $select. NOTE: The value of this property will be ignored if fallback reviewers are assigned through the stageSettings property.'
+          instanceEnumerationScope:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewScope'
+          lastModifiedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Timestamp when the access review series was last modified. Supports $select. Read-only.
+            format: date-time
+          reviewers:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewReviewerScope'
+            description: 'This collection of access review scopes is used to define who are the reviewers. The reviewers property is only updatable if individual users are assigned as reviewers. Required on create. Supports $select. For examples of options for assigning reviewers, see Assign reviewers to your access review definition using the Microsoft Graph API. NOTE: The value of this property will be ignored if reviewers are assigned through the stageSettings property.'
+          scope:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewScope'
+          settings:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewScheduleSettings'
+          stageSettings:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewStageSettings'
+            description: Required only for a multi-stage access review to define the stages and their settings. You can break down each review instance into up to three sequential stages, where each stage can have a different set of reviewers, fallback reviewers, and settings. Stages are created sequentially based on the dependsOn property. Optional.  When this property is defined, its settings are used instead of the corresponding settings in the accessReviewScheduleDefinition object and its settings, reviewers, and fallbackReviewers properties.
+          status:
+            type:
+            - string
+            - 'null'
+            description: This read-only field specifies the status of an access review. The typical states include Initializing, NotStarted, Starting, InProgress, Completing, Completed, AutoReviewing, and AutoReviewed.  Supports $select, $orderby, and $filter (eq only). Read-only.
+          instances:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewInstance'
+            description: If the accessReviewScheduleDefinition is a recurring access review, instances represent each recurrence. A review that doesn't recur will have exactly one instance. Instances also represent each unique resource under review in the accessReviewScheduleDefinition. If a review has multiple resources and multiple instances, each resource has a unique instance for each recurrence.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.accessReviewStage:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: accessReviewStage
+        type: object
+        properties:
+          endDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The date and time in ISO 8601 format and UTC time when the review stage is scheduled to end. This property is the cumulative total of the durationInDays for all stages. Read-only.
+            format: date-time
+          fallbackReviewers:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewReviewerScope'
+            description: This collection of reviewer scopes is used to define the list of fallback reviewers. These fallback reviewers are notified to take action if no users are found from the list of reviewers specified. This could occur when either the group owner is specified as the reviewer but the group owner doesn't exist, or manager is specified as reviewer but a user's manager doesn't exist.
+          reviewers:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewReviewerScope'
+            description: This collection of access review scopes is used to define who the reviewers are. For examples of options for assigning reviewers, see Assign reviewers to your access review definition using the Microsoft Graph API.
+          startDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The date and time in ISO 8601 format and UTC time when the review stage is scheduled to start. Read-only.
+            format: date-time
+          status:
+            type:
+            - string
+            - 'null'
+            description: 'Specifies the status of an accessReviewStage. Possible values: Initializing, NotStarted, Starting, InProgress, Completing, Completed, AutoReviewing, and AutoReviewed. Supports $orderby, and $filter (eq only). Read-only.'
+          decisions:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+            description: Each user reviewed in an accessReviewStage has a decision item representing if they were approved, denied, or not yet reviewed.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.patternedRecurrence:
+      title: patternedRecurrence
+      type: object
+      properties:
+        pattern:
+          $ref: '#/components/schemas/microsoft.graph.recurrencePattern'
+        range:
+          $ref: '#/components/schemas/microsoft.graph.recurrenceRange'
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewInstanceFilterByCurrentUserOptions:
+      title: accessReviewInstanceFilterByCurrentUserOptions
+      enum:
+      - reviewer
+      - unknownFutureValue
+      type: string
+    microsoft.graph.accessReviewHistoryDefinition:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: accessReviewHistoryDefinition
+        type: object
+        properties:
+          createdBy:
+            $ref: '#/components/schemas/microsoft.graph.userIdentity'
+          createdDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type: string
+            description: Timestamp when the access review definition was created.
+            format: date-time
+          decisions:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryDecisionFilter'
+            description: 'Determines which review decisions will be included in the fetched review history data if specified. Optional on create. All decisions are included by default if no decisions are provided on create. The possible values are: approve, deny, dontKnow, notReviewed, and notNotified.'
+          displayName:
+            type: string
+            description: Name for the access review history data collection. Required.
+          reviewHistoryPeriodEndDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type: string
+            description: A timestamp. Reviews ending on or before this date will be included in the fetched history data. Only required if scheduleSettings isn't defined.
+            format: date-time
+          reviewHistoryPeriodStartDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type: string
+            description: A timestamp. Reviews starting on or before this date will be included in the fetched history data. Only required if scheduleSettings isn't defined.
+            format: date-time
+          scheduleSettings:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryScheduleSettings'
+          scopes:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewScope'
+            description: Used to scope what reviews are included in the fetched history data. Fetches reviews whose scope matches with this provided scope. Required.
+          status:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryStatus'
+          instances:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryInstance'
+            description: If the accessReviewHistoryDefinition is a recurring definition, instances represent each recurrence. A definition that doesn't recur will have exactly one instance.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.accessReviewReviewerCollectionResponse:
+      title: Collection of accessReviewReviewer
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewReviewer'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.weekIndex:
+      title: weekIndex
+      enum:
+      - first
+      - second
+      - third
+      - fourth
+      - last
+      type: string
+    microsoft.graph.accessReviewHistoryDecisionFilter:
+      title: accessReviewHistoryDecisionFilter
+      enum:
+      - approve
+      - deny
+      - notReviewed
+      - dontKnow
+      - notNotified
+      - unknownFutureValue
+      type: string
+    microsoft.graph.accessReviewInstanceDecisionItemResource:
+      title: accessReviewInstanceDecisionItemResource
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: Display name of the resource
+        id:
+          type:
+          - string
+          - 'null'
+          description: Identifier of the resource
+        type:
+          type:
+          - string
+          - 'null'
+          description: 'Type of resource. Types include: Group, ServicePrincipal, DirectoryRole, AzureRole, AccessPackageAssignmentPolicy.'
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewStageSettings:
+      title: accessReviewStageSettings
+      type: object
+      properties:
+        decisionsThatWillMoveToNextStage:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: Indicate which decisions will go to the next stage. Can be a subset of Approve, Deny, Recommendation, or NotReviewed. If not provided, all decisions will go to the next stage. Optional.
+        dependsOn:
+          type: array
+          items:
+            type: string
+          description: Defines the sequential or parallel order of the stages and depends on the stageId. Only sequential stages are currently supported. For example, if stageId is 2, then dependsOn must be 1. If stageId is 1, don't specify dependsOn. Required if stageId isn't 1.
+        durationInDays:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: 'The duration of the stage. Required.  NOTE: The cumulative value of this property across all stages  1. Will override the instanceDurationInDays setting on the accessReviewScheduleDefinition object. 2. Can''t exceed the length of one recurrence. That is, if the review recurs weekly, the cumulative durationInDays can''t exceed 7.'
+          format: int32
+        fallbackReviewers:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewReviewerScope'
+          description: 'If provided, the fallback reviewers are asked to complete a review if the primary reviewers don''t exist. For example, if managers are selected as reviewers and a principal under review doesn''t have a manager in Microsoft Entra ID, the fallback reviewers are asked to review that principal. NOTE: The value of this property overrides the corresponding setting on the accessReviewScheduleDefinition object.'
+        recommendationInsightSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewRecommendationInsightSetting'
+        recommendationsEnabled:
+          type: boolean
+          description: 'Indicates whether showing recommendations to reviewers is enabled. Required. NOTE: The value of this property overrides override the corresponding setting on the accessReviewScheduleDefinition object.'
+        reviewers:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewReviewerScope'
+          description: 'Defines who the reviewers are. If none is specified, the review is a self-review (users review their own access).  For examples of options for assigning reviewers, see Assign reviewers to your access review definition using the Microsoft Graph API. NOTE: The value of this property overrides the corresponding setting on the accessReviewScheduleDefinition.'
+        stageId:
+          type: string
+          description: Unique identifier of the accessReviewStageSettings object. The stageId is used by the dependsOn property to indicate the order of the stages. Required.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewScope:
+      title: accessReviewScope
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.userIdentity:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.identity'
+      - title: userIdentity
+        type: object
+        properties:
+          ipAddress:
+            type:
+            - string
+            - 'null'
+            description: Indicates the client IP address associated with the user performing the activity (audit log only).
+          userPrincipalName:
+            type:
+            - string
+            - 'null'
+            description: The userPrincipalName attribute of the user.
+        additionalProperties:
+          type: object
+    microsoft.graph.accessReviewInstanceDecisionItemFilterByCurrentUserOptions:
+      title: accessReviewInstanceDecisionItemFilterByCurrentUserOptions
+      enum:
+      - reviewer
+      - unknownFutureValue
+      type: string
+    microsoft.graph.accessReviewReviewerScope:
+      title: accessReviewReviewerScope
+      type: object
+      properties:
+        query:
+          type:
+          - string
+          - 'null'
+          description: The query specifying who will be the reviewer.
+        queryRoot:
+          type:
+          - string
+          - 'null'
+          description: 'In the scenario where reviewers need to be specified dynamically, this property is used to indicate the relative source of the query. This property is only required if a relative query, for example, ./manager, is specified. Possible value: decisions.'
+        queryType:
+          type:
+          - string
+          - 'null'
+          description: The type of query. Examples include MicrosoftGraph and ARM.
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewSet:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: accessReviewSet
+        type: object
+        properties:
+          definitions:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewScheduleDefinition'
+            description: Represents the template and scheduling for an access review.
+            x-ms-navigationProperty: true
+          historyDefinitions:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryDefinition'
+            description: Represents a collection of access review history data and the scopes used to collect that data.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.accessReviewInstanceCollectionResponse:
+      title: Collection of accessReviewInstance
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewInstance'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewHistoryInstanceCollectionResponse:
+      title: Collection of accessReviewHistoryInstance
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryInstance'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewNotificationRecipientScope:
+      title: accessReviewNotificationRecipientScope
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewInstanceDecisionItem:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: accessReviewInstanceDecisionItem
+        type: object
+        properties:
+          accessReviewId:
+            type: string
+            description: The identifier of the accessReviewInstance parent. Supports $select. Read-only.
+          appliedBy:
+            $ref: '#/components/schemas/microsoft.graph.userIdentity'
+          appliedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The timestamp when the approval decision was applied.00000000-0000-0000-0000-000000000000 if the assigned reviewer hasn't applied the decision or it was automatically applied. The DatetimeOffset type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.  Supports $select. Read-only.
+            format: date-time
+          applyResult:
+            type:
+            - string
+            - 'null'
+            description: 'The result of applying the decision. Possible values: New, AppliedSuccessfully, AppliedWithUnknownFailure, AppliedSuccessfullyButObjectNotFound and ApplyNotSupported. Supports $select, $orderby, and $filter (eq only). Read-only.'
+          decision:
+            type:
+            - string
+            - 'null'
+            description: 'Result of the review. Possible values: Approve, Deny, NotReviewed, or DontKnow. Supports $select, $orderby, and $filter (eq only).'
+          justification:
+            type:
+            - string
+            - 'null'
+            description: Justification left by the reviewer when they made the decision.
+          principal:
+            $ref: '#/components/schemas/microsoft.graph.identity'
+          principalLink:
+            type:
+            - string
+            - 'null'
+            description: A link to the principal object. For example, https://graph.microsoft.com/v1.0/users/a6c7aecb-cbfd-4763-87ef-e91b4bd509d9. Read-only.
+          recommendation:
+            type:
+            - string
+            - 'null'
+            description: 'A system-generated recommendation for the approval decision based off last interactive sign-in to tenant. The value is Approve if the sign-in is fewer than 30 days after the start of review, Deny if the sign-in is greater than 30 days after, or NoInfoAvailable. Possible values: Approve, Deny, or NoInfoAvailable. Supports $select, $orderby, and $filter (eq only). Read-only.'
+          resource:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItemResource'
+          resourceLink:
+            type:
+            - string
+            - 'null'
+            description: A link to the resource. For example, https://graph.microsoft.com/v1.0/servicePrincipals/c86300f3-8695-4320-9f6e-32a2555f5ff8. Supports $select. Read-only.
+          reviewedBy:
+            $ref: '#/components/schemas/microsoft.graph.userIdentity'
+          reviewedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The timestamp when the review decision occurred. Supports $select. Read-only.
+            format: date-time
+          insights:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.governanceInsight'
+            description: Insights are recommendations to reviewers on whether to approve or deny a decision. There can be multiple insights associated with an accessReviewInstanceDecisionItem.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.accessReviewScheduleDefinitionCollectionResponse:
+      title: Collection of accessReviewScheduleDefinition
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewScheduleDefinition'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewInstanceDecisionItemCollectionResponse:
+      title: Collection of accessReviewInstanceDecisionItem
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewInstanceDecisionItem'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewReviewer:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: accessReviewReviewer
+        type: object
+        properties:
+          createdDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The date when the reviewer was added for the access review.
+            format: date-time
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Name of reviewer.
+          userPrincipalName:
+            type:
+            - string
+            - 'null'
+            description: User principal name of the reviewer.
+        additionalProperties:
+          type: object
+    microsoft.graph.recurrencePatternType:
+      title: recurrencePatternType
+      enum:
+      - daily
+      - weekly
+      - absoluteMonthly
+      - relativeMonthly
+      - absoluteYearly
+      - relativeYearly
+      type: string
+    microsoft.graph.accessReviewStageFilterByCurrentUserOptions:
+      title: accessReviewStageFilterByCurrentUserOptions
+      enum:
+      - reviewer
+      - unknownFutureValue
+      type: string
+    microsoft.graph.accessReviewNotificationRecipientItem:
+      title: accessReviewNotificationRecipientItem
+      type: object
+      properties:
+        notificationRecipientScope:
+          $ref: '#/components/schemas/microsoft.graph.accessReviewNotificationRecipientScope'
+        notificationTemplateType:
+          type:
+          - string
+          - 'null'
+          description: Indicates the type of access review email to be sent. Supported template type is CompletedAdditionalRecipients, which sends review completion notifications to the recipients.
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewHistoryStatus:
+      title: accessReviewHistoryStatus
+      enum:
+      - done
+      - inprogress
+      - error
+      - requested
+      - unknownFutureValue
+      type: string
+    microsoft.graph.accessReviewScheduleSettings:
+      title: accessReviewScheduleSettings
+      type: object
+      properties:
+        applyActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewApplyAction'
+          description: 'Optional field. Describes the  actions to take once a review is complete. There are two types that are currently supported: removeAccessApplyAction (default) and disableAndDeleteUserApplyAction. Field only needs to be specified in the case of disableAndDeleteUserApplyAction.'
+        autoApplyDecisionsEnabled:
+          type: boolean
+          description: 'Indicates whether decisions are automatically applied. When set to false, an admin must apply the decisions manually once the reviewer completes the access review. When set to true, decisions are applied automatically after the access review instance duration ends, whether or not the reviewers have responded. Default value is false.  CAUTION: If both autoApplyDecisionsEnabled and defaultDecisionEnabled are true, all access for the principals to the resource risks being revoked if the reviewers fail to respond.'
+        decisionHistoriesForReviewersEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether decisions on previous access review stages are available for reviewers on an accessReviewInstance with multiple subsequent stages. If not provided, the default is disabled (false).
+        defaultDecision:
+          type:
+          - string
+          - 'null'
+          description: Decision chosen if defaultDecisionEnabled is enabled. Can be one of Approve, Deny, or Recommendation.
+        defaultDecisionEnabled:
+          type: boolean
+          description: 'Indicates whether the default decision is enabled or disabled when reviewers do not respond. Default value is false.  CAUTION: If both autoApplyDecisionsEnabled and defaultDecisionEnabled are true, all access for the principals to the resource risks being revoked if the reviewers fail to respond.'
+        instanceDurationInDays:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: 'Duration of an access review instance in days. NOTE: If the stageSettings of the accessReviewScheduleDefinition object is defined, its durationInDays setting will be used instead of the value of this property.'
+          format: int32
+        justificationRequiredOnApproval:
+          type: boolean
+          description: Indicates whether reviewers are required to provide justification with their decision. Default value is false.
+        mailNotificationsEnabled:
+          type: boolean
+          description: Indicates whether emails are enabled or disabled. Default value is false.
+        recommendationInsightSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewRecommendationInsightSetting'
+          description: 'Optional. Describes the types of insights that aid reviewers to make access review decisions. NOTE: If the stageSettings of the accessReviewScheduleDefinition object is defined, its recommendationInsightSettings setting will be used instead of the value of this property.'
+        recommendationLookBackDuration:
+          pattern: ^-?P([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+([.][0-9]+)?S)?)?$
+          type:
+          - string
+          - 'null'
+          description: 'Optional field. Indicates the period of inactivity (with respect to the start date of the review instance) that recommendations will be configured from. The recommendation will be to deny if the user is inactive during the look-back duration. For reviews of groups and Microsoft Entra roles, any duration is accepted. For reviews of applications, 30 days is the maximum duration. If not specified, the duration is 30 days. NOTE: If the stageSettings of the accessReviewScheduleDefinition object is defined, its recommendationLookBackDuration setting will be used instead of the value of this property.'
+          format: duration
+        recommendationsEnabled:
+          type: boolean
+          description: 'Indicates whether decision recommendations are enabled or disabled. NOTE: If the stageSettings of the accessReviewScheduleDefinition object is defined, its recommendationsEnabled setting will be used instead of the value of this property.'
+        recurrence:
+          $ref: '#/components/schemas/microsoft.graph.patternedRecurrence'
+        reminderNotificationsEnabled:
+          type: boolean
+          description: Indicates whether reminders are enabled or disabled. Default value is false.
+      additionalProperties:
+        type: object
+    microsoft.graph.accessReviewScheduleDefinitionFilterByCurrentUserOptions:
+      title: accessReviewScheduleDefinitionFilterByCurrentUserOptions
+      enum:
+      - reviewer
+      - unknownFutureValue
+      type: string
+    microsoft.graph.accessReviewHistoryDefinitionCollectionResponse:
+      title: Collection of accessReviewHistoryDefinition
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.accessReviewHistoryDefinition'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.governanceInsightCollectionResponse:
+      title: Collection of governanceInsight
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.governanceInsight'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

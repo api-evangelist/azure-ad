@@ -1,0 +1,512 @@
+openapi: 3.2.0
+info:
+  title: Identity.DirectoryManagement Directory.on Premises…
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: directory.onPremisesDirectorySynchronization
+paths:
+  /directory/onPremisesSynchronization:
+    get:
+      tags:
+      - directory.onPremisesDirectorySynchronization
+      summary: Get onPremisesDirectorySynchronization
+      description: Read the properties and relationships of an onPremisesDirectorySynchronization object.
+      operationId: directory_ListOnPremisesSynchronization
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.onPremisesDirectorySynchronizationCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - directory.onPremisesDirectorySynchronization
+      summary: Create new navigation property to onPremisesSynchronization for directory
+      operationId: directory_CreateOnPremisesSynchronization
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronization'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronization'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /directory/onPremisesSynchronization/{onPremisesDirectorySynchronization-id}:
+    get:
+      tags:
+      - directory.onPremisesDirectorySynchronization
+      summary: Get onPremisesDirectorySynchronization
+      description: Read the properties and relationships of an onPremisesDirectorySynchronization object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/onpremisesdirectorysynchronization-get?view=graph-rest-1.0
+      operationId: directory_GetOnPremisesSynchronization
+      parameters:
+      - name: onPremisesDirectorySynchronization-id
+        in: path
+        description: The unique identifier of onPremisesDirectorySynchronization
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: onPremisesDirectorySynchronization
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronization'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - directory.onPremisesDirectorySynchronization
+      summary: Update onPremisesDirectorySynchronization
+      description: Update the properties of an onPremisesDirectorySynchronization object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/onpremisesdirectorysynchronization-update?view=graph-rest-1.0
+      operationId: directory_UpdateOnPremisesSynchronization
+      parameters:
+      - name: onPremisesDirectorySynchronization-id
+        in: path
+        description: The unique identifier of onPremisesDirectorySynchronization
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: onPremisesDirectorySynchronization
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronization'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronization'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - directory.onPremisesDirectorySynchronization
+      summary: Delete navigation property onPremisesSynchronization for directory
+      operationId: directory_DeleteOnPremisesSynchronization
+      parameters:
+      - name: onPremisesDirectorySynchronization-id
+        in: path
+        description: The unique identifier of onPremisesDirectorySynchronization
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: onPremisesDirectorySynchronization
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /directory/onPremisesSynchronization/$count:
+    get:
+      tags:
+      - directory.onPremisesDirectorySynchronization
+      summary: Get the number of the resource
+      operationId: directory.onPremisesSynchronization_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.onPremisesDirectorySynchronizationCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.onPremisesAccidentalDeletionPrevention:
+      title: onPremisesAccidentalDeletionPrevention
+      type: object
+      properties:
+        alertThreshold:
+          maximum: 2147483647
+          minimum: -2147483648
+          type:
+          - number
+          - 'null'
+          description: Threshold value which triggers accidental deletion prevention. The threshold is either an absolute number of objects or a percentage number of objects.
+          format: int32
+        synchronizationPreventionType:
+          $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationDeletionPreventionType'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.onPremisesDirectorySynchronizationCollectionResponse:
+      title: Collection of onPremisesDirectorySynchronization
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronization'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.onPremisesDirectorySynchronization:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: onPremisesDirectorySynchronization
+        type: object
+        properties:
+          configuration:
+            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationConfiguration'
+          features:
+            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationFeature'
+        additionalProperties:
+          type: object
+    microsoft.graph.onPremisesDirectorySynchronizationFeature:
+      title: onPremisesDirectorySynchronizationFeature
+      type: object
+      properties:
+        allowOnPremUpdateOfOnPremisesObjectIdentifierEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: When true, allows on-premises directory sync clients to update the onPremisesObjectIdentifier property.
+        blockCloudObjectTakeoverThroughHardMatchEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to block cloud object takeover via source anchor hard match if enabled.
+        blockSoftMatchEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Use to block soft match for all objects if enabled for the  tenant. Customers are encouraged to enable this feature and keep it enabled until soft matching is required again for their tenancy. This flag should be enabled again after any soft matching has been completed and is no longer needed.
+        bypassDirSyncOverridesEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: When true, persists the values of Mobile and OtherMobile in on-premises AD during sync cycles instead of values of MobilePhone or AlternateMobilePhones in Microsoft Entra ID.
+        cloudPasswordPolicyForPasswordSyncedUsersEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate that cloud password policy applies to users whose passwords are synchronized from on-premises.
+        concurrentCredentialUpdateEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to enable concurrent user credentials update in OrgId.
+        concurrentOrgIdProvisioningEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to enable concurrent user creation in OrgId.
+        deviceWritebackEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate that device write-back is enabled.
+        directoryExtensionsEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate that directory extensions are being synced from on-premises AD to Microsoft Entra ID.
+        fopeConflictResolutionEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate that for a Microsoft Forefront Online Protection for Exchange (FOPE) migrated tenant, the conflicting proxy address should be migrated over.
+        groupWriteBackEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to enable object-level group writeback feature for additional group types.
+        passwordSyncEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate on-premise password synchronization is enabled.
+        passwordWritebackEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate that writeback of password resets from Microsoft Entra ID to on-premises AD is enabled. This property isn't in use and updating it isn't supported.
+        quarantineUponProxyAddressesConflictEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate that we should quarantine objects with conflicting proxy address.
+        quarantineUponUpnConflictEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate that we should quarantine objects conflicting with duplicate userPrincipalName.
+        softMatchOnUpnEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate that we should soft match objects based on userPrincipalName.
+        synchronizeUpnForManagedUsersEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate that we should synchronize userPrincipalName objects for managed users with licenses.
+        unifiedGroupWritebackEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate that Microsoft 365 Group write-back is enabled.
+        userForcePasswordChangeOnLogonEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate that feature to force password change for a user on logon is enabled while synchronizing on-premise credentials.
+        userWritebackEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Used to indicate that user writeback is enabled.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.onPremisesDirectorySynchronizationConfiguration:
+      title: onPremisesDirectorySynchronizationConfiguration
+      type: object
+      properties:
+        accidentalDeletionPrevention:
+          $ref: '#/components/schemas/microsoft.graph.onPremisesAccidentalDeletionPrevention'
+      additionalProperties:
+        type: object
+    microsoft.graph.onPremisesDirectorySynchronizationDeletionPreventionType:
+      title: onPremisesDirectorySynchronizationDeletionPreventionType
+      enum:
+      - disabled
+      - enabledForCount
+      - enabledForPercentage
+      - unknownFutureValue
+      type: string
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

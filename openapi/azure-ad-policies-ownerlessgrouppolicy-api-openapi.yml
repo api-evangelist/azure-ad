@@ -1,0 +1,227 @@
+openapi: 3.2.0
+info:
+  title: Identity.SignIns Policies.ownerless Group Policy API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: policies.ownerlessGroupPolicy
+paths:
+  /policies/ownerlessGroupPolicy:
+    get:
+      tags:
+      - policies.ownerlessGroupPolicy
+      summary: Get ownerlessGroupPolicy
+      description: Read the properties of an ownerlessGroupPolicy object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/ownerlessgrouppolicy-get?view=graph-rest-1.0
+      operationId: policy_GetOwnerlessGroupPolicy
+      parameters:
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.ownerlessGroupPolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - policies.ownerlessGroupPolicy
+      summary: Create or update ownerlessGroupPolicy
+      description: Create or update the ownerlessGroupPolicy for the tenant. If the policy doesn't exist, it creates a new one; if the policy exists, it updates the existing policy. To disable the policy, set isEnabled to false. Setting isEnabled to false clears the values of all other policy parameters.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/ownerlessgrouppolicy-upsert?view=graph-rest-1.0
+      operationId: policy_UpdateOwnerlessGroupPolicy
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.ownerlessGroupPolicy'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.ownerlessGroupPolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+  schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.notifyMembers:
+      title: notifyMembers
+      enum:
+      - all
+      - allowSelected
+      - blockSelected
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ownerlessGroupPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: ownerlessGroupPolicy
+        type: object
+        properties:
+          emailInfo:
+            $ref: '#/components/schemas/microsoft.graph.emailDetails'
+          enabledGroupIds:
+            type: array
+            items:
+              type: string
+            description: The collection of IDs for groups to which the policy is enabled. If empty, the policy is enabled for all groups in the tenant.
+          isEnabled:
+            type: boolean
+            description: Indicates whether the ownerless group policy is enabled in the tenant. Setting this property to false clears the values of all other policy parameters.
+          maxMembersToNotify:
+            type: number
+            description: The maximum number of members to notify. Value range is 0-90. Members are prioritized by recent group activity (most active first). If there aren't enough active members to fill the limit, remaining slots are filled with other eligible group members from the directory.
+            format: int64
+          notificationDurationInWeeks:
+            type: number
+            description: The number of weeks for the notification duration. Value range is 1-7.
+            format: int64
+          policyWebUrl:
+            type:
+            - string
+            - 'null'
+            description: The URL to the policy documentation.
+          targetOwners:
+            $ref: '#/components/schemas/microsoft.graph.targetOwners'
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.targetOwners:
+      title: targetOwners
+      type: object
+      properties:
+        notifyMembers:
+          $ref: '#/components/schemas/microsoft.graph.notifyMembers'
+        securityGroups:
+          type: array
+          items:
+            type: string
+          description: The collection of IDs for security groups used for allowing or blocking filtering. When notifyMembers is all, all members are eligible for ownership and this collection can be empty. When notifyMembers is allowSelected, only members in these security groups are eligible. When notifyMembers is blockSelected, members in these security groups are excluded.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.emailDetails:
+      title: emailDetails
+      type: object
+      properties:
+        body:
+          type: string
+          description: The body content of the notification email in plain text format.
+        senderEmailAddress:
+          type: string
+          description: The email address of the sender for notification emails. Shared mailboxes aren't supported.
+        subject:
+          type: string
+          description: The subject line of the notification email.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: Identity.DirectoryManagement Tenant Relationships.tenant…
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: tenantRelationships.tenantRelationship.Functions
+paths:
+  /tenantRelationships/microsoft.graph.findTenantInformationByDomainName(domainName='{domainName}'):
+    get:
+      tags:
+      - tenantRelationships.tenantRelationship.Functions
+      summary: Invoke function findTenantInformationByDomainName
+      description: Given a domain name, search for a tenant and read its tenantInformation. You can use this API to validate tenant information and use the tenantId to configure cross-tenant access settings between you and the tenant.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/tenantrelationship-findtenantinformationbydomainname?view=graph-rest-1.0
+      operationId: tenantRelationship_findTenantInformationGraphBPreDomainName
+      parameters:
+      - name: domainName
+        in: path
+        description: 'Usage: domainName=''{domainName}'''
+        required: true
+        style: simple
+        schema:
+          type:
+          - string
+          - 'null'
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.tenantInformation'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+  /tenantRelationships/microsoft.graph.findTenantInformationByTenantId(tenantId='{tenantId}'):
+    get:
+      tags:
+      - tenantRelationships.tenantRelationship.Functions
+      summary: Invoke function findTenantInformationByTenantId
+      description: Given a tenant ID, search for a tenant and read its tenantInformation. You can use this API to validate tenant information and use the tenantId to configure cross-tenant cross-tenant access settings between you and the tenant.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/tenantrelationship-findtenantinformationbytenantid?view=graph-rest-1.0
+      operationId: tenantRelationship_findTenantInformationGraphBPreTenantId
+      parameters:
+      - name: tenantId
+        in: path
+        description: 'Usage: tenantId=''{tenantId}'''
+        required: true
+        style: simple
+        schema:
+          type:
+          - string
+          - 'null'
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.tenantInformation'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+  schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.tenantInformation:
+      title: tenantInformation
+      type: object
+      properties:
+        defaultDomainName:
+          type:
+          - string
+          - 'null'
+          description: Primary domain name of a Microsoft Entra tenant.
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: Display name of a Microsoft Entra tenant.
+        federationBrandName:
+          type:
+          - string
+          - 'null'
+          description: Name shown to users that sign in to a Microsoft Entra tenant.
+        tenantId:
+          type: string
+          description: Unique identifier of a Microsoft Entra tenant.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

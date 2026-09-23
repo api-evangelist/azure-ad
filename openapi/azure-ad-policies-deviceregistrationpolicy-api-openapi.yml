@@ -1,0 +1,228 @@
+openapi: 3.2.0
+info:
+  title: Identity.SignIns Policies.device Registration Policy API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: policies.deviceRegistrationPolicy
+paths:
+  /policies/deviceRegistrationPolicy:
+    get:
+      tags:
+      - policies.deviceRegistrationPolicy
+      summary: Get deviceRegistrationPolicy
+      description: Read the properties and relationships of a deviceRegistrationPolicy object. Represents deviceRegistrationPolicy quota restrictions, additional authentication, and authorization policies to register device identities to your organization.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/deviceregistrationpolicy-get?view=graph-rest-1.0
+      operationId: policy_GetDeviceRegistrationPolicy
+      parameters:
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.deviceRegistrationPolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+  schemas:
+    microsoft.graph.deviceRegistrationPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: deviceRegistrationPolicy
+        type: object
+        properties:
+          azureADJoin:
+            $ref: '#/components/schemas/microsoft.graph.azureADJoinPolicy'
+          azureADRegistration:
+            $ref: '#/components/schemas/microsoft.graph.azureADRegistrationPolicy'
+          description:
+            type:
+            - string
+            - 'null'
+            description: The description of the device registration policy. Always set to Tenant-wide policy that manages intial provisioning controls using quota restrictions, additional authentication and authorization checks. Read-only.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The name of the device registration policy. Always set to Device Registration Policy. Read-only.
+          localAdminPassword:
+            $ref: '#/components/schemas/microsoft.graph.localAdminPasswordSettings'
+          multiFactorAuthConfiguration:
+            $ref: '#/components/schemas/microsoft.graph.multiFactorAuthConfiguration'
+          userDeviceQuota:
+            maximum: 2147483647
+            minimum: -2147483648
+            type: number
+            description: Specifies the maximum number of devices that a user can have within your organization before blocking new device registrations. The default value is set to 50. If this property isn't specified during the policy update operation, it's automatically reset to 0 to indicate that users aren't allowed to join any devices.
+            format: int32
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.azureADRegistrationPolicy:
+      title: azureADRegistrationPolicy
+      type: object
+      properties:
+        allowedToRegister:
+          $ref: '#/components/schemas/microsoft.graph.deviceRegistrationMembership'
+        isAdminConfigurable:
+          type:
+          - boolean
+          - 'null'
+          description: Determines if administrators can modify this policy.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.azureADJoinPolicy:
+      title: azureADJoinPolicy
+      type: object
+      properties:
+        allowedToJoin:
+          $ref: '#/components/schemas/microsoft.graph.deviceRegistrationMembership'
+        isAdminConfigurable:
+          type:
+          - boolean
+          - 'null'
+          description: Determines if administrators can modify this policy.
+        localAdmins:
+          $ref: '#/components/schemas/microsoft.graph.localAdminSettings'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.localAdminSettings:
+      title: localAdminSettings
+      type: object
+      properties:
+        enableGlobalAdmins:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether global administrators are local administrators on all Microsoft Entra-joined devices. This setting only applies to future registrations. Default is true.
+        registeringUsers:
+          $ref: '#/components/schemas/microsoft.graph.deviceRegistrationMembership'
+      additionalProperties:
+        type: object
+    microsoft.graph.localAdminPasswordSettings:
+      title: localAdminPasswordSettings
+      type: object
+      properties:
+        isEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Specifies whether LAPS is enabled. The default value is false. An admin can set it to true to enable Local Admin Password Solution (LAPS) within their organization.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.multiFactorAuthConfiguration:
+      title: multiFactorAuthConfiguration
+      enum:
+      - notRequired
+      - required
+      - unknownFutureValue
+      type: string
+    microsoft.graph.deviceRegistrationMembership:
+      title: deviceRegistrationMembership
+      type: object
+      additionalProperties:
+        type: object
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

@@ -1,0 +1,535 @@
+openapi: 3.2.0
+info:
+  title: Identity.SignIns Identity.custom Authentication Extension…
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: identity.customAuthenticationExtension
+paths:
+  /identity/customAuthenticationExtensions:
+    get:
+      tags:
+      - identity.customAuthenticationExtension
+      summary: List customAuthenticationExtensions
+      description: Get a list of the customAuthenticationExtension objects and their properties. The following derived types are supported.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/identitycontainer-list-customauthenticationextensions?view=graph-rest-1.0
+      operationId: identity_ListCustomAuthenticationExtension
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.customAuthenticationExtensionCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - identity.customAuthenticationExtension
+      summary: Create customAuthenticationExtension
+      description: Create a new customAuthenticationExtension object. The following derived types are currently supported.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/identitycontainer-post-customauthenticationextensions?view=graph-rest-1.0
+      operationId: identity_CreateCustomAuthenticationExtension
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.customAuthenticationExtension'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.customAuthenticationExtension'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /identity/customAuthenticationExtensions/{customAuthenticationExtension-id}:
+    get:
+      tags:
+      - identity.customAuthenticationExtension
+      summary: Get customAuthenticationExtension
+      description: Read the properties and relationships of a customAuthenticationExtension object. The following derived types are currently supported.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/customauthenticationextension-get?view=graph-rest-1.0
+      operationId: identity_GetCustomAuthenticationExtension
+      parameters:
+      - name: customAuthenticationExtension-id
+        in: path
+        description: The unique identifier of customAuthenticationExtension
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customAuthenticationExtension
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.customAuthenticationExtension'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - identity.customAuthenticationExtension
+      summary: Update customAuthenticationExtension
+      description: Update the properties of a customAuthenticationExtension object. The following derived types are currently supported.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/customauthenticationextension-update?view=graph-rest-1.0
+      operationId: identity_UpdateCustomAuthenticationExtension
+      parameters:
+      - name: customAuthenticationExtension-id
+        in: path
+        description: The unique identifier of customAuthenticationExtension
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customAuthenticationExtension
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.customAuthenticationExtension'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.customAuthenticationExtension'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - identity.customAuthenticationExtension
+      summary: Delete customAuthenticationExtension
+      description: Delete a customAuthenticationExtension object. The following derived types are currently supported.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/customauthenticationextension-delete?view=graph-rest-1.0
+      operationId: identity_DeleteCustomAuthenticationExtension
+      parameters:
+      - name: customAuthenticationExtension-id
+        in: path
+        description: The unique identifier of customAuthenticationExtension
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customAuthenticationExtension
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /identity/customAuthenticationExtensions/{customAuthenticationExtension-id}/microsoft.graph.validateAuthenticationConfiguration
+  : post:
+      tags:
+      - identity.customAuthenticationExtension
+      summary: Invoke action validateAuthenticationConfiguration
+      description: 'An API to check validity of the endpoint and and authentication configuration for a customAuthenticationExtension object, which can represent one of the following derived types:'
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/customauthenticationextension-validateauthenticationconfiguration?view=graph-rest-1.0
+      operationId: identity.customAuthenticationExtension_validateAuthenticationConfiguration
+      parameters:
+      - name: customAuthenticationExtension-id
+        in: path
+        description: The unique identifier of customAuthenticationExtension
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: customAuthenticationExtension
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authenticationConfigurationValidation'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /identity/customAuthenticationExtensions/$count:
+    get:
+      tags:
+      - identity.customAuthenticationExtension
+      summary: Get the number of the resource
+      operationId: identity.customAuthenticationExtension_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /identity/customAuthenticationExtensions/microsoft.graph.validateAuthenticationConfiguration:
+    post:
+      tags:
+      - identity.customAuthenticationExtension
+      summary: Invoke action validateAuthenticationConfiguration
+      operationId: identity.customAuthenticationExtension_validateAuthenticationConfiguration
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                endpointConfiguration:
+                  $ref: '#/components/schemas/microsoft.graph.customExtensionEndpointConfiguration'
+                authenticationConfiguration:
+                  $ref: '#/components/schemas/microsoft.graph.customExtensionAuthenticationConfiguration'
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.authenticationConfigurationValidation'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.customAuthenticationExtensionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.customAuthenticationExtensionCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.customAuthenticationExtension:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.customCalloutExtension'
+      - title: customAuthenticationExtension
+        type: object
+        properties:
+          behaviorOnError:
+            $ref: '#/components/schemas/microsoft.graph.customExtensionBehaviorOnError'
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.customCalloutExtension:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: customCalloutExtension
+        type: object
+        properties:
+          authenticationConfiguration:
+            $ref: '#/components/schemas/microsoft.graph.customExtensionAuthenticationConfiguration'
+          clientConfiguration:
+            $ref: '#/components/schemas/microsoft.graph.customExtensionClientConfiguration'
+          description:
+            type:
+            - string
+            - 'null'
+            description: Description for the customCalloutExtension object.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Display name for the customCalloutExtension object.
+          endpointConfiguration:
+            $ref: '#/components/schemas/microsoft.graph.customExtensionEndpointConfiguration'
+        additionalProperties:
+          type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.customAuthenticationExtensionCollectionResponse:
+      title: Collection of customAuthenticationExtension
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.customAuthenticationExtension'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.customExtensionClientConfiguration:
+      title: customExtensionClientConfiguration
+      type: object
+      properties:
+        maximumRetries:
+          maximum: 2147483647
+          minimum: -2147483648
+          type:
+          - number
+          - 'null'
+          description: The max number of retries that Microsoft Entra ID makes to the external API. Values of 0 or 1 are supported. If null, the default for the service applies.
+          format: int32
+        timeoutInMilliseconds:
+          maximum: 2147483647
+          minimum: -2147483648
+          type:
+          - number
+          - 'null'
+          description: The max duration in milliseconds that Microsoft Entra ID waits for a response from the external app before it shuts down the connection. The valid range is between 200 and 2000 milliseconds. Default duration is 1000.
+          format: int32
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.customExtensionBehaviorOnError:
+      title: customExtensionBehaviorOnError
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationConfigurationValidation:
+      title: authenticationConfigurationValidation
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.genericError'
+          description: Errors in the validation result of a customAuthenticationExtension.
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.genericError'
+          description: Warnings in the validation result of a customAuthenticationExtension.
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.customExtensionEndpointConfiguration:
+      title: customExtensionEndpointConfiguration
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.genericError:
+      title: genericError
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The error code.
+        message:
+          type:
+          - string
+          - 'null'
+          description: The error message.
+      additionalProperties:
+        type: object
+    microsoft.graph.customExtensionAuthenticationConfiguration:
+      title: customExtensionAuthenticationConfiguration
+      type: object
+      additionalProperties:
+        type: object
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

@@ -1,0 +1,678 @@
+openapi: 3.2.0
+info:
+  title: Identity.DirectoryManagement Domains.domain Dns Record API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: domains.domainDnsRecord
+paths:
+  /domains/{domain-id}/serviceConfigurationRecords:
+    get:
+      tags:
+      - domains.domainDnsRecord
+      summary: List serviceConfigurationRecords
+      description: Retrieves a list of domainDnsRecord objects needed to enable services for the domain. Use the returned list to add records to the zone file of the domain. This can be done through the domain registrar or DNS server configuration.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/domain-list-serviceconfigurationrecords?view=graph-rest-1.0
+      operationId: domain_ListServiceConfigurationRecord
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.domainDnsRecordCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - domains.domainDnsRecord
+      summary: Create new navigation property to serviceConfigurationRecords for domains
+      operationId: domain_CreateServiceConfigurationRecord
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /domains/{domain-id}/serviceConfigurationRecords/{domainDnsRecord-id}:
+    get:
+      tags:
+      - domains.domainDnsRecord
+      summary: Get serviceConfigurationRecords from domains
+      description: DNS records the customer adds to the DNS zone file of the domain before the domain can be used by Microsoft Online services. Read-only, Nullable. Doesn't support $expand.
+      operationId: domain_GetServiceConfigurationRecord
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - name: domainDnsRecord-id
+        in: path
+        description: The unique identifier of domainDnsRecord
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domainDnsRecord
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - domains.domainDnsRecord
+      summary: Update the navigation property serviceConfigurationRecords in domains
+      operationId: domain_UpdateServiceConfigurationRecord
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - name: domainDnsRecord-id
+        in: path
+        description: The unique identifier of domainDnsRecord
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domainDnsRecord
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - domains.domainDnsRecord
+      summary: Delete navigation property serviceConfigurationRecords for domains
+      operationId: domain_DeleteServiceConfigurationRecord
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - name: domainDnsRecord-id
+        in: path
+        description: The unique identifier of domainDnsRecord
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domainDnsRecord
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /domains/{domain-id}/serviceConfigurationRecords/$count:
+    get:
+      tags:
+      - domains.domainDnsRecord
+      summary: Get the number of the resource
+      operationId: domain.serviceConfigurationRecord_GetCount
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /domains/{domain-id}/verificationDnsRecords:
+    get:
+      tags:
+      - domains.domainDnsRecord
+      summary: List verificationDnsRecords
+      description: Retrieve a list of domainDnsRecord objects. You cannot use an associated domain with your Microsoft Entra tenant until ownership is verified. To verify the ownership of the domain, retrieve the domain verification records and add the details to the zone file of the domain. This can be done through the domain registrar or DNS server configuration. Root domains require verification. For example, contoso.com requires verification. If a root domain is verified, subdomains of the root domain are automatically verified. For example, subdomain.contoso.com is automatically be verified if contoso.com has been verified.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/domain-list-verificationdnsrecords?view=graph-rest-1.0
+      operationId: domain_ListVerificationDnsRecord
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.domainDnsRecordCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - domains.domainDnsRecord
+      summary: Create new navigation property to verificationDnsRecords for domains
+      operationId: domain_CreateVerificationDnsRecord
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /domains/{domain-id}/verificationDnsRecords/{domainDnsRecord-id}:
+    get:
+      tags:
+      - domains.domainDnsRecord
+      summary: Get verificationDnsRecords from domains
+      description: DNS records that the customer adds to the DNS zone file of the domain before the customer can complete domain ownership verification with Microsoft Entra ID. Read-only, Nullable. Doesn't support $expand.
+      operationId: domain_GetVerificationDnsRecord
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - name: domainDnsRecord-id
+        in: path
+        description: The unique identifier of domainDnsRecord
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domainDnsRecord
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - domains.domainDnsRecord
+      summary: Update the navigation property verificationDnsRecords in domains
+      operationId: domain_UpdateVerificationDnsRecord
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - name: domainDnsRecord-id
+        in: path
+        description: The unique identifier of domainDnsRecord
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domainDnsRecord
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - domains.domainDnsRecord
+      summary: Delete navigation property verificationDnsRecords for domains
+      operationId: domain_DeleteVerificationDnsRecord
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - name: domainDnsRecord-id
+        in: path
+        description: The unique identifier of domainDnsRecord
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domainDnsRecord
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /domains/{domain-id}/verificationDnsRecords/$count:
+    get:
+      tags:
+      - domains.domainDnsRecord
+      summary: Get the number of the resource
+      operationId: domain.verificationDnsRecord_GetCount
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.domainDnsRecordCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.domainDnsRecordCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.domainDnsRecord:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: domainDnsRecord
+        type: object
+        properties:
+          isOptional:
+            type: boolean
+            description: If false, the customer must configure this record at the DNS host for Microsoft Online Services to operate correctly with the domain.
+          label:
+            type: string
+            description: Value used when configuring the name of the DNS record at the DNS host.
+          recordType:
+            type:
+            - string
+            - 'null'
+            description: Indicates what type of DNS record this entity represents. The value can be CName, Mx, Srv, or Txt.
+          supportedService:
+            type: string
+            description: 'Microsoft Online Service or feature that has a dependency on this DNS record. Can be one of the following values: null, Email, Sharepoint, EmailInternalRelayOnly, OfficeCommunicationsOnline, SharePointDefaultDomain, FullRedelegation, SharePointPublic, OrgIdAuthentication, Yammer, Intune.'
+          ttl:
+            maximum: 2147483647
+            minimum: -2147483648
+            type: number
+            description: Value to use when configuring the time-to-live (ttl) property of the DNS record at the DNS host. Not nullable.
+            format: int32
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.domainDnsRecordCollectionResponse:
+      title: Collection of domainDnsRecord
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

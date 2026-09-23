@@ -1,0 +1,698 @@
+openapi: 3.2.0
+info:
+  title: Identity.DirectoryManagement Domains.domain API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: Domains domain
+paths:
+  /domains:
+    get:
+      tags:
+      - Domains domain
+      summary: List domains
+      description: Retrieve a list of domain objects.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/domain-list?view=graph-rest-1.0
+      operationId: domain_ListDomain
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.domainCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - Domains domain
+      summary: Create domain
+      description: 'Adds a domain to the tenant. Important: You cannot use an associated domain with your Microsoft Entra tenant until ownership is verified. See List verificationDnsRecords for details. Root domains require verification. For example, contoso.com requires verification. If a root domain is verified, subdomains of the root domain are automatically verified. For example, subdomain.contoso.com is automatically be verified if contoso.com has been verified.'
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/domain-post-domains?view=graph-rest-1.0
+      operationId: domain_CreateDomain
+      requestBody:
+        description: New entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.domain'
+        required: true
+      responses:
+        2XX:
+          description: Created entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.domain'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /domains/{domain-id}:
+    get:
+      tags:
+      - Domains domain
+      summary: Get domain
+      description: Retrieve the properties and relationships of domain object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/domain-get?view=graph-rest-1.0
+      operationId: domain_GetDomain
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.domain'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - Domains domain
+      summary: Update domain
+      description: Update the properties of domain object. Only verified domains can be updated.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/domain-update?view=graph-rest-1.0
+      operationId: domain_UpdateDomain
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      requestBody:
+        description: New property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.domain'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.domain'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Domains domain
+      summary: Delete domain
+      description: Delete a domain from a tenant.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/domain-delete?view=graph-rest-1.0
+      operationId: domain_DeleteDomain
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /domains/{domain-id}/rootDomain:
+    get:
+      tags:
+      - Domains domain
+      summary: Get rootDomain
+      description: Get the root domain of a subdomain. This API returns a single object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/domain-get-rootdomain?view=graph-rest-1.0
+      operationId: domain_GetRootDomain
+      parameters:
+      - name: domain-id
+        in: path
+        description: The unique identifier of domain
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: domain
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.domain'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /domains/$count:
+    get:
+      tags:
+      - Domains domain
+      summary: Get the number of the resource
+      operationId: domain_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.domainCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.domainCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.internalDomainFederation:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.samlOrWsFedProvider'
+      - title: internalDomainFederation
+        type: object
+        properties:
+          activeSignInUri:
+            type:
+            - string
+            - 'null'
+            description: URL of the endpoint used by active clients when authenticating with federated domains set up for single sign-on in Microsoft Entra ID. Corresponds to the ActiveLogOnUri property of the Set-EntraDomainFederationSettings PowerShell cmdlet.
+          federatedIdpMfaBehavior:
+            $ref: '#/components/schemas/microsoft.graph.federatedIdpMfaBehavior'
+          isSignedAuthenticationRequestRequired:
+            type:
+            - boolean
+            - 'null'
+            description: If true, when SAML authentication requests are sent to the federated SAML IdP, Microsoft Entra ID will sign those requests using the OrgID signing key. If false (default), the SAML authentication requests sent to the federated IdP aren't signed.
+          nextSigningCertificate:
+            type:
+            - string
+            - 'null'
+            description: Fallback token signing certificate that can also be used to sign tokens, for example when the primary signing certificate expires. Formatted as Base64 encoded strings of the public portion of the federated IdP's token signing certificate. Needs to be compatible with the X509Certificate2 class. Much like the signingCertificate, the nextSigningCertificate property is used if a rollover is required outside of the auto-rollover update, a new federation service is being set up, or if the new token signing certificate isn't present in the federation properties after the federation service certificate has been updated.
+          passwordResetUri:
+            type:
+            - string
+            - 'null'
+          promptLoginBehavior:
+            $ref: '#/components/schemas/microsoft.graph.promptLoginBehavior'
+          signingCertificateUpdateStatus:
+            $ref: '#/components/schemas/microsoft.graph.signingCertificateUpdateStatus'
+          signOutUri:
+            type:
+            - string
+            - 'null'
+            description: URI that clients are redirected to when they sign out of Microsoft Entra services. Corresponds to the LogOffUri property of the Set-EntraDomainFederationSettings PowerShell cmdlet.
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.identityProviderBase:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: identityProviderBase
+        type: object
+        properties:
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The display name of the identity provider.
+        additionalProperties:
+          type: object
+    microsoft.graph.domainState:
+      title: domainState
+      type: object
+      properties:
+        lastActionDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Timestamp for when the last activity occurred. The value is updated when an operation is scheduled, the asynchronous task starts, and when the operation completes.
+          format: date-time
+        operation:
+          type:
+          - string
+          - 'null'
+          description: Type of asynchronous operation. The values can be ForceDelete or Verification.
+        status:
+          type:
+          - string
+          - 'null'
+          description: Current status of the operation.  Scheduled - Operation is scheduled but hasn't started.  InProgress - Task is in progress.  Failed - The operation failed.
+      additionalProperties:
+        type: object
+    microsoft.graph.domain:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: domain
+        type: object
+        properties:
+          authenticationType:
+            type: string
+            description: Indicates the configured authentication type for the domain. The value is either Managed or Federated. Managed indicates a cloud managed domain where Microsoft Entra ID performs user authentication. Federated indicates authentication is federated with an identity provider such as the tenant's on-premises Active Directory via Active Directory Federation Services. Not nullable.  To update this property in delegated scenarios, the calling app must be assigned the Domain-InternalFederation.ReadWrite.All permission.
+          availabilityStatus:
+            type:
+            - string
+            - 'null'
+            description: This property is always null except when the verify action is used. When the verify action is used, a domain entity is returned in the response. The availabilityStatus property of the domain entity in the response is either AvailableImmediately or EmailVerifiedDomainTakeoverScheduled.
+          isAdminManaged:
+            type: boolean
+            description: The value of the property is false if the DNS record management of the domain is delegated to Microsoft 365. Otherwise, the value is true. Not nullable
+          isDefault:
+            type: boolean
+            description: true if this is the default domain that is used for user creation. There's only one default domain per company. Not nullable.
+          isInitial:
+            type: boolean
+            description: true if this is the initial domain created by Microsoft Online Services (contoso.com). There's only one initial domain per company. Not nullable
+          isRoot:
+            type: boolean
+            description: true if the domain is a verified root domain. Otherwise, false if the domain is a subdomain or unverified. Not nullable.
+          isVerified:
+            type: boolean
+            description: true if the domain completed domain ownership verification. Not nullable.
+          manufacturer:
+            type:
+            - string
+            - 'null'
+          model:
+            type:
+            - string
+            - 'null'
+          passwordNotificationWindowInDays:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            description: Specifies the number of days before a user receives notification that their password expires. If the property isn't set, a default value of 14 days is used.
+            format: int32
+          passwordValidityPeriodInDays:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            description: Specifies the length of time that a password is valid before it must be changed. If the property isn't set, a default value of 90 days is used.
+            format: int32
+          state:
+            $ref: '#/components/schemas/microsoft.graph.domainState'
+          supportedServices:
+            type: array
+            items:
+              type: string
+            description: 'The capabilities assigned to the domain. Can include 0, 1 or more of following values: Email, Sharepoint, EmailInternalRelayOnly, OfficeCommunicationsOnline, SharePointDefaultDomain, FullRedelegation, SharePointPublic, OrgIdAuthentication, Yammer, Intune. The values that you can add or remove using the API include: Email, OfficeCommunicationsOnline, Yammer. Not nullable.'
+          domainNameReferences:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            description: The objects such as users and groups that reference the domain ID. Read-only, Nullable. Doesn't support $expand. Supports $filter by the OData type of objects returned. For example, /domains/{domainId}/domainNameReferences/microsoft.graph.user and /domains/{domainId}/domainNameReferences/microsoft.graph.group.
+            x-ms-navigationProperty: true
+          federationConfiguration:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.internalDomainFederation'
+            description: Domain settings configured by a customer when federated with Microsoft Entra ID. Doesn't support $expand.
+            x-ms-navigationProperty: true
+          rootDomain:
+            $ref: '#/components/schemas/microsoft.graph.domain'
+          serviceConfigurationRecords:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+            description: DNS records the customer adds to the DNS zone file of the domain before the domain can be used by Microsoft Online services. Read-only, Nullable. Doesn't support $expand.
+            x-ms-navigationProperty: true
+          verificationDnsRecords:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.domainDnsRecord'
+            description: DNS records that the customer adds to the DNS zone file of the domain before the customer can complete domain ownership verification with Microsoft Entra ID. Read-only, Nullable. Doesn't support $expand.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.domainDnsRecord:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: domainDnsRecord
+        type: object
+        properties:
+          isOptional:
+            type: boolean
+            description: If false, the customer must configure this record at the DNS host for Microsoft Online Services to operate correctly with the domain.
+          label:
+            type: string
+            description: Value used when configuring the name of the DNS record at the DNS host.
+          recordType:
+            type:
+            - string
+            - 'null'
+            description: Indicates what type of DNS record this entity represents. The value can be CName, Mx, Srv, or Txt.
+          supportedService:
+            type: string
+            description: 'Microsoft Online Service or feature that has a dependency on this DNS record. Can be one of the following values: null, Email, Sharepoint, EmailInternalRelayOnly, OfficeCommunicationsOnline, SharePointDefaultDomain, FullRedelegation, SharePointPublic, OrgIdAuthentication, Yammer, Intune.'
+          ttl:
+            maximum: 2147483647
+            minimum: -2147483648
+            type: number
+            description: Value to use when configuring the time-to-live (ttl) property of the DNS record at the DNS host. Not nullable.
+            format: int32
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.samlOrWsFedProvider:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.identityProviderBase'
+      - title: samlOrWsFedProvider
+        type: object
+        properties:
+          issuerUri:
+            type:
+            - string
+            - 'null'
+            description: Issuer URI of the federation server.
+          metadataExchangeUri:
+            type:
+            - string
+            - 'null'
+            description: URI of the metadata exchange endpoint used for authentication from rich client applications.
+          passiveSignInUri:
+            type:
+            - string
+            - 'null'
+            description: URI that web-based clients are directed to when signing in to Microsoft Entra services.
+          preferredAuthenticationProtocol:
+            $ref: '#/components/schemas/microsoft.graph.authenticationProtocol'
+          signingCertificate:
+            type:
+            - string
+            - 'null'
+            description: 'Current certificate used to sign tokens passed to the Microsoft identity platform. The certificate is formatted as a Base64 encoded string of the public portion of the federated IdP''s token signing certificate and must be compatible with the X509Certificate2 class.   This property is used in the following scenarios:  if a rollover is required outside of the autorollover update a new federation service is being set up  if the new token signing certificate isn''t present in the federation properties after the federation service certificate has been updated.   Microsoft Entra ID updates certificates via an autorollover process in which it attempts to retrieve a new certificate from the federation service metadata, 30 days before expiry of the current certificate. If a new certificate isn''t available, Microsoft Entra ID monitors the metadata daily and will update the federation settings for the domain when a new certificate is available.'
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.promptLoginBehavior:
+      title: promptLoginBehavior
+      enum:
+      - translateToFreshPasswordAuthentication
+      - nativeSupport
+      - disabled
+      - unknownFutureValue
+      type: string
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationProtocol:
+      title: authenticationProtocol
+      enum:
+      - wsFed
+      - saml
+      - unknownFutureValue
+      type: string
+    microsoft.graph.domainCollectionResponse:
+      title: Collection of domain
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.domain'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.signingCertificateUpdateStatus:
+      title: signingCertificateUpdateStatus
+      type: object
+      properties:
+        certificateUpdateResult:
+          type:
+          - string
+          - 'null'
+          description: Status of the last certificate update. Read-only. For a list of statuses, see certificateUpdateResult status.
+        lastRunDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Date and time in ISO 8601 format and in UTC time when the certificate was last updated. Read-only.
+          format: date-time
+      additionalProperties:
+        type: object
+    microsoft.graph.federatedIdpMfaBehavior:
+      title: federatedIdpMfaBehavior
+      enum:
+      - acceptIfMfaDoneByFederatedIdp
+      - enforceMfaByFederatedIdp
+      - rejectMfaByFederatedIdp
+      - unknownFutureValue
+      type: string
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

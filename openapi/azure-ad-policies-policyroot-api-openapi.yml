@@ -1,0 +1,2321 @@
+openapi: 3.2.0
+info:
+  title: Identity.SignIns Policies.policy Root API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: policies.policyRoot
+paths:
+  /policies:
+    get:
+      tags:
+      - policies.policyRoot
+      summary: Get policies
+      operationId: policy.policyRoot_GetPolicyRoot
+      parameters:
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.policyRoot'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - policies.policyRoot
+      summary: Update policies
+      operationId: policy.policyRoot_UpdatePolicyRoot
+      requestBody:
+        description: New property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.policyRoot'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.policyRoot'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+components:
+  schemas:
+    microsoft.graph.claimsMappingPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.stsPolicy'
+      - title: claimsMappingPolicy
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.invitationRedemptionIdentityProviderConfiguration:
+      title: invitationRedemptionIdentityProviderConfiguration
+      type: object
+      properties:
+        fallbackIdentityProvider:
+          $ref: '#/components/schemas/microsoft.graph.b2bIdentityProvidersType'
+        primaryIdentityProviderPrecedenceOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.b2bIdentityProvidersType'
+          description: 'Collection of identity providers in priority order of preference to be used for guest invitation redemption. The possible values are: azureActiveDirectory, externalFederation, or socialIdentityProviders.'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodsPolicyMigrationState:
+      title: authenticationMethodsPolicyMigrationState
+      enum:
+      - preMigration
+      - migrationInProgress
+      - migrationComplete
+      - unknownFutureValue
+      type: string
+    microsoft.graph.conditionalAccessGuestOrExternalUserTypes:
+      title: conditionalAccessGuestOrExternalUserTypes
+      enum:
+      - none
+      - internalGuest
+      - b2bCollaborationGuest
+      - b2bCollaborationMember
+      - b2bDirectConnectUser
+      - otherExternalUser
+      - serviceProvider
+      - unknownFutureValue
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.conditionalAccessClientApplications:
+      title: conditionalAccessClientApplications
+      type: object
+      properties:
+        excludeServicePrincipals:
+          type: array
+          items:
+            type: string
+          description: Service principal IDs excluded from the policy scope.
+        includeServicePrincipals:
+          type: array
+          items:
+            type: string
+          description: Service principal IDs included in the policy scope, or ServicePrincipalsInMyTenant.
+        servicePrincipalFilter:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessFilter'
+      additionalProperties:
+        type: object
+    microsoft.graph.tokenIssuancePolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.stsPolicy'
+      - title: tokenIssuancePolicy
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.inboundOutboundPolicyConfiguration:
+      title: inboundOutboundPolicyConfiguration
+      type: object
+      properties:
+        inboundAllowed:
+          type:
+          - boolean
+          - 'null'
+          description: Defines whether external users coming inbound are allowed.
+        outboundAllowed:
+          type:
+          - boolean
+          - 'null'
+          description: Defines whether internal users are allowed to go outbound.
+      additionalProperties:
+        type: object
+    microsoft.graph.defaultUserRolePermissions:
+      title: defaultUserRolePermissions
+      type: object
+      properties:
+        allowedToCreateApps:
+          type: boolean
+          description: Indicates whether the default user role can create applications. This setting corresponds to the Users can register applications setting in the User settings menu in the Microsoft Entra admin center.
+        allowedToCreateSecurityGroups:
+          type: boolean
+          description: 'Indicates whether the default user role can create security groups. This setting corresponds to the following menus in the Microsoft Entra admin center:  The Users can create security groups in Microsoft Entra admin centers, API or PowerShell setting in the Group settings menu.  Users can create security groups setting in the User settings menu.'
+        allowedToCreateTenants:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the default user role can create tenants. This setting corresponds to the Restrict non-admin users from creating tenants setting in the User settings menu in the Microsoft Entra admin center.  When this setting is false, users assigned the Tenant Creator role can still create tenants.
+        allowedToReadBitlockerKeysForOwnedDevice:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the registered owners of a device can read their own BitLocker recovery keys with default user role.
+        allowedToReadOtherUsers:
+          type: boolean
+          description: Indicates whether the default user role can read other users. DO NOT SET THIS VALUE TO false.
+        permissionGrantPoliciesAssigned:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: Indicates if user consent to apps is allowed, and if it is, which permission to grant consent and which app consent policy (permissionGrantPolicy) govern the permission for users to grant consent. Value should be in the format managePermissionGrantsForSelf.{id}, where {id} is the id of a built-in or custom app consent policy. An empty list indicates user consent to apps is disabled.
+      additionalProperties:
+        type: object
+    microsoft.graph.targetOwners:
+      title: targetOwners
+      type: object
+      properties:
+        notifyMembers:
+          $ref: '#/components/schemas/microsoft.graph.notifyMembers'
+        securityGroups:
+          type: array
+          items:
+            type: string
+          description: The collection of IDs for security groups used for allowing or blocking filtering. When notifyMembers is all, all members are eligible for ownership and this collection can be empty. When notifyMembers is allowSelected, only members in these security groups are eligible. When notifyMembers is blockSelected, members in these security groups are excluded.
+      additionalProperties:
+        type: object
+    microsoft.graph.templateApplicationLevel:
+      title: templateApplicationLevel
+      enum:
+      - none
+      - newPartners
+      - existingPartners
+      - unknownFutureValue
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.policyDeletableItem:
+      title: policyDeletableItem
+      type: object
+      properties:
+        deletedDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          format: date-time
+      additionalProperties:
+        type: object
+    microsoft.graph.registrationEnforcement:
+      title: registrationEnforcement
+      type: object
+      properties:
+        authenticationMethodsRegistrationCampaign:
+          $ref: '#/components/schemas/microsoft.graph.authenticationMethodsRegistrationCampaign'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleManagementPolicyAssignment:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: unifiedRoleManagementPolicyAssignment
+        type: object
+        properties:
+          policyId:
+            type: string
+            description: The id of the policy. Inherited from entity.
+          roleDefinitionId:
+            type:
+            - string
+            - 'null'
+            description: For Microsoft Entra roles policy, it's the identifier of the role definition object where the policy applies. For PIM for Groups membership and ownership, it's either member or owner. Supports $filter (eq).
+          scopeId:
+            type: string
+            description: The identifier of the scope where the policy is assigned. Can be / for the tenant or a group ID. Required.
+          scopeType:
+            type: string
+            description: The type of the scope where the policy is assigned. One of Directory, DirectoryRole, Group. Required.
+          policy:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicy'
+        additionalProperties:
+          type: object
+    microsoft.graph.conditionalAccessFilter:
+      title: conditionalAccessFilter
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/microsoft.graph.filterMode'
+        rule:
+          type: string
+          description: Rule syntax is similar to that used for membership rules for groups in Microsoft Entra ID. For details, see rules with multiple expressions
+      additionalProperties:
+        type: object
+    microsoft.graph.multiTenantOrganizationPartnerConfigurationTemplate:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: multiTenantOrganizationPartnerConfigurationTemplate
+        type: object
+        properties:
+          automaticUserConsentSettings:
+            $ref: '#/components/schemas/microsoft.graph.inboundOutboundPolicyConfiguration'
+          b2bCollaborationInbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+          b2bCollaborationOutbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+          b2bDirectConnectInbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+          b2bDirectConnectOutbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+          inboundTrust:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyInboundTrust'
+          templateApplicationLevel:
+            $ref: '#/components/schemas/microsoft.graph.templateApplicationLevel'
+        additionalProperties:
+          type: object
+    microsoft.graph.riskLevel:
+      title: riskLevel
+      enum:
+      - low
+      - medium
+      - high
+      - hidden
+      - none
+      - unknownFutureValue
+      type: string
+    microsoft.graph.passwordCredentialConfiguration:
+      title: passwordCredentialConfiguration
+      type: object
+      properties:
+        excludeActors:
+          $ref: '#/components/schemas/microsoft.graph.appManagementPolicyActorExemptions'
+        maxLifetime:
+          pattern: ^-?P([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+([.][0-9]+)?S)?)?$
+          type:
+          - string
+          - 'null'
+          description: String value that indicates the maximum lifetime for password expiration, defined as an ISO 8601 duration. For example, P4DT12H30M5S represents four days, 12 hours, 30 minutes, and five seconds. This property is required when restrictionType is set to passwordLifetime.
+          format: duration
+        restrictForAppsCreatedAfterDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Specifies the date from which the policy restriction applies to newly created applications. For existing applications, the enforcement date can be retroactively applied.
+          format: date-time
+        restrictionType:
+          $ref: '#/components/schemas/microsoft.graph.appCredentialRestrictionType'
+        state:
+          $ref: '#/components/schemas/microsoft.graph.appManagementRestrictionState'
+      additionalProperties:
+        type: object
+    microsoft.graph.tokenLifetimePolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.stsPolicy'
+      - title: tokenLifetimePolicy
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.conditionalAccessInsiderRiskLevels:
+      title: conditionalAccessInsiderRiskLevels
+      enum:
+      - minor
+      - moderate
+      - elevated
+      - unknownFutureValue
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.conditionalAccessUsers:
+      title: conditionalAccessUsers
+      type: object
+      properties:
+        excludeGroups:
+          type: array
+          items:
+            type: string
+          description: Group IDs excluded from scope of policy.
+        excludeGuestsOrExternalUsers:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessGuestsOrExternalUsers'
+        excludeRoles:
+          type: array
+          items:
+            type: string
+          description: Role IDs excluded from scope of policy.
+        excludeUsers:
+          type: array
+          items:
+            type: string
+          description: User IDs excluded from scope of policy and/or GuestsOrExternalUsers.
+        includeGroups:
+          type: array
+          items:
+            type: string
+          description: Group IDs in scope of policy unless explicitly excluded.
+        includeGuestsOrExternalUsers:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessGuestsOrExternalUsers'
+        includeRoles:
+          type: array
+          items:
+            type: string
+          description: Role IDs in scope of policy unless explicitly excluded.
+        includeUsers:
+          type: array
+          items:
+            type: string
+          description: User IDs in scope of policy unless explicitly excluded, None, All, or GuestsOrExternalUsers.
+      additionalProperties:
+        type: object
+    microsoft.graph.identitySecurityDefaultsEnforcementPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.policyBase'
+      - title: identitySecurityDefaultsEnforcementPolicy
+        type: object
+        properties:
+          isEnabled:
+            type: boolean
+            description: If set to true, Microsoft Entra security defaults are enabled for the tenant.
+        additionalProperties:
+          type: object
+    microsoft.graph.authenticationMethodConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: authenticationMethodConfiguration
+        type: object
+        properties:
+          excludeTargets:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.excludeTarget'
+            description: Groups of users that are excluded from a policy.
+          state:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodState'
+        additionalProperties:
+          type: object
+    microsoft.graph.conditionalAccessExternalTenants:
+      title: conditionalAccessExternalTenants
+      type: object
+      properties:
+        membershipKind:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessExternalTenantsMembershipKind'
+      additionalProperties:
+        type: object
+    microsoft.graph.appManagementServicePrincipalConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.appManagementConfiguration'
+      - title: appManagementServicePrincipalConfiguration
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.crossTenantAccessPolicyTargetConfiguration:
+      title: crossTenantAccessPolicyTargetConfiguration
+      type: object
+      properties:
+        accessType:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfigurationAccessType'
+        targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTarget'
+          description: Specifies whether to target users, groups, or applications with this rule.
+      additionalProperties:
+        type: object
+    microsoft.graph.conditionalAccessGrantControl:
+      title: conditionalAccessGrantControl
+      enum:
+      - block
+      - mfa
+      - compliantDevice
+      - domainJoinedDevice
+      - approvedApplication
+      - compliantApplication
+      - passwordChange
+      - unknownFutureValue
+      - riskRemediation
+      type: string
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.azureADJoinPolicy:
+      title: azureADJoinPolicy
+      type: object
+      properties:
+        allowedToJoin:
+          $ref: '#/components/schemas/microsoft.graph.deviceRegistrationMembership'
+        isAdminConfigurable:
+          type:
+          - boolean
+          - 'null'
+          description: Determines if administrators can modify this policy.
+        localAdmins:
+          $ref: '#/components/schemas/microsoft.graph.localAdminSettings'
+      additionalProperties:
+        type: object
+    microsoft.graph.keyCredentialConfiguration:
+      title: keyCredentialConfiguration
+      type: object
+      properties:
+        excludeActors:
+          $ref: '#/components/schemas/microsoft.graph.appManagementPolicyActorExemptions'
+        maxLifetime:
+          pattern: ^-?P([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+([.][0-9]+)?S)?)?$
+          type:
+          - string
+          - 'null'
+          description: String value that indicates the maximum lifetime for key expiration, defined as an ISO 8601 duration. For example, P4DT12H30M5S represents four days, 12 hours, 30 minutes, and five seconds. This property is required when restrictionType is set to asymmetricKeyLifetime.
+          format: duration
+        restrictForAppsCreatedAfterDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Specifies the date from which the policy restriction applies to newly created applications. For existing applications, the enforcement date can be retroactively applied.
+          format: date-time
+        restrictionType:
+          $ref: '#/components/schemas/microsoft.graph.appKeyCredentialRestrictionType'
+        state:
+          $ref: '#/components/schemas/microsoft.graph.appManagementRestrictionState'
+      additionalProperties:
+        type: object
+    microsoft.graph.emailDetails:
+      title: emailDetails
+      type: object
+      properties:
+        body:
+          type: string
+          description: The body content of the notification email in plain text format.
+        senderEmailAddress:
+          type: string
+          description: The email address of the sender for notification emails. Shared mailboxes aren't supported.
+        subject:
+          type: string
+          description: The subject line of the notification email.
+      additionalProperties:
+        type: object
+    microsoft.graph.rootDomains:
+      title: rootDomains
+      enum:
+      - none
+      - all
+      - allFederated
+      - allManaged
+      - enumerated
+      - allManagedAndEnumeratedFederated
+      - unknownFutureValue
+      type: string
+    microsoft.graph.crossTenantAccessPolicyTargetType:
+      title: crossTenantAccessPolicyTargetType
+      enum:
+      - user
+      - group
+      - application
+      - unknownFutureValue
+      type: string
+    microsoft.graph.authenticationMethodState:
+      title: authenticationMethodState
+      enum:
+      - enabled
+      - disabled
+      type: string
+    microsoft.graph.crossTenantAccessPolicyTarget:
+      title: crossTenantAccessPolicyTarget
+      type: object
+      properties:
+        target:
+          type:
+          - string
+          - 'null'
+          description: 'Defines the target for cross-tenant access policy settings and can have one of the following values:  The unique identifier of the user, group, or application  AllUsers  AllApplications - Refers to any Microsoft cloud application.  Office365 - Includes the applications mentioned as part of the Office 365 suite.'
+        targetType:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetType'
+      additionalProperties:
+        type: object
+    microsoft.graph.ownerlessGroupPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: ownerlessGroupPolicy
+        type: object
+        properties:
+          emailInfo:
+            $ref: '#/components/schemas/microsoft.graph.emailDetails'
+          enabledGroupIds:
+            type: array
+            items:
+              type: string
+            description: The collection of IDs for groups to which the policy is enabled. If empty, the policy is enabled for all groups in the tenant.
+          isEnabled:
+            type: boolean
+            description: Indicates whether the ownerless group policy is enabled in the tenant. Setting this property to false clears the values of all other policy parameters.
+          maxMembersToNotify:
+            type: number
+            description: The maximum number of members to notify. Value range is 0-90. Members are prioritized by recent group activity (most active first). If there aren't enough active members to fill the limit, remaining slots are filled with other eligible group members from the directory.
+            format: int64
+          notificationDurationInWeeks:
+            type: number
+            description: The number of weeks for the notification duration. Value range is 1-7.
+            format: int64
+          policyWebUrl:
+            type:
+            - string
+            - 'null'
+            description: The URL to the policy documentation.
+          targetOwners:
+            $ref: '#/components/schemas/microsoft.graph.targetOwners'
+        additionalProperties:
+          type: object
+    microsoft.graph.adminConsentRequestPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: adminConsentRequestPolicy
+        type: object
+        properties:
+          isEnabled:
+            type: boolean
+            description: Specifies whether the admin consent request feature is enabled or disabled. Required.
+          notifyReviewers:
+            type: boolean
+            description: Specifies whether reviewers will receive notifications. Required.
+          remindersEnabled:
+            type: boolean
+            description: Specifies whether reviewers will receive reminder emails. Required.
+          requestDurationInDays:
+            maximum: 2147483647
+            minimum: -2147483648
+            type: number
+            description: Specifies the duration the request is active before it automatically expires if no decision is applied.
+            format: int32
+          reviewers:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewReviewerScope'
+            description: The list of reviewers for the admin consent. Required.
+          version:
+            maximum: 2147483647
+            minimum: -2147483648
+            type: number
+            description: Specifies the version of this policy. When the policy is updated, this version is updated. Read-only.
+            format: int32
+        additionalProperties:
+          type: object
+    microsoft.graph.crossTenantAccessPolicyAppServiceConnectSetting:
+      title: crossTenantAccessPolicyAppServiceConnectSetting
+      type: object
+      properties:
+        applications:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
+      additionalProperties:
+        type: object
+    microsoft.graph.persistentBrowserSessionControl:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.conditionalAccessSessionControl'
+      - title: persistentBrowserSessionControl
+        type: object
+        properties:
+          mode:
+            $ref: '#/components/schemas/microsoft.graph.persistentBrowserSessionMode'
+        additionalProperties:
+          type: object
+    microsoft.graph.crossTenantAccessPolicyConfigurationDefault:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: crossTenantAccessPolicyConfigurationDefault
+        type: object
+        properties:
+          appServiceConnectInbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyAppServiceConnectSetting'
+          automaticUserConsentSettings:
+            $ref: '#/components/schemas/microsoft.graph.inboundOutboundPolicyConfiguration'
+          b2bCollaborationInbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+          b2bCollaborationOutbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+          b2bDirectConnectInbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+          b2bDirectConnectOutbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+          inboundTrust:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyInboundTrust'
+          invitationRedemptionIdentityProviderConfiguration:
+            $ref: '#/components/schemas/microsoft.graph.defaultInvitationRedemptionIdentityProviderConfiguration'
+          isServiceDefault:
+            type:
+            - boolean
+            - 'null'
+            description: If true, the default configuration is set to the system default configuration. If false, the default settings are customized.
+          m365CollaborationInbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyM365CollaborationInboundSetting'
+          m365CollaborationOutbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyM365CollaborationOutboundSetting'
+          tenantRestrictions:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTenantRestrictions'
+        additionalProperties:
+          type: object
+    microsoft.graph.signinFrequencyType:
+      title: signinFrequencyType
+      enum:
+      - days
+      - hours
+      type: string
+    microsoft.graph.policyRoot:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: policyRoot
+        type: object
+        properties:
+          activityBasedTimeoutPolicies:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.activityBasedTimeoutPolicy'
+            description: The policy that controls the idle time out for web sessions for applications.
+            x-ms-navigationProperty: true
+          adminConsentRequestPolicy:
+            $ref: '#/components/schemas/microsoft.graph.adminConsentRequestPolicy'
+          appManagementPolicies:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.appManagementPolicy'
+            description: The policies that enforce app management restrictions for specific applications and service principals, overriding the defaultAppManagementPolicy.
+            x-ms-navigationProperty: true
+          authenticationFlowsPolicy:
+            $ref: '#/components/schemas/microsoft.graph.authenticationFlowsPolicy'
+          authenticationMethodsPolicy:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodsPolicy'
+          authenticationStrengthPolicies:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.authenticationStrengthPolicy'
+            description: The authentication method combinations that are to be used in scenarios defined by Microsoft Entra Conditional Access.
+            x-ms-navigationProperty: true
+          authorizationPolicy:
+            $ref: '#/components/schemas/microsoft.graph.authorizationPolicy'
+          claimsMappingPolicies:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.claimsMappingPolicy'
+            description: The claim-mapping policies for WS-Fed, SAML, OAuth 2.0, and OpenID Connect protocols, for tokens issued to a specific application.
+            x-ms-navigationProperty: true
+          conditionalAccessPolicies:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.conditionalAccessPolicy'
+            description: The custom rules that define an access scenario.
+            x-ms-navigationProperty: true
+          crossTenantAccessPolicy:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicy'
+          defaultAppManagementPolicy:
+            $ref: '#/components/schemas/microsoft.graph.tenantAppManagementPolicy'
+          deviceRegistrationPolicy:
+            $ref: '#/components/schemas/microsoft.graph.deviceRegistrationPolicy'
+          featureRolloutPolicies:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.featureRolloutPolicy'
+            description: The feature rollout policy associated with a directory object.
+            x-ms-navigationProperty: true
+          federatedTokenValidationPolicy:
+            $ref: '#/components/schemas/microsoft.graph.federatedTokenValidationPolicy'
+          homeRealmDiscoveryPolicies:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.homeRealmDiscoveryPolicy'
+            description: The policy to control Microsoft Entra authentication behavior for federated users.
+            x-ms-navigationProperty: true
+          identitySecurityDefaultsEnforcementPolicy:
+            $ref: '#/components/schemas/microsoft.graph.identitySecurityDefaultsEnforcementPolicy'
+          ownerlessGroupPolicy:
+            $ref: '#/components/schemas/microsoft.graph.ownerlessGroupPolicy'
+          permissionGrantPolicies:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.permissionGrantPolicy'
+            description: The policy that specifies the conditions under which consent can be granted.
+            x-ms-navigationProperty: true
+          roleManagementPolicies:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicy'
+            description: Specifies the various policies associated with scopes and roles.
+            x-ms-navigationProperty: true
+          roleManagementPolicyAssignments:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyAssignment'
+            description: The assignment of a role management policy to a role definition object.
+            x-ms-navigationProperty: true
+          tokenIssuancePolicies:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.tokenIssuancePolicy'
+            description: The policy that specifies the characteristics of SAML tokens issued by Microsoft Entra ID.
+            x-ms-navigationProperty: true
+          tokenLifetimePolicies:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.tokenLifetimePolicy'
+            description: The policy that controls the lifetime of a JWT access token, an ID token, or a SAML 1.1/2.0 token issued by Microsoft Entra ID.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.cloudAppSecuritySessionControlType:
+      title: cloudAppSecuritySessionControlType
+      enum:
+      - mcasConfigured
+      - monitorOnly
+      - blockDownloads
+      - unknownFutureValue
+      type: string
+    microsoft.graph.appManagementApplicationConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.appManagementConfiguration'
+      - title: appManagementApplicationConfiguration
+        type: object
+        properties:
+          identifierUris:
+            $ref: '#/components/schemas/microsoft.graph.identifierUriConfiguration'
+        additionalProperties:
+          type: object
+    microsoft.graph.crossTenantAccessPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.policyBase'
+      - title: crossTenantAccessPolicy
+        type: object
+        properties:
+          allowedCloudEndpoints:
+            type: array
+            items:
+              type: string
+            description: 'Used to specify which Microsoft clouds an organization would like to collaborate with. By default, this value is empty. Supported values for this field are: microsoftonline.com, microsoftonline.us, and partner.microsoftonline.cn.'
+          default:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyConfigurationDefault'
+          partners:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyConfigurationPartner'
+            description: Defines partner-specific configurations for external Microsoft Entra organizations.
+            x-ms-navigationProperty: true
+          templates:
+            $ref: '#/components/schemas/microsoft.graph.policyTemplate'
+        additionalProperties:
+          type: object
+    microsoft.graph.crossTenantAccessPolicyConfigurationPartner:
+      title: crossTenantAccessPolicyConfigurationPartner
+      type: object
+      properties:
+        appServiceConnectInbound:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyAppServiceConnectSetting'
+        automaticUserConsentSettings:
+          $ref: '#/components/schemas/microsoft.graph.inboundOutboundPolicyConfiguration'
+        b2bCollaborationInbound:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+        b2bCollaborationOutbound:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+        b2bDirectConnectInbound:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+        b2bDirectConnectOutbound:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+        inboundTrust:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyInboundTrust'
+        isInMultiTenantOrganization:
+          type:
+          - boolean
+          - 'null'
+          description: Identifies whether a tenant is a member of a multitenant organization.
+        isServiceProvider:
+          type:
+          - boolean
+          - 'null'
+          description: Identifies whether the partner-specific configuration is a Cloud Service Provider for your organization.
+        m365CollaborationInbound:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyM365CollaborationInboundSetting'
+        m365CollaborationOutbound:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyM365CollaborationOutboundSetting'
+        tenantId:
+          type: string
+          description: The tenant identifier for the partner Microsoft Entra organization. Read-only. Key.
+        tenantRestrictions:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTenantRestrictions'
+        identitySynchronization:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantIdentitySyncPolicyPartner'
+        serviceProviderConstraints:
+          $ref: '#/components/schemas/microsoft.graph.serviceProviderConstraints'
+      additionalProperties:
+        type: object
+    microsoft.graph.appManagementConfiguration:
+      title: appManagementConfiguration
+      type: object
+      properties:
+        keyCredentials:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.keyCredentialConfiguration'
+          description: Collection of keyCredential restrictions settings to be applied to an application or service principal.
+        passwordCredentials:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.passwordCredentialConfiguration'
+          description: Collection of password restrictions settings to be applied to an application or service principal.
+      additionalProperties:
+        type: object
+    microsoft.graph.conditionalAccessExternalTenantsMembershipKind:
+      title: conditionalAccessExternalTenantsMembershipKind
+      enum:
+      - all
+      - enumerated
+      - unknownFutureValue
+      type: string
+    microsoft.graph.conditionalAccessPlatforms:
+      title: conditionalAccessPlatforms
+      type: object
+      properties:
+        excludePlatforms:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.conditionalAccessDevicePlatform'
+          description: 'The possible values are: android, iOS, windows, windowsPhone, macOS, linux, all, unknownFutureValue.'
+        includePlatforms:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.conditionalAccessDevicePlatform'
+          description: 'The possible values are: android, iOS, windows, windowsPhone, macOS, linux, all, unknownFutureValue.'
+      additionalProperties:
+        type: object
+    microsoft.graph.crossTenantIdentitySyncPolicyPartner:
+      title: crossTenantIdentitySyncPolicyPartner
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: Display name for the cross-tenant user synchronization policy. Use the name of the partner Microsoft Entra tenant to easily identify the policy. Optional.
+        tenantId:
+          type: string
+          description: Tenant identifier for the partner Microsoft Entra organization. Read-only.
+        userSyncInbound:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantUserSyncInbound'
+      additionalProperties:
+        type: object
+    microsoft.graph.conditionalAccessSessionControl:
+      title: conditionalAccessSessionControl
+      type: object
+      properties:
+        isEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Specifies whether the session control is enabled.
+      additionalProperties:
+        type: object
+    microsoft.graph.conditionalAccessAuthenticationFlows:
+      title: conditionalAccessAuthenticationFlows
+      type: object
+      properties:
+        transferMethods:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessTransferMethods'
+      additionalProperties:
+        type: object
+    microsoft.graph.conditionalAccessApplications:
+      title: conditionalAccessApplications
+      type: object
+      properties:
+        applicationFilter:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessFilter'
+        excludeApplications:
+          type: array
+          items:
+            type: string
+          description: 'Can be one of the following:  The list of client IDs (appId) explicitly excluded from the policy. Office365 - For the list of apps included in Office365, see Apps included in Conditional Access Office 365 app suite  MicrosoftAdminPortals - For more information, see Conditional Access Target resources: Microsoft Admin Portals'
+        includeApplications:
+          type: array
+          items:
+            type: string
+          description: 'Can be one of the following:  The list of client IDs (appId) the policy applies to, unless explicitly excluded (in excludeApplications)  All  Office365 - For the list of apps included in Office365, see Apps included in Conditional Access Office 365 app suite  MicrosoftAdminPortals - For more information, see Conditional Access Target resources: Microsoft Admin Portals'
+        includeAuthenticationContextClassReferences:
+          type: array
+          items:
+            type: string
+        includeUserActions:
+          type: array
+          items:
+            type: string
+          description: User actions to include. Supported values are urn:user:registersecurityinfo and urn:user:registerdevice
+      additionalProperties:
+        type: object
+    microsoft.graph.validatingDomains:
+      title: validatingDomains
+      type: object
+      properties:
+        rootDomains:
+          $ref: '#/components/schemas/microsoft.graph.rootDomains'
+      additionalProperties:
+        type: object
+    microsoft.graph.secureSignInSessionControl:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.conditionalAccessSessionControl'
+      - title: secureSignInSessionControl
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.stagedFeatureName:
+      title: stagedFeatureName
+      enum:
+      - passthroughAuthentication
+      - seamlessSso
+      - passwordHashSync
+      - emailAsAlternateId
+      - unknownFutureValue
+      - certificateBasedAuthentication
+      - multiFactorAuthentication
+      type: string
+    microsoft.graph.advancedConfigState:
+      title: advancedConfigState
+      enum:
+      - default
+      - enabled
+      - disabled
+      - unknownFutureValue
+      type: string
+    microsoft.graph.identifierUriRestriction:
+      title: identifierUriRestriction
+      type: object
+      properties:
+        excludeActors:
+          $ref: '#/components/schemas/microsoft.graph.appManagementPolicyActorExemptions'
+        excludeAppsReceivingV2Tokens:
+          type:
+          - boolean
+          - 'null'
+          description: If true, the restriction isn't enforced for applications that are configured to receive V2 tokens in Microsoft Entra ID; else, the restriction is enforced for those applications.
+        excludeSaml:
+          type:
+          - boolean
+          - 'null'
+          description: If true, the restriction isn't enforced for SAML applications in Microsoft Entra ID; else, the restriction is enforced for those applications.
+        isStateSetByMicrosoft:
+          type: boolean
+          description: If true, Microsoft sets the identifierUriRestriction state. If false, the tenant modifies the identifierUriRestriction state. Read-only.
+          readOnly: true
+        restrictForAppsCreatedAfterDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Specifies the date from which the policy restriction applies to newly created applications. For existing applications, the enforcement date can be retroactively applied.
+          format: date-time
+        state:
+          $ref: '#/components/schemas/microsoft.graph.appManagementRestrictionState'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.crossTenantAccessPolicyM365CollaborationOutboundSetting:
+      title: crossTenantAccessPolicyM365CollaborationOutboundSetting
+      type: object
+      properties:
+        usersAndGroups:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
+      additionalProperties:
+        type: object
+    microsoft.graph.allowInvitesFrom:
+      title: allowInvitesFrom
+      enum:
+      - none
+      - adminsAndGuestInviters
+      - adminsGuestInvitersAndAllMembers
+      - everyone
+      - unknownFutureValue
+      type: string
+    microsoft.graph.serviceProviderConstraints:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: serviceProviderConstraints
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.appManagementPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.policyBase'
+      - title: appManagementPolicy
+        type: object
+        properties:
+          isEnabled:
+            type: boolean
+            description: Denotes whether the policy is enabled.
+          restrictions:
+            $ref: '#/components/schemas/microsoft.graph.customAppManagementConfiguration'
+          appliesTo:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            description: Collection of applications and service principals to which the policy is applied.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.activityBasedTimeoutPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.stsPolicy'
+      - title: activityBasedTimeoutPolicy
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.conditionalAccessDevices:
+      title: conditionalAccessDevices
+      type: object
+      properties:
+        deviceFilter:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessFilter'
+      additionalProperties:
+        type: object
+    microsoft.graph.applicationEnforcedRestrictionsSessionControl:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.conditionalAccessSessionControl'
+      - title: applicationEnforcedRestrictionsSessionControl
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.deviceRegistrationPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: deviceRegistrationPolicy
+        type: object
+        properties:
+          azureADJoin:
+            $ref: '#/components/schemas/microsoft.graph.azureADJoinPolicy'
+          azureADRegistration:
+            $ref: '#/components/schemas/microsoft.graph.azureADRegistrationPolicy'
+          description:
+            type:
+            - string
+            - 'null'
+            description: The description of the device registration policy. Always set to Tenant-wide policy that manages intial provisioning controls using quota restrictions, additional authentication and authorization checks. Read-only.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The name of the device registration policy. Always set to Device Registration Policy. Read-only.
+          localAdminPassword:
+            $ref: '#/components/schemas/microsoft.graph.localAdminPasswordSettings'
+          multiFactorAuthConfiguration:
+            $ref: '#/components/schemas/microsoft.graph.multiFactorAuthConfiguration'
+          userDeviceQuota:
+            maximum: 2147483647
+            minimum: -2147483648
+            type: number
+            description: Specifies the maximum number of devices that a user can have within your organization before blocking new device registrations. The default value is set to 50. If this property isn't specified during the policy update operation, it's automatically reset to 0 to indicate that users aren't allowed to join any devices.
+            format: int32
+        additionalProperties:
+          type: object
+    microsoft.graph.policyTemplate:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: policyTemplate
+        type: object
+        properties:
+          multiTenantOrganizationIdentitySynchronization:
+            $ref: '#/components/schemas/microsoft.graph.multiTenantOrganizationIdentitySyncPolicyTemplate'
+          multiTenantOrganizationPartnerConfiguration:
+            $ref: '#/components/schemas/microsoft.graph.multiTenantOrganizationPartnerConfigurationTemplate'
+        additionalProperties:
+          type: object
+    microsoft.graph.conditionalAccessConditionSet:
+      title: conditionalAccessConditionSet
+      type: object
+      properties:
+        applications:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessApplications'
+        authenticationFlows:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessAuthenticationFlows'
+        clientApplications:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessClientApplications'
+        clientAppTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.conditionalAccessClientApp'
+          description: 'Client application types included in the policy. The possible values are: all, browser, mobileAppsAndDesktopClients, exchangeActiveSync, easSupported, other. Required.  The easUnsupported enumeration member will be deprecated in favor of exchangeActiveSync, which includes EAS supported and unsupported platforms.'
+        devices:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessDevices'
+        insiderRiskLevels:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessInsiderRiskLevels'
+        locations:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessLocations'
+        platforms:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessPlatforms'
+        servicePrincipalRiskLevels:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.riskLevel'
+          description: 'Service principal risk levels included in the policy. The possible values are: low, medium, high, none, unknownFutureValue.'
+        signInRiskLevels:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.riskLevel'
+          description: 'Sign-in risk levels included in the policy. The possible values are: low, medium, high, hidden, none, unknownFutureValue. Required.'
+        userRiskLevels:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.riskLevel'
+          description: 'User risk levels included in the policy. The possible values are: low, medium, high, hidden, none, unknownFutureValue. Required.'
+        users:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessUsers'
+      additionalProperties:
+        type: object
+    microsoft.graph.appKeyCredentialRestrictionType:
+      title: appKeyCredentialRestrictionType
+      enum:
+      - asymmetricKeyLifetime
+      - unknownFutureValue
+      type: string
+    microsoft.graph.policyBase:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: policyBase
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: Description for this policy. Required.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Display name for this policy. Required.
+        additionalProperties:
+          type: object
+    microsoft.graph.stsPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.policyBase'
+      - title: stsPolicy
+        type: object
+        properties:
+          definition:
+            type: array
+            items:
+              type: string
+            description: A string collection containing a JSON string that defines the rules and settings for a policy. The syntax for the definition differs for each derived policy type. Required.
+          isOrganizationDefault:
+            type:
+            - boolean
+            - 'null'
+            description: If set to true, activates this policy. There can be many policies for the same policy type, but only one can be activated as the organization default. Optional, default value is false.
+          appliesTo:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.appCredentialRestrictionType:
+      title: appCredentialRestrictionType
+      enum:
+      - passwordAddition
+      - passwordLifetime
+      - symmetricKeyAddition
+      - symmetricKeyLifetime
+      - customPasswordAddition
+      - unknownFutureValue
+      type: string
+    microsoft.graph.authenticationMethodsRegistrationCampaignIncludeTarget:
+      title: authenticationMethodsRegistrationCampaignIncludeTarget
+      type: object
+      properties:
+        id:
+          type: string
+          description: The object identifier of a Microsoft Entra user or group.
+        targetedAuthenticationMethod:
+          type:
+          - string
+          - 'null'
+          description: The authentication method that the user is prompted to register. The value can be Fido2 or microsoftAuthenticator.
+        targetType:
+          $ref: '#/components/schemas/microsoft.graph.authenticationMethodTargetType'
+      additionalProperties:
+        type: object
+    microsoft.graph.conditionalAccessDevicePlatform:
+      title: conditionalAccessDevicePlatform
+      enum:
+      - android
+      - iOS
+      - windows
+      - windowsPhone
+      - macOS
+      - all
+      - unknownFutureValue
+      - linux
+      type: string
+    microsoft.graph.devicesFilter:
+      title: devicesFilter
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfigurationAccessType'
+        rule:
+          type:
+          - string
+          - 'null'
+          description: Defines the rule to filter the devices. For example, device.deviceAttribute2 -eq 'PrivilegedAccessWorkstation'.
+      additionalProperties:
+        type: object
+    microsoft.graph.signInFrequencyInterval:
+      title: signInFrequencyInterval
+      enum:
+      - timeBased
+      - everyTime
+      - unknownFutureValue
+      type: string
+    microsoft.graph.localAdminSettings:
+      title: localAdminSettings
+      type: object
+      properties:
+        enableGlobalAdmins:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether global administrators are local administrators on all Microsoft Entra-joined devices. This setting only applies to future registrations. Default is true.
+        registeringUsers:
+          $ref: '#/components/schemas/microsoft.graph.deviceRegistrationMembership'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationCombinationConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: authenticationCombinationConfiguration
+        type: object
+        properties:
+          appliesToCombinations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.authenticationMethodModes'
+            description: Which authentication method combinations this configuration applies to. Must be an allowedCombinations object, part of the authenticationStrengthPolicy. The only possible value for fido2combinationConfigurations is 'fido2'.
+        additionalProperties:
+          type: object
+    microsoft.graph.conditionalAccessClientApp:
+      title: conditionalAccessClientApp
+      enum:
+      - all
+      - browser
+      - mobileAppsAndDesktopClients
+      - exchangeActiveSync
+      - easSupported
+      - other
+      - unknownFutureValue
+      type: string
+    microsoft.graph.appManagementPolicyActorExemptions:
+      title: appManagementPolicyActorExemptions
+      type: object
+      properties:
+        customSecurityAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeExemption'
+          description: The collection of customSecurityAttributeExemption to exempt from the policy enforcement. Limit of 5.
+      additionalProperties:
+        type: object
+    microsoft.graph.crossTenantUserSyncInbound:
+      title: crossTenantUserSyncInbound
+      type: object
+      properties:
+        isSyncAllowed:
+          type:
+          - boolean
+          - 'null'
+          description: Defines whether user objects should be synchronized from the partner tenant. false causes any current user synchronization from the source tenant to the target tenant to stop. This property has no impact on existing users who have already been synchronized.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.crossTenantAccessPolicyTargetConfigurationAccessType:
+      title: crossTenantAccessPolicyTargetConfigurationAccessType
+      enum:
+      - allowed
+      - blocked
+      - unknownFutureValue
+      type: string
+    microsoft.graph.conditionalAccessGrantControls:
+      title: conditionalAccessGrantControls
+      type: object
+      properties:
+        builtInControls:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.conditionalAccessGrantControl'
+          description: 'List of values of built-in controls required by the policy. Possible values: block, mfa, compliantDevice, domainJoinedDevice, approvedApplication, compliantApplication, passwordChange, unknownFutureValue, riskRemediation.  Use the Prefer: include-unknown-enum-members request header to get the following value in this evolvable enum: riskRemediation.'
+        customAuthenticationFactors:
+          type: array
+          items:
+            type: string
+          description: List of custom controls IDs required by the policy. For more information, see Custom controls.
+        operator:
+          type:
+          - string
+          - 'null'
+          description: 'Defines the relationship of the grant controls. Possible values: AND, OR.'
+        termsOfUse:
+          type: array
+          items:
+            type: string
+          description: List of terms of use IDs required by the policy.
+        authenticationStrength:
+          $ref: '#/components/schemas/microsoft.graph.authenticationStrengthPolicy'
+      additionalProperties:
+        type: object
+    microsoft.graph.customAppManagementConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.appManagementConfiguration'
+      - title: customAppManagementConfiguration
+        type: object
+        properties:
+          applicationRestrictions:
+            $ref: '#/components/schemas/microsoft.graph.customAppManagementApplicationConfiguration'
+        additionalProperties:
+          type: object
+    microsoft.graph.unifiedRoleManagementPolicyRuleTargetOperations:
+      title: unifiedRoleManagementPolicyRuleTargetOperations
+      enum:
+      - all
+      - activate
+      - deactivate
+      - assign
+      - update
+      - remove
+      - extend
+      - renew
+      - unknownFutureValue
+      type: string
+    microsoft.graph.authenticationStrengthPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: authenticationStrengthPolicy
+        type: object
+        properties:
+          allowedCombinations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.authenticationMethodModes'
+            description: A collection of authentication method modes that are required be used to satify this authentication strength.
+          createdDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type: string
+            description: The datetime when this policy was created.
+            format: date-time
+          description:
+            type:
+            - string
+            - 'null'
+            description: The human-readable description of this policy.
+          displayName:
+            type: string
+            description: The human-readable display name of this policy. Supports $filter (eq, ne, not , and in).
+          modifiedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type: string
+            description: The datetime when this policy was last modified.
+            format: date-time
+          policyType:
+            $ref: '#/components/schemas/microsoft.graph.authenticationStrengthPolicyType'
+          requirementsSatisfied:
+            $ref: '#/components/schemas/microsoft.graph.authenticationStrengthRequirements'
+          combinationConfigurations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.authenticationCombinationConfiguration'
+            description: Settings that may be used to require specific types or instances of an authentication method to be used when authenticating with a specified combination of authentication methods.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.conditionalAccessTransferMethods:
+      title: conditionalAccessTransferMethods
+      enum:
+      - none
+      - deviceCodeFlow
+      - authenticationTransfer
+      - unknownFutureValue
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.authorizationPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.policyBase'
+      - title: authorizationPolicy
+        type: object
+        properties:
+          allowedToSignUpEmailBasedSubscriptions:
+            type: boolean
+            description: Indicates whether users can sign up for email based subscriptions.
+          allowedToUseSSPR:
+            type: boolean
+            description: Indicates whether administrators of the tenant can use the Self-Service Password Reset (SSPR). For more information, see Self-service password reset for administrators.
+          allowEmailVerifiedUsersToJoinOrganization:
+            type: boolean
+            description: Indicates whether a user can join the tenant by email validation.
+          allowInvitesFrom:
+            $ref: '#/components/schemas/microsoft.graph.allowInvitesFrom'
+          allowUserConsentForRiskyApps:
+            type:
+            - boolean
+            - 'null'
+            description: Indicates whether user consent for risky apps is allowed. We recommend keeping allowUserConsentForRiskyApps as false. Default value is false.
+          blockMsolPowerShell:
+            type:
+            - boolean
+            - 'null'
+            description: To disable the use of MSOL PowerShell, set this property to true. This also disables user-based access to the legacy service endpoint used by MSOL PowerShell. This doesn't affect Microsoft Entra Connect or Microsoft Graph.
+          defaultUserRolePermissions:
+            $ref: '#/components/schemas/microsoft.graph.defaultUserRolePermissions'
+          guestUserRoleId:
+            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+            type:
+            - string
+            - 'null'
+            description: 'Represents role templateId for the role that should be granted to guests. Currently following roles are supported:  User (a0b1b346-4d3e-4e8b-98f8-753987be4970), Guest User (10dae51f-b6af-4016-8d66-8c2a99b929b3), and Restricted Guest User (2af84b1e-32c8-42b7-82bc-daa82404023b).'
+            format: uuid
+        additionalProperties:
+          type: object
+    microsoft.graph.signInFrequencySessionControl:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.conditionalAccessSessionControl'
+      - title: signInFrequencySessionControl
+        type: object
+        properties:
+          authenticationType:
+            $ref: '#/components/schemas/microsoft.graph.signInFrequencyAuthenticationType'
+          frequencyInterval:
+            $ref: '#/components/schemas/microsoft.graph.signInFrequencyInterval'
+          type:
+            $ref: '#/components/schemas/microsoft.graph.signinFrequencyType'
+          value:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            description: The number of days or hours.
+            format: int32
+        additionalProperties:
+          type: object
+    microsoft.graph.multiTenantOrganizationIdentitySyncPolicyTemplate:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: multiTenantOrganizationIdentitySyncPolicyTemplate
+        type: object
+        properties:
+          templateApplicationLevel:
+            $ref: '#/components/schemas/microsoft.graph.templateApplicationLevel'
+          userSyncInbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantUserSyncInbound'
+        additionalProperties:
+          type: object
+    microsoft.graph.persistentBrowserSessionMode:
+      title: persistentBrowserSessionMode
+      enum:
+      - always
+      - never
+      type: string
+    microsoft.graph.conditionalAccessGuestsOrExternalUsers:
+      title: conditionalAccessGuestsOrExternalUsers
+      type: object
+      properties:
+        externalTenants:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessExternalTenants'
+        guestOrExternalUserTypes:
+          $ref: '#/components/schemas/microsoft.graph.conditionalAccessGuestOrExternalUserTypes'
+      additionalProperties:
+        type: object
+    microsoft.graph.conditionalAccessPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.policyDeletableItem'
+      - title: conditionalAccessPolicy
+        type: object
+        properties:
+          conditions:
+            $ref: '#/components/schemas/microsoft.graph.conditionalAccessConditionSet'
+          createdDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
+            format: date-time
+          description:
+            type:
+            - string
+            - 'null'
+          displayName:
+            type: string
+            description: Specifies a display name for the conditionalAccessPolicy object.
+          grantControls:
+            $ref: '#/components/schemas/microsoft.graph.conditionalAccessGrantControls'
+          id:
+            type: string
+            description: Specifies the identifier of a conditionalAccessPolicy object. Read-only.
+          modifiedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
+            format: date-time
+          sessionControls:
+            $ref: '#/components/schemas/microsoft.graph.conditionalAccessSessionControls'
+          state:
+            $ref: '#/components/schemas/microsoft.graph.conditionalAccessPolicyState'
+          templateId:
+            type:
+            - string
+            - 'null'
+            description: Specifies the unique identifier of a Conditional Access template. Inherited from entity.
+        additionalProperties:
+          type: object
+    microsoft.graph.b2bIdentityProvidersType:
+      title: b2bIdentityProvidersType
+      enum:
+      - azureActiveDirectory
+      - externalFederation
+      - socialIdentityProviders
+      - emailOneTimePasscode
+      - microsoftAccount
+      - defaultConfiguredIdp
+      - unknownFutureValue
+      type: string
+    microsoft.graph.crossTenantAccessPolicyB2BSetting:
+      title: crossTenantAccessPolicyB2BSetting
+      type: object
+      properties:
+        applications:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
+        usersAndGroups:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleManagementPolicyRuleTarget:
+      title: unifiedRoleManagementPolicyRuleTarget
+      type: object
+      properties:
+        caller:
+          type:
+          - string
+          - 'null'
+          description: 'The type of caller that''s the target of the policy rule. Allowed values are: None, Admin, EndUser.'
+        enforcedSettings:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: The list of role settings that are enforced and cannot be overridden by child scopes. Use All for all settings.
+        inheritableSettings:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: The list of role settings that can be inherited by child scopes. Use All for all settings.
+        level:
+          type:
+          - string
+          - 'null'
+          description: 'The role assignment type that''s the target of policy rule. Allowed values are: Eligibility, Assignment.'
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyRuleTargetOperations'
+          description: 'The role management operations that are the target of the policy rule. Allowed values are: All, Activate, Deactivate, Assign, Update, Remove, Extend, Renew.'
+        targetObjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.directoryObject'
+          x-ms-navigationProperty: true
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationStrengthRequirements:
+      title: authenticationStrengthRequirements
+      enum:
+      - none
+      - mfa
+      - unknownFutureValue
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.crossTenantAccessPolicyInboundTrust:
+      title: crossTenantAccessPolicyInboundTrust
+      type: object
+      properties:
+        isCompliantDeviceAccepted:
+          type:
+          - boolean
+          - 'null'
+          description: Specifies whether compliant devices from external Microsoft Entra organizations are trusted.
+        isHybridAzureADJoinedDeviceAccepted:
+          type:
+          - boolean
+          - 'null'
+          description: Specifies whether Microsoft Entra hybrid joined devices from external Microsoft Entra organizations are trusted.
+        isMfaAccepted:
+          type:
+          - boolean
+          - 'null'
+          description: Specifies whether MFA from external Microsoft Entra organizations is trusted.
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleManagementPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: unifiedRoleManagementPolicy
+        type: object
+        properties:
+          description:
+            type: string
+            description: Description for the policy.
+          displayName:
+            type: string
+            description: Display name for the policy.
+          isOrganizationDefault:
+            type:
+            - boolean
+            - 'null'
+            description: This can only be set to true for a single tenant-wide policy which will apply to all scopes and roles. Set the scopeId to / and scopeType to Directory. Supports $filter (eq, ne).
+          lastModifiedBy:
+            $ref: '#/components/schemas/microsoft.graph.identity'
+          lastModifiedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The time when the role setting was last modified.
+            format: date-time
+          scopeId:
+            type: string
+            description: The identifier of the scope where the policy is created. Can be / for the tenant or a group ID. Required.
+          scopeType:
+            type: string
+            description: The type of the scope where the policy is created. One of Directory, DirectoryRole, Group. Required.
+          effectiveRules:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyRule'
+            description: The list of effective rules like approval rules and expiration rules evaluated based on inherited referenced rules. For example, if there is a tenant-wide policy to enforce enabling an approval rule, the effective rule will be to enable approval even if the policy has a rule to disable approval. Supports $expand.
+            x-ms-navigationProperty: true
+          rules:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyRule'
+            description: The collection of rules like approval rules and expiration rules. Supports $expand.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.crossTenantAccessPolicyTenantRestrictions:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+      - title: crossTenantAccessPolicyTenantRestrictions
+        type: object
+        properties:
+          devices:
+            $ref: '#/components/schemas/microsoft.graph.devicesFilter'
+        additionalProperties:
+          type: object
+    microsoft.graph.identity:
+      title: identity
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
+      additionalProperties:
+        type: object
+    microsoft.graph.customSecurityAttributeComparisonOperator:
+      title: customSecurityAttributeComparisonOperator
+      enum:
+      - equals
+      - unknownFutureValue
+      type: string
+    microsoft.graph.defaultInvitationRedemptionIdentityProviderConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.invitationRedemptionIdentityProviderConfiguration'
+      - title: defaultInvitationRedemptionIdentityProviderConfiguration
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.permissionGrantConditionSet:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: permissionGrantConditionSet
+        type: object
+        properties:
+          clientApplicationIds:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: A list of appId values for the client applications to match with, or a list with the single value all to match any client application. Default is the single value all.
+          clientApplicationPublisherIds:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: A list of Microsoft Partner Network (MPN) IDs for verified publishers of the client application, or a list with the single value all to match with client apps from any publisher. Default is the single value all.
+          clientApplicationsFromVerifiedPublisherOnly:
+            type:
+            - boolean
+            - 'null'
+            description: Set to true to only match on client applications with a verified publisher. Set to false to match on any client app, even if it doesn't have a verified publisher. Default is false.
+          clientApplicationTenantIds:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: A list of Microsoft Entra tenant IDs in which the client application is registered, or a list with the single value all to match with client apps registered in any tenant. Default is the single value all.
+          permissionClassification:
+            type:
+            - string
+            - 'null'
+            description: The permission classification for the permission being granted, or all to match with any permission classification (including permissions that aren't classified). Default is all.
+          permissions:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: The list of id values for the specific permissions to match with, or a list with the single value all to match with any permission. The id of delegated permissions can be found in the oauth2PermissionScopes property of the API's servicePrincipal object. The id of application permissions can be found in the appRoles property of the API's servicePrincipal object. The id of resource-specific application permissions can be found in the resourceSpecificApplicationPermissions property of the API's servicePrincipal object. Default is the single value all.
+          permissionType:
+            $ref: '#/components/schemas/microsoft.graph.permissionType'
+          resourceApplication:
+            type:
+            - string
+            - 'null'
+            description: The appId of the resource application (for example the API) for which a permission is being granted, or any to match with any resource application or API. Default is any.
+        additionalProperties:
+          type: object
+    microsoft.graph.signInFrequencyAuthenticationType:
+      title: signInFrequencyAuthenticationType
+      enum:
+      - primaryAndSecondaryAuthentication
+      - secondaryAuthentication
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.localAdminPasswordSettings:
+      title: localAdminPasswordSettings
+      type: object
+      properties:
+        isEnabled:
+          type:
+          - boolean
+          - 'null'
+          description: Specifies whether LAPS is enabled. The default value is false. An admin can set it to true to enable Local Admin Password Solution (LAPS) within their organization.
+      additionalProperties:
+        type: object
+    microsoft.graph.multiFactorAuthConfiguration:
+      title: multiFactorAuthConfiguration
+      enum:
+      - notRequired
+      - required
+      - unknownFutureValue
+      type: string
+    microsoft.graph.deviceRegistrationMembership:
+      title: deviceRegistrationMembership
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodModes:
+      title: authenticationMethodModes
+      enum:
+      - password
+      - voice
+      - hardwareOath
+      - softwareOath
+      - sms
+      - fido2
+      - windowsHelloForBusiness
+      - microsoftAuthenticatorPush
+      - deviceBasedPush
+      - temporaryAccessPassOneTime
+      - temporaryAccessPassMultiUse
+      - email
+      - x509CertificateSingleFactor
+      - x509CertificateMultiFactor
+      - federatedSingleFactor
+      - federatedMultiFactor
+      - unknownFutureValue
+      - qrCodePin
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.customSecurityAttributeExemption:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: customSecurityAttributeExemption
+        type: object
+        properties:
+          id:
+            type: string
+          operator:
+            $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeComparisonOperator'
+        additionalProperties:
+          type: object
+    microsoft.graph.appManagementRestrictionState:
+      title: appManagementRestrictionState
+      enum:
+      - enabled
+      - disabled
+      - unknownFutureValue
+      type: string
+    microsoft.graph.tenantAppManagementPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.policyBase'
+      - title: tenantAppManagementPolicy
+        type: object
+        properties:
+          applicationRestrictions:
+            $ref: '#/components/schemas/microsoft.graph.appManagementApplicationConfiguration'
+          isEnabled:
+            type: boolean
+            description: Denotes whether the policy is enabled. Default value is false.
+          servicePrincipalRestrictions:
+            $ref: '#/components/schemas/microsoft.graph.appManagementServicePrincipalConfiguration'
+        additionalProperties:
+          type: object
+    microsoft.graph.azureADRegistrationPolicy:
+      title: azureADRegistrationPolicy
+      type: object
+      properties:
+        allowedToRegister:
+          $ref: '#/components/schemas/microsoft.graph.deviceRegistrationMembership'
+        isAdminConfigurable:
+          type:
+          - boolean
+          - 'null'
+          description: Determines if administrators can modify this policy.
+      additionalProperties:
+        type: object
+    microsoft.graph.selfServiceSignUpAuthenticationFlowConfiguration:
+      title: selfServiceSignUpAuthenticationFlowConfiguration
+      type: object
+      properties:
+        isEnabled:
+          type: boolean
+          description: Indicates whether self-service sign-up flow is enabled or disabled. The default value is false. This property isn't a key. Required.
+      additionalProperties:
+        type: object
+    microsoft.graph.conditionalAccessPolicyState:
+      title: conditionalAccessPolicyState
+      enum:
+      - enabled
+      - disabled
+      - enabledForReportingButNotEnforced
+      type: string
+    microsoft.graph.customAppManagementApplicationConfiguration:
+      title: customAppManagementApplicationConfiguration
+      type: object
+      properties:
+        identifierUris:
+          $ref: '#/components/schemas/microsoft.graph.identifierUriConfiguration'
+      additionalProperties:
+        type: object
+    microsoft.graph.identifierUriConfiguration:
+      title: identifierUriConfiguration
+      type: object
+      properties:
+        nonDefaultUriAddition:
+          $ref: '#/components/schemas/microsoft.graph.identifierUriRestriction'
+        uriAdditionWithoutUniqueTenantIdentifier:
+          $ref: '#/components/schemas/microsoft.graph.identifierUriRestriction'
+      additionalProperties:
+        type: object
+    microsoft.graph.conditionalAccessSessionControls:
+      title: conditionalAccessSessionControls
+      type: object
+      properties:
+        applicationEnforcedRestrictions:
+          $ref: '#/components/schemas/microsoft.graph.applicationEnforcedRestrictionsSessionControl'
+        cloudAppSecurity:
+          $ref: '#/components/schemas/microsoft.graph.cloudAppSecuritySessionControl'
+        disableResilienceDefaults:
+          type:
+          - boolean
+          - 'null'
+          description: Session control that determines whether it is acceptable for Microsoft Entra ID to extend existing sessions based on information collected prior to an outage or not.
+        persistentBrowser:
+          $ref: '#/components/schemas/microsoft.graph.persistentBrowserSessionControl'
+        secureSignInSession:
+          $ref: '#/components/schemas/microsoft.graph.secureSignInSessionControl'
+        signInFrequency:
+          $ref: '#/components/schemas/microsoft.graph.signInFrequencySessionControl'
+      additionalProperties:
+        type: object
+    microsoft.graph.cloudAppSecuritySessionControl:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.conditionalAccessSessionControl'
+      - title: cloudAppSecuritySessionControl
+        type: object
+        properties:
+          cloudAppSecurityType:
+            $ref: '#/components/schemas/microsoft.graph.cloudAppSecuritySessionControlType'
+        additionalProperties:
+          type: object
+    microsoft.graph.federatedTokenValidationPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: federatedTokenValidationPolicy
+        type: object
+        properties:
+          validatingDomains:
+            $ref: '#/components/schemas/microsoft.graph.validatingDomains'
+        additionalProperties:
+          type: object
+    microsoft.graph.permissionGrantPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.policyBase'
+      - title: permissionGrantPolicy
+        type: object
+        properties:
+          excludes:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+            description: Condition sets that are excluded in this permission grant policy. Automatically expanded on GET.
+            x-ms-navigationProperty: true
+          includes:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.permissionGrantConditionSet'
+            description: Condition sets that are included in this permission grant policy. Automatically expanded on GET.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.authenticationFlowsPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: authenticationFlowsPolicy
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: Inherited property. A description of the policy. Optional. Read-only.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Inherited property. The human-readable name of the policy. Optional. Read-only.
+          selfServiceSignUp:
+            $ref: '#/components/schemas/microsoft.graph.selfServiceSignUpAuthenticationFlowConfiguration'
+        additionalProperties:
+          type: object
+    microsoft.graph.accessReviewReviewerScope:
+      title: accessReviewReviewerScope
+      type: object
+      properties:
+        query:
+          type:
+          - string
+          - 'null'
+          description: The query specifying who will be the reviewer.
+        queryRoot:
+          type:
+          - string
+          - 'null'
+          description: 'In the scenario where reviewers need to be specified dynamically, this property is used to indicate the relative source of the query. This property is only required if a relative query, for example, ./manager, is specified. Possible value: decisions.'
+        queryType:
+          type:
+          - string
+          - 'null'
+          description: The type of query. Examples include MicrosoftGraph and ARM.
+      additionalProperties:
+        type: object
+    microsoft.graph.featureRolloutPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: featureRolloutPolicy
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: A description for this feature rollout policy.
+          displayName:
+            type: string
+            description: The display name for this  feature rollout policy.
+          feature:
+            $ref: '#/components/schemas/microsoft.graph.stagedFeatureName'
+          isAppliedToOrganization:
+            type: boolean
+            description: Indicates whether this feature rollout policy should be applied to the entire organization.
+          isEnabled:
+            type: boolean
+            description: Indicates whether the feature rollout is enabled.
+          appliesTo:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            description: Nullable. Specifies a list of directoryObject resources that feature is enabled for.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.permissionType:
+      title: permissionType
+      enum:
+      - delegatedUserConsentable
+      - delegated
+      - application
+      type: string
+    microsoft.graph.crossTenantAccessPolicyM365CollaborationInboundSetting:
+      title: crossTenantAccessPolicyM365CollaborationInboundSetting
+      type: object
+      properties:
+        users:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
+      additionalProperties:
+        type: object
+    microsoft.graph.excludeTarget:
+      title: excludeTarget
+      type: object
+      properties:
+        id:
+          type: string
+          description: The object identifier of a Microsoft Entra user or group.
+        targetType:
+          $ref: '#/components/schemas/microsoft.graph.authenticationMethodTargetType'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodsPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: authenticationMethodsPolicy
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: A description of the policy. Read-only.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The name of the policy. Read-only.
+          lastModifiedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The date and time of the last update to the policy. Read-only.
+            format: date-time
+          policyMigrationState:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodsPolicyMigrationState'
+          policyVersion:
+            type:
+            - string
+            - 'null'
+            description: The version of the policy in use. Read-only.
+          reconfirmationInDays:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            format: int32
+          registrationEnforcement:
+            $ref: '#/components/schemas/microsoft.graph.registrationEnforcement'
+          authenticationMethodConfigurations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.authenticationMethodConfiguration'
+            description: Represents the settings for each authentication method. Automatically expanded on GET /policies/authenticationMethodsPolicy.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.notifyMembers:
+      title: notifyMembers
+      enum:
+      - all
+      - allowSelected
+      - blockSelected
+      - unknownFutureValue
+      type: string
+    microsoft.graph.authenticationMethodsRegistrationCampaign:
+      title: authenticationMethodsRegistrationCampaign
+      type: object
+      properties:
+        excludeTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.excludeTarget'
+          description: Users and groups of users that are excluded from being prompted to set up the authentication method.
+        includeTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodsRegistrationCampaignIncludeTarget'
+          description: Users and groups of users that are prompted to set up the authentication method.
+        snoozeDurationInDays:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: 'Specifies the number of days that the user sees a prompt again if they select ''Not now'' and snoozes the prompt. Minimum: 0 days. Maximum: 14 days. If the value is ''0'', the user is prompted during every MFA attempt.'
+          format: int32
+        state:
+          $ref: '#/components/schemas/microsoft.graph.advancedConfigState'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationStrengthPolicyType:
+      title: authenticationStrengthPolicyType
+      enum:
+      - builtIn
+      - custom
+      - unknownFutureValue
+      type: string
+    microsoft.graph.unifiedRoleManagementPolicyRule:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: unifiedRoleManagementPolicyRule
+        type: object
+        properties:
+          target:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyRuleTarget'
+        additionalProperties:
+          type: object
+    microsoft.graph.conditionalAccessLocations:
+      title: conditionalAccessLocations
+      type: object
+      properties:
+        excludeLocations:
+          type: array
+          items:
+            type: string
+          description: Location IDs excluded from scope of policy.
+        includeLocations:
+          type: array
+          items:
+            type: string
+          description: Location IDs in scope of policy unless explicitly excluded, All, or AllTrusted.
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodTargetType:
+      title: authenticationMethodTargetType
+      enum:
+      - user
+      - group
+      - unknownFutureValue
+      type: string
+    microsoft.graph.filterMode:
+      title: filterMode
+      enum:
+      - include
+      - exclude
+      type: string
+    microsoft.graph.homeRealmDiscoveryPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.stsPolicy'
+      - title: homeRealmDiscoveryPolicy
+        type: object
+        additionalProperties:
+          type: object
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

@@ -1,0 +1,979 @@
+openapi: 3.2.0
+info:
+  title: Applications Application Templates.application Template API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: applicationTemplates.applicationTemplate
+paths:
+  /applicationTemplates:
+    get:
+      tags:
+      - applicationTemplates.applicationTemplate
+      summary: List applicationTemplates
+      description: Retrieve a list of applicationTemplate objects from the Microsoft Entra application gallery. Details about optional risk properties such as riskScore and riskFactors are available with either the Microsoft Entra Suite or Microsoft Entra Internet Access license. If a risk property is included in the request without appropriate license, a @microsoft.graph.licenseRequired OData annotation is returned in the response.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/applicationtemplate-list?view=graph-rest-1.0
+      operationId: applicationTemplate_ListApplicationTemplate
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.applicationTemplateCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+  /applicationTemplates/{applicationTemplate-id}:
+    get:
+      tags:
+      - applicationTemplates.applicationTemplate
+      summary: Get applicationTemplate
+      description: Retrieve the properties of an applicationTemplate object. Details about optional risk properties such as riskScore and riskFactors are available with either the Microsoft Entra Suite or Microsoft Entra Internet Access license.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/applicationtemplate-get?view=graph-rest-1.0
+      operationId: applicationTemplate_GetApplicationTemplate
+      parameters:
+      - name: applicationTemplate-id
+        in: path
+        description: The unique identifier of applicationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: applicationTemplate
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.applicationTemplate'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /applicationTemplates/$count:
+    get:
+      tags:
+      - applicationTemplates.applicationTemplate
+      summary: Get the number of the resource
+      operationId: applicationTemplate_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.applicationTemplateCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.applicationTemplateCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.sslVersion:
+      title: sslVersion
+      enum:
+      - none
+      - ssl3_0
+      - tls1_0
+      - tls1_1
+      - tls1_2
+      - tls1_3
+      - notSupported
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.applicationRiskFactorLegalInfoGdpr:
+      title: applicationRiskFactorLegalInfoGdpr
+      type: object
+      properties:
+        dataProtection:
+          $ref: '#/components/schemas/microsoft.graph.dataProtection'
+        hasRightToErasure:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application provides users with the ability to request deletion of their personal data (the right to be forgotten).
+        isReportingDataBreaches:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the organization reports personal data breaches to authorities and affected users in accordance with GDPR requirements.
+        statementUrl:
+          type:
+          - string
+          - 'null'
+          description: Specifies the URL of the application's GDPR or privacy compliance statement, outlining how user data is handled.
+        userOwnership:
+          $ref: '#/components/schemas/microsoft.graph.userOwnership'
+      additionalProperties:
+        type: object
+    microsoft.graph.applicationDataType:
+      title: applicationDataType
+      enum:
+      - none
+      - codingFiles
+      - creditCards
+      - databaseFiles
+      - documents
+      - mediaFiles
+      - unknownFutureValue
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.passwordPolicy:
+      title: passwordPolicy
+      enum:
+      - none
+      - changePasswordPeriod
+      - charactersCombination
+      - passwordHistoryAndReuse
+      - passwordLengthLimit
+      - personalInformationUse
+      - unknownFutureValue
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.applicationRiskFactorCertificateInfo:
+      title: applicationRiskFactorCertificateInfo
+      type: object
+      properties:
+        hasBadCommonName:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the certificate's common name doesn't match the expected domain name.
+        hasInsecureSignature:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the certificate uses a weak or insecure signature algorithm (for example, MD5 or SHA-1).
+        hasNoChainOfTrust:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the certificate chain of trust is incomplete or invalid.
+        isDenylisted:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the certificate is on a known denylist or associated with compromised issuers.
+        isHostnameMismatch:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the certificate's hostname doesn't match the domain it was issued for.
+        isNotAfter:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the certificate is expired and no longer valid.
+        isNotBefore:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the certificate isn't yet valid based on its activation date.
+        isRevoked:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the issuing certificate authority revoked the certificate.
+        isSelfSigned:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the certificate is self-signed rather than issued by a trusted certificate authority.
+      additionalProperties:
+        type: object
+    microsoft.graph.userOwnership:
+      title: userOwnership
+      enum:
+      - none
+      - lawfulBasisForProcessing
+      - rightToAccess
+      - rightToBeInformed
+      - rightToDataPortability
+      - rightToObject
+      - rightToRectification
+      - rightToRestrictionOfProcessing
+      - rightsRelatedToAutomatedDecisionMaking
+      - unknownFutureValue
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.pciVersion:
+      title: pciVersion
+      enum:
+      - none
+      - v3_2_1
+      - v4
+      - notSupported
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.applicationRiskFactorSecurityInfo:
+      title: applicationRiskFactorSecurityInfo
+      type: object
+      properties:
+        certificate:
+          $ref: '#/components/schemas/microsoft.graph.applicationRiskFactorCertificateInfo'
+        domainToCheck:
+          type:
+          - string
+          - 'null'
+          description: Specifies the domain or hostname evaluated during the security assessment.
+        hasAdminAuditTrail:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application maintains an audit trail for administrative actions.
+        hasAnonymousUsage:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application allows anonymous or unauthenticated usage.
+        hasDataAuditTrail:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application logs access or modification of customer data for audit purposes.
+        hasDataClassification:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application classifies and labels data based on sensitivity levels.
+        hasDataEncrypted:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether data at rest and in transit are encrypted using approved algorithms.
+        hasEnforceTransportEnc:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether HTTPS or equivalent secure transport is enforced for all communication channels.
+        hasIpRestriction:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether access to the application can be restricted based on IP address or network range.
+        hasMFA:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application supports or enforces multi-factor authentication (MFA).
+        hasPenTest:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application undergoes periodic penetration testing or external security reviews.
+        hasRememberPassword:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application supports password-saving functionality, which may pose a security risk.
+        hasSamlSupport:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application supports SAML-based single sign-on (SSO).
+        hasUserAuditLogs:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether user activity is logged for security or compliance monitoring.
+        hasUserDataUpload:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether users can upload or store personal or organizational data within the application.
+        hasUserRolesSupport:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application supports role-based access control (RBAC).
+        hasValidCertName:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the certificate’s common name matches the application’s verified domain.
+        httpsSecurityHeaders:
+          type: array
+          items:
+            type: string
+          description: Lists the HTTP security headers detected for the application (for example, HSTS, X-Frame-Options, or CSP).
+        isCertTrusted:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application’s certificate is signed by a trusted certificate authority (CA).
+        isDrownVulnerable:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application is vulnerable to the DROWN (Decrypting RSA with Obsolete and Weakened eNcryption) attack.
+        isHeartbleedProof:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application’s SSL implementation is protected from the Heartbleed vulnerability.
+        lastBreachDate:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
+          type:
+          - string
+          - 'null'
+          description: Specifies the date of the last publicly reported data breach or security incident related to the application, if known.
+          format: date
+        latestValidSSL:
+          $ref: '#/components/schemas/microsoft.graph.sslVersion'
+        passwordPolicy:
+          $ref: '#/components/schemas/microsoft.graph.passwordPolicy'
+        restEncryptionType:
+          $ref: '#/components/schemas/microsoft.graph.restEncryptionType'
+      additionalProperties:
+        type: object
+    microsoft.graph.holdType:
+      title: holdType
+      enum:
+      - none
+      - private
+      - public
+      - unknownFutureValue
+      type: string
+    microsoft.graph.dataProtection:
+      title: dataProtection
+      enum:
+      - none
+      - impactAssessments
+      - officers
+      - secureCrossBorderDataTransfer
+      - unknownFutureValue
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.applicationSecurityCompliance:
+      title: applicationSecurityCompliance
+      type: object
+      properties:
+        cobit:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application adheres to the Control Objectives for Information and Related Technologies (COBIT) framework.
+        coppa:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with the Children’s Online Privacy Protection Act (COPPA).
+        csaStar:
+          $ref: '#/components/schemas/microsoft.graph.csaStarLevel'
+        fedRamp:
+          $ref: '#/components/schemas/microsoft.graph.fedRampLevel'
+        ferpa:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with the Family Educational Rights and Privacy Act (FERPA).
+        ffiec:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application meets Federal Financial Institutions Examination Council (FFIEC) requirements.
+        finra:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with Financial Industry Regulatory Authority (FINRA) standards.
+        fisma:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with the Federal Information Security Management Act (FISMA).
+        gaap:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application provider adheres to Generally Accepted Accounting Principles (GAAP).
+        gapp:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application adheres to Generally Accepted Privacy Principles (GAPP).
+        glba:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with the Gramm–Leach–Bliley Act (GLBA) for financial data protection.
+        hipaa:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with the Health Insurance Portability and Accountability Act (HIPAA).
+        hitrust:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application holds HITRUST certification, demonstrating alignment with healthcare and data security standards.
+        isae3402:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with International Standard on Assurance Engagements (ISAE) 3402 requirements.
+        iso27001:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application is certified against ISO/IEC 27001 for information security management systems (ISMS).
+        iso27002:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application follows ISO/IEC 27002 security control best practices.
+        iso27017:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with ISO/IEC 27017 standards for cloud security controls.
+        iso27018:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with ISO/IEC 27018 standards for protecting personally identifiable information (PII) in cloud environments.
+        itar:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with International Traffic in Arms Regulations (ITAR).
+        jerichoForumCommandments:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application aligns with Jericho Forum security principles for deperimeterized environments.
+        pci:
+          $ref: '#/components/schemas/microsoft.graph.pciVersion'
+        privacyShield:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with the EU–U.S. Privacy Shield framework for cross-border data transfers.
+        safeHarbor:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application previously adhered to the U.S.–EU Safe Harbor data transfer framework.
+        soc1:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application provider undergoes a Service Organization Control (SOC) one audit report.
+        soc2:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application provider undergoes a Service Organization Control (SOC) two audit report.
+        soc3:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application provider undergoes a Service Organization Control (SOC) three audit report.
+        sox:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with the Sarbanes–Oxley Act (SOX) financial reporting requirements.
+        sp800_53:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application aligns with National Institute of Standards and Technology (NIST) Special Publication 800-53 security and privacy controls.
+        ssae16:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application adheres to Statement on Standards for Attestation Engagements (SSAE) No. 16.
+        ustr:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application complies with U.S. Trade Representative (USTR) data and trade protection requirements.
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.applicationRiskFactors:
+      title: applicationRiskFactors
+      type: object
+      properties:
+        compliance:
+          $ref: '#/components/schemas/microsoft.graph.applicationSecurityCompliance'
+        general:
+          $ref: '#/components/schemas/microsoft.graph.applicationRiskFactorGeneralInfo'
+        legal:
+          $ref: '#/components/schemas/microsoft.graph.applicationRiskFactorLegalInfo'
+        security:
+          $ref: '#/components/schemas/microsoft.graph.applicationRiskFactorSecurityInfo'
+      additionalProperties:
+        type: object
+    microsoft.graph.csaStarLevel:
+      title: csaStarLevel
+      enum:
+      - none
+      - attestation
+      - certification
+      - continuousMonitoring
+      - cStarAssessment
+      - selfAssessment
+      - notSupported
+      - unknownFutureValue
+      type: string
+    microsoft.graph.applicationTemplateCollectionResponse:
+      title: Collection of applicationTemplate
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.applicationTemplate'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.applicationTemplate:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: applicationTemplate
+        type: object
+        properties:
+          categories:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: 'The list of categories for the application. Supported values can be: Collaboration, Business Management, Consumer, Content management, CRM, Data services, Developer services, E-commerce, Education, ERP, Finance, Health, Human resources, IT infrastructure, Mail, Management, Marketing, Media, Productivity, Project management, Telecommunications, Tools, Travel, and Web design & hosting.  Supports $filter (contains).'
+          deprecationDate:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
+            type:
+            - string
+            - 'null'
+            description: Deprecation date for this application. If specified, the application will be removed from the Microsoft Entra application gallery on this date.
+            format: date
+          description:
+            type:
+            - string
+            - 'null'
+            description: A description of the application.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The name of the application. Supports $filter (contains).
+          endpoints:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: A collection of string URLs representing various domains that are used by this application.
+          homePageUrl:
+            type:
+            - string
+            - 'null'
+            description: The home page URL of the application.
+          isEntraIntegrated:
+            type: boolean
+            description: Indicates whether the application is integrated with Entra ID (for example, through single sign-on or user provisioning).
+          lastModifiedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The date and time when the data for the application was last updated, represented using ISO 8601 format and always in UTC time.
+            format: date-time
+          logoUrl:
+            type:
+            - string
+            - 'null'
+            description: The URL to get the logo for this application.
+          publisher:
+            type:
+            - string
+            - 'null'
+            description: The name of the publisher for this application.
+          riskFactors:
+            $ref: '#/components/schemas/microsoft.graph.applicationRiskFactors'
+          riskScore:
+            $ref: '#/components/schemas/microsoft.graph.applicationRiskScore'
+          supportedProvisioningTypes:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: The list of provisioning modes supported by this application. The only valid value is sync.
+          supportedSingleSignOnModes:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: The list of single sign-on modes supported by this application. The supported values are oidc, password, saml, and notSupported.
+        additionalProperties:
+          type: object
+    microsoft.graph.restEncryptionType:
+      title: restEncryptionType
+      enum:
+      - none
+      - aes
+      - bitlocker
+      - blowfish
+      - des
+      - rc4
+      - rsa
+      - notSupported
+      - unknownFutureValue
+      type: string
+    microsoft.graph.applicationRiskFactorGeneralInfo:
+      title: applicationRiskFactorGeneralInfo
+      type: object
+      properties:
+        consumerPopularity:
+          maximum: 2147483647
+          minimum: -2147483648
+          type:
+          - number
+          - 'null'
+          description: Indicates the relative popularity or adoption of the application based on the user or tenant usage metrics.
+          format: int32
+        domainRegistrationDate:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
+          type:
+          - string
+          - 'null'
+          description: Specifies the date when the application's primary domain was registered, used to assess domain maturity and legitimacy.
+          format: date
+        founded:
+          maximum: 2147483647
+          minimum: -2147483648
+          type:
+          - number
+          - 'null'
+          description: Year the company or organization behind the application was founded.
+          format: int32
+        hasDisasterRecoveryPlan:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application provider maintains a disaster recovery or business continuity plan.
+        hold:
+          $ref: '#/components/schemas/microsoft.graph.holdType'
+        hostingCompanyName:
+          type:
+          - string
+          - 'null'
+          description: Specifies the name of the company or provider that hosts the application's infrastructure.
+        location:
+          $ref: '#/components/schemas/microsoft.graph.applicationLocation'
+        privacyPolicy:
+          type:
+          - string
+          - 'null'
+          description: Specifies the URL of the application's privacy policy.
+        processedDataTypes:
+          $ref: '#/components/schemas/microsoft.graph.applicationDataType'
+        termsOfService:
+          type:
+          - string
+          - 'null'
+          description: Specifies the URL of the application's terms of service.
+      additionalProperties:
+        type: object
+    microsoft.graph.applicationLocation:
+      title: applicationLocation
+      type: object
+      properties:
+        dataCenter:
+          type:
+          - string
+          - 'null'
+          description: Specifies the region or physical location where the application's primary data center is hosted.
+        headquarters:
+          type:
+          - string
+          - 'null'
+          description: Specifies the city, country or region where the application's owning organization is headquartered.
+      additionalProperties:
+        type: object
+    microsoft.graph.fedRampLevel:
+      title: fedRampLevel
+      enum:
+      - none
+      - high
+      - liSaas
+      - low
+      - moderate
+      - notSupported
+      - unknownFutureValue
+      type: string
+    microsoft.graph.dataRetentionLevel:
+      title: dataRetentionLevel
+      enum:
+      - none
+      - dataRetained
+      - deletedImmediately
+      - deletedWithin1Month
+      - deletedWithin2Weeks
+      - deletedWithin3Months
+      - deletedWithinMoreThan3Months
+      - unknownFutureValue
+      type: string
+    microsoft.graph.applicationRiskScore:
+      title: applicationRiskScore
+      type: object
+      properties:
+        compliance:
+          type:
+          - number
+          - 'null'
+          description: Specifies the compliance risk score based on the application's alignment with regulatory standards and industry certifications such as HIPAA, CSA, and PCI-DSS.
+          format: float
+        legal:
+          type:
+          - number
+          - 'null'
+          description: Specifies the legal risk score based on data protection practices, privacy policy transparency, and jurisdictional compliance to regulations and policies such as DMCA and data retention policy.
+          format: float
+        provider:
+          type:
+          - number
+          - 'null'
+          description: Specifies the provider risk score based on vendor credibility, operational maturity, and trustworthiness.
+          format: float
+        security:
+          type:
+          - number
+          - 'null'
+          description: Specifies the security risk score based on authentication strength, encryption, vulnerability management, and overall security hygiene.
+          format: float
+        total:
+          type:
+          - number
+          - 'null'
+          description: Represents the composite risk score derived from all risk categories.
+          format: float
+      additionalProperties:
+        type: object
+    microsoft.graph.applicationRiskFactorLegalInfo:
+      title: applicationRiskFactorLegalInfo
+      type: object
+      properties:
+        dataRetention:
+          $ref: '#/components/schemas/microsoft.graph.dataRetentionLevel'
+        gdpr:
+          $ref: '#/components/schemas/microsoft.graph.applicationRiskFactorLegalInfoGdpr'
+        hasDataOwnership:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether customers maintain ownership and control of their data processed or stored by the application.
+        hasDmca:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the application or organization complies with the Digital Millennium Copyright Act (DMCA) or equivalent copyright protection frameworks.
+      additionalProperties:
+        type: object
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

@@ -1,0 +1,464 @@
+openapi: 3.2.0
+info:
+  title: Identity.DirectoryManagement Contacts.org Contact.Functions…
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: contacts.orgContact.Functions
+paths:
+  /contacts/microsoft.graph.delta():
+    get:
+      tags:
+      - contacts.orgContact.Functions
+      summary: Invoke function delta
+      description: Get newly created, updated, or deleted organizational contacts without having to perform a full read of the entire collection. For more information, see Use delta query to track changes in Microsoft Graph data for details.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/orgcontact-delta?view=graph-rest-1.0
+      operationId: contact_delta
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Collection of orgContact
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/microsoft.graph.orgContact'
+                  '@odata.nextLink':
+                    type:
+                    - string
+                    - 'null'
+                  '@odata.deltaLink':
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+  schemas:
+    microsoft.graph.physicalOfficeAddress:
+      title: physicalOfficeAddress
+      type: object
+      properties:
+        city:
+          type:
+          - string
+          - 'null'
+          description: The city.
+        countryOrRegion:
+          type:
+          - string
+          - 'null'
+          description: The country or region. It's a free-format string value, for example, 'United States'.
+        officeLocation:
+          type:
+          - string
+          - 'null'
+          description: Office location such as building and office number for an organizational contact.
+        postalCode:
+          type:
+          - string
+          - 'null'
+          description: The postal code.
+        state:
+          type:
+          - string
+          - 'null'
+          description: The state.
+        street:
+          type:
+          - string
+          - 'null'
+          description: The street.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.orgContact:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: orgContact
+        type: object
+        properties:
+          addresses:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.physicalOfficeAddress'
+            description: Postal addresses for this organizational contact. For now a contact can only have one physical address.
+          companyName:
+            type:
+            - string
+            - 'null'
+            description: Name of the company that this organizational contact belongs to.  Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq for null values).
+          department:
+            type:
+            - string
+            - 'null'
+            description: The name for the department in which the contact works.  Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq for null values).
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Display name for this organizational contact. Maximum length is 256 characters. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq for null values), $search, and $orderby.
+          givenName:
+            type:
+            - string
+            - 'null'
+            description: First name for this organizational contact. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq for null values).
+          jobTitle:
+            type:
+            - string
+            - 'null'
+            description: Job title for this organizational contact. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq for null values).
+          mail:
+            type:
+            - string
+            - 'null'
+            description: The SMTP address for the contact, for example, 'jeff@contoso.com'. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq for null values).
+          mailNickname:
+            type:
+            - string
+            - 'null'
+            description: Email alias (portion of email address pre-pending the @ symbol) for this organizational contact. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq for null values).
+          onPremisesLastSyncDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this organizational contact was last synchronized from on-premises AD. This date and time information uses ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Supports $filter (eq, ne, not, ge, le, in).
+            format: date-time
+          onPremisesProvisioningErrors:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.onPremisesProvisioningError'
+            description: List of any synchronization provisioning errors for this organizational contact. Supports $filter (eq, not for category and propertyCausingError), /$count eq 0, /$count ne 0.
+          onPremisesSyncEnabled:
+            type:
+            - boolean
+            - 'null'
+            description: true if this object is synced from an on-premises directory; false if this object was originally synced from an on-premises directory but is no longer synced and now mastered in Exchange; null if this object has never been synced from an on-premises directory (default).   Supports $filter (eq, ne, not, in, and eq for null values).
+          phones:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.phone'
+            description: List of phones for this organizational contact. Phone types can be mobile, business, and businessFax. Only one of each type can ever be present in the collection.
+          proxyAddresses:
+            type: array
+            items:
+              type: string
+            description: 'For example: ''SMTP: bob@contoso.com'', ''smtp: bob@sales.contoso.com''. The any operator is required for filter expressions on multi-valued properties. Supports $filter (eq, not, ge, le, startsWith, /$count eq 0, /$count ne 0).'
+          serviceProvisioningErrors:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.serviceProvisioningError'
+            description: Errors published by a federated service describing a non-transient, service-specific error regarding the properties or link from an organizational contact object .  Supports $filter (eq, not, for isResolved and serviceInstance).
+          surname:
+            type:
+            - string
+            - 'null'
+            description: Last name for this organizational contact. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq for null values).
+          directReports:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            description: The contact's direct reports. (The users and contacts that have their manager property set to this contact.)  Read-only. Nullable. Supports $expand.
+            x-ms-navigationProperty: true
+          manager:
+            $ref: '#/components/schemas/microsoft.graph.directoryObject'
+          memberOf:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            description: Groups that this contact is a member of. Read-only. Nullable. Supports $expand.
+            x-ms-navigationProperty: true
+          onPremisesSyncBehavior:
+            $ref: '#/components/schemas/microsoft.graph.onPremisesSyncBehavior'
+          transitiveMemberOf:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            description: Groups that this contact is a member of, including groups that the contact is nested under. Read-only. Nullable.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.serviceProvisioningError:
+      title: serviceProvisioningError
+      type: object
+      properties:
+        createdDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: The date and time at which the error occurred.
+          format: date-time
+        isResolved:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the error has been attended to.
+        serviceInstance:
+          type:
+          - string
+          - 'null'
+          description: Qualified service instance (for example, 'SharePoint/Dublin') that published the service error information.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.phone:
+      title: phone
+      type: object
+      properties:
+        language:
+          type:
+          - string
+          - 'null'
+        number:
+          type:
+          - string
+          - 'null'
+          description: The phone number.
+        region:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/microsoft.graph.phoneType'
+      additionalProperties:
+        type: object
+    microsoft.graph.onPremisesSyncBehavior:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: onPremisesSyncBehavior
+        type: object
+        properties:
+          isCloudManaged:
+            type: boolean
+        additionalProperties:
+          type: object
+    microsoft.graph.phoneType:
+      title: phoneType
+      enum:
+      - home
+      - business
+      - mobile
+      - other
+      - assistant
+      - homeFax
+      - businessFax
+      - otherFax
+      - pager
+      - radio
+      type: string
+    microsoft.graph.onPremisesProvisioningError:
+      title: onPremisesProvisioningError
+      type: object
+      properties:
+        category:
+          type:
+          - string
+          - 'null'
+          description: 'Category of the provisioning error. Note: Currently, there is only one possible value. Possible value: PropertyConflict - indicates a property value is not unique. Other objects contain the same value for the property.'
+        occurredDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: The date and time at which the error occurred.
+          format: date-time
+        propertyCausingError:
+          type:
+          - string
+          - 'null'
+          description: 'Name of the directory property causing the error. Current possible values: UserPrincipalName or ProxyAddress'
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value of the property causing the error.
+      additionalProperties:
+        type: object
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

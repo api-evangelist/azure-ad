@@ -1,0 +1,399 @@
+openapi: 3.2.0
+info:
+  title: Groups Group Lifecycle Policies.group Lifecycle Policy API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: groupLifecyclePolicies.groupLifecyclePolicy
+paths:
+  /groupLifecyclePolicies:
+    get:
+      tags:
+      - groupLifecyclePolicies.groupLifecyclePolicy
+      summary: List groupLifecyclePolicies
+      description: List all the groupLifecyclePolicies.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/grouplifecyclepolicy-list?view=graph-rest-1.0
+      operationId: groupLifecyclePolicy_ListGroupLifecyclePolicy
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.groupLifecyclePolicyCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - groupLifecyclePolicies.groupLifecyclePolicy
+      summary: Create groupLifecyclePolicy
+      description: Creates a new groupLifecyclePolicy. Only one policy exists in the tenant.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/grouplifecyclepolicy-post-grouplifecyclepolicies?view=graph-rest-1.0
+      operationId: groupLifecyclePolicy_CreateGroupLifecyclePolicy
+      requestBody:
+        description: New entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.groupLifecyclePolicy'
+        required: true
+      responses:
+        2XX:
+          description: Created entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.groupLifecyclePolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /groupLifecyclePolicies/{groupLifecyclePolicy-id}:
+    get:
+      tags:
+      - groupLifecyclePolicies.groupLifecyclePolicy
+      summary: Get groupLifecyclePolicy
+      description: Retrieve the properties and relationships of a groupLifecyclePolicies object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/grouplifecyclepolicy-get?view=graph-rest-1.0
+      operationId: groupLifecyclePolicy_GetGroupLifecyclePolicy
+      parameters:
+      - name: groupLifecyclePolicy-id
+        in: path
+        description: The unique identifier of groupLifecyclePolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: groupLifecyclePolicy
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.groupLifecyclePolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - groupLifecyclePolicies.groupLifecyclePolicy
+      summary: Update groupLifecyclePolicy
+      description: Update the properties of a groupLifecyclePolicygroupLifecyclePolicy resource type object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/grouplifecyclepolicy-update?view=graph-rest-1.0
+      operationId: groupLifecyclePolicy_UpdateGroupLifecyclePolicy
+      parameters:
+      - name: groupLifecyclePolicy-id
+        in: path
+        description: The unique identifier of groupLifecyclePolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: groupLifecyclePolicy
+      requestBody:
+        description: New property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.groupLifecyclePolicy'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.groupLifecyclePolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - groupLifecyclePolicies.groupLifecyclePolicy
+      summary: Delete groupLifecyclePolicy
+      description: Delete a groupLifecyclePolicy.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/grouplifecyclepolicy-delete?view=graph-rest-1.0
+      operationId: groupLifecyclePolicy_DeleteGroupLifecyclePolicy
+      parameters:
+      - name: groupLifecyclePolicy-id
+        in: path
+        description: The unique identifier of groupLifecyclePolicy
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: groupLifecyclePolicy
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /groupLifecyclePolicies/$count:
+    get:
+      tags:
+      - groupLifecyclePolicies.groupLifecyclePolicy
+      summary: Get the number of the resource
+      operationId: groupLifecyclePolicy_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.groupLifecyclePolicyCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.groupLifecyclePolicyCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.groupLifecyclePolicyCollectionResponse:
+      title: Collection of groupLifecyclePolicy
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.groupLifecyclePolicy'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.groupLifecyclePolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: groupLifecyclePolicy
+        type: object
+        properties:
+          alternateNotificationEmails:
+            type:
+            - string
+            - 'null'
+            description: List of email address to send notifications for groups without owners. Multiple email address can be defined by separating email address with a semicolon.
+          groupLifetimeInDays:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            description: Number of days before a group expires and needs to be renewed. Once renewed, the group expiration is extended by the number of days defined.
+            format: int32
+          managedGroupTypes:
+            type:
+            - string
+            - 'null'
+            description: The group type for which the expiration policy applies. Possible values are All, Selected or None.
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

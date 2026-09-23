@@ -1,0 +1,4052 @@
+openapi: 3.2.0
+info:
+  title: Applications Service Principals.synchronization API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: servicePrincipals.synchronization
+paths:
+  /servicePrincipals/{servicePrincipal-id}/synchronization:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get synchronization from servicePrincipals
+      description: Represents the capability for Microsoft Entra identity synchronization through the Microsoft Graph API.
+      operationId: servicePrincipal_GetSynchronization
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.synchronization'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    put:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Update the navigation property synchronization in servicePrincipals
+      operationId: servicePrincipal_SetSynchronization
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.synchronization'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.synchronization'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Delete navigation property synchronization for servicePrincipals
+      operationId: servicePrincipal_DeleteSynchronization
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: List synchronization jobs
+      description: List existing synchronizationJob objects for a given application instance (service principal).
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronization-list-jobs?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization_ListJob
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.synchronizationJobCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Create synchronizationJob
+      description: Create a new synchronizationJob with a default synchronization schema. The job is created in a disabled state. Call Start job to start synchronization.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronization-post-jobs?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization_CreateJob
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationJob'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.synchronizationJob'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get synchronizationJob
+      description: Retrieve an existing synchronizationJob and its properties.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationjob-get?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization_GetJob
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.synchronizationJob'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Update the navigation property jobs in servicePrincipals
+      operationId: servicePrincipal.synchronization_UpdateJob
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationJob'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.synchronizationJob'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Delete synchronizationJob
+      description: Stop the synchronizationJob, and permanently delete all the state associated with it. Synchronized accounts are left as-is.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationjob-delete?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization_DeleteJob
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/bulkUpload:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get bulkUpload from servicePrincipals
+      description: The bulk upload operation for the job.
+      operationId: servicePrincipal.synchronization.job_GetBulkUpload
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.bulkUpload'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Update the navigation property bulkUpload in servicePrincipals
+      operationId: servicePrincipal.synchronization.job_UpdateBulkUpload
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.bulkUpload'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.bulkUpload'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Delete navigation property bulkUpload for servicePrincipals
+      operationId: servicePrincipal.synchronization.job_DeleteBulkUpload
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/bulkUpload/$value:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get media content for the navigation property bulkUpload from servicePrincipals
+      description: The bulk upload operation for the job.
+      operationId: servicePrincipal.synchronization.job_GetBulkUploadContent
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      responses:
+        2XX:
+          description: Retrieved media content
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        default:
+          $ref: '#/components/responses/error'
+    put:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Update media content for the navigation property bulkUpload in servicePrincipals
+      description: The bulk upload operation for the job.
+      operationId: servicePrincipal.synchronization.job_SetBulkUploadContent
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      requestBody:
+        description: New media content.
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+    delete:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Delete media content for the navigation property bulkUpload in servicePrincipals
+      description: The bulk upload operation for the job.
+      operationId: servicePrincipal.synchronization.job_DeleteBulkUploadContent
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/microsoft.graph.pause:
+    post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke action pause
+      description: Temporarily stop a running synchronizationJob. All the progress, including job state, is persisted, and the job will continue from where it left off when a start call is made.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationjob-pause?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.job_pause
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/microsoft.graph.provisionOnDemand:
+    post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke action provisionOnDemand
+      description: Select a user and provision the account on-demand for a synchronizationJob. The rate limit for this API is 5 requests per 10 seconds.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationjob-provisionondemand?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.job_provisionOnDemand
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parameters:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/microsoft.graph.synchronizationJobApplicationParameters'
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.stringKeyStringValuePair'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/microsoft.graph.restart:
+    post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke action restart
+      description: Restart a stopped synchronizationJob, forcing it to reprocess all the objects in the directory. Optionally clears existing the synchronization state and previous errors.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationjob-restart?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.job_restart
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                criteria:
+                  $ref: '#/components/schemas/microsoft.graph.synchronizationJobRestartCriteria'
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/microsoft.graph.start:
+    post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke action start
+      description: Start an existing synchronizationJob. If the job is in a paused state, it continues processing changes from the point where it was paused. If the job is in quarantine, the quarantine status is cleared. Don't create scripts to call the start job continuously while it's running because that can cause the service to stop running. Use the start job only when the job is currently paused or in quarantine.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationjob-start?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.job_start
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/microsoft.graph.validateCredentials:
+    post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke action validateCredentials
+      description: Validate that the credentials are valid in the tenant for a synchronizationJob.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationjob-validatecredentials?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.job_validateCredential
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                applicationIdentifier:
+                  type:
+                  - string
+                  - 'null'
+                templateId:
+                  type:
+                  - string
+                  - 'null'
+                useSavedCredentials:
+                  type:
+                  - boolean
+                  - 'null'
+                  default: false
+                credentials:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/microsoft.graph.synchronizationSecretKeyStringValuePair'
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/schema:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get synchronizationSchema
+      description: Retrieve the synchronizationSchema for a given synchronization job or template.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationschema-get?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.job_GetSchema
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.synchronizationSchema'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Update synchronizationSchema
+      description: Update the synchronizationSchema for a given job or template. This method fully replaces the current schema with the one provided in the request. To update the schema of a template, make the call on the application object. You must be the owner of the application.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationschema-update?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.job_UpdateSchema
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationSchema'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.synchronizationSchema'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Delete navigation property schema for servicePrincipals
+      operationId: servicePrincipal.synchronization.job_DeleteSchema
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/schema/directories:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get directories from servicePrincipals
+      description: Contains the collection of directories and all of their objects.
+      operationId: servicePrincipal.synchronization.job.schema_ListDirectory
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.directoryDefinitionCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Create new navigation property to directories for servicePrincipals
+      operationId: servicePrincipal.synchronization.job.schema_CreateDirectory
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/schema/directories/{directoryDefinition-id}
+  : get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get directories from servicePrincipals
+      description: Contains the collection of directories and all of their objects.
+      operationId: servicePrincipal.synchronization.job.schema_GetDirectory
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - name: directoryDefinition-id
+        in: path
+        description: The unique identifier of directoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: directoryDefinition
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Update the navigation property directories in servicePrincipals
+      operationId: servicePrincipal.synchronization.job.schema_UpdateDirectory
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - name: directoryDefinition-id
+        in: path
+        description: The unique identifier of directoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: directoryDefinition
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Delete navigation property directories for servicePrincipals
+      operationId: servicePrincipal.synchronization.job.schema_DeleteDirectory
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - name: directoryDefinition-id
+        in: path
+        description: The unique identifier of directoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: directoryDefinition
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/schema/directories/{directoryDefinition-id}/microsoft.graph.discover
+  : post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke action discover
+      description: Discover the latest schema definition for provisioning to an application for the directoryDefinition.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-directorydefinition-discover?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.job.schema.directory_discover
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - name: directoryDefinition-id
+        in: path
+        description: The unique identifier of directoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: directoryDefinition
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/schema/directories/$count:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get the number of the resource
+      operationId: servicePrincipal.synchronization.job.schema.directory_GetCount
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  ? /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/schema/microsoft.graph.filterOperators()
+  : get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke function filterOperators
+      description: List all operators supported in the scoping filters for a synchronizationSchema.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationschema-filteroperators?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.job.schema_filterOperator
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Collection of filterOperatorSchema
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/microsoft.graph.filterOperatorSchema'
+                  '@odata.nextLink':
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/schema/microsoft.graph.functions():
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke function functions
+      description: List all the functions currently supported in the attributeMappingSource for a synchronizationSchema.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationschema-functions?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.job.schema_function
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Collection of attributeMappingFunctionSchema
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/microsoft.graph.attributeMappingFunctionSchema'
+                  '@odata.nextLink':
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+  ? /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/{synchronizationJob-id}/schema/microsoft.graph.parseExpression
+  : post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke action parseExpression
+      description: Parse a given string expression into an attributeMappingSource object for a synchronizationSchema. For more information about expressions, see Writing Expressions for Attribute Mappings in Microsoft Entra ID.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationschema-parseexpression?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.job.schema_parseExpression
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationJob-id
+        in: path
+        description: The unique identifier of synchronizationJob
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationJob
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expression:
+                  type:
+                  - string
+                  - 'null'
+                testInputObject:
+                  $ref: '#/components/schemas/microsoft.graph.expressionInputObject'
+                targetAttributeDefinition:
+                  $ref: '#/components/schemas/microsoft.graph.attributeDefinition'
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.parseExpressionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/$count:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get the number of the resource
+      operationId: servicePrincipal.synchronization.job_GetCount
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /servicePrincipals/{servicePrincipal-id}/synchronization/jobs/microsoft.graph.validateCredentials:
+    post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke action validateCredentials
+      operationId: servicePrincipal.synchronization.job_validateCredential
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                applicationIdentifier:
+                  type:
+                  - string
+                  - 'null'
+                templateId:
+                  type:
+                  - string
+                  - 'null'
+                useSavedCredentials:
+                  type:
+                  - boolean
+                  - 'null'
+                  default: false
+                credentials:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/microsoft.graph.synchronizationSecretKeyStringValuePair'
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /servicePrincipals/{servicePrincipal-id}/synchronization/microsoft.graph.acquireAccessToken:
+    post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke action acquireAccessToken
+      description: Acquire an OAuth access token from the synchronization resource to authorize the Microsoft Entra provisioning service to provision users into an application.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronization-acquireaccesstoken?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization_acquireAccessToken
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                credentials:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/microsoft.graph.synchronizationSecretKeyStringValuePair'
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /servicePrincipals/{servicePrincipal-id}/synchronization/secrets:
+    put:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Add synchronization secrets
+      description: Provide credentials for establishing connectivity with the target system and store them in the synchronization resource.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-serviceprincipal-put-synchronization?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization_SetSecret
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      requestBody:
+        description: New property values
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/microsoft.graph.synchronizationSecretKeyStringValuePair'
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/microsoft.graph.synchronizationSecretKeyStringValuePair'
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+  /servicePrincipals/{servicePrincipal-id}/synchronization/secrets/$count:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get the number of the resource
+      operationId: servicePrincipal.synchronization.Secret_GetCount
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  /servicePrincipals/{servicePrincipal-id}/synchronization/templates:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: List existing synchronization templates
+      description: List synchronizationTemplate objects associated with a given application or service principal.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronization-list-templates?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization_ListTemplate
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.synchronizationTemplateCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Create new navigation property to templates for servicePrincipals
+      operationId: servicePrincipal.synchronization_CreateTemplate
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationTemplate'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.synchronizationTemplate'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /servicePrincipals/{servicePrincipal-id}/synchronization/templates/{synchronizationTemplate-id}:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get templates from servicePrincipals
+      description: Preconfigured synchronization settings for a particular application.
+      operationId: servicePrincipal.synchronization_GetTemplate
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.synchronizationTemplate'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Update the navigation property templates in servicePrincipals
+      operationId: servicePrincipal.synchronization_UpdateTemplate
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationTemplate'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.synchronizationTemplate'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Delete navigation property templates for servicePrincipals
+      operationId: servicePrincipal.synchronization_DeleteTemplate
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /servicePrincipals/{servicePrincipal-id}/synchronization/templates/{synchronizationTemplate-id}/schema:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get schema from servicePrincipals
+      description: Default synchronization schema for the jobs based on this template.
+      operationId: servicePrincipal.synchronization.template_GetSchema
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.synchronizationSchema'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Update the navigation property schema in servicePrincipals
+      operationId: servicePrincipal.synchronization.template_UpdateSchema
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationSchema'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.synchronizationSchema'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Delete navigation property schema for servicePrincipals
+      operationId: servicePrincipal.synchronization.template_DeleteSchema
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /servicePrincipals/{servicePrincipal-id}/synchronization/templates/{synchronizationTemplate-id}/schema/directories:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get directories from servicePrincipals
+      description: Contains the collection of directories and all of their objects.
+      operationId: servicePrincipal.synchronization.template.schema_ListDirectory
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.directoryDefinitionCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Create new navigation property to directories for servicePrincipals
+      operationId: servicePrincipal.synchronization.template.schema_CreateDirectory
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      requestBody:
+        description: New navigation property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        required: true
+      responses:
+        2XX:
+          description: Created navigation property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /servicePrincipals/{servicePrincipal-id}/synchronization/templates/{synchronizationTemplate-id}/schema/directories/{directoryDefinition-id}
+  : get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get directories from servicePrincipals
+      description: Contains the collection of directories and all of their objects.
+      operationId: servicePrincipal.synchronization.template.schema_GetDirectory
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      - name: directoryDefinition-id
+        in: path
+        description: The unique identifier of directoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: directoryDefinition
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Update the navigation property directories in servicePrincipals
+      operationId: servicePrincipal.synchronization.template.schema_UpdateDirectory
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      - name: directoryDefinition-id
+        in: path
+        description: The unique identifier of directoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: directoryDefinition
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Delete navigation property directories for servicePrincipals
+      operationId: servicePrincipal.synchronization.template.schema_DeleteDirectory
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      - name: directoryDefinition-id
+        in: path
+        description: The unique identifier of directoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: directoryDefinition
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  ? /servicePrincipals/{servicePrincipal-id}/synchronization/templates/{synchronizationTemplate-id}/schema/directories/{directoryDefinition-id}/microsoft.graph.discover
+  : post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke action discover
+      description: Discover the latest schema definition for provisioning to an application for the directoryDefinition.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-directorydefinition-discover?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.template.schema.directory_discover
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      - name: directoryDefinition-id
+        in: path
+        description: The unique identifier of directoryDefinition
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: directoryDefinition
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /servicePrincipals/{servicePrincipal-id}/synchronization/templates/{synchronizationTemplate-id}/schema/directories/$count:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get the number of the resource
+      operationId: servicePrincipal.synchronization.template.schema.directory_GetCount
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+  ? /servicePrincipals/{servicePrincipal-id}/synchronization/templates/{synchronizationTemplate-id}/schema/microsoft.graph.filterOperators()
+  : get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke function filterOperators
+      description: List all operators supported in the scoping filters for a synchronizationSchema.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationschema-filteroperators?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.template.schema_filterOperator
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Collection of filterOperatorSchema
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/microsoft.graph.filterOperatorSchema'
+                  '@odata.nextLink':
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+  ? /servicePrincipals/{servicePrincipal-id}/synchronization/templates/{synchronizationTemplate-id}/schema/microsoft.graph.functions()
+  : get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke function functions
+      description: List all the functions currently supported in the attributeMappingSource for a synchronizationSchema.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationschema-functions?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.template.schema_function
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Collection of attributeMappingFunctionSchema
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/microsoft.graph.attributeMappingFunctionSchema'
+                  '@odata.nextLink':
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties:
+                  type: object
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: function
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+  ? /servicePrincipals/{servicePrincipal-id}/synchronization/templates/{synchronizationTemplate-id}/schema/microsoft.graph.parseExpression
+  : post:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Invoke action parseExpression
+      description: Parse a given string expression into an attributeMappingSource object for a synchronizationSchema. For more information about expressions, see Writing Expressions for Attribute Mappings in Microsoft Entra ID.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/synchronization-synchronizationschema-parseexpression?view=graph-rest-1.0
+      operationId: servicePrincipal.synchronization.template.schema_parseExpression
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - name: synchronizationTemplate-id
+        in: path
+        description: The unique identifier of synchronizationTemplate
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: synchronizationTemplate
+      requestBody:
+        description: Action parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expression:
+                  type:
+                  - string
+                  - 'null'
+                testInputObject:
+                  $ref: '#/components/schemas/microsoft.graph.expressionInputObject'
+                targetAttributeDefinition:
+                  $ref: '#/components/schemas/microsoft.graph.attributeDefinition'
+              additionalProperties:
+                type: object
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.parseExpressionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: action
+  /servicePrincipals/{servicePrincipal-id}/synchronization/templates/$count:
+    get:
+      tags:
+      - servicePrincipals.synchronization
+      summary: Get the number of the resource
+      operationId: servicePrincipal.synchronization.template_GetCount
+      parameters:
+      - name: servicePrincipal-id
+        in: path
+        description: The unique identifier of servicePrincipal
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: servicePrincipal
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    microsoft.graph.attributeDefinition:
+      title: attributeDefinition
+      type: object
+      properties:
+        anchor:
+          type: boolean
+          description: true if the attribute should be used as the anchor for the object. Anchor attributes must have a unique value identifying an object, and must be immutable. Default is false. One, and only one, of the object's attributes must be designated as the anchor to support synchronization.
+        apiExpressions:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.stringKeyStringValuePair'
+        caseExact:
+          type: boolean
+          description: true if value of this attribute should be treated as case-sensitive. This setting affects how the synchronization engine detects changes for the attribute.
+        defaultValue:
+          type:
+          - string
+          - 'null'
+          description: The default value of the attribute.
+        flowNullValues:
+          type: boolean
+          description: '''true'' to allow null values for attributes.'
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.attributeDefinitionMetadataEntry'
+          description: Metadata for the given object.
+        multivalued:
+          type: boolean
+          description: true if an attribute can have multiple values. Default is false.
+        mutability:
+          $ref: '#/components/schemas/microsoft.graph.mutability'
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the attribute. Must be unique within the object definition. Not nullable.
+        referencedObjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.referencedObject'
+          description: For attributes with reference type, lists referenced objects (for example, the manager attribute would list User as the referenced object).
+        required:
+          type: boolean
+          description: true if attribute is required. Object can not be created if any of the required attributes are missing. If during synchronization, the required attribute has no value, the default value will be used. If default the value was not set, synchronization will record an error.
+        type:
+          $ref: '#/components/schemas/microsoft.graph.attributeType'
+      additionalProperties:
+        type: object
+    microsoft.graph.attributeType:
+      title: attributeType
+      enum:
+      - String
+      - Integer
+      - Reference
+      - Binary
+      - Boolean
+      - DateTime
+      type: string
+    microsoft.graph.synchronizationLinkedObjects:
+      title: synchronizationLinkedObjects
+      type: object
+      properties:
+        manager:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationJobSubject'
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationJobSubject'
+          description: All group members that you would like to provision.
+        owners:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationJobSubject'
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronization:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: synchronization
+        type: object
+        properties:
+          secrets:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationSecretKeyStringValuePair'
+            description: Represents a collection of credentials to access provisioned cloud applications.
+          jobs:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationJob'
+            description: Performs synchronization by periodically running in the background, polling for changes in one directory, and pushing them to another directory.
+            x-ms-navigationProperty: true
+          templates:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationTemplate'
+            description: Preconfigured synchronization settings for a particular application.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.filterOperatorSchema:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: filterOperatorSchema
+        type: object
+        properties:
+          arity:
+            $ref: '#/components/schemas/microsoft.graph.scopeOperatorType'
+          multivaluedComparisonType:
+            $ref: '#/components/schemas/microsoft.graph.scopeOperatorMultiValuedComparisonType'
+          supportedAttributeTypes:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.attributeType'
+            description: 'Attribute types supported by the operator. The possible values are: Boolean, Binary, Reference, Integer, String.'
+        additionalProperties:
+          type: object
+    microsoft.graph.synchronizationMetadata:
+      title: synchronizationMetadata
+      enum:
+      - GalleryApplicationIdentifier
+      - GalleryApplicationKey
+      - IsOAuthEnabled
+      - IsSynchronizationAgentAssignmentRequired
+      - IsSynchronizationAgentRequired
+      - IsSynchronizationInPreview
+      - OAuthSettings
+      - SynchronizationLearnMoreIbizaFwLink
+      - ConfigurationFields
+      type: string
+    microsoft.graph.objectMappingMetadata:
+      title: objectMappingMetadata
+      enum:
+      - EscrowBehavior
+      - DisableMonitoringForChanges
+      - OriginalJoiningProperty
+      - Disposition
+      - IsCustomerDefined
+      - ExcludeFromReporting
+      - Unsynchronized
+      type: string
+    microsoft.graph.attributeMappingFunctionSchema:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: attributeMappingFunctionSchema
+        type: object
+        properties:
+          parameters:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.attributeMappingParameterSchema'
+            description: Collection of function parameters.
+        additionalProperties:
+          type: object
+    microsoft.graph.directoryDefinitionCollectionResponse:
+      title: Collection of directoryDefinition
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.attributeDefinitionMetadata:
+      title: attributeDefinitionMetadata
+      enum:
+      - BaseAttributeName
+      - ComplexObjectDefinition
+      - IsContainer
+      - IsCustomerDefined
+      - IsDomainQualified
+      - LinkPropertyNames
+      - LinkTypeName
+      - MaximumLength
+      - ReferencedProperty
+      type: string
+    microsoft.graph.attributeFlowBehavior:
+      title: attributeFlowBehavior
+      enum:
+      - FlowWhenChanged
+      - FlowAlways
+      type: string
+    microsoft.graph.synchronizationError:
+      title: synchronizationError
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The error code. For example, AzureDirectoryB2BManagementPolicyCheckFailure.
+        message:
+          type:
+          - string
+          - 'null'
+          description: The error message. For example, Policy permitting auto-redemption of invitations not configured.
+        tenantActionable:
+          type: boolean
+          description: The action to take to resolve the error. For example, false.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationJobRestartCriteria:
+      title: synchronizationJobRestartCriteria
+      type: object
+      properties:
+        resetScope:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationJobRestartScope'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationJobApplicationParameters:
+      title: synchronizationJobApplicationParameters
+      type: object
+      properties:
+        ruleId:
+          type:
+          - string
+          - 'null'
+          description: The identifier of the synchronizationRule to be applied. This rule ID is defined in the schema for a given synchronization job or template.
+        subjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationJobSubject'
+          description: The identifiers of one or more objects to which a synchronizationJob is to be applied.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationRule:
+      title: synchronizationRule
+      type: object
+      properties:
+        containerFilter:
+          $ref: '#/components/schemas/microsoft.graph.containerFilter'
+        editable:
+          type: boolean
+          description: true if the synchronization rule can be customized; false if this rule is read-only and shouldn't be changed.
+        groupFilter:
+          $ref: '#/components/schemas/microsoft.graph.groupFilter'
+        id:
+          type:
+          - string
+          - 'null'
+          description: Synchronization rule identifier. Must be one of the identifiers recognized by the synchronization engine. Supported rule identifiers can be found in the synchronization template returned by the API.
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.stringKeyStringValuePair'
+          description: Additional extension properties. Unless instructed explicitly by the support team, metadata values shouldn't be changed.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable name of the synchronization rule. Not nullable.
+        objectMappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.objectMapping'
+          description: Collection of object mappings supported by the rule. Tells the synchronization engine which objects should be synchronized.
+        priority:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: Priority relative to other rules in the synchronizationSchema. Rules with the lowest priority number will be processed first.
+          format: int32
+        sourceDirectoryName:
+          type:
+          - string
+          - 'null'
+          description: Name of the source directory. Must match one of the directory definitions in synchronizationSchema.
+        targetDirectoryName:
+          type:
+          - string
+          - 'null'
+          description: Name of the target directory. Must match one of the directory definitions in synchronizationSchema.
+      additionalProperties:
+        type: object
+    microsoft.graph.attributeMapping:
+      title: attributeMapping
+      type: object
+      properties:
+        defaultValue:
+          type:
+          - string
+          - 'null'
+          description: Default value to be used in case the source property was evaluated to null. Optional.
+        exportMissingReferences:
+          type: boolean
+          description: For internal use only.
+        flowBehavior:
+          $ref: '#/components/schemas/microsoft.graph.attributeFlowBehavior'
+        flowType:
+          $ref: '#/components/schemas/microsoft.graph.attributeFlowType'
+        matchingPriority:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: If higher than 0, this attribute will be used to perform an initial match of the objects between source and target directories. The synchronization engine will try to find the matching object using attribute with lowest value of matching priority first. If not found, the attribute with the next matching priority will be used, and so on a until match is found or no more matching attributes are left. Only attributes that are expected to have unique values, such as email, should be used as matching attributes.
+          format: int32
+        source:
+          $ref: '#/components/schemas/microsoft.graph.attributeMappingSource'
+        targetAttributeName:
+          type:
+          - string
+          - 'null'
+          description: Name of the attribute on the target object.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationMetadataEntry:
+      title: synchronizationMetadataEntry
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationMetadata'
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value of the metadata property.
+      additionalProperties:
+        type: object
+    microsoft.graph.objectDefinition:
+      title: objectDefinition
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.attributeDefinition'
+          description: Defines attributes of the object.
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.objectDefinitionMetadataEntry'
+          description: Metadata for the given object.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the object. Must be unique within a directory definition. Not nullable.
+        supportedApis:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: The API that the provisioning service queries to retrieve data for synchronization.
+      additionalProperties:
+        type: object
+    microsoft.graph.quarantineReason:
+      title: quarantineReason
+      enum:
+      - EncounteredBaseEscrowThreshold
+      - EncounteredTotalEscrowThreshold
+      - EncounteredEscrowProportionThreshold
+      - EncounteredQuarantineException
+      - Unknown
+      - QuarantinedOnDemand
+      - TooManyDeletes
+      - IngestionInterrupted
+      type: string
+    microsoft.graph.synchronizationSecretKeyStringValuePair:
+      title: synchronizationSecretKeyStringValuePair
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationSecret'
+        value:
+          type:
+          - string
+          - 'null'
+          description: The value of the secret.
+      additionalProperties:
+        type: object
+    microsoft.graph.attributeMappingSourceType:
+      title: attributeMappingSourceType
+      enum:
+      - Attribute
+      - Constant
+      - Function
+      type: string
+    microsoft.graph.attributeMappingSource:
+      title: attributeMappingSource
+      type: object
+      properties:
+        expression:
+          type:
+          - string
+          - 'null'
+          description: Equivalent expression representation of this attributeMappingSource object.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name parameter of the mapping source. Depending on the type property value, this can be the name of the function, the name of the source attribute, or a constant value to be used.
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.stringKeyAttributeMappingSourceValuePair'
+          description: If this object represents a function, lists function parameters. Parameters consist of attributeMappingSource objects themselves, allowing for complex expressions. If type isn't Function, this property is null/empty array.
+        type:
+          $ref: '#/components/schemas/microsoft.graph.attributeMappingSourceType'
+      additionalProperties:
+        type: object
+    microsoft.graph.parseExpressionResponse:
+      title: parseExpressionResponse
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.publicError'
+        evaluationResult:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: A collection of values produced by the evaluation of the expression.
+        evaluationSucceeded:
+          type: boolean
+          description: true if the evaluation was successful.
+        parsedExpression:
+          $ref: '#/components/schemas/microsoft.graph.attributeMappingSource'
+        parsingSucceeded:
+          type: boolean
+          description: true if the expression was parsed successfully.
+      additionalProperties:
+        type: object
+    microsoft.graph.stringKeyLongValuePair:
+      title: stringKeyLongValuePair
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The mapping of the user type from the source system to the target system. For example:User to User - For Microsoft Entra ID to Microsoft Entra ID synchronization worker to user - For Workday to Microsoft Entra synchronization.
+        value:
+          type: number
+          description: Total number of synchronized objects.
+          format: int64
+      additionalProperties:
+        type: object
+    microsoft.graph.referencedObject:
+      title: referencedObject
+      type: object
+      properties:
+        referencedObjectName:
+          type:
+          - string
+          - 'null'
+          description: Name of the referenced object. Must match one of the objects in the directory definition.
+        referencedProperty:
+          type:
+          - string
+          - 'null'
+          description: Currently not supported. Name of the property in the referenced object, the value for which is used as the reference.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.objectDefinitionMetadata:
+      title: objectDefinitionMetadata
+      enum:
+      - PropertyNameAccountEnabled
+      - PropertyNameSoftDeleted
+      - IsSoftDeletionSupported
+      - IsSynchronizeAllSupported
+      - ConnectorDataStorageRequired
+      - Extensions
+      - BaseObjectName
+      type: string
+    microsoft.graph.bulkUpload:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: bulkUpload
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.synchronizationSchedule:
+      title: synchronizationSchedule
+      type: object
+      properties:
+        expiration:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Date and time when this job expires. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+          format: date-time
+        interval:
+          pattern: ^-?P([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+([.][0-9]+)?S)?)?$
+          type: string
+          description: The interval between synchronization iterations. The value is represented in ISO 8601  format for durations. For example, P1M represents a period of one month and PT1M represents a period of one minute.
+          format: duration
+        state:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationScheduleState'
+      additionalProperties:
+        type: object
+    microsoft.graph.objectMapping:
+      title: objectMapping
+      type: object
+      properties:
+        attributeMappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.attributeMapping'
+          description: Attribute mappings define which attributes to map from the source object into the target object and how they should flow. A number of functions are available to support the transformation of the original source values.
+        enabled:
+          type: boolean
+          description: When true, this object mapping will be processed during synchronization. When false, this object mapping will be skipped.
+        flowTypes:
+          $ref: '#/components/schemas/microsoft.graph.objectFlowTypes'
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.objectMappingMetadataEntry'
+          description: Additional extension properties. Unless mentioned explicitly, metadata values should not be changed.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Human-friendly name of the object mapping.
+        scope:
+          $ref: '#/components/schemas/microsoft.graph.filter'
+        sourceObjectName:
+          type:
+          - string
+          - 'null'
+          description: Name of the object in the source directory. Must match the object name from the source directory definition.
+        targetObjectName:
+          type:
+          - string
+          - 'null'
+          description: Name of the object in target directory. Must match the object name from the target directory definition.
+      additionalProperties:
+        type: object
+    microsoft.graph.filterClause:
+      title: filterClause
+      type: object
+      properties:
+        operatorName:
+          type:
+          - string
+          - 'null'
+          description: Name of the operator to be applied to the source and target operands. Must be one of the supported operators. Supported operators can be discovered.
+        sourceOperandName:
+          type:
+          - string
+          - 'null'
+          description: Name of source operand (the operand being tested). The source operand name must match one of the attribute names on the source object.
+        targetOperand:
+          $ref: '#/components/schemas/microsoft.graph.filterOperand'
+      additionalProperties:
+        type: object
+    microsoft.graph.mutability:
+      title: mutability
+      enum:
+      - ReadWrite
+      - ReadOnly
+      - Immutable
+      - WriteOnly
+      type: string
+    microsoft.graph.stringKeyStringValuePair:
+      title: stringKeyStringValuePair
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Key.
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value.
+      additionalProperties:
+        type: object
+    microsoft.graph.publicError:
+      title: publicError
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: Represents the error code.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.publicErrorDetail'
+          description: Details of the error.
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.publicInnerError'
+        message:
+          type:
+          - string
+          - 'null'
+          description: A non-localized message for the developer.
+        target:
+          type:
+          - string
+          - 'null'
+          description: The target of the error.
+      additionalProperties:
+        type: object
+    microsoft.graph.stringKeyObjectValuePair:
+      title: stringKeyObjectValuePair
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Key.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationStatusCode:
+      title: synchronizationStatusCode
+      enum:
+      - NotConfigured
+      - NotRun
+      - Active
+      - Paused
+      - Quarantine
+      type: string
+    microsoft.graph.keyValuePair:
+      title: keyValuePair
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name for this key-value pair
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value for this key-value pair
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.attributeFlowType:
+      title: attributeFlowType
+      enum:
+      - Always
+      - ObjectAddOnly
+      - MultiValueAddOnly
+      - ValueAddOnly
+      - AttributeAddOnly
+      type: string
+    microsoft.graph.synchronizationJobCollectionResponse:
+      title: Collection of synchronizationJob
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationJob'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationJobSubject:
+      title: synchronizationJobSubject
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationLinkedObjects'
+        objectId:
+          type:
+          - string
+          - 'null'
+          description: 'The identifier of an object to which a synchronizationJob is to be applied. Can be one of the following: An onPremisesDistinguishedName for synchronization from Active Directory to Azure AD.The user ID for synchronization from Microsoft Entra ID to a third-party.The Worker ID of the Workday worker for synchronization from Workday to either Active Directory or Microsoft Entra ID.'
+        objectTypeName:
+          type:
+          - string
+          - 'null'
+          description: 'The type of the object to which a synchronizationJob is to be applied. Can be one of the following: user for synchronizing between Active Directory and Azure AD.User for synchronizing a user between Microsoft Entra ID and a third-party application. Worker for synchronization a user between Workday and either Active Directory or Microsoft Entra ID.Group for synchronizing a group between Microsoft Entra ID and a third-party application.'
+      additionalProperties:
+        type: object
+    microsoft.graph.filterGroup:
+      title: filterGroup
+      type: object
+      properties:
+        clauses:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.filterClause'
+          description: Filter clauses (conditions) of this group. All clauses in a group must be satisfied in order for the filter group to evaluate to true.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable name of the filter group.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationJobRestartScope:
+      title: synchronizationJobRestartScope
+      enum:
+      - None
+      - ConnectorDataStore
+      - Escrows
+      - Watermark
+      - QuarantineState
+      - Full
+      - ForceDeletes
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.attributeDefinitionMetadataEntry:
+      title: attributeDefinitionMetadataEntry
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/microsoft.graph.attributeDefinitionMetadata'
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value of the metadata property.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationStatus:
+      title: synchronizationStatus
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationStatusCode'
+        countSuccessiveCompleteFailures:
+          type: number
+          description: Number of consecutive times this job failed.
+          format: int64
+        escrowsPruned:
+          type: boolean
+          description: true if the job's escrows (object-level errors) were pruned during initial synchronization. Escrows can be pruned if during the initial synchronization, you reach the threshold of errors that would normally put the job in quarantine. Instead of going into quarantine, the synchronization process clears the job's errors and continues until the initial synchronization is completed. When the initial synchronization is completed, the job will pause and wait for the customer to clean up the errors.
+        lastExecution:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationTaskExecution'
+        lastSuccessfulExecution:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationTaskExecution'
+        lastSuccessfulExecutionWithExports:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationTaskExecution'
+        progress:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationProgress'
+          description: Details of the progress of a job toward completion.
+        quarantine:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationQuarantine'
+        steadyStateFirstAchievedTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type: string
+          description: The time when steady state (no more changes to the process) was first achieved. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+          format: date-time
+        steadyStateLastAchievedTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type: string
+          description: The time when steady state (no more changes to the process) was last achieved. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+          format: date-time
+        synchronizedEntryCountByType:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.stringKeyLongValuePair'
+          description: Count of synchronized objects, listed by object type.
+        troubleshootingUrl:
+          type:
+          - string
+          - 'null'
+          description: In the event of an error, the URL with the troubleshooting steps for the issue.
+      additionalProperties:
+        type: object
+    microsoft.graph.filter:
+      title: filter
+      type: object
+      properties:
+        categoryFilterGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.filterGroup'
+          description: '*Experimental* Filter group set used to decide whether given object belongs and should be processed as part of this object mapping. An object is considered in scope if ANY of the groups in the collection is evaluated to true.'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.filterGroup'
+          description: Filter group set used to decide whether given object is in scope for provisioning. This is the filter which should be used in most cases. If an object used to satisfy this filter at a given moment, and then the object or the filter was changed so that filter isn't satisfied any longer, such object will get deprovisioned'. An object is considered in scope if ANY of the groups in the collection is evaluated to true.
+        inputFilterGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.filterGroup'
+          description: '*Experimental* Filter group set used to filter out objects at the early stage of reading them from the directory. If an object doesn''t satisfy this filter, then it will not be processed further. Important to understand is that if an object used to satisfy this filter at a given moment, and then the object or the filter was changed so that filter is no longer satisfied, such object will NOT get deprovisioned. An object is considered in scope if ANY of the groups in the collection is evaluated to true.'
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryDefinition:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryDefinition
+        type: object
+        properties:
+          discoverabilities:
+            $ref: '#/components/schemas/microsoft.graph.directoryDefinitionDiscoverabilities'
+          discoveryDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Represents the discovery date and time using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+            format: date-time
+          name:
+            type:
+            - string
+            - 'null'
+            description: Name of the directory. Must be unique within the synchronization schema. Not nullable.
+          objects:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.objectDefinition'
+            description: Collection of objects supported by the directory.
+          readOnly:
+            type: boolean
+            description: Whether this object is read-only.
+          version:
+            type:
+            - string
+            - 'null'
+            description: Read only value that indicates version discovered. null if discovery hasn't yet occurred.
+        additionalProperties:
+          type: object
+    microsoft.graph.synchronizationJob:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: synchronizationJob
+        type: object
+        properties:
+          schedule:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationSchedule'
+          status:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationStatus'
+          synchronizationJobSettings:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.keyValuePair'
+            description: Settings associated with the job. Some settings are inherited from the template.
+          templateId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the synchronization template this job is based on.
+          bulkUpload:
+            $ref: '#/components/schemas/microsoft.graph.bulkUpload'
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationSchema'
+        additionalProperties:
+          type: object
+    microsoft.graph.attributeMappingParameterSchema:
+      title: attributeMappingParameterSchema
+      type: object
+      properties:
+        allowMultipleOccurrences:
+          type: boolean
+          description: The given parameter can be provided multiple times (for example, multiple input strings in the Concatenate(string,string,...) function).
+        name:
+          type:
+          - string
+          - 'null'
+          description: Parameter name.
+        required:
+          type: boolean
+          description: true if the parameter is required; otherwise false.
+        type:
+          $ref: '#/components/schemas/microsoft.graph.attributeType'
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationScheduleState:
+      title: synchronizationScheduleState
+      enum:
+      - Active
+      - Disabled
+      - Paused
+      type: string
+    microsoft.graph.expressionInputObject:
+      title: expressionInputObject
+      type: object
+      properties:
+        definition:
+          $ref: '#/components/schemas/microsoft.graph.objectDefinition'
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.stringKeyObjectValuePair'
+          description: Property values of the test object.
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryDefinitionDiscoverabilities:
+      title: directoryDefinitionDiscoverabilities
+      enum:
+      - None
+      - AttributeNames
+      - AttributeDataTypes
+      - AttributeReadOnly
+      - ReferenceAttributes
+      - UnknownFutureValue
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.scopeOperatorMultiValuedComparisonType:
+      title: scopeOperatorMultiValuedComparisonType
+      enum:
+      - All
+      - Any
+      type: string
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.publicInnerError:
+      title: publicInnerError
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The error code.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.publicErrorDetail'
+          description: A collection of error details.
+        message:
+          type:
+          - string
+          - 'null'
+          description: The error message.
+        target:
+          type:
+          - string
+          - 'null'
+          description: The target of the error.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.synchronizationProgress:
+      title: synchronizationProgress
+      type: object
+      properties:
+        completedUnits:
+          type: number
+          description: The numerator of a progress ratio; the number of units of changes already processed.
+          format: int64
+        progressObservationDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type: string
+          description: The time of a progress observation as an offset in minutes from UTC.
+          format: date-time
+        totalUnits:
+          type: number
+          description: The denominator of a progress ratio; a number of units of changes to be processed to accomplish synchronization.
+          format: int64
+        units:
+          type:
+          - string
+          - 'null'
+          description: An optional description of the units.
+      additionalProperties:
+        type: object
+    microsoft.graph.containerFilter:
+      title: containerFilter
+      type: object
+      properties:
+        includedContainers:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationTaskExecution:
+      title: synchronizationTaskExecution
+      type: object
+      properties:
+        activityIdentifier:
+          type:
+          - string
+          - 'null'
+          description: Identifier of the job run.
+        countEntitled:
+          type: number
+          description: Count of processed entries that were assigned for this application.
+          format: int64
+        countEntitledForProvisioning:
+          type: number
+          description: Count of processed entries that were assigned for provisioning.
+          format: int64
+        countEscrowed:
+          type: number
+          description: Count of entries that were escrowed (errors).
+          format: int64
+        countEscrowedRaw:
+          type: number
+          description: Count of entries that were escrowed, including system-generated escrows.
+          format: int64
+        countExported:
+          type: number
+          description: Count of exported entries.
+          format: int64
+        countExports:
+          type: number
+          description: Count of entries that were expected to be exported.
+          format: int64
+        countImported:
+          type: number
+          description: Count of imported entries.
+          format: int64
+        countImportedDeltas:
+          type: number
+          description: Count of imported delta-changes.
+          format: int64
+        countImportedReferenceDeltas:
+          type: number
+          description: Count of imported delta-changes pertaining to reference changes.
+          format: int64
+        error:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationError'
+        state:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationTaskExecutionResult'
+        timeBegan:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type: string
+          description: Time when this job run began. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+          format: date-time
+        timeEnded:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type: string
+          description: Time when this job run ended. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+          format: date-time
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationTemplateCollectionResponse:
+      title: Collection of synchronizationTemplate
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationTemplate'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.scopeOperatorType:
+      title: scopeOperatorType
+      enum:
+      - Binary
+      - Unary
+      type: string
+    microsoft.graph.synchronizationTemplate:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: synchronizationTemplate
+        type: object
+        properties:
+          applicationId:
+            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+            type: string
+            description: Identifier of the application this template belongs to.
+            format: uuid
+          default:
+            type: boolean
+            description: true if this template is recommended to be the default for the application.
+          description:
+            type:
+            - string
+            - 'null'
+            description: Description of the template.
+          discoverable:
+            type: boolean
+            description: true if this template should appear in the collection of templates available for the application instance (service principal).
+          factoryTag:
+            type:
+            - string
+            - 'null'
+            description: One of the well-known factory tags supported by the synchronization engine. The factoryTag tells the synchronization engine which implementation to use when processing jobs based on this template.
+          metadata:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationMetadataEntry'
+            description: Additional extension properties. Unless mentioned explicitly, metadata values should not be changed.
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationSchema'
+        additionalProperties:
+          type: object
+    microsoft.graph.synchronizationTaskExecutionResult:
+      title: synchronizationTaskExecutionResult
+      enum:
+      - Succeeded
+      - Failed
+      - EntryLevelErrors
+      type: string
+    microsoft.graph.publicErrorDetail:
+      title: publicErrorDetail
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The error code.
+        message:
+          type:
+          - string
+          - 'null'
+          description: The error message.
+        target:
+          type:
+          - string
+          - 'null'
+          description: The target of the error.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationQuarantine:
+      title: synchronizationQuarantine
+      type: object
+      properties:
+        currentBegan:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type: string
+          description: Date and time when the quarantine was last evaluated and imposed. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+          format: date-time
+        error:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationError'
+        nextAttempt:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type: string
+          description: Date and time when the next attempt to re-evaluate the quarantine will be made. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+          format: date-time
+        reason:
+          $ref: '#/components/schemas/microsoft.graph.quarantineReason'
+        seriesBegan:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type: string
+          description: Date and time when the quarantine was first imposed in this series (a series starts when a quarantine is first imposed, and is reset as soon as the quarantine is lifted). The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+          format: date-time
+        seriesCount:
+          type: number
+          description: Number of times in this series the quarantine was re-evaluated and left in effect (a series starts when quarantine is first imposed, and is reset as soon as quarantine is lifted).
+          format: int64
+      additionalProperties:
+        type: object
+    microsoft.graph.groupFilter:
+      title: groupFilter
+      type: object
+      properties:
+        includedGroups:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationSecret:
+      title: synchronizationSecret
+      enum:
+      - None
+      - UserName
+      - Password
+      - SecretToken
+      - AppKey
+      - BaseAddress
+      - ClientIdentifier
+      - ClientSecret
+      - SingleSignOnType
+      - Sandbox
+      - Url
+      - Domain
+      - ConsumerKey
+      - ConsumerSecret
+      - TokenKey
+      - TokenExpiration
+      - Oauth2AccessToken
+      - Oauth2AccessTokenCreationTime
+      - Oauth2RefreshToken
+      - SyncAll
+      - InstanceName
+      - Oauth2ClientId
+      - Oauth2ClientSecret
+      - CompanyId
+      - UpdateKeyOnSoftDelete
+      - SynchronizationSchedule
+      - SystemOfRecord
+      - SandboxName
+      - EnforceDomain
+      - SyncNotificationSettings
+      - SkipOutOfScopeDeletions
+      - Oauth2AuthorizationCode
+      - Oauth2RedirectUri
+      - ApplicationTemplateIdentifier
+      - Oauth2TokenExchangeUri
+      - Oauth2AuthorizationUri
+      - AuthenticationType
+      - Server
+      - PerformInboundEntitlementGrants
+      - HardDeletesEnabled
+      - SyncAgentCompatibilityKey
+      - SyncAgentADContainer
+      - ValidateDomain
+      - TestReferences
+      - ConnectionString
+      type: string
+    microsoft.graph.objectMappingMetadataEntry:
+      title: objectMappingMetadataEntry
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/microsoft.graph.objectMappingMetadata'
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value of the metadata property.
+      additionalProperties:
+        type: object
+    microsoft.graph.objectDefinitionMetadataEntry:
+      title: objectDefinitionMetadataEntry
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/microsoft.graph.objectDefinitionMetadata'
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value of the metadata property.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationSchema:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: synchronizationSchema
+        type: object
+        properties:
+          synchronizationRules:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationRule'
+            description: A collection of synchronization rules configured for the synchronizationJob or synchronizationTemplate.
+          version:
+            type:
+            - string
+            - 'null'
+            description: The version of the schema, updated automatically with every schema change.
+          directories:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+            description: Contains the collection of directories and all of their objects.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.objectFlowTypes:
+      title: objectFlowTypes
+      enum:
+      - None
+      - Add
+      - Update
+      - Delete
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.stringKeyAttributeMappingSourceValuePair:
+      title: stringKeyAttributeMappingSourceValuePair
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The name of the parameter.
+        value:
+          $ref: '#/components/schemas/microsoft.graph.attributeMappingSource'
+      additionalProperties:
+        type: object
+    microsoft.graph.filterOperand:
+      title: filterOperand
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: Collection of values.
+      additionalProperties:
+        type: object
+  parameters:
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  responses:
+    microsoft.graph.directoryDefinitionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.directoryDefinitionCollectionResponse'
+    microsoft.graph.synchronizationTemplateCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationTemplateCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.synchronizationJobCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationJobCollectionResponse'
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

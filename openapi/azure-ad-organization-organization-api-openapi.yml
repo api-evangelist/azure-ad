@@ -1,0 +1,987 @@
+openapi: 3.2.0
+info:
+  title: Identity.DirectoryManagement Organization.organization API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: Organization organization
+paths:
+  /organization:
+    get:
+      tags:
+      - Organization organization
+      summary: List organizations
+      description: Retrieve a list of organization objects. There's only one organization object in the collection.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/organization-list?view=graph-rest-1.0
+      operationId: organization_ListOrganization
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        in: query
+        description: Order items by property values
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          $ref: '#/components/responses/microsoft.graph.organizationCollectionResponse'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-pageable:
+        nextLinkName: '@odata.nextLink'
+        operationName: listMore
+      x-ms-docs-operation-type: operation
+    post:
+      tags:
+      - Organization organization
+      summary: Add new entity to organization
+      operationId: organization_CreateOrganization
+      requestBody:
+        description: New entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.organization'
+        required: true
+      responses:
+        2XX:
+          description: Created entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.organization'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /organization/{organization-id}:
+    get:
+      tags:
+      - Organization organization
+      summary: Get organization
+      description: Get the properties and relationships of the currently authenticated organization. Since the organization resource supports extensions, you can also use the GET operation to get custom properties and extension data in an organization instance.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/organization-get?view=graph-rest-1.0
+      operationId: organization_GetOrganization
+      parameters:
+      - name: organization-id
+        in: path
+        description: The unique identifier of organization
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: organization
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.organization'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - Organization organization
+      summary: Update organization
+      description: Update the properties of the currently authenticated organization. In this case, organization is defined as a collection of exactly one record, and so its ID must be specified in the request. The ID is also known as the tenantId of the organization.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/organization-update?view=graph-rest-1.0
+      operationId: organization_UpdateOrganization
+      parameters:
+      - name: organization-id
+        in: path
+        description: The unique identifier of organization
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: organization
+      requestBody:
+        description: New property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.organization'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.organization'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - Organization organization
+      summary: Delete entity from organization
+      operationId: organization_DeleteOrganization
+      parameters:
+      - name: organization-id
+        in: path
+        description: The unique identifier of organization
+        required: true
+        style: simple
+        schema:
+          type: string
+        x-ms-docs-key-type: organization
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+  /organization/$count:
+    get:
+      tags:
+      - Organization organization
+      summary: Get the number of the resource
+      operationId: organization_GetCount
+      parameters:
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/filter'
+      responses:
+        2XX:
+          $ref: '#/components/responses/ODataCountResponse'
+        default:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.organizationCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.organizationCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
+    microsoft.graph.extension:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: extension
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.loginPageLayoutConfiguration:
+      title: loginPageLayoutConfiguration
+      type: object
+      properties:
+        isFooterShown:
+          type:
+          - boolean
+          - 'null'
+          description: Option to show the footer on the sign-in page.
+        isHeaderShown:
+          type:
+          - boolean
+          - 'null'
+          description: Option to show the header on the sign-in page.
+        layoutTemplateType:
+          $ref: '#/components/schemas/microsoft.graph.layoutTemplateType'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.layoutTemplateType:
+      title: layoutTemplateType
+      enum:
+      - default
+      - verticalSplit
+      - unknownFutureValue
+      type: string
+    microsoft.graph.loginPageTextVisibilitySettings:
+      title: loginPageTextVisibilitySettings
+      type: object
+      properties:
+        hideAccountResetCredentials:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the self-service password reset (SSPR) hyperlinks such as 'Can't access your account?', 'Forgot my password' and 'Reset it now' on the sign-in form.
+        hideCannotAccessYourAccount:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the self-service password reset (SSPR) 'Can't access your account?' hyperlink on the sign-in form.
+        hideForgotMyPassword:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the self-service password reset (SSPR) 'Forgot my password' hyperlink on the sign-in form.
+        hidePrivacyAndCookies:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the 'Privacy & Cookies' hyperlink in the footer.
+        hideResetItNow:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the self-service password reset (SSPR) 'reset it now' hyperlink on the sign-in form.
+        hideTermsOfUse:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the 'Terms of Use' hyperlink in the footer.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.partnerTenantType:
+      title: partnerTenantType
+      enum:
+      - microsoftSupport
+      - syndicatePartner
+      - breadthPartner
+      - breadthPartnerDelegatedAdmin
+      - resellerPartnerDelegatedAdmin
+      - valueAddedResellerPartnerDelegatedAdmin
+      - unknownFutureValue
+      type: string
+    microsoft.graph.mdmAuthority:
+      title: mdmAuthority
+      enum:
+      - unknown
+      - intune
+      - sccm
+      - office365
+      type: string
+      description: Mobile device management authority.
+      x-ms-enum:
+        name: mdmAuthority
+        modelAsString: false
+        values:
+        - value: unknown
+          description: Unknown
+          name: unknown
+        - value: intune
+          description: Intune
+          name: intune
+        - value: sccm
+          description: SCCM
+          name: sccm
+        - value: office365
+          description: Office365
+          name: office365
+    microsoft.graph.contentCustomization:
+      title: contentCustomization
+      type: object
+      properties:
+        attributeCollection:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.keyValue'
+          description: Represents the content options of External Identities to be customized throughout the authentication flow for a tenant.
+        attributeCollectionRelativeUrl:
+          type:
+          - string
+          - 'null'
+          description: A relative URL for the content options of External Identities to be customized throughout the authentication flow for a tenant.
+        registrationCampaign:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.keyValue'
+          description: Represents content options to customize during MFA proofup interruptions.
+        registrationCampaignRelativeUrl:
+          type:
+          - string
+          - 'null'
+          description: The relative URL of the content options to customize during MFA proofup interruptions.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.keyValue:
+      title: keyValue
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Key for the key-value pair.
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value for the key-value pair.
+      additionalProperties:
+        type: object
+    microsoft.graph.privacyProfile:
+      title: privacyProfile
+      type: object
+      properties:
+        contactEmail:
+          type:
+          - string
+          - 'null'
+          description: A valid smtp email address for the privacy statement contact. Not required.
+        statementUrl:
+          type:
+          - string
+          - 'null'
+          description: A valid URL format that begins with http:// or https://. Maximum length is 255 characters. The URL that directs to the company's privacy statement. Not required.
+      additionalProperties:
+        type: object
+    microsoft.graph.certificateBasedAuthConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: certificateBasedAuthConfiguration
+        type: object
+        properties:
+          certificateAuthorities:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.certificateAuthority'
+            description: Collection of certificate authorities which creates a trusted certificate chain.
+        additionalProperties:
+          type: object
+    microsoft.graph.provisionedPlan:
+      title: provisionedPlan
+      type: object
+      properties:
+        capabilityStatus:
+          type:
+          - string
+          - 'null'
+          description: Condition of the capability assignment. The possible values are Enabled, Warning, Suspended, Deleted, LockedOut. See a detailed description of each value.
+        provisioningStatus:
+          type:
+          - string
+          - 'null'
+          description: The possible values are:Success - Service is fully provisioned.Disabled - Service is disabled.Error - The service plan isn't provisioned and is in an error state.PendingInput - The service isn't provisioned and is awaiting service confirmation.PendingActivation - The service is provisioned but requires explicit activation by an administrator (for example, Intune_O365 service plan)PendingProvisioning - Microsoft has added a new service to the product SKU and it isn't activated in the tenant.
+        service:
+          type:
+          - string
+          - 'null'
+          description: The name of the service; for example, 'AccessControlS2S'.
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.verifiedDomain:
+      title: verifiedDomain
+      type: object
+      properties:
+        capabilities:
+          type:
+          - string
+          - 'null'
+          description: For example, Email, OfficeCommunicationsOnline.
+        isDefault:
+          type:
+          - boolean
+          - 'null'
+          description: true if this is the default domain associated with the tenant; otherwise, false.
+        isInitial:
+          type:
+          - boolean
+          - 'null'
+          description: true if this is the initial domain associated with the tenant; otherwise, false.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The domain name; for example, contoso.com.
+        type:
+          type:
+          - string
+          - 'null'
+          description: For example, Managed.
+      additionalProperties:
+        type: object
+    microsoft.graph.certificateAuthority:
+      title: certificateAuthority
+      type: object
+      properties:
+        certificate:
+          type: string
+          description: Required. The base64 encoded string representing the public certificate.
+          format: base64url
+        certificateRevocationListUrl:
+          type:
+          - string
+          - 'null'
+          description: The URL of the certificate revocation list.
+        deltaCertificateRevocationListUrl:
+          type:
+          - string
+          - 'null'
+          description: The URL contains the list of all revoked certificates since the last time a full certificate revocaton list was created.
+        isRootAuthority:
+          type: boolean
+          description: Required. true if the trusted certificate is a root authority, false if the trusted certificate is an intermediate authority.
+        issuer:
+          type: string
+          description: The issuer of the certificate, calculated from the certificate value. Read-only.
+        issuerSki:
+          type: string
+          description: The subject key identifier of the certificate, calculated from the certificate value. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.organizationCollectionResponse:
+      title: Collection of organization
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.organization'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.organizationalBranding:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.organizationalBrandingProperties'
+      - title: organizationalBranding
+        type: object
+        properties:
+          localizations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.organizationalBrandingLocalization'
+            description: Add different branding based on a locale.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.assignedPlan:
+      title: assignedPlan
+      type: object
+      properties:
+        assignedDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: The date and time at which the plan was assigned. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+          format: date-time
+        capabilityStatus:
+          type:
+          - string
+          - 'null'
+          description: Condition of the capability assignment. The possible values are Enabled, Warning, Suspended, Deleted, LockedOut. See a detailed description of each value.
+        service:
+          type:
+          - string
+          - 'null'
+          description: The name of the service; for example, exchange.
+        servicePlanId:
+          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+          type:
+          - string
+          - 'null'
+          description: A GUID that identifies the service plan. For a complete list of GUIDs and their equivalent friendly service names, see Product names and service plan identifiers for licensing.
+          format: uuid
+      additionalProperties:
+        type: object
+    microsoft.graph.organizationalBrandingProperties:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: organizationalBrandingProperties
+        type: object
+        properties:
+          backgroundColor:
+            type:
+            - string
+            - 'null'
+            description: 'Color that appears in place of the background image in low-bandwidth connections. We recommend that you use the primary color of your banner logo or your organization color. Specify this in hexadecimal format, for example, white is #FFFFFF.'
+          backgroundImage:
+            type:
+            - string
+            - 'null'
+            description: Image that appears as the background of the sign-in page. The allowed types are PNG or JPEG not smaller than 300 KB and not larger than 1920 × 1080 pixels. A smaller image reduces bandwidth requirements and make the page load faster.
+            format: base64url
+          backgroundImageRelativeUrl:
+            type:
+            - string
+            - 'null'
+            description: A relative URL for the backgroundImage property that is combined with a CDN base URL from the cdnList to provide the version served by a CDN. Read-only.
+          bannerLogo:
+            type:
+            - string
+            - 'null'
+            description: A banner version of your company logo that appears on the sign-in page. The allowed types are PNG or JPEG not larger than 36 × 245 pixels. We recommend using a transparent image with no padding around the logo.
+            format: base64url
+          bannerLogoRelativeUrl:
+            type:
+            - string
+            - 'null'
+            description: A relative URL for the bannerLogo property that is combined with a CDN base URL from the cdnList to provide the read-only version served by a CDN. Read-only.
+          cdnList:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: A list of base URLs for all available CDN providers that are serving the assets of the current resource. Several CDN providers are used at the same time for high availability of read requests. Read-only.
+          contentCustomization:
+            $ref: '#/components/schemas/microsoft.graph.contentCustomization'
+          customAccountResetCredentialsUrl:
+            type:
+            - string
+            - 'null'
+            description: A custom URL for resetting account credentials. This URL must be in ASCII format or non-ASCII characters must be URL encoded, and not exceed 128 characters.
+          customCannotAccessYourAccountText:
+            type:
+            - string
+            - 'null'
+            description: A string to replace the default 'Can't access your account?' self-service password reset (SSPR) hyperlink text on the sign-in page. This text must be in Unicode format and not exceed 256 characters.
+          customCannotAccessYourAccountUrl:
+            type:
+            - string
+            - 'null'
+            description: A custom URL to replace the default URL of the self-service password reset (SSPR) 'Can't access your account?' hyperlink on the sign-in page. This URL must be in ASCII format or non-ASCII characters must be URL encoded, and not exceed 128 characters. DO NOT USE. Use customAccountResetCredentialsUrl instead.
+          customCSS:
+            type:
+            - string
+            - 'null'
+            description: CSS styling that appears on the sign-in page. The allowed format is .css format only and not larger than 25 KB.
+            format: base64url
+          customCSSRelativeUrl:
+            type:
+            - string
+            - 'null'
+            description: A relative URL for the customCSS property that is combined with a CDN base URL from the cdnList to provide the version served by a CDN. Read-only.
+          customForgotMyPasswordText:
+            type:
+            - string
+            - 'null'
+            description: A string to replace the default 'Forgot my password' hyperlink text on the sign-in form. This text must be in Unicode format and not exceed 256 characters.
+          customPrivacyAndCookiesText:
+            type:
+            - string
+            - 'null'
+            description: A string to replace the default 'Privacy and Cookies' hyperlink text in the footer. This text must be in Unicode format and not exceed 256 characters.
+          customPrivacyAndCookiesUrl:
+            type:
+            - string
+            - 'null'
+            description: A custom URL to replace the default URL of the 'Privacy and Cookies' hyperlink in the footer. This URL must be in ASCII format or non-ASCII characters must be URL encoded, and not exceed 128 characters.
+          customResetItNowText:
+            type:
+            - string
+            - 'null'
+            description: 'A string to replace the default ''reset it now'' hyperlink text on the sign-in form. This text must be in Unicode format and not exceed 256 characters. DO NOT USE: Customization of the ''reset it now'' hyperlink text is currently not supported.'
+          customTermsOfUseText:
+            type:
+            - string
+            - 'null'
+            description: A string to replace the the default 'Terms of Use' hyperlink text in the footer. This text must be in Unicode format and not exceed 256 characters.
+          customTermsOfUseUrl:
+            type:
+            - string
+            - 'null'
+            description: A custom URL to replace the default URL of the 'Terms of Use' hyperlink in the footer. This URL must be in ASCII format or non-ASCII characters must be URL encoded, and not exceed 128characters.
+          favicon:
+            type:
+            - string
+            - 'null'
+            description: A custom icon (favicon) to replace a default Microsoft product favicon on a Microsoft Entra tenant.
+            format: base64url
+          faviconRelativeUrl:
+            type:
+            - string
+            - 'null'
+            description: A relative url for the favicon above that is combined with a CDN base URL from the cdnList to provide the version served by a CDN. Read-only.
+          headerBackgroundColor:
+            type:
+            - string
+            - 'null'
+            description: The RGB color to apply to customize the color of the header.
+          headerLogo:
+            type:
+            - string
+            - 'null'
+            description: A company logo that appears in the header of the sign-in page. The allowed types are PNG or JPEG not larger than 36 × 245 pixels. We recommend using a transparent image with no padding around the logo.
+            format: base64url
+          headerLogoRelativeUrl:
+            type:
+            - string
+            - 'null'
+            description: A relative URL for the headerLogo property that is combined with a CDN base URL from the cdnList to provide the read-only version served by a CDN. Read-only.
+          loginPageLayoutConfiguration:
+            $ref: '#/components/schemas/microsoft.graph.loginPageLayoutConfiguration'
+          loginPageTextVisibilitySettings:
+            $ref: '#/components/schemas/microsoft.graph.loginPageTextVisibilitySettings'
+          signInPageText:
+            type:
+            - string
+            - 'null'
+            description: Text that appears at the bottom of the sign-in box. Use this to communicate additional information, such as the phone number to your help desk or a legal statement. This text must be in Unicode format and not exceed 1024 characters.
+          squareLogo:
+            type:
+            - string
+            - 'null'
+            description: A square version of your company logo that appears in Windows 10 out-of-box experiences (OOBE) and when Windows Autopilot is enabled for deployment. Allowed types are PNG or JPEG not larger than 240 x 240 pixels and not more than 10 KB in size. We recommend using a transparent image with no padding around the logo.
+            format: base64url
+          squareLogoDark:
+            type:
+            - string
+            - 'null'
+            description: A square dark version of your company logo that appears in Windows 10 out-of-box experiences (OOBE) and when Windows Autopilot is enabled for deployment. Allowed types are PNG or JPEG not larger than 240 x 240 pixels and not more than 10 KB in size. We recommend using a transparent image with no padding around the logo.
+            format: base64url
+          squareLogoDarkRelativeUrl:
+            type:
+            - string
+            - 'null'
+            description: A relative URL for the squareLogoDark property that is combined with a CDN base URL from the cdnList to provide the version served by a CDN. Read-only.
+          squareLogoRelativeUrl:
+            type:
+            - string
+            - 'null'
+            description: A relative URL for the squareLogo property that is combined with a CDN base URL from the cdnList to provide the version served by a CDN. Read-only.
+          usernameHintText:
+            type:
+            - string
+            - 'null'
+            description: A string that shows as the hint in the username textbox on the sign-in screen. This text must be a Unicode, without links or code, and can't exceed 64 characters.
+        additionalProperties:
+          type: object
+    microsoft.graph.organization:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: organization
+        type: object
+        properties:
+          assignedPlans:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.assignedPlan'
+            description: The collection of service plans associated with the tenant. Not nullable.
+          businessPhones:
+            type: array
+            items:
+              type: string
+            description: Telephone number for the organization. Although this property is a string collection, only one number can be set.
+          city:
+            type:
+            - string
+            - 'null'
+            description: City name of the address for the organization.
+          country:
+            type:
+            - string
+            - 'null'
+            description: Country or region name of the address for the organization.
+          countryLetterCode:
+            type:
+            - string
+            - 'null'
+            description: Country or region abbreviation for the organization in ISO 3166-2 format.
+          createdDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Timestamp of when the organization was created. The value can't be modified and is automatically populated when the organization is created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
+            format: date-time
+          defaultUsageLocation:
+            type:
+            - string
+            - 'null'
+            description: Two-letter ISO 3166 country code indicating the default service usage location of an organization.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The display name for the tenant.
+          marketingNotificationEmails:
+            type: array
+            items:
+              type: string
+            description: Not nullable.
+          mobileDeviceManagementAuthority:
+            $ref: '#/components/schemas/microsoft.graph.mdmAuthority'
+          onPremisesLastSyncDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The time and date at which the tenant was last synced with the on-premises directory. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
+            format: date-time
+          onPremisesSyncEnabled:
+            type:
+            - boolean
+            - 'null'
+            description: true if this object is synced from an on-premises directory; false if this object was originally synced from an on-premises directory but is no longer synced. Nullable. null if this object isn't synced from on-premises active directory (default).
+          partnerTenantType:
+            $ref: '#/components/schemas/microsoft.graph.partnerTenantType'
+          postalCode:
+            type:
+            - string
+            - 'null'
+            description: Postal code of the address for the organization.
+          preferredLanguage:
+            type:
+            - string
+            - 'null'
+            description: The preferred language for the organization. Should follow ISO 639-1 Code; for example, en.
+          privacyProfile:
+            $ref: '#/components/schemas/microsoft.graph.privacyProfile'
+          provisionedPlans:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.provisionedPlan'
+            description: Not nullable.
+          securityComplianceNotificationMails:
+            type: array
+            items:
+              type: string
+            description: Not nullable.
+          securityComplianceNotificationPhones:
+            type: array
+            items:
+              type: string
+            description: Not nullable.
+          state:
+            type:
+            - string
+            - 'null'
+            description: State name of the address for the organization.
+          street:
+            type:
+            - string
+            - 'null'
+            description: Street name of the address for organization.
+          technicalNotificationMails:
+            type: array
+            items:
+              type: string
+            description: Not nullable.
+          tenantType:
+            type:
+            - string
+            - 'null'
+            description: 'Not nullable. Can be one of the following types:  AAD - An enterprise identity access management (IAM) service that serves business-to-employee and business-to-business (B2B) scenarios.  AAD B2C An identity access management (IAM) service that serves business-to-consumer (B2C) scenarios.   CIAM - A customer identity & access management (CIAM) solution that provides an integrated platform to serve consumers, partners, and citizen scenarios.'
+          verifiedDomains:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.verifiedDomain'
+            description: The collection of domains associated with this tenant. Not nullable.
+          branding:
+            $ref: '#/components/schemas/microsoft.graph.organizationalBranding'
+          certificateBasedAuthConfiguration:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.certificateBasedAuthConfiguration'
+            description: Navigation property to manage certificate-based authentication configuration. Only a single instance of certificateBasedAuthConfiguration can be created in the collection.
+            x-ms-navigationProperty: true
+          extensions:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.extension'
+            description: The collection of open extensions defined for the organization. Read-only. Nullable.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.organizationalBrandingLocalization:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.organizationalBrandingProperties'
+      - title: organizationalBrandingLocalization
+        type: object
+        additionalProperties:
+          type: object
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}

@@ -1,0 +1,231 @@
+openapi: 3.2.0
+info:
+  title: Identity.SignIns Policies.admin Consent Request Policy API
+  version: v1.0
+servers:
+- url: https://graph.microsoft.com/v1.0/
+  description: Core
+security:
+- azureaadv2: []
+tags:
+- name: policies.adminConsentRequestPolicy
+paths:
+  /policies/adminConsentRequestPolicy:
+    get:
+      tags:
+      - policies.adminConsentRequestPolicy
+      summary: Get adminConsentRequestPolicy
+      description: Read the properties and relationships of an adminConsentRequestPolicy object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/adminconsentrequestpolicy-get?view=graph-rest-1.0
+      operationId: policy_GetAdminConsentRequestPolicy
+      parameters:
+      - name: $select
+        in: query
+        description: Select properties to be returned
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: $expand
+        in: query
+        description: Expand related entities
+        style: form
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        2XX:
+          description: Retrieved navigation property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.adminConsentRequestPolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    patch:
+      tags:
+      - policies.adminConsentRequestPolicy
+      summary: Update adminConsentRequestPolicy
+      description: Update the properties of an adminConsentRequestPolicy object.
+      externalDocs:
+        description: Find more info here
+        url: https://learn.microsoft.com/graph/api/adminconsentrequestpolicy-update?view=graph-rest-1.0
+      operationId: policy_UpdateAdminConsentRequestPolicy
+      requestBody:
+        description: New navigation property values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/microsoft.graph.adminConsentRequestPolicy'
+        required: true
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/microsoft.graph.adminConsentRequestPolicy'
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+    delete:
+      tags:
+      - policies.adminConsentRequestPolicy
+      summary: Delete navigation property adminConsentRequestPolicy for policies
+      operationId: policy_DeleteAdminConsentRequestPolicy
+      parameters:
+      - name: If-Match
+        in: header
+        description: ETag
+        style: simple
+        schema:
+          type: string
+      responses:
+        2XX:
+          description: Success
+        default:
+          $ref: '#/components/responses/error'
+      x-ms-docs-operation-type: operation
+components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+  schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.adminConsentRequestPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: adminConsentRequestPolicy
+        type: object
+        properties:
+          isEnabled:
+            type: boolean
+            description: Specifies whether the admin consent request feature is enabled or disabled. Required.
+          notifyReviewers:
+            type: boolean
+            description: Specifies whether reviewers will receive notifications. Required.
+          remindersEnabled:
+            type: boolean
+            description: Specifies whether reviewers will receive reminder emails. Required.
+          requestDurationInDays:
+            maximum: 2147483647
+            minimum: -2147483648
+            type: number
+            description: Specifies the duration the request is active before it automatically expires if no decision is applied.
+            format: int32
+          reviewers:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.accessReviewReviewerScope'
+            description: The list of reviewers for the admin consent. Required.
+          version:
+            maximum: 2147483647
+            minimum: -2147483648
+            type: number
+            description: Specifies the version of this policy. When the policy is updated, this version is updated. Read-only.
+            format: int32
+        additionalProperties:
+          type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.accessReviewReviewerScope:
+      title: accessReviewReviewerScope
+      type: object
+      properties:
+        query:
+          type:
+          - string
+          - 'null'
+          description: The query specifying who will be the reviewer.
+        queryRoot:
+          type:
+          - string
+          - 'null'
+          description: 'In the scenario where reviewers need to be specified dynamically, this property is used to indicate the relative source of the query. This property is only required if a relative query, for example, ./manager, is specified. Possible value: decisions.'
+        queryType:
+          type:
+          - string
+          - 'null'
+          description: The type of query. Examples include MicrosoftGraph and ARM.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+  securitySchemes:
+    azureaadv2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes: {}
