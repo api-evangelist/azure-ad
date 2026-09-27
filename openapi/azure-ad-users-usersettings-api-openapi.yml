@@ -2045,135 +2045,207 @@ paths:
           $ref: '#/components/responses/error'
 components:
   responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.workPlanOccurrenceCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.workPlanOccurrenceCollectionResponse'
     microsoft.graph.windowsSettingCollectionResponse:
       description: Retrieved collection
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/microsoft.graph.windowsSettingCollectionResponse'
-    microsoft.graph.serviceStorageQuotaBreakdownCollectionResponse:
+    microsoft.graph.workPlanOccurrenceCollectionResponse:
       description: Retrieved collection
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/microsoft.graph.serviceStorageQuotaBreakdownCollectionResponse'
-    microsoft.graph.workPlanRecurrenceCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.workPlanRecurrenceCollectionResponse'
-    microsoft.graph.windowsSettingInstanceCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.windowsSettingInstanceCollectionResponse'
+            $ref: '#/components/schemas/microsoft.graph.workPlanOccurrenceCollectionResponse'
     ODataCountResponse:
       description: The count of the resource
       content:
         text/plain:
           schema:
             $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.workPlanRecurrenceCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.workPlanRecurrenceCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.serviceStorageQuotaBreakdownCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.serviceStorageQuotaBreakdownCollectionResponse'
+    microsoft.graph.windowsSettingInstanceCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.windowsSettingInstanceCollectionResponse'
   schemas:
-    microsoft.graph.identity:
-      title: identity
+    microsoft.graph.timeRange:
+      title: timeRange
       type: object
       properties:
-        displayName:
+        endTime:
+          pattern: ^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?$
           type:
           - string
           - 'null'
-          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
-        id:
+          description: End time for the time range.
+          format: time
+        startTime:
+          pattern: ^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?$
           type:
           - string
           - 'null'
-          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
+          description: Start time for the time range.
+          format: time
       additionalProperties:
         type: object
-    microsoft.graph.identitySet:
-      title: identitySet
-      type: object
-      properties:
-        application:
-          $ref: '#/components/schemas/microsoft.graph.identity'
-        device:
-          $ref: '#/components/schemas/microsoft.graph.identity'
-        user:
-          $ref: '#/components/schemas/microsoft.graph.identity'
-      additionalProperties:
+    microsoft.graph.serviceStorageQuotaBreakdown:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.storageQuotaBreakdown'
+      - title: serviceStorageQuotaBreakdown
         type: object
-    microsoft.graph.windowsSettingType:
-      title: windowsSettingType
-      enum:
-      - roaming
-      - backup
-      - unknownFutureValue
-      type: string
-    microsoft.graph.ODataErrors.MainError:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
-          type:
-          - string
-          - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
+        additionalProperties:
+          type: object
+    microsoft.graph.changeTrackedEntity:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: changeTrackedEntity
         type: object
-    microsoft.graph.dayOfWeek:
-      title: dayOfWeek
-      enum:
-      - sunday
-      - monday
-      - tuesday
-      - wednesday
-      - thursday
-      - friday
-      - saturday
-      type: string
-    microsoft.graph.workPlanOccurrenceCollectionResponse:
-      title: Collection of workPlanOccurrence
+        properties:
+          createdBy:
+            $ref: '#/components/schemas/microsoft.graph.identitySet'
+          createdDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+            format: date-time
+            readOnly: true
+          lastModifiedBy:
+            $ref: '#/components/schemas/microsoft.graph.identitySet'
+          lastModifiedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+            format: date-time
+            readOnly: true
+        additionalProperties:
+          type: object
+    microsoft.graph.windowsSetting:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: windowsSetting
+        type: object
+        properties:
+          payloadType:
+            type:
+            - string
+            - 'null'
+            description: The type of setting payloads contained in the instances navigation property.
+          settingType:
+            $ref: '#/components/schemas/microsoft.graph.windowsSettingType'
+          windowsDeviceId:
+            type:
+            - string
+            - 'null'
+            description: A unique identifier for the device the setting might belong to if it is of the settingType backup.
+          instances:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.windowsSettingInstance'
+            description: A collection of setting values for a given windowsSetting.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.serviceStorageQuotaBreakdownCollectionResponse:
+      title: Collection of serviceStorageQuotaBreakdown
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/microsoft.graph.workPlanOccurrence'
+            $ref: '#/components/schemas/microsoft.graph.serviceStorageQuotaBreakdown'
         '@odata.nextLink':
           type:
           - string
           - 'null'
       additionalProperties:
         type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
+    microsoft.graph.dateTimeTimeZone:
+      title: dateTimeTimeZone
+      type: object
+      properties:
+        dateTime:
+          type: string
+          description: A single point of time in a combined date and time representation ({date}T{time}; for example, 2017-08-29T04:00:00.0000000).
+        timeZone:
+          type:
+          - string
+          - 'null'
+          description: Represents a time zone, for example, 'Pacific Standard Time'. See below for more possible values.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.workPlanRecurrence:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: workPlanRecurrence
+        type: object
+        properties:
+          end:
+            $ref: '#/components/schemas/microsoft.graph.dateTimeTimeZone'
+          placeId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of a place from the Microsoft Graph Places Directory API. Only applicable when workLocationType is set to office.
+          recurrence:
+            $ref: '#/components/schemas/microsoft.graph.patternedRecurrence'
+          start:
+            $ref: '#/components/schemas/microsoft.graph.dateTimeTimeZone'
+          workLocationType:
+            $ref: '#/components/schemas/microsoft.graph.workLocationType'
+        additionalProperties:
+          type: object
+    microsoft.graph.maxWorkLocationDetails:
+      title: maxWorkLocationDetails
+      enum:
+      - unknown
+      - none
+      - approximate
+      - specific
+      - unknownFutureValue
+      type: string
+    microsoft.graph.userStorage:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: userStorage
+        type: object
+        properties:
+          quota:
+            $ref: '#/components/schemas/microsoft.graph.unifiedStorageQuota'
+        additionalProperties:
+          type: object
     microsoft.graph.recurrencePattern:
       title: recurrencePattern
       type: object
@@ -2209,51 +2281,27 @@ components:
           $ref: '#/components/schemas/microsoft.graph.recurrencePatternType'
       additionalProperties:
         type: object
-    microsoft.graph.recurrenceRangeType:
-      title: recurrenceRangeType
+    microsoft.graph.workLocationType:
+      title: workLocationType
       enum:
-      - endDate
-      - noEnd
-      - numbered
+      - unspecified
+      - office
+      - remote
+      - timeOff
+      - unknownFutureValue
       type: string
-    microsoft.graph.recurrenceRange:
-      title: recurrenceRange
+    microsoft.graph.identitySet:
+      title: identitySet
       type: object
       properties:
-        endDate:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
-          type:
-          - string
-          - 'null'
-          description: The date to stop applying the recurrence pattern. Depending on the recurrence pattern of the event, the last occurrence of the meeting may not be this date. Required if type is endDate.
-          format: date
-        numberOfOccurrences:
-          maximum: 2147483647
-          minimum: -2147483648
-          type: number
-          description: The number of times to repeat the event. Required and must be positive if type is numbered.
-          format: int32
-        recurrenceTimeZone:
-          type:
-          - string
-          - 'null'
-          description: Time zone for the startDate and endDate properties. Optional. If not specified, the time zone of the event is used.
-        startDate:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
-          type:
-          - string
-          - 'null'
-          description: The date to start applying the recurrence pattern. The first occurrence of the meeting may be this date or later, depending on the recurrence pattern of the event. Must be the same value as the start property of the recurring event. Required.
-          format: date
-        type:
-          $ref: '#/components/schemas/microsoft.graph.recurrenceRangeType'
+        application:
+          $ref: '#/components/schemas/microsoft.graph.identity'
+        device:
+          $ref: '#/components/schemas/microsoft.graph.identity'
+        user:
+          $ref: '#/components/schemas/microsoft.graph.identity'
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
     microsoft.graph.shiftAvailability:
       title: shiftAvailability
       type: object
@@ -2272,84 +2320,41 @@ components:
           description: Specifies the time zone for the indicated time.
       additionalProperties:
         type: object
-    microsoft.graph.userStorage:
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.userSettings:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: userStorage
+      - title: userSettings
         type: object
         properties:
-          quota:
-            $ref: '#/components/schemas/microsoft.graph.unifiedStorageQuota'
+          contributionToContentDiscoveryAsOrganizationDisabled:
+            type: boolean
+            description: Reflects the organization level setting controlling delegate access to the trending API. When set to true, the organization doesn't have access to Office Delve. The relevancy of the content displayed in Microsoft 365, for example in Suggested sites in SharePoint Home and the Discover view in OneDrive for work or school is affected for the whole organization. This setting is read-only and can only be changed by administrators in the SharePoint admin center.
+          contributionToContentDiscoveryDisabled:
+            type: boolean
+            description: When set to true, the delegate access to the user's trending API is disabled. When set to true, documents in the user's Office Delve are disabled. When set to true, the relevancy of the content displayed in Microsoft 365, for example in Suggested sites in SharePoint Home and the Discover view in OneDrive for work or school is affected. Users can control this setting in Office Delve.
+          exchange:
+            $ref: '#/components/schemas/microsoft.graph.exchangeSettings'
+          itemInsights:
+            $ref: '#/components/schemas/microsoft.graph.userInsightsSettings'
+          shiftPreferences:
+            $ref: '#/components/schemas/microsoft.graph.shiftPreferences'
+          storage:
+            $ref: '#/components/schemas/microsoft.graph.userStorage'
+          windows:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.windowsSetting'
+            description: The Windows settings of the user stored in the cloud.
+            x-ms-navigationProperty: true
+          workHoursAndLocations:
+            $ref: '#/components/schemas/microsoft.graph.workHoursAndLocationsSetting'
         additionalProperties:
           type: object
-    microsoft.graph.maxWorkLocationDetails:
-      title: maxWorkLocationDetails
-      enum:
-      - unknown
-      - none
-      - approximate
-      - specific
-      - unknownFutureValue
-      type: string
-    microsoft.graph.patternedRecurrence:
-      title: patternedRecurrence
-      type: object
-      properties:
-        pattern:
-          $ref: '#/components/schemas/microsoft.graph.recurrencePattern'
-        range:
-          $ref: '#/components/schemas/microsoft.graph.recurrenceRange'
-      additionalProperties:
-        type: object
-    microsoft.graph.windowsSettingInstanceCollectionResponse:
-      title: Collection of windowsSettingInstance
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.windowsSettingInstance'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.workPlanOccurrence:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: workPlanOccurrence
-        type: object
-        properties:
-          end:
-            $ref: '#/components/schemas/microsoft.graph.dateTimeTimeZone'
-          placeId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of a place from the Microsoft Graph Places Directory API. Only applicable when workLocationType is set to office.
-          recurrenceId:
-            type:
-            - string
-            - 'null'
-            description: The identifier of the parent recurrence pattern that generated this occurrence. The value is null for time-off occurrences because they don't have a parent recurrence.
-          start:
-            $ref: '#/components/schemas/microsoft.graph.dateTimeTimeZone'
-          timeOffDetails:
-            $ref: '#/components/schemas/microsoft.graph.timeOffDetails'
-          workLocationType:
-            $ref: '#/components/schemas/microsoft.graph.workLocationType'
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
     microsoft.graph.storageQuotaBreakdown:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -2380,102 +2385,13 @@ components:
       - fourth
       - last
       type: string
-    microsoft.graph.workPlanRecurrenceCollectionResponse:
-      title: Collection of workPlanRecurrence
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.workPlanRecurrence'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.workHoursAndLocationsSetting:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: workHoursAndLocationsSetting
-        type: object
-        properties:
-          maxSharedWorkLocationDetails:
-            $ref: '#/components/schemas/microsoft.graph.maxWorkLocationDetails'
-          occurrences:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.workPlanOccurrence'
-            description: Collection of work plan occurrences.
-            x-ms-navigationProperty: true
-          recurrences:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.workPlanRecurrence'
-            description: Collection of recurring work plans defined by the user.
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.workPlanRecurrence:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: workPlanRecurrence
-        type: object
-        properties:
-          end:
-            $ref: '#/components/schemas/microsoft.graph.dateTimeTimeZone'
-          placeId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of a place from the Microsoft Graph Places Directory API. Only applicable when workLocationType is set to office.
-          recurrence:
-            $ref: '#/components/schemas/microsoft.graph.patternedRecurrence'
-          start:
-            $ref: '#/components/schemas/microsoft.graph.dateTimeTimeZone'
-          workLocationType:
-            $ref: '#/components/schemas/microsoft.graph.workLocationType'
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.dateTimeTimeZone:
-      title: dateTimeTimeZone
-      type: object
-      properties:
-        dateTime:
-          type: string
-          description: A single point of time in a combined date and time representation ({date}T{time}; for example, 2017-08-29T04:00:00.0000000).
-        timeZone:
-          type:
-          - string
-          - 'null'
-          description: Represents a time zone, for example, 'Pacific Standard Time'. See below for more possible values.
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
+    microsoft.graph.workLocationUpdateScope:
+      title: workLocationUpdateScope
+      enum:
+      - currentSegment
+      - currentDay
+      - unknownFutureValue
+      type: string
     microsoft.graph.unifiedStorageQuota:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -2517,202 +2433,6 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
-    microsoft.graph.serviceStorageQuotaBreakdownCollectionResponse:
-      title: Collection of serviceStorageQuotaBreakdown
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.serviceStorageQuotaBreakdown'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.userInsightsSettings:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: userInsightsSettings
-        type: object
-        properties:
-          isEnabled:
-            type: boolean
-            description: True if the user's itemInsights and meeting hours insights are enabled; false if the user's itemInsights and meeting hours insights are disabled. The default value is true. Optional.
-        additionalProperties:
-          type: object
-    microsoft.graph.workLocationType:
-      title: workLocationType
-      enum:
-      - unspecified
-      - office
-      - remote
-      - timeOff
-      - unknownFutureValue
-      type: string
-    microsoft.graph.timeRange:
-      title: timeRange
-      type: object
-      properties:
-        endTime:
-          pattern: ^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?$
-          type:
-          - string
-          - 'null'
-          description: End time for the time range.
-          format: time
-        startTime:
-          pattern: ^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?$
-          type:
-          - string
-          - 'null'
-          description: Start time for the time range.
-          format: time
-      additionalProperties:
-        type: object
-    microsoft.graph.workLocationUpdateScope:
-      title: workLocationUpdateScope
-      enum:
-      - currentSegment
-      - currentDay
-      - unknownFutureValue
-      type: string
-    microsoft.graph.windowsSetting:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: windowsSetting
-        type: object
-        properties:
-          payloadType:
-            type:
-            - string
-            - 'null'
-            description: The type of setting payloads contained in the instances navigation property.
-          settingType:
-            $ref: '#/components/schemas/microsoft.graph.windowsSettingType'
-          windowsDeviceId:
-            type:
-            - string
-            - 'null'
-            description: A unique identifier for the device the setting might belong to if it is of the settingType backup.
-          instances:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.windowsSettingInstance'
-            description: A collection of setting values for a given windowsSetting.
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.userSettings:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: userSettings
-        type: object
-        properties:
-          contributionToContentDiscoveryAsOrganizationDisabled:
-            type: boolean
-            description: Reflects the organization level setting controlling delegate access to the trending API. When set to true, the organization doesn't have access to Office Delve. The relevancy of the content displayed in Microsoft 365, for example in Suggested sites in SharePoint Home and the Discover view in OneDrive for work or school is affected for the whole organization. This setting is read-only and can only be changed by administrators in the SharePoint admin center.
-          contributionToContentDiscoveryDisabled:
-            type: boolean
-            description: When set to true, the delegate access to the user's trending API is disabled. When set to true, documents in the user's Office Delve are disabled. When set to true, the relevancy of the content displayed in Microsoft 365, for example in Suggested sites in SharePoint Home and the Discover view in OneDrive for work or school is affected. Users can control this setting in Office Delve.
-          exchange:
-            $ref: '#/components/schemas/microsoft.graph.exchangeSettings'
-          itemInsights:
-            $ref: '#/components/schemas/microsoft.graph.userInsightsSettings'
-          shiftPreferences:
-            $ref: '#/components/schemas/microsoft.graph.shiftPreferences'
-          storage:
-            $ref: '#/components/schemas/microsoft.graph.userStorage'
-          windows:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.windowsSetting'
-            description: The Windows settings of the user stored in the cloud.
-            x-ms-navigationProperty: true
-          workHoursAndLocations:
-            $ref: '#/components/schemas/microsoft.graph.workHoursAndLocationsSetting'
-        additionalProperties:
-          type: object
-    microsoft.graph.recurrencePatternType:
-      title: recurrencePatternType
-      enum:
-      - daily
-      - weekly
-      - absoluteMonthly
-      - relativeMonthly
-      - absoluteYearly
-      - relativeYearly
-      type: string
-    microsoft.graph.windowsSettingCollectionResponse:
-      title: Collection of windowsSetting
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.windowsSetting'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.shiftPreferences:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.changeTrackedEntity'
-      - title: shiftPreferences
-        type: object
-        properties:
-          availability:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.shiftAvailability'
-            description: Availability of the user to be scheduled for work and its recurrence pattern.
-        additionalProperties:
-          type: object
-    microsoft.graph.timeOffDetails:
-      title: timeOffDetails
-      type: object
-      properties:
-        isAllDay:
-          type: boolean
-          description: Indicates whether the time-off entry spans the entire day.
-        subject:
-          type:
-          - string
-          - 'null'
-          description: The subject or reason for the time-off entry.
-      additionalProperties:
-        type: object
-    microsoft.graph.changeTrackedEntity:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: changeTrackedEntity
-        type: object
-        properties:
-          createdBy:
-            $ref: '#/components/schemas/microsoft.graph.identitySet'
-          createdDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
-            format: date-time
-            readOnly: true
-          lastModifiedBy:
-            $ref: '#/components/schemas/microsoft.graph.identitySet'
-          lastModifiedDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
-            format: date-time
-            readOnly: true
-        additionalProperties:
-          type: object
     microsoft.graph.exchangeSettings:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -2724,13 +2444,6 @@ components:
             - string
             - 'null'
             description: The unique identifier for the user's primary mailbox.
-        additionalProperties:
-          type: object
-    microsoft.graph.serviceStorageQuotaBreakdown:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.storageQuotaBreakdown'
-      - title: serviceStorageQuotaBreakdown
-        type: object
         additionalProperties:
           type: object
     microsoft.graph.windowsSettingInstance:
@@ -2761,7 +2474,302 @@ components:
             description: Base64-encoded JSON setting value.
         additionalProperties:
           type: object
+    microsoft.graph.userInsightsSettings:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: userInsightsSettings
+        type: object
+        properties:
+          isEnabled:
+            type: boolean
+            description: True if the user's itemInsights and meeting hours insights are enabled; false if the user's itemInsights and meeting hours insights are disabled. The default value is true. Optional.
+        additionalProperties:
+          type: object
+    microsoft.graph.shiftPreferences:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.changeTrackedEntity'
+      - title: shiftPreferences
+        type: object
+        properties:
+          availability:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.shiftAvailability'
+            description: Availability of the user to be scheduled for work and its recurrence pattern.
+        additionalProperties:
+          type: object
+    microsoft.graph.identity:
+      title: identity
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
+      additionalProperties:
+        type: object
+    microsoft.graph.workPlanRecurrenceCollectionResponse:
+      title: Collection of workPlanRecurrence
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.workPlanRecurrence'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.workPlanOccurrence:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: workPlanOccurrence
+        type: object
+        properties:
+          end:
+            $ref: '#/components/schemas/microsoft.graph.dateTimeTimeZone'
+          placeId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of a place from the Microsoft Graph Places Directory API. Only applicable when workLocationType is set to office.
+          recurrenceId:
+            type:
+            - string
+            - 'null'
+            description: The identifier of the parent recurrence pattern that generated this occurrence. The value is null for time-off occurrences because they don't have a parent recurrence.
+          start:
+            $ref: '#/components/schemas/microsoft.graph.dateTimeTimeZone'
+          timeOffDetails:
+            $ref: '#/components/schemas/microsoft.graph.timeOffDetails'
+          workLocationType:
+            $ref: '#/components/schemas/microsoft.graph.workLocationType'
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.recurrenceRange:
+      title: recurrenceRange
+      type: object
+      properties:
+        endDate:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
+          type:
+          - string
+          - 'null'
+          description: The date to stop applying the recurrence pattern. Depending on the recurrence pattern of the event, the last occurrence of the meeting may not be this date. Required if type is endDate.
+          format: date
+        numberOfOccurrences:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: The number of times to repeat the event. Required and must be positive if type is numbered.
+          format: int32
+        recurrenceTimeZone:
+          type:
+          - string
+          - 'null'
+          description: Time zone for the startDate and endDate properties. Optional. If not specified, the time zone of the event is used.
+        startDate:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
+          type:
+          - string
+          - 'null'
+          description: The date to start applying the recurrence pattern. The first occurrence of the meeting may be this date or later, depending on the recurrence pattern of the event. Must be the same value as the start property of the recurring event. Required.
+          format: date
+        type:
+          $ref: '#/components/schemas/microsoft.graph.recurrenceRangeType'
+      additionalProperties:
+        type: object
+    microsoft.graph.patternedRecurrence:
+      title: patternedRecurrence
+      type: object
+      properties:
+        pattern:
+          $ref: '#/components/schemas/microsoft.graph.recurrencePattern'
+        range:
+          $ref: '#/components/schemas/microsoft.graph.recurrenceRange'
+      additionalProperties:
+        type: object
+    microsoft.graph.windowsSettingType:
+      title: windowsSettingType
+      enum:
+      - roaming
+      - backup
+      - unknownFutureValue
+      type: string
+    microsoft.graph.workHoursAndLocationsSetting:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: workHoursAndLocationsSetting
+        type: object
+        properties:
+          maxSharedWorkLocationDetails:
+            $ref: '#/components/schemas/microsoft.graph.maxWorkLocationDetails'
+          occurrences:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.workPlanOccurrence'
+            description: Collection of work plan occurrences.
+            x-ms-navigationProperty: true
+          recurrences:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.workPlanRecurrence'
+            description: Collection of recurring work plans defined by the user.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.windowsSettingInstanceCollectionResponse:
+      title: Collection of windowsSettingInstance
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.windowsSettingInstance'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.timeOffDetails:
+      title: timeOffDetails
+      type: object
+      properties:
+        isAllDay:
+          type: boolean
+          description: Indicates whether the time-off entry spans the entire day.
+        subject:
+          type:
+          - string
+          - 'null'
+          description: The subject or reason for the time-off entry.
+      additionalProperties:
+        type: object
+    microsoft.graph.dayOfWeek:
+      title: dayOfWeek
+      enum:
+      - sunday
+      - monday
+      - tuesday
+      - wednesday
+      - thursday
+      - friday
+      - saturday
+      type: string
+    microsoft.graph.workPlanOccurrenceCollectionResponse:
+      title: Collection of workPlanOccurrence
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.workPlanOccurrence'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.recurrenceRangeType:
+      title: recurrenceRangeType
+      enum:
+      - endDate
+      - noEnd
+      - numbered
+      type: string
+    microsoft.graph.recurrencePatternType:
+      title: recurrencePatternType
+      enum:
+      - daily
+      - weekly
+      - absoluteMonthly
+      - relativeMonthly
+      - absoluteYearly
+      - relativeYearly
+      type: string
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.windowsSettingCollectionResponse:
+      title: Collection of windowsSetting
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.windowsSetting'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
   parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
     filter:
       name: $filter
       in: query
@@ -2778,14 +2786,6 @@ components:
       explode: false
       schema:
         type: string
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
     skip:
       name: $skip
       in: query

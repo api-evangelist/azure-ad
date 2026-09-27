@@ -96,14 +96,57 @@ paths:
           $ref: '#/components/responses/error'
       x-ms-docs-operation-type: operation
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   schemas:
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.authenticationFlowsPolicy:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: authenticationFlowsPolicy
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: Inherited property. A description of the policy. Optional. Read-only.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Inherited property. The human-readable name of the policy. Optional. Read-only.
+          selfServiceSignUp:
+            $ref: '#/components/schemas/microsoft.graph.selfServiceSignUpAuthenticationFlowConfiguration'
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.selfServiceSignUpAuthenticationFlowConfiguration:
+      title: selfServiceSignUpAuthenticationFlowConfiguration
+      type: object
+      properties:
+        isEnabled:
+          type: boolean
+          description: Indicates whether self-service sign-up flow is enabled or disabled. The default value is false. This property isn't a key. Required.
+      additionalProperties:
+        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -136,35 +179,6 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
-    microsoft.graph.authenticationFlowsPolicy:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: authenticationFlowsPolicy
-        type: object
-        properties:
-          description:
-            type:
-            - string
-            - 'null'
-            description: Inherited property. A description of the policy. Optional. Read-only.
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: Inherited property. The human-readable name of the policy. Optional. Read-only.
-          selfServiceSignUp:
-            $ref: '#/components/schemas/microsoft.graph.selfServiceSignUpAuthenticationFlowConfiguration'
-        additionalProperties:
-          type: object
-    microsoft.graph.selfServiceSignUpAuthenticationFlowConfiguration:
-      title: selfServiceSignUpAuthenticationFlowConfiguration
-      type: object
-      properties:
-        isEnabled:
-          type: boolean
-          description: Indicates whether self-service sign-up flow is enabled or disabled. The default value is false. This property isn't a key. Required.
-      additionalProperties:
-        type: object
     microsoft.graph.entity:
       title: entity
       type: object
@@ -174,27 +188,13 @@ components:
           description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

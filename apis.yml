@@ -57,29 +57,15 @@ apis:
   baseURL: https://login.microsoftonline.com
   tags:
   - Authentication
+  - Consumer
+  - Consumer Identity
+  tags_raw:
+  - Authentication
   - B2C
   - Consumer Identity
   properties:
   - type: Documentation
     url: https://learn.microsoft.com/en-us/azure/active-directory-b2c/overview
-- aid: azure-ad:azure-ad-me-api
-  name: Azure Active Directory Me API
-  description: Operations on the signed-in user
-  humanURL: https://learn.microsoft.com/en-us/graph/overview
-  baseURL: https://graph.microsoft.com/v1.0
-  tags:
-  - Me
-  properties:
-  - type: Documentation
-    url: https://learn.microsoft.com/en-us/graph/api/resources/user
-  - type: APIReference
-    url: https://learn.microsoft.com/en-us/graph/api/user-get
-  - type: Authentication
-    url: https://learn.microsoft.com/en-us/graph/auth/
-  - type: SDKs
-    url: https://learn.microsoft.com/en-us/graph/sdks/sdks-overview
-  - type: ChangeLog
-    url: https://developer.microsoft.com/en-us/graph/changelog
 - aid: azure-ad:azure-ad-admin-peopleadminsettings-api
   name: Microsoft Entra ID (formerly Azure AD) Admin.people Admin Settings API
   description: The admin.peopleAdminSettings API from Microsoft Entra ID (formerly Azure AD) — 13 operation(s)
@@ -2856,10 +2842,10 @@ apis:
   - type: Documentation
     url: https://learn.microsoft.com/en-us/graph/change-notifications-overview
 - aid: azure-ad:azure-ad-me-api
-  name: Microsoft Entra ID (formerly Azure AD) Me API
+  name: Azure Active Directory Me API
   description: Operations on the signed-in user
-  humanURL: https://learn.microsoft.com/en-us/azure/active-directory-b2c/
-  baseURL: https://login.microsoftonline.com
+  humanURL: https://learn.microsoft.com/en-us/graph/overview
+  baseURL: https://graph.microsoft.com/v1.0
   tags:
   - Me
   properties:
@@ -2877,6 +2863,10 @@ apis:
     url: asyncapi/azure-ad-change-notifications-webhooks.yml
   - type: Documentation
     url: https://learn.microsoft.com/en-us/graph/change-notifications-overview
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/graph/api/resources/user
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/graph/api/user-get
 - aid: azure-ad:azure-ad-oauth2permissiongrants-oauth2permissiongrant-api
   name: Microsoft Entra ID (formerly Azure AD) Oauth2 Permission Grants.o Auth2 Permission Grant API
   description: The oauth2PermissionGrants.oAuth2PermissionGrant API from Microsoft Entra ID (formerly

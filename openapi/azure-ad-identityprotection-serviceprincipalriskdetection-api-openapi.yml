@@ -208,38 +208,114 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.servicePrincipalRiskDetectionCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.servicePrincipalRiskDetectionCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
   schemas:
-    microsoft.graph.riskState:
-      title: riskState
+    microsoft.graph.geoCoordinates:
+      title: geoCoordinates
+      type: object
+      properties:
+        altitude:
+          type:
+          - number
+          - 'null'
+          description: Optional. The altitude (height), in feet,  above sea level for the item. Read-only.
+          format: double
+        latitude:
+          type:
+          - number
+          - 'null'
+          description: Optional. The latitude, in decimal, for the item. Read-only.
+          format: double
+        longitude:
+          type:
+          - number
+          - 'null'
+          description: Optional. The longitude, in decimal, for the item. Read-only.
+          format: double
+      additionalProperties:
+        type: object
+    microsoft.graph.activityType:
+      title: activityType
+      enum:
+      - signin
+      - user
+      - unknownFutureValue
+      - servicePrincipal
+      type: string
+    microsoft.graph.servicePrincipalRiskDetectionCollectionResponse:
+      title: Collection of servicePrincipalRiskDetection
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.servicePrincipalRiskDetection'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.riskDetail:
+      title: riskDetail
       enum:
       - none
-      - confirmedSafe
-      - remediated
-      - dismissed
-      - atRisk
-      - confirmedCompromised
+      - adminGeneratedTemporaryPassword
+      - userPerformedSecuredPasswordChange
+      - userPerformedSecuredPasswordReset
+      - adminConfirmedSigninSafe
+      - aiConfirmedSigninSafe
+      - userPassedMFADrivenByRiskBasedPolicy
+      - adminDismissedAllRiskForUser
+      - adminConfirmedSigninCompromised
+      - hidden
+      - adminConfirmedUserCompromised
       - unknownFutureValue
+      - m365DAdminDismissedDetection
+      - adminConfirmedServicePrincipalCompromised
+      - adminDismissedAllRiskForServicePrincipal
+      - userChangedPasswordOnPremises
+      - adminDismissedRiskForSignIn
+      - adminConfirmedAccountSafe
+      - microsoftRevokedSessions
       type: string
-    microsoft.graph.ODataErrors.MainError:
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.signInLocation:
+      title: signInLocation
+      type: object
+      properties:
+        city:
+          type:
+          - string
+          - 'null'
+          description: Provides the city where the sign-in originated and is determined using latitude/longitude information from the sign-in activity.
+        countryOrRegion:
+          type:
+          - string
+          - 'null'
+          description: Provides the country code info (two letter code) where the sign-in originated.  This is calculated using latitude/longitude information from the sign-in activity.
+        geoCoordinates:
+          $ref: '#/components/schemas/microsoft.graph.geoCoordinates'
+        state:
+          type:
+          - string
+          - 'null'
+          description: Provides the State where the sign-in originated. This is calculated using latitude/longitude information from the sign-in activity.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
       - message
@@ -249,22 +325,22 @@ components:
           type: string
         message:
           type: string
-          x-ms-primary-error-message: true
         target:
           type:
           - string
           - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
+    microsoft.graph.tokenIssuerType:
+      title: tokenIssuerType
+      enum:
+      - AzureAD
+      - ADFederationServices
+      - UnknownFutureValue
+      - AzureADBackupAuth
+      - ADFederationServicesMFAAdapter
+      - NPSExtension
+      type: string
     microsoft.graph.riskDetectionTimingType:
       title: riskDetectionTimingType
       enum:
@@ -272,6 +348,16 @@ components:
       - realtime
       - nearRealtime
       - offline
+      - unknownFutureValue
+      type: string
+    microsoft.graph.riskLevel:
+      title: riskLevel
+      enum:
+      - low
+      - medium
+      - high
+      - hidden
+      - none
       - unknownFutureValue
       type: string
     microsoft.graph.servicePrincipalRiskDetection:
@@ -369,96 +455,7 @@ components:
             $ref: '#/components/schemas/microsoft.graph.tokenIssuerType'
         additionalProperties:
           type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.signInLocation:
-      title: signInLocation
-      type: object
-      properties:
-        city:
-          type:
-          - string
-          - 'null'
-          description: Provides the city where the sign-in originated and is determined using latitude/longitude information from the sign-in activity.
-        countryOrRegion:
-          type:
-          - string
-          - 'null'
-          description: Provides the country code info (two letter code) where the sign-in originated.  This is calculated using latitude/longitude information from the sign-in activity.
-        geoCoordinates:
-          $ref: '#/components/schemas/microsoft.graph.geoCoordinates'
-        state:
-          type:
-          - string
-          - 'null'
-          description: Provides the State where the sign-in originated. This is calculated using latitude/longitude information from the sign-in activity.
-      additionalProperties:
-        type: object
-    microsoft.graph.activityType:
-      title: activityType
-      enum:
-      - signin
-      - user
-      - unknownFutureValue
-      - servicePrincipal
-      type: string
-    microsoft.graph.geoCoordinates:
-      title: geoCoordinates
-      type: object
-      properties:
-        altitude:
-          type:
-          - number
-          - 'null'
-          description: Optional. The altitude (height), in feet,  above sea level for the item. Read-only.
-          format: double
-        latitude:
-          type:
-          - number
-          - 'null'
-          description: Optional. The latitude, in decimal, for the item. Read-only.
-          format: double
-        longitude:
-          type:
-          - number
-          - 'null'
-          description: Optional. The longitude, in decimal, for the item. Read-only.
-          format: double
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.riskLevel:
-      title: riskLevel
-      enum:
-      - low
-      - medium
-      - high
-      - hidden
-      - none
-      - unknownFutureValue
-      type: string
-    microsoft.graph.tokenIssuerType:
-      title: tokenIssuerType
-      enum:
-      - AzureAD
-      - ADFederationServices
-      - UnknownFutureValue
-      - AzureADBackupAuth
-      - ADFederationServicesMFAAdapter
-      - NPSExtension
-      type: string
-    microsoft.graph.ODataErrors.ErrorDetails:
+    microsoft.graph.ODataErrors.MainError:
       required:
       - code
       - message
@@ -468,12 +465,30 @@ components:
           type: string
         message:
           type: string
+          x-ms-primary-error-message: true
         target:
           type:
           - string
           - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
+    microsoft.graph.riskState:
+      title: riskState
+      enum:
+      - none
+      - confirmedSafe
+      - remediated
+      - dismissed
+      - atRisk
+      - confirmedCompromised
+      - unknownFutureValue
+      type: string
     microsoft.graph.entity:
       title: entity
       type: object
@@ -483,44 +498,18 @@ components:
           description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
-    microsoft.graph.servicePrincipalRiskDetectionCollectionResponse:
-      title: Collection of servicePrincipalRiskDetection
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.servicePrincipalRiskDetection'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.riskDetail:
-      title: riskDetail
-      enum:
-      - none
-      - adminGeneratedTemporaryPassword
-      - userPerformedSecuredPasswordChange
-      - userPerformedSecuredPasswordReset
-      - adminConfirmedSigninSafe
-      - aiConfirmedSigninSafe
-      - userPassedMFADrivenByRiskBasedPolicy
-      - adminDismissedAllRiskForUser
-      - adminConfirmedSigninCompromised
-      - hidden
-      - adminConfirmedUserCompromised
-      - unknownFutureValue
-      - m365DAdminDismissedDetection
-      - adminConfirmedServicePrincipalCompromised
-      - adminDismissedAllRiskForServicePrincipal
-      - userChangedPasswordOnPremises
-      - adminDismissedRiskForSignIn
-      - adminConfirmedAccountSafe
-      - microsoftRevokedSessions
-      type: string
+    ODataCountResponse:
+      type: integer
+      format: int32
   parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
     filter:
       name: $filter
       in: query
@@ -537,14 +526,6 @@ components:
       explode: false
       schema:
         type: string
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
     skip:
       name: $skip
       in: query
@@ -564,6 +545,25 @@ components:
         minimum: 0
         type: integer
       example: 50
+  responses:
+    microsoft.graph.servicePrincipalRiskDetectionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.servicePrincipalRiskDetectionCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

@@ -254,25 +254,6 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.scopedRoleMembershipCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.scopedRoleMembershipCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
   schemas:
     microsoft.graph.identity:
       title: identity
@@ -288,6 +269,20 @@ components:
           - string
           - 'null'
           description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
+      additionalProperties:
+        type: object
+    microsoft.graph.scopedRoleMembershipCollectionResponse:
+      title: Collection of scopedRoleMembership
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.scopedRoleMembership'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
       additionalProperties:
         type: object
     microsoft.graph.scopedRoleMembership:
@@ -306,6 +301,27 @@ components:
             $ref: '#/components/schemas/microsoft.graph.identity'
         additionalProperties:
           type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -329,9 +345,6 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
     microsoft.graph.ODataErrors.ODataError:
       required:
       - error
@@ -350,42 +363,39 @@ components:
           description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
+    ODataCountResponse:
+      type: integer
+      format: int32
+  responses:
     microsoft.graph.scopedRoleMembershipCollectionResponse:
-      title: Collection of scopedRoleMembership
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.scopedRoleMembership'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.scopedRoleMembershipCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
   parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
     count:
       name: $count
       in: query
@@ -410,16 +420,6 @@ components:
       explode: false
       schema:
         type: string
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
     skip:
       name: $skip
       in: query

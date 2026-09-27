@@ -254,111 +254,51 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.unifiedRoleManagementPolicyAssignmentCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyAssignmentCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
+  parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
   schemas:
-    microsoft.graph.identity:
-      title: identity
-      type: object
-      properties:
-        displayName:
-          type:
-          - string
-          - 'null'
-          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.MainError:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
-          type:
-          - string
-          - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
-        type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.unifiedRoleManagementPolicyAssignmentCollectionResponse:
-      title: Collection of unifiedRoleManagementPolicyAssignment
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyAssignment'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.unifiedRoleManagementPolicyAssignment:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: unifiedRoleManagementPolicyAssignment
-        type: object
-        properties:
-          policyId:
-            type: string
-            description: The id of the policy. Inherited from entity.
-          roleDefinitionId:
-            type:
-            - string
-            - 'null'
-            description: For Microsoft Entra roles policy, it's the identifier of the role definition object where the policy applies. For PIM for Groups membership and ownership, it's either member or owner. Supports $filter (eq).
-          scopeId:
-            type: string
-            description: The identifier of the scope where the policy is assigned. Can be / for the tenant or a group ID. Required.
-          scopeType:
-            type: string
-            description: The type of the scope where the policy is assigned. One of Directory, DirectoryRole, Group. Required.
-          policy:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicy'
-        additionalProperties:
-          type: object
     microsoft.graph.ODataErrors.ODataError:
       required:
       - error
@@ -368,35 +308,24 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
-    microsoft.graph.unifiedRoleManagementPolicyRuleTargetOperations:
-      title: unifiedRoleManagementPolicyRuleTargetOperations
-      enum:
-      - all
-      - activate
-      - deactivate
-      - assign
-      - update
-      - remove
-      - extend
-      - renew
-      - unknownFutureValue
-      type: string
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
+    microsoft.graph.unifiedRoleManagementPolicyRule:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: unifiedRoleManagementPolicyRule
+        type: object
+        properties:
+          target:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyRuleTarget'
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.InnerError:
       type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
       additionalProperties:
         type: object
+      description: The structure of this object is service-specific
+    ODataCountResponse:
+      type: integer
+      format: int32
     microsoft.graph.directoryObject:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -412,65 +341,6 @@ components:
             format: date-time
         additionalProperties:
           type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.unifiedRoleManagementPolicyRule:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: unifiedRoleManagementPolicyRule
-        type: object
-        properties:
-          target:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyRuleTarget'
-        additionalProperties:
-          type: object
-    microsoft.graph.unifiedRoleManagementPolicyRuleTarget:
-      title: unifiedRoleManagementPolicyRuleTarget
-      type: object
-      properties:
-        caller:
-          type:
-          - string
-          - 'null'
-          description: 'The type of caller that''s the target of the policy rule. Allowed values are: None, Admin, EndUser.'
-        enforcedSettings:
-          type: array
-          items:
-            type:
-            - string
-            - 'null'
-          description: The list of role settings that are enforced and cannot be overridden by child scopes. Use All for all settings.
-        inheritableSettings:
-          type: array
-          items:
-            type:
-            - string
-            - 'null'
-          description: The list of role settings that can be inherited by child scopes. Use All for all settings.
-        level:
-          type:
-          - string
-          - 'null'
-          description: 'The role assignment type that''s the target of policy rule. Allowed values are: Eligibility, Assignment.'
-        operations:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyRuleTargetOperations'
-          description: 'The role management operations that are the target of the policy rule. Allowed values are: All, Activate, Deactivate, Assign, Update, Remove, Extend, Renew.'
-        targetObjects:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.directoryObject'
-          x-ms-navigationProperty: true
-      additionalProperties:
-        type: object
     microsoft.graph.unifiedRoleManagementPolicy:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -517,50 +387,180 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
-  parameters:
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases
-      style: form
-      explode: false
-      schema:
-        type: string
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
+    microsoft.graph.identity:
+      title: identity
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleManagementPolicyAssignmentCollectionResponse:
+      title: Collection of unifiedRoleManagementPolicyAssignment
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyAssignment'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleManagementPolicyRuleTargetOperations:
+      title: unifiedRoleManagementPolicyRuleTargetOperations
+      enum:
+      - all
+      - activate
+      - deactivate
+      - assign
+      - update
+      - remove
+      - extend
+      - renew
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleManagementPolicyRuleTarget:
+      title: unifiedRoleManagementPolicyRuleTarget
+      type: object
+      properties:
+        caller:
+          type:
+          - string
+          - 'null'
+          description: 'The type of caller that''s the target of the policy rule. Allowed values are: None, Admin, EndUser.'
+        enforcedSettings:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: The list of role settings that are enforced and cannot be overridden by child scopes. Use All for all settings.
+        inheritableSettings:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: The list of role settings that can be inherited by child scopes. Use All for all settings.
+        level:
+          type:
+          - string
+          - 'null'
+          description: 'The role assignment type that''s the target of policy rule. Allowed values are: Eligibility, Assignment.'
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyRuleTargetOperations'
+          description: 'The role management operations that are the target of the policy rule. Allowed values are: All, Activate, Deactivate, Assign, Update, Remove, Extend, Renew.'
+        targetObjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.directoryObject'
+          x-ms-navigationProperty: true
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleManagementPolicyAssignment:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: unifiedRoleManagementPolicyAssignment
+        type: object
+        properties:
+          policyId:
+            type: string
+            description: The id of the policy. Inherited from entity.
+          roleDefinitionId:
+            type:
+            - string
+            - 'null'
+            description: For Microsoft Entra roles policy, it's the identifier of the role definition object where the policy applies. For PIM for Groups membership and ownership, it's either member or owner. Supports $filter (eq).
+          scopeId:
+            type: string
+            description: The identifier of the scope where the policy is assigned. Can be / for the tenant or a group ID. Required.
+          scopeType:
+            type: string
+            description: The type of the scope where the policy is assigned. One of Directory, DirectoryRole, Group. Required.
+          policy:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicy'
+        additionalProperties:
+          type: object
+  responses:
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.unifiedRoleManagementPolicyAssignmentCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleManagementPolicyAssignmentCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

@@ -648,31 +648,50 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.agreementFileLocalizationCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.agreementFileLocalizationCollectionResponse'
-    microsoft.graph.agreementFileVersionCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.agreementFileVersionCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
+  parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
   schemas:
     microsoft.graph.agreementFileData:
       title: agreementFileData
@@ -686,39 +705,29 @@ components:
           format: base64url
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.MainError:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
-          type:
-          - string
-          - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
-        type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-    microsoft.graph.agreementFileVersion:
+    microsoft.graph.agreementFile:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.agreementFileProperties'
-      - title: agreementFileVersion
+      - title: agreementFile
         type: object
+        properties:
+          localizations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.agreementFileLocalization'
+            description: The localized version of the terms of use agreement files attached to the agreement.
+            x-ms-navigationProperty: true
         additionalProperties:
           type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
     microsoft.graph.ODataErrors.InnerError:
       type: object
       additionalProperties:
@@ -738,27 +747,18 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.agreementFileLocalization:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.agreementFileProperties'
-      - title: agreementFileLocalization
-        type: object
-        properties:
-          versions:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.agreementFileVersion'
-            description: Read-only. Customized versions of the terms of use agreement in the Microsoft Entra tenant.
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
+    microsoft.graph.agreementFileVersionCollectionResponse:
+      title: Collection of agreementFileVersion
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.agreementFileVersion'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
       additionalProperties:
         type: object
     microsoft.graph.ODataErrors.ErrorDetails:
@@ -775,43 +775,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.agreementFileVersionCollectionResponse:
-      title: Collection of agreementFileVersion
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.agreementFileVersion'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.agreementFile:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.agreementFileProperties'
-      - title: agreementFile
-        type: object
-        properties:
-          localizations:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.agreementFileLocalization'
-            description: The localized version of the terms of use agreement files attached to the agreement.
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
     microsoft.graph.agreementFileProperties:
@@ -856,50 +819,87 @@ components:
             description: The language of the agreement file in the format 'languagecode2-country/regioncode2'. 'languagecode2' is a lowercase two-letter code derived from ISO 639-1, while 'country/regioncode2' is derived from ISO 3166 and usually consists of two uppercase letters, or a BCP-47 language tag. For example, U.S. English is en-US. Read-only.
         additionalProperties:
           type: object
-  parameters:
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases
-      style: form
-      explode: false
-      schema:
-        type: string
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
+    microsoft.graph.agreementFileVersion:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.agreementFileProperties'
+      - title: agreementFileVersion
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.agreementFileLocalization:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.agreementFileProperties'
+      - title: agreementFileLocalization
+        type: object
+        properties:
+          versions:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.agreementFileVersion'
+            description: Read-only. Customized versions of the terms of use agreement in the Microsoft Entra tenant.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+  responses:
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.agreementFileLocalizationCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.agreementFileLocalizationCollectionResponse'
+    microsoft.graph.agreementFileVersionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.agreementFileVersionCollectionResponse'
   securitySchemes:
     azureaadv2:
       type: oauth2

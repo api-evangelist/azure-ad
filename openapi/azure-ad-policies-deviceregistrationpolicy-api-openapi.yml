@@ -52,13 +52,6 @@ paths:
           $ref: '#/components/responses/error'
       x-ms-docs-operation-type: operation
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   schemas:
     microsoft.graph.deviceRegistrationPolicy:
       allOf:
@@ -92,6 +85,62 @@ components:
             format: int32
         additionalProperties:
           type: object
+    microsoft.graph.localAdminSettings:
+      title: localAdminSettings
+      type: object
+      properties:
+        enableGlobalAdmins:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether global administrators are local administrators on all Microsoft Entra-joined devices. This setting only applies to future registrations. Default is true.
+        registeringUsers:
+          $ref: '#/components/schemas/microsoft.graph.deviceRegistrationMembership'
+      additionalProperties:
+        type: object
+    microsoft.graph.azureADJoinPolicy:
+      title: azureADJoinPolicy
+      type: object
+      properties:
+        allowedToJoin:
+          $ref: '#/components/schemas/microsoft.graph.deviceRegistrationMembership'
+        isAdminConfigurable:
+          type:
+          - boolean
+          - 'null'
+          description: Determines if administrators can modify this policy.
+        localAdmins:
+          $ref: '#/components/schemas/microsoft.graph.localAdminSettings'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.multiFactorAuthConfiguration:
+      title: multiFactorAuthConfiguration
+      enum:
+      - notRequired
+      - required
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -115,6 +164,11 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
+    microsoft.graph.deviceRegistrationMembership:
+      title: deviceRegistrationMembership
+      type: object
+      additionalProperties:
+        type: object
     microsoft.graph.azureADRegistrationPolicy:
       title: azureADRegistrationPolicy
       type: object
@@ -128,57 +182,6 @@ components:
           description: Determines if administrators can modify this policy.
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.azureADJoinPolicy:
-      title: azureADJoinPolicy
-      type: object
-      properties:
-        allowedToJoin:
-          $ref: '#/components/schemas/microsoft.graph.deviceRegistrationMembership'
-        isAdminConfigurable:
-          type:
-          - boolean
-          - 'null'
-          description: Determines if administrators can modify this policy.
-        localAdmins:
-          $ref: '#/components/schemas/microsoft.graph.localAdminSettings'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.localAdminSettings:
-      title: localAdminSettings
-      type: object
-      properties:
-        enableGlobalAdmins:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether global administrators are local administrators on all Microsoft Entra-joined devices. This setting only applies to future registrations. Default is true.
-        registeringUsers:
-          $ref: '#/components/schemas/microsoft.graph.deviceRegistrationMembership'
-      additionalProperties:
-        type: object
     microsoft.graph.localAdminPasswordSettings:
       title: localAdminPasswordSettings
       type: object
@@ -190,34 +193,31 @@ components:
           description: Specifies whether LAPS is enabled. The default value is false. An admin can set it to true to enable Local Admin Password Solution (LAPS) within their organization.
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
+    microsoft.graph.entity:
+      title: entity
       type: object
       properties:
-        code:
+        id:
           type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
+          description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
-    microsoft.graph.multiFactorAuthConfiguration:
-      title: multiFactorAuthConfiguration
-      enum:
-      - notRequired
-      - required
-      - unknownFutureValue
-      type: string
-    microsoft.graph.deviceRegistrationMembership:
-      title: deviceRegistrationMembership
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
       type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

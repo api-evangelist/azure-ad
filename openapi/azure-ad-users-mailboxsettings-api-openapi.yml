@@ -86,22 +86,31 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   schemas:
-    microsoft.graph.externalAudienceScope:
-      title: externalAudienceScope
+    microsoft.graph.timeZoneBase:
+      title: timeZoneBase
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of a time zone. It can be a standard time zone name such as 'Hawaii-Aleutian Standard Time', or 'Customized Time Zone' for a custom time zone.
+      additionalProperties:
+        type: object
+    microsoft.graph.automaticRepliesStatus:
+      title: automaticRepliesStatus
       enum:
-      - none
-      - contactsOnly
-      - all
+      - disabled
+      - alwaysEnabled
+      - scheduled
       type: string
-    microsoft.graph.ODataErrors.MainError:
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
       - message
@@ -111,59 +120,10 @@ components:
           type: string
         message:
           type: string
-          x-ms-primary-error-message: true
         target:
           type:
           - string
           - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
-        type: object
-    microsoft.graph.dayOfWeek:
-      title: dayOfWeek
-      enum:
-      - sunday
-      - monday
-      - tuesday
-      - wednesday
-      - thursday
-      - friday
-      - saturday
-      type: string
-    microsoft.graph.delegateMeetingMessageDeliveryOptions:
-      title: delegateMeetingMessageDeliveryOptions
-      enum:
-      - sendToDelegateAndInformationToPrincipal
-      - sendToDelegateAndPrincipal
-      - sendToDelegateOnly
-      type: string
-    microsoft.graph.automaticRepliesSetting:
-      title: automaticRepliesSetting
-      type: object
-      properties:
-        externalAudience:
-          $ref: '#/components/schemas/microsoft.graph.externalAudienceScope'
-        externalReplyMessage:
-          type:
-          - string
-          - 'null'
-          description: The automatic reply to send to the specified external audience, if Status is AlwaysEnabled or Scheduled.
-        internalReplyMessage:
-          type:
-          - string
-          - 'null'
-          description: The automatic reply to send to the audience internal to the signed-in user's organization, if Status is AlwaysEnabled or Scheduled.
-        scheduledEndDateTime:
-          $ref: '#/components/schemas/microsoft.graph.dateTimeTimeZone'
-        scheduledStartDateTime:
-          $ref: '#/components/schemas/microsoft.graph.dateTimeTimeZone'
-        status:
-          $ref: '#/components/schemas/microsoft.graph.automaticRepliesStatus'
       additionalProperties:
         type: object
     microsoft.graph.dateTimeTimeZone:
@@ -180,13 +140,31 @@ components:
           description: Represents a time zone, for example, 'Pacific Standard Time'. See below for more possible values.
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
+    microsoft.graph.dayOfWeek:
+      title: dayOfWeek
+      enum:
+      - sunday
+      - monday
+      - tuesday
+      - wednesday
+      - thursday
+      - friday
+      - saturday
+      type: string
+    microsoft.graph.localeInfo:
+      title: localeInfo
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: A name representing the user's locale in natural language, for example, 'English (United States)'.
+        locale:
+          type:
+          - string
+          - 'null'
+          description: A locale representation for the user, which includes the user's preferred language and country/region. For example, 'en-us'. The language component follows 2-letter codes as defined in ISO 639-1, and the country component follows 2-letter codes as defined in ISO 3166-1 alpha-2.
       additionalProperties:
         type: object
     microsoft.graph.mailboxSettings:
@@ -252,32 +230,60 @@ components:
           $ref: '#/components/schemas/microsoft.graph.timeZoneBase'
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.automaticRepliesStatus:
-      title: automaticRepliesStatus
-      enum:
-      - disabled
-      - alwaysEnabled
-      - scheduled
-      type: string
-    microsoft.graph.localeInfo:
-      title: localeInfo
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
       type: object
       properties:
-        displayName:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
           type:
           - string
           - 'null'
-          description: A name representing the user's locale in natural language, for example, 'English (United States)'.
-        locale:
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.automaticRepliesSetting:
+      title: automaticRepliesSetting
+      type: object
+      properties:
+        externalAudience:
+          $ref: '#/components/schemas/microsoft.graph.externalAudienceScope'
+        externalReplyMessage:
           type:
           - string
           - 'null'
-          description: A locale representation for the user, which includes the user's preferred language and country/region. For example, 'en-us'. The language component follows 2-letter codes as defined in ISO 639-1, and the country component follows 2-letter codes as defined in ISO 3166-1 alpha-2.
+          description: The automatic reply to send to the specified external audience, if Status is AlwaysEnabled or Scheduled.
+        internalReplyMessage:
+          type:
+          - string
+          - 'null'
+          description: The automatic reply to send to the audience internal to the signed-in user's organization, if Status is AlwaysEnabled or Scheduled.
+        scheduledEndDateTime:
+          $ref: '#/components/schemas/microsoft.graph.dateTimeTimeZone'
+        scheduledStartDateTime:
+          $ref: '#/components/schemas/microsoft.graph.dateTimeTimeZone'
+        status:
+          $ref: '#/components/schemas/microsoft.graph.automaticRepliesStatus'
       additionalProperties:
         type: object
     microsoft.graph.userPurpose:
@@ -291,33 +297,27 @@ components:
       - others
       - unknownFutureValue
       type: string
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.timeZoneBase:
-      title: timeZoneBase
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of a time zone. It can be a standard time zone name such as 'Hawaii-Aleutian Standard Time', or 'Customized Time Zone' for a custom time zone.
-      additionalProperties:
-        type: object
+    microsoft.graph.externalAudienceScope:
+      title: externalAudienceScope
+      enum:
+      - none
+      - contactsOnly
+      - all
+      type: string
+    microsoft.graph.delegateMeetingMessageDeliveryOptions:
+      title: delegateMeetingMessageDeliveryOptions
+      enum:
+      - sendToDelegateAndInformationToPrincipal
+      - sendToDelegateAndPrincipal
+      - sendToDelegateOnly
+      type: string
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

@@ -97,6 +97,108 @@ paths:
       x-ms-docs-operation-type: operation
 components:
   schemas:
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.identifierUriConfiguration:
+      title: identifierUriConfiguration
+      type: object
+      properties:
+        nonDefaultUriAddition:
+          $ref: '#/components/schemas/microsoft.graph.identifierUriRestriction'
+        uriAdditionWithoutUniqueTenantIdentifier:
+          $ref: '#/components/schemas/microsoft.graph.identifierUriRestriction'
+      additionalProperties:
+        type: object
+    microsoft.graph.appManagementServicePrincipalConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.appManagementConfiguration'
+      - title: appManagementServicePrincipalConfiguration
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.customSecurityAttributeExemption:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: customSecurityAttributeExemption
+        type: object
+        properties:
+          id:
+            type: string
+          operator:
+            $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeComparisonOperator'
+        additionalProperties:
+          type: object
+    microsoft.graph.keyCredentialConfiguration:
+      title: keyCredentialConfiguration
+      type: object
+      properties:
+        excludeActors:
+          $ref: '#/components/schemas/microsoft.graph.appManagementPolicyActorExemptions'
+        maxLifetime:
+          pattern: ^-?P([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+([.][0-9]+)?S)?)?$
+          type:
+          - string
+          - 'null'
+          description: String value that indicates the maximum lifetime for key expiration, defined as an ISO 8601 duration. For example, P4DT12H30M5S represents four days, 12 hours, 30 minutes, and five seconds. This property is required when restrictionType is set to asymmetricKeyLifetime.
+          format: duration
+        restrictForAppsCreatedAfterDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Specifies the date from which the policy restriction applies to newly created applications. For existing applications, the enforcement date can be retroactively applied.
+          format: date-time
+        restrictionType:
+          $ref: '#/components/schemas/microsoft.graph.appKeyCredentialRestrictionType'
+        state:
+          $ref: '#/components/schemas/microsoft.graph.appManagementRestrictionState'
+      additionalProperties:
+        type: object
+    microsoft.graph.policyBase:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: policyBase
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: Description for this policy. Required.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Display name for this policy. Required.
+        additionalProperties:
+          type: object
     microsoft.graph.appManagementApplicationConfiguration:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.appManagementConfiguration'
@@ -107,17 +209,7 @@ components:
             $ref: '#/components/schemas/microsoft.graph.identifierUriConfiguration'
         additionalProperties:
           type: object
-    microsoft.graph.appCredentialRestrictionType:
-      title: appCredentialRestrictionType
-      enum:
-      - passwordAddition
-      - passwordLifetime
-      - symmetricKeyAddition
-      - symmetricKeyLifetime
-      - customPasswordAddition
-      - unknownFutureValue
-      type: string
-    microsoft.graph.ODataErrors.MainError:
+    microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
       - message
@@ -127,23 +219,23 @@ components:
           type: string
         message:
           type: string
-          x-ms-primary-error-message: true
         target:
           type:
           - string
           - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.customSecurityAttributeComparisonOperator:
-      title: customSecurityAttributeComparisonOperator
+    microsoft.graph.appKeyCredentialRestrictionType:
+      title: appKeyCredentialRestrictionType
       enum:
-      - equals
+      - asymmetricKeyLifetime
+      - unknownFutureValue
+      type: string
+    microsoft.graph.appManagementRestrictionState:
+      title: appManagementRestrictionState
+      enum:
+      - enabled
+      - disabled
       - unknownFutureValue
       type: string
     microsoft.graph.appManagementConfiguration:
@@ -162,30 +254,6 @@ components:
           description: Collection of password restrictions settings to be applied to an application or service principal.
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.customSecurityAttributeExemption:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: customSecurityAttributeExemption
-        type: object
-        properties:
-          id:
-            type: string
-          operator:
-            $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeComparisonOperator'
-        additionalProperties:
-          type: object
-    microsoft.graph.appManagementRestrictionState:
-      title: appManagementRestrictionState
-      enum:
-      - enabled
-      - disabled
-      - unknownFutureValue
-      type: string
     microsoft.graph.appManagementPolicyActorExemptions:
       title: appManagementPolicyActorExemptions
       type: object
@@ -197,30 +265,16 @@ components:
           description: The collection of customSecurityAttributeExemption to exempt from the policy enforcement. Limit of 5.
       additionalProperties:
         type: object
-    microsoft.graph.tenantAppManagementPolicy:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.policyBase'
-      - title: tenantAppManagementPolicy
-        type: object
-        properties:
-          applicationRestrictions:
-            $ref: '#/components/schemas/microsoft.graph.appManagementApplicationConfiguration'
-          isEnabled:
-            type: boolean
-            description: Denotes whether the policy is enabled. Default value is false.
-          servicePrincipalRestrictions:
-            $ref: '#/components/schemas/microsoft.graph.appManagementServicePrincipalConfiguration'
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
+    microsoft.graph.appCredentialRestrictionType:
+      title: appCredentialRestrictionType
+      enum:
+      - passwordAddition
+      - passwordLifetime
+      - symmetricKeyAddition
+      - symmetricKeyLifetime
+      - customPasswordAddition
+      - unknownFutureValue
+      type: string
     microsoft.graph.passwordCredentialConfiguration:
       title: passwordCredentialConfiguration
       type: object
@@ -247,6 +301,12 @@ components:
           $ref: '#/components/schemas/microsoft.graph.appManagementRestrictionState'
       additionalProperties:
         type: object
+    microsoft.graph.customSecurityAttributeComparisonOperator:
+      title: customSecurityAttributeComparisonOperator
+      enum:
+      - equals
+      - unknownFutureValue
+      type: string
     microsoft.graph.identifierUriRestriction:
       title: identifierUriRestriction
       type: object
@@ -278,17 +338,7 @@ components:
           $ref: '#/components/schemas/microsoft.graph.appManagementRestrictionState'
       additionalProperties:
         type: object
-    microsoft.graph.identifierUriConfiguration:
-      title: identifierUriConfiguration
-      type: object
-      properties:
-        nonDefaultUriAddition:
-          $ref: '#/components/schemas/microsoft.graph.identifierUriRestriction'
-        uriAdditionWithoutUniqueTenantIdentifier:
-          $ref: '#/components/schemas/microsoft.graph.identifierUriRestriction'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
+    microsoft.graph.ODataErrors.MainError:
       required:
       - code
       - message
@@ -298,32 +348,32 @@ components:
           type: string
         message:
           type: string
+          x-ms-primary-error-message: true
         target:
           type:
           - string
           - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.directoryObject:
+    microsoft.graph.tenantAppManagementPolicy:
       allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: directoryObject
+      - $ref: '#/components/schemas/microsoft.graph.policyBase'
+      - title: tenantAppManagementPolicy
         type: object
         properties:
-          deletedDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
-            format: date-time
-        additionalProperties:
-          type: object
-    microsoft.graph.appManagementServicePrincipalConfiguration:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.appManagementConfiguration'
-      - title: appManagementServicePrincipalConfiguration
-        type: object
+          applicationRestrictions:
+            $ref: '#/components/schemas/microsoft.graph.appManagementApplicationConfiguration'
+          isEnabled:
+            type: boolean
+            description: Denotes whether the policy is enabled. Default value is false.
+          servicePrincipalRestrictions:
+            $ref: '#/components/schemas/microsoft.graph.appManagementServicePrincipalConfiguration'
         additionalProperties:
           type: object
     microsoft.graph.entity:
@@ -335,56 +385,6 @@ components:
           description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
-    microsoft.graph.keyCredentialConfiguration:
-      title: keyCredentialConfiguration
-      type: object
-      properties:
-        excludeActors:
-          $ref: '#/components/schemas/microsoft.graph.appManagementPolicyActorExemptions'
-        maxLifetime:
-          pattern: ^-?P([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+([.][0-9]+)?S)?)?$
-          type:
-          - string
-          - 'null'
-          description: String value that indicates the maximum lifetime for key expiration, defined as an ISO 8601 duration. For example, P4DT12H30M5S represents four days, 12 hours, 30 minutes, and five seconds. This property is required when restrictionType is set to asymmetricKeyLifetime.
-          format: duration
-        restrictForAppsCreatedAfterDateTime:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-          type:
-          - string
-          - 'null'
-          description: Specifies the date from which the policy restriction applies to newly created applications. For existing applications, the enforcement date can be retroactively applied.
-          format: date-time
-        restrictionType:
-          $ref: '#/components/schemas/microsoft.graph.appKeyCredentialRestrictionType'
-        state:
-          $ref: '#/components/schemas/microsoft.graph.appManagementRestrictionState'
-      additionalProperties:
-        type: object
-    microsoft.graph.appKeyCredentialRestrictionType:
-      title: appKeyCredentialRestrictionType
-      enum:
-      - asymmetricKeyLifetime
-      - unknownFutureValue
-      type: string
-    microsoft.graph.policyBase:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
-      - title: policyBase
-        type: object
-        properties:
-          description:
-            type:
-            - string
-            - 'null'
-            description: Description for this policy. Required.
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: Display name for this policy. Required.
-        additionalProperties:
-          type: object
   responses:
     error:
       description: error

@@ -394,7 +394,7 @@ paths:
       tags:
       - users.outlookUser
       summary: Invoke function supportedTimeZones
-      operationId: user.outlook_supportedTimeZone
+      operationId: getUsersByUserIdOutlookMicrosoftGraphSupportedTimeZones(TimeZoneStandard='{TimeZoneStandard}')
       parameters:
       - name: user-id
         in: path
@@ -440,65 +440,24 @@ paths:
       x-ms-pageable:
         nextLinkName: '@odata.nextLink'
         operationName: listMore
+      x-operation-id-source: normalized
+      x-operation-id-original: user.outlook_supportedTimeZone
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.outlookCategoryCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.outlookCategoryCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
   schemas:
-    microsoft.graph.ODataErrors.MainError:
-      required:
-      - code
-      - message
+    microsoft.graph.timeZoneInformation:
+      title: timeZoneInformation
       type: object
       properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
+        alias:
           type:
           - string
           - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
-        type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-    microsoft.graph.outlookCategoryCollectionResponse:
-      title: Collection of outlookCategory
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.outlookCategory'
-        '@odata.nextLink':
+          description: An identifier for the time zone.
+        displayName:
           type:
           - string
           - 'null'
+          description: A display string that represents the time zone.
       additionalProperties:
         type: object
     microsoft.graph.outlookCategory:
@@ -516,51 +475,6 @@ components:
             description: A unique name that identifies a category in the user's mailbox. After a category is created, the name cannot be changed. Read-only.
         additionalProperties:
           type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.timeZoneStandard:
-      title: timeZoneStandard
-      enum:
-      - windows
-      - iana
-      type: string
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
     microsoft.graph.outlookUser:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -575,20 +489,40 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
-    microsoft.graph.localeInfo:
-      title: localeInfo
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
       type: object
       properties:
-        displayName:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.timeZoneStandard:
+      title: timeZoneStandard
+      enum:
+      - windows
+      - iana
+      type: string
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
           type:
           - string
           - 'null'
-          description: A name representing the user's locale in natural language, for example, 'English (United States)'.
-        locale:
-          type:
-          - string
-          - 'null'
-          description: A locale representation for the user, which includes the user's preferred language and country/region. For example, 'en-us'. The language component follows 2-letter codes as defined in ISO 639-1, and the country component follows 2-letter codes as defined in ISO 3166-1 alpha-2.
       additionalProperties:
         type: object
     microsoft.graph.categoryColor:
@@ -621,23 +555,80 @@ components:
       - preset23
       - preset24
       type: string
-    microsoft.graph.timeZoneInformation:
-      title: timeZoneInformation
+    microsoft.graph.outlookCategoryCollectionResponse:
+      title: Collection of outlookCategory
       type: object
       properties:
-        alias:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.outlookCategory'
+        '@odata.nextLink':
           type:
           - string
           - 'null'
-          description: An identifier for the time zone.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.localeInfo:
+      title: localeInfo
+      type: object
+      properties:
         displayName:
           type:
           - string
           - 'null'
-          description: A display string that represents the time zone.
+          description: A name representing the user's locale in natural language, for example, 'English (United States)'.
+        locale:
+          type:
+          - string
+          - 'null'
+          description: A locale representation for the user, which includes the user's preferred language and country/region. For example, 'en-us'. The language component follows 2-letter codes as defined in ISO 639-1, and the country component follows 2-letter codes as defined in ISO 3166-1 alpha-2.
       additionalProperties:
         type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
   parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
     filter:
       name: $filter
       in: query
@@ -654,14 +645,6 @@ components:
       explode: false
       schema:
         type: string
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
     skip:
       name: $skip
       in: query
@@ -681,6 +664,25 @@ components:
         minimum: 0
         type: integer
       example: 50
+  responses:
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.outlookCategoryCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.outlookCategoryCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

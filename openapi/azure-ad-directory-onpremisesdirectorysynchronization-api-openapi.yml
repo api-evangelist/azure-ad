@@ -209,57 +209,79 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.onPremisesDirectorySynchronizationCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
+  parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
   schemas:
-    microsoft.graph.ODataErrors.MainError:
+    microsoft.graph.ODataErrors.ODataError:
       required:
-      - code
-      - message
+      - error
       type: object
       properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
-          type:
-          - string
-          - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
     microsoft.graph.ODataErrors.InnerError:
       type: object
       additionalProperties:
         type: object
       description: The structure of this object is service-specific
+    microsoft.graph.onPremisesDirectorySynchronizationCollectionResponse:
+      title: Collection of onPremisesDirectorySynchronization
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronization'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
     microsoft.graph.onPremisesAccidentalDeletionPrevention:
       title: onPremisesAccidentalDeletionPrevention
       type: object
@@ -276,41 +298,22 @@ components:
           $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationDeletionPreventionType'
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.ODataError:
+    microsoft.graph.ODataErrors.ErrorDetails:
       required:
-      - error
+      - code
+      - message
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.onPremisesDirectorySynchronizationCollectionResponse:
-      title: Collection of onPremisesDirectorySynchronization
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronization'
-        '@odata.nextLink':
+        code:
+          type: string
+        message:
+          type: string
+        target:
           type:
           - string
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.onPremisesDirectorySynchronization:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: onPremisesDirectorySynchronization
-        type: object
-        properties:
-          configuration:
-            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationConfiguration'
-          features:
-            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationFeature'
-        additionalProperties:
-          type: object
     microsoft.graph.onPremisesDirectorySynchronizationFeature:
       title: onPremisesDirectorySynchronizationFeature
       type: object
@@ -417,7 +420,23 @@ components:
           description: Used to indicate that user writeback is enabled.
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
+    microsoft.graph.onPremisesDirectorySynchronizationDeletionPreventionType:
+      title: onPremisesDirectorySynchronizationDeletionPreventionType
+      enum:
+      - disabled
+      - enabledForCount
+      - enabledForPercentage
+      - unknownFutureValue
+      type: string
+    microsoft.graph.onPremisesDirectorySynchronizationConfiguration:
+      title: onPremisesDirectorySynchronizationConfiguration
+      type: object
+      properties:
+        accidentalDeletionPrevention:
+          $ref: '#/components/schemas/microsoft.graph.onPremisesAccidentalDeletionPrevention'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.MainError:
       required:
       - code
       - message
@@ -427,10 +446,17 @@ components:
           type: string
         message:
           type: string
+          x-ms-primary-error-message: true
         target:
           type:
           - string
           - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
     microsoft.graph.entity:
@@ -442,66 +468,40 @@ components:
           description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
-    microsoft.graph.onPremisesDirectorySynchronizationConfiguration:
-      title: onPremisesDirectorySynchronizationConfiguration
-      type: object
-      properties:
-        accidentalDeletionPrevention:
-          $ref: '#/components/schemas/microsoft.graph.onPremisesAccidentalDeletionPrevention'
-      additionalProperties:
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.onPremisesDirectorySynchronization:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: onPremisesDirectorySynchronization
         type: object
-    microsoft.graph.onPremisesDirectorySynchronizationDeletionPreventionType:
-      title: onPremisesDirectorySynchronizationDeletionPreventionType
-      enum:
-      - disabled
-      - enabledForCount
-      - enabledForPercentage
-      - unknownFutureValue
-      type: string
-  parameters:
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases
-      style: form
-      explode: false
-      schema:
-        type: string
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
+        properties:
+          configuration:
+            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationConfiguration'
+          features:
+            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationFeature'
+        additionalProperties:
+          type: object
+  responses:
+    microsoft.graph.onPremisesDirectorySynchronizationCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2
