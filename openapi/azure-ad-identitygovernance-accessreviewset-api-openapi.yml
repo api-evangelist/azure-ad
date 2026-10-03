@@ -1458,7 +1458,7 @@ paths:
         schema:
           type: string
         x-ms-docs-key-type: accessReviewInstance
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -2782,7 +2782,7 @@ paths:
         schema:
           type: string
         x-ms-docs-key-type: accessReviewStage
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -2947,7 +2947,7 @@ paths:
         schema:
           type: string
         x-ms-docs-key-type: accessReviewInstance
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -3055,7 +3055,7 @@ paths:
         schema:
           type: string
         x-ms-docs-key-type: accessReviewScheduleDefinition
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -3168,7 +3168,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/accessreviewscheduledefinition-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.accessReview.definition_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true

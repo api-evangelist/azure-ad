@@ -1402,7 +1402,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/unifiedroleassignmentscheduleinstance-filterbycurrentuser?view=graph-rest-1.0
       operationId: roleManagement.directory.roleAssignmentScheduleInstance_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -1982,7 +1982,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/unifiedroleassignmentschedulerequest-filterbycurrentuser?view=graph-rest-1.0
       operationId: roleManagement.directory.roleAssignmentScheduleRequest_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -2487,7 +2487,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/unifiedroleassignmentschedule-filterbycurrentuser?view=graph-rest-1.0
       operationId: roleManagement.directory.roleAssignmentSchedule_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -3399,7 +3399,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/unifiedroleeligibilityscheduleinstance-filterbycurrentuser?view=graph-rest-1.0
       operationId: roleManagement.directory.roleEligibilityScheduleInstance_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -3933,7 +3933,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/unifiedroleeligibilityschedulerequest-filterbycurrentuser?view=graph-rest-1.0
       operationId: roleManagement.directory.roleEligibilityScheduleRequest_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -4392,7 +4392,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/unifiedroleeligibilityschedule-filterbycurrentuser?view=graph-rest-1.0
       operationId: roleManagement.directory.roleEligibilitySchedule_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -5839,7 +5839,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/unifiedroleassignmentscheduleinstance-filterbycurrentuser?view=graph-rest-1.0
       operationId: roleManagement.entitlementManagement.roleAssignmentScheduleInstance_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -6409,7 +6409,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/unifiedroleassignmentschedulerequest-filterbycurrentuser?view=graph-rest-1.0
       operationId: roleManagement.entitlementManagement.roleAssignmentScheduleRequest_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -6908,7 +6908,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/unifiedroleassignmentschedule-filterbycurrentuser?view=graph-rest-1.0
       operationId: roleManagement.entitlementManagement.roleAssignmentSchedule_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -7799,7 +7799,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/unifiedroleeligibilityscheduleinstance-filterbycurrentuser?view=graph-rest-1.0
       operationId: roleManagement.entitlementManagement.roleEligibilityScheduleInstance_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -8323,7 +8323,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/unifiedroleeligibilityschedulerequest-filterbycurrentuser?view=graph-rest-1.0
       operationId: roleManagement.entitlementManagement.roleEligibilityScheduleRequest_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -8776,7 +8776,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/unifiedroleeligibilityschedule-filterbycurrentuser?view=graph-rest-1.0
       operationId: roleManagement.entitlementManagement.roleEligibilitySchedule_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true

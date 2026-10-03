@@ -605,7 +605,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/approval-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.privilegedAccess.group.assignmentApproval_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -1099,7 +1099,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/privilegedaccessgroupassignmentscheduleinstance-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.privilegedAccess.group.assignmentScheduleInstance_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -1668,7 +1668,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/privilegedaccessgroupassignmentschedulerequest-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.privilegedAccess.group.assignmentScheduleRequest_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -2162,7 +2162,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/privilegedaccessgroupassignmentschedule-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.privilegedAccess.group.assignmentSchedule_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -2610,7 +2610,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/privilegedaccessgroupeligibilityscheduleinstance-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.privilegedAccess.group.eligibilityScheduleInstance_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -3133,7 +3133,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/privilegedaccessgroupeligibilityschedulerequest-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.privilegedAccess.group.eligibilityScheduleRequest_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -3581,7 +3581,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/privilegedaccessgroupeligibilityschedule-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.privilegedAccess.group.eligibilitySchedule_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true

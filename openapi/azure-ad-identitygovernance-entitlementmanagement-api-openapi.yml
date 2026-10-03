@@ -548,7 +548,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/approval-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.entitlementManagement.accessPackageAssignmentApproval_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -8732,7 +8732,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/accesspackage-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.entitlementManagement.accessPackage_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -9047,7 +9047,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/accesspackagesuggestions-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.entitlementManagement.accessPackageSuggestion_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -10400,7 +10400,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/accesspackageassignmentrequest-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.entitlementManagement.assignmentRequest_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
@@ -10996,7 +10996,7 @@ paths:
         url: https://learn.microsoft.com/graph/api/accesspackageassignment-filterbycurrentuser?view=graph-rest-1.0
       operationId: identityGovernance.entitlementManagement.assignment_filterGraphBPreCurrentUser
       parameters:
-      - name: true
+      - name: 'on'
         in: path
         description: 'Usage: on=''{on}'''
         required: true
