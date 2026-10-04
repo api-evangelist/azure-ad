@@ -298,95 +298,26 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.verifiedIdProfileCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.verifiedIdProfileCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
   schemas:
-    microsoft.graph.faceCheckConfiguration:
-      title: faceCheckConfiguration
-      type: object
-      properties:
-        isEnabled:
-          type: boolean
-          description: Defines if Face Check is required. Currently must always be true.
-        sourcePhotoClaimName:
-          type: string
-          description: Source of photo to validate Face Check against. Currently must always be portrait.
-      additionalProperties:
-        type: object
-    microsoft.graph.verifiedIdProfileState:
-      title: verifiedIdProfileState
-      enum:
-      - enabled
-      - disabled
-      - unknownFutureValue
-      type: string
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.identityVerifiedIdRoot:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: identityVerifiedIdRoot
-        type: object
-        properties:
-          profiles:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.verifiedIdProfile'
-            description: Profile containing properties about a Verified ID provider and purpose
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.matchConfidenceLevel:
-      title: matchConfidenceLevel
-      enum:
-      - exact
-      - relaxed
-      - unknownFutureValue
-      type: string
-    microsoft.graph.verifiedIdUsageConfigurationPurpose:
-      title: verifiedIdUsageConfigurationPurpose
-      enum:
-      - recovery
-      - onboarding
-      - all
-      - unknownFutureValue
-      type: string
-    microsoft.graph.claimValidation:
-      title: claimValidation
-      type: object
-      properties:
-        customExtensionId:
-          type: string
-          description: The identifier of a custom extension for claim validation.
-        isEnabled:
-          type: boolean
-          description: Indicates whether claim validation is enabled.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.claimBinding:
-      title: claimBinding
-      type: object
-      properties:
-        matchConfidenceLevel:
-          $ref: '#/components/schemas/microsoft.graph.matchConfidenceLevel'
-        sourceAttribute:
-          type: string
-          description: Source attribute name from the source system, for example a directory attribute.
-        verifiedIdClaim:
-          type: string
-          description: Verified ID claim name or path, for example vc.credentialSubject.firstName.
-      additionalProperties:
-        type: object
     microsoft.graph.verifiedIdProfileCollectionResponse:
       title: Collection of verifiedIdProfile
       type: object
@@ -401,60 +332,11 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.verifiedIdUsageConfiguration:
-      title: verifiedIdUsageConfiguration
+    microsoft.graph.ODataErrors.InnerError:
       type: object
-      properties:
-        isEnabledForTestOnly:
-          type: boolean
-          description: Sets profile usage for evaluation (test-only) or production.
-        purpose:
-          $ref: '#/components/schemas/microsoft.graph.verifiedIdUsageConfigurationPurpose'
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.claimBindingSource:
-      title: claimBindingSource
-      enum:
-      - directory
-      - unknownFutureValue
-      type: string
-    microsoft.graph.verifiedIdProfileConfiguration:
-      title: verifiedIdProfileConfiguration
-      type: object
-      properties:
-        acceptedIssuer:
-          type: string
-          description: Trusted Verified ID issuer.
-        claimBindings:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.claimBinding'
-          description: Claim bindings from Verified ID to source attributes.
-        claimBindingSource:
-          $ref: '#/components/schemas/microsoft.graph.claimBindingSource'
-        claimValidation:
-          $ref: '#/components/schemas/microsoft.graph.claimValidation'
-        type:
-          type: string
-          description: Verified ID type.
-      additionalProperties:
-        type: object
+      description: The structure of this object is service-specific
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -478,6 +360,113 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
+    microsoft.graph.verifiedIdUsageConfigurationPurpose:
+      title: verifiedIdUsageConfigurationPurpose
+      enum:
+      - recovery
+      - onboarding
+      - all
+      - unknownFutureValue
+      type: string
+    microsoft.graph.claimBindingSource:
+      title: claimBindingSource
+      enum:
+      - directory
+      - unknownFutureValue
+      type: string
+    microsoft.graph.matchConfidenceLevel:
+      title: matchConfidenceLevel
+      enum:
+      - exact
+      - relaxed
+      - unknownFutureValue
+      type: string
+    microsoft.graph.identityVerifiedIdRoot:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: identityVerifiedIdRoot
+        type: object
+        properties:
+          profiles:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.verifiedIdProfile'
+            description: Profile containing properties about a Verified ID provider and purpose
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.verifiedIdProfileConfiguration:
+      title: verifiedIdProfileConfiguration
+      type: object
+      properties:
+        acceptedIssuer:
+          type: string
+          description: Trusted Verified ID issuer.
+        claimBindings:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.claimBinding'
+          description: Claim bindings from Verified ID to source attributes.
+        claimBindingSource:
+          $ref: '#/components/schemas/microsoft.graph.claimBindingSource'
+        claimValidation:
+          $ref: '#/components/schemas/microsoft.graph.claimValidation'
+        type:
+          type: string
+          description: Verified ID type.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.faceCheckConfiguration:
+      title: faceCheckConfiguration
+      type: object
+      properties:
+        isEnabled:
+          type: boolean
+          description: Defines if Face Check is required. Currently must always be true.
+        sourcePhotoClaimName:
+          type: string
+          description: Source of photo to validate Face Check against. Currently must always be portrait.
+      additionalProperties:
+        type: object
+    microsoft.graph.claimBinding:
+      title: claimBinding
+      type: object
+      properties:
+        matchConfidenceLevel:
+          $ref: '#/components/schemas/microsoft.graph.matchConfidenceLevel'
+        sourceAttribute:
+          type: string
+          description: Source attribute name from the source system, for example a directory attribute.
+        verifiedIdClaim:
+          type: string
+          description: Verified ID claim name or path, for example vc.credentialSubject.firstName.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
     microsoft.graph.entity:
       title: entity
       type: object
@@ -487,9 +476,29 @@ components:
           description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
+    microsoft.graph.claimValidation:
+      title: claimValidation
+      type: object
+      properties:
+        customExtensionId:
+          type: string
+          description: The identifier of a custom extension for claim validation.
+        isEnabled:
+          type: boolean
+          description: Indicates whether claim validation is enabled.
+      additionalProperties:
+        type: object
+    microsoft.graph.verifiedIdUsageConfiguration:
+      title: verifiedIdUsageConfiguration
+      type: object
+      properties:
+        isEnabledForTestOnly:
+          type: boolean
+          description: Sets profile usage for evaluation (test-only) or production.
+        purpose:
+          $ref: '#/components/schemas/microsoft.graph.verifiedIdUsageConfigurationPurpose'
+      additionalProperties:
+        type: object
     microsoft.graph.verifiedIdProfile:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -533,15 +542,36 @@ components:
             description: Decentralized Identifier (DID) string that represents the verifier in the verifiable credential exchange. Required.
         additionalProperties:
           type: object
+    microsoft.graph.verifiedIdProfileState:
+      title: verifiedIdProfileState
+      enum:
+      - enabled
+      - disabled
+      - unknownFutureValue
+      type: string
+    ODataCountResponse:
+      type: integer
+      format: int32
   parameters:
-    count:
-      name: $count
+    top:
+      name: $top
       in: query
-      description: Include count of items
+      description: Show only the first n items
       style: form
       explode: false
       schema:
-        type: boolean
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
     filter:
       name: $filter
       in: query
@@ -558,44 +588,14 @@ components:
       explode: false
       schema:
         type: string
-    skip:
-      name: $skip
+    count:
+      name: $count
       in: query
-      description: Skip the first n items
+      description: Include count of items
       style: form
       explode: false
       schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
-  responses:
-    microsoft.graph.verifiedIdProfileCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.verifiedIdProfileCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+        type: boolean
   securitySchemes:
     azureaadv2:
       type: oauth2

@@ -640,20 +640,50 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.targetDeviceGroupCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.targetDeviceGroupCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.approvedClientAppCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.approvedClientAppCollectionResponse'
   schemas:
-    microsoft.graph.approvedClientApp:
+    microsoft.graph.targetDeviceGroup:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: approvedClientApp
+      - title: targetDeviceGroup
         type: object
         properties:
           displayName:
             type:
             - string
             - 'null'
-            description: The display name of the approved client application.
+            description: Display name for the target device group.
         additionalProperties:
           type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
     microsoft.graph.remoteDesktopSecurityConfiguration:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -677,63 +707,6 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.targetDeviceGroup:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: targetDeviceGroup
-        type: object
-        properties:
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: Display name for the target device group.
-        additionalProperties:
-          type: object
-    microsoft.graph.targetDeviceGroupCollectionResponse:
-      title: Collection of targetDeviceGroup
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.targetDeviceGroup'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -757,18 +730,42 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.entity:
-      title: entity
+    microsoft.graph.targetDeviceGroupCollectionResponse:
+      title: Collection of targetDeviceGroup
       type: object
       properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.targetDeviceGroup'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
       additionalProperties:
         type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.approvedClientApp:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: approvedClientApp
+        type: object
+        properties:
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The display name of the approved client application.
+        additionalProperties:
+          type: object
     microsoft.graph.approvedClientAppCollectionResponse:
       title: Collection of approvedClientApp
       type: object
@@ -783,15 +780,54 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
   parameters:
-    count:
-      name: $count
+    top:
+      name: $top
       in: query
-      description: Include count of items
+      description: Show only the first n items
       style: form
       explode: false
       schema:
-        type: boolean
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
     filter:
       name: $filter
       in: query
@@ -808,50 +844,14 @@ components:
       explode: false
       schema:
         type: string
-    skip:
-      name: $skip
+    count:
+      name: $count
       in: query
-      description: Skip the first n items
+      description: Include count of items
       style: form
       explode: false
       schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
-  responses:
-    microsoft.graph.approvedClientAppCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.approvedClientAppCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.targetDeviceGroupCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.targetDeviceGroupCollectionResponse'
+        type: boolean
   securitySchemes:
     azureaadv2:
       type: oauth2

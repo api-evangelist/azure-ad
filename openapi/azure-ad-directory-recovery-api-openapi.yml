@@ -756,64 +756,48 @@ paths:
           $ref: '#/components/responses/error'
 components:
   responses:
-    microsoft.graph.entraRecoveryServices.snapshotCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.snapshotCollectionResponse'
-    microsoft.graph.entraRecoveryServices.recoveryJobBaseCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBaseCollectionResponse'
-    microsoft.graph.entraRecoveryServices.recoveryJobCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobCollectionResponse'
-    microsoft.graph.entraRecoveryServices.recoveryPreviewJobCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryPreviewJobCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
     error:
       description: error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.entraRecoveryServices.recoveryJobCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.entraRecoveryServices.snapshotCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.snapshotCollectionResponse'
+    microsoft.graph.entraRecoveryServices.recoveryPreviewJobCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryPreviewJobCollectionResponse'
+    microsoft.graph.entraRecoveryServices.recoveryJobBaseCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBaseCollectionResponse'
   schemas:
-    microsoft.graph.entraRecoveryServices.recoveryPreviewJob:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
-      - title: recoveryPreviewJob
-        type: object
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.entraRecoveryServices.recoveryJobFilteringCriteriaBase:
-      title: recoveryJobFilteringCriteriaBase
+    microsoft.graph.ODataErrors.InnerError:
       type: object
       additionalProperties:
         type: object
+      description: The structure of this object is service-specific
     microsoft.graph.entraRecoveryServices.recoveryJobBase:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -854,71 +838,6 @@ components:
             format: int32
         additionalProperties:
           type: object
-    microsoft.graph.entraRecoveryServices.snapshotCollectionResponse:
-      title: Collection of snapshot
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.snapshot'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.entraRecoveryServices.recoveryPreviewJobCollectionResponse:
-      title: Collection of recoveryPreviewJob
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryPreviewJob'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.entraRecoveryServices.recovery:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: recovery
-        type: object
-        properties:
-          jobs:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
-            x-ms-navigationProperty: true
-          snapshots:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.snapshot'
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.entraRecoveryServices.recoveryJobCollectionResponse:
-      title: Collection of recoveryJob
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJob'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
     microsoft.graph.entraRecoveryServices.snapshot:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -948,6 +867,106 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.entraRecoveryServices.recoveryJobFilteringCriteriaBase:
+      title: recoveryJobFilteringCriteriaBase
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.entraRecoveryServices.recoveryPreviewJobCollectionResponse:
+      title: Collection of recoveryPreviewJob
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryPreviewJob'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.entraRecoveryServices.snapshotCollectionResponse:
+      title: Collection of snapshot
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.snapshot'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.entraRecoveryServices.recoveryPreviewJob:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
+      - title: recoveryPreviewJob
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.entraRecoveryServices.recoveryJobBaseCollectionResponse:
+      title: Collection of recoveryJobBase
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.entraRecoveryServices.recoveryJobCollectionResponse:
+      title: Collection of recoveryJob
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJob'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
     microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
@@ -964,6 +983,62 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.entraRecoveryServices.recoveryJob:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
+      - title: recoveryJob
+        type: object
+        properties:
+          totalFailedChanges:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            format: int32
+          totalLinksModified:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            format: int32
+          totalObjectsModified:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            format: int32
+        additionalProperties:
+          type: object
+    microsoft.graph.entraRecoveryServices.recovery:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: recovery
+        type: object
+        properties:
+          jobs:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
+            x-ms-navigationProperty: true
+          snapshots:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.snapshot'
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
     microsoft.graph.entraRecoveryServices.recoveryStatus:
       title: recoveryStatus
       enum:
@@ -1004,93 +1079,29 @@ components:
         - value: loadingData
           description: Represents a job for which we have started loading data of the snapshot.
           name: loadingData
-    microsoft.graph.entraRecoveryServices.recoveryJob:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
-      - title: recoveryJob
-        type: object
-        properties:
-          totalFailedChanges:
-            maximum: 2147483647
-            minimum: -2147483648
-            type:
-            - number
-            - 'null'
-            format: int32
-          totalLinksModified:
-            maximum: 2147483647
-            minimum: -2147483648
-            type:
-            - number
-            - 'null'
-            format: int32
-          totalObjectsModified:
-            maximum: 2147483647
-            minimum: -2147483648
-            type:
-            - number
-            - 'null'
-            format: int32
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.MainError:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
-          type:
-          - string
-          - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
     ODataCountResponse:
       type: integer
       format: int32
-    microsoft.graph.entraRecoveryServices.recoveryJobBaseCollectionResponse:
-      title: Collection of recoveryJobBase
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
   parameters:
-    count:
-      name: $count
+    top:
+      name: $top
       in: query
-      description: Include count of items
+      description: Show only the first n items
       style: form
       explode: false
       schema:
-        type: boolean
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
     filter:
       name: $filter
       in: query
@@ -1107,25 +1118,14 @@ components:
       explode: false
       schema:
         type: string
-    skip:
-      name: $skip
+    count:
+      name: $count
       in: query
-      description: Skip the first n items
+      description: Include count of items
       style: form
       explode: false
       schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
+        type: boolean
   securitySchemes:
     azureaadv2:
       type: oauth2

@@ -212,74 +212,214 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  parameters:
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases
-      style: form
-      explode: false
-      schema:
-        type: string
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.organizationCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.organizationCollectionResponse'
   schemas:
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
+    microsoft.graph.assignedPlan:
+      title: assignedPlan
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+        assignedDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: The date and time at which the plan was assigned. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+          format: date-time
+        capabilityStatus:
+          type:
+          - string
+          - 'null'
+          description: Condition of the capability assignment. The possible values are Enabled, Warning, Suspended, Deleted, LockedOut. See a detailed description of each value.
+        service:
+          type:
+          - string
+          - 'null'
+          description: The name of the service; for example, exchange.
+        servicePlanId:
+          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+          type:
+          - string
+          - 'null'
+          description: A GUID that identifies the service plan. For a complete list of GUIDs and their equivalent friendly service names, see Product names and service plan identifiers for licensing.
+          format: uuid
       additionalProperties:
         type: object
-    microsoft.graph.organizationalBranding:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.organizationalBrandingProperties'
-      - title: organizationalBranding
+    microsoft.graph.contentCustomization:
+      title: contentCustomization
+      type: object
+      properties:
+        attributeCollection:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.keyValue'
+          description: Represents the content options of External Identities to be customized throughout the authentication flow for a tenant.
+        attributeCollectionRelativeUrl:
+          type:
+          - string
+          - 'null'
+          description: A relative URL for the content options of External Identities to be customized throughout the authentication flow for a tenant.
+        registrationCampaign:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.keyValue'
+          description: Represents content options to customize during MFA proofup interruptions.
+        registrationCampaignRelativeUrl:
+          type:
+          - string
+          - 'null'
+          description: The relative URL of the content options to customize during MFA proofup interruptions.
+      additionalProperties:
         type: object
-        properties:
-          localizations:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.organizationalBrandingLocalization'
-            description: Add different branding based on a locale.
-            x-ms-navigationProperty: true
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.extension:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: extension
+        type: object
         additionalProperties:
           type: object
+    microsoft.graph.organizationalBrandingLocalization:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.organizationalBrandingProperties'
+      - title: organizationalBrandingLocalization
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.privacyProfile:
+      title: privacyProfile
+      type: object
+      properties:
+        contactEmail:
+          type:
+          - string
+          - 'null'
+          description: A valid smtp email address for the privacy statement contact. Not required.
+        statementUrl:
+          type:
+          - string
+          - 'null'
+          description: A valid URL format that begins with http:// or https://. Maximum length is 255 characters. The URL that directs to the company's privacy statement. Not required.
+      additionalProperties:
+        type: object
+    microsoft.graph.mdmAuthority:
+      title: mdmAuthority
+      enum:
+      - unknown
+      - intune
+      - sccm
+      - office365
+      type: string
+      description: Mobile device management authority.
+      x-ms-enum:
+        name: mdmAuthority
+        modelAsString: false
+        values:
+        - value: unknown
+          description: Unknown
+          name: unknown
+        - value: intune
+          description: Intune
+          name: intune
+        - value: sccm
+          description: SCCM
+          name: sccm
+        - value: office365
+          description: Office365
+          name: office365
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.organizationCollectionResponse:
+      title: Collection of organization
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.organization'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.certificateBasedAuthConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: certificateBasedAuthConfiguration
+        type: object
+        properties:
+          certificateAuthorities:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.certificateAuthority'
+            description: Collection of certificate authorities which creates a trusted certificate chain.
+        additionalProperties:
+          type: object
+    microsoft.graph.layoutTemplateType:
+      title: layoutTemplateType
+      enum:
+      - default
+      - verticalSplit
+      - unknownFutureValue
+      type: string
     microsoft.graph.partnerTenantType:
       title: partnerTenantType
       enum:
@@ -291,6 +431,35 @@ components:
       - valueAddedResellerPartnerDelegatedAdmin
       - unknownFutureValue
       type: string
+    microsoft.graph.certificateAuthority:
+      title: certificateAuthority
+      type: object
+      properties:
+        certificate:
+          type: string
+          description: Required. The base64 encoded string representing the public certificate.
+          format: base64url
+        certificateRevocationListUrl:
+          type:
+          - string
+          - 'null'
+          description: The URL of the certificate revocation list.
+        deltaCertificateRevocationListUrl:
+          type:
+          - string
+          - 'null'
+          description: The URL contains the list of all revoked certificates since the last time a full certificate revocaton list was created.
+        isRootAuthority:
+          type: boolean
+          description: Required. true if the trusted certificate is a root authority, false if the trusted certificate is an intermediate authority.
+        issuer:
+          type: string
+          description: The issuer of the certificate, calculated from the certificate value. Read-only.
+        issuerSki:
+          type: string
+          description: The subject key identifier of the certificate, calculated from the certificate value. Read-only.
+      additionalProperties:
+        type: object
     microsoft.graph.organization:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.directoryObject'
@@ -428,93 +597,106 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.privacyProfile:
-      title: privacyProfile
+    microsoft.graph.loginPageTextVisibilitySettings:
+      title: loginPageTextVisibilitySettings
       type: object
       properties:
-        contactEmail:
-          type:
-          - string
-          - 'null'
-          description: A valid smtp email address for the privacy statement contact. Not required.
-        statementUrl:
-          type:
-          - string
-          - 'null'
-          description: A valid URL format that begins with http:// or https://. Maximum length is 255 characters. The URL that directs to the company's privacy statement. Not required.
-      additionalProperties:
-        type: object
-    microsoft.graph.verifiedDomain:
-      title: verifiedDomain
-      type: object
-      properties:
-        capabilities:
-          type:
-          - string
-          - 'null'
-          description: For example, Email, OfficeCommunicationsOnline.
-        isDefault:
+        hideAccountResetCredentials:
           type:
           - boolean
           - 'null'
-          description: true if this is the default domain associated with the tenant; otherwise, false.
-        isInitial:
+          description: Option to hide the self-service password reset (SSPR) hyperlinks such as 'Can't access your account?', 'Forgot my password' and 'Reset it now' on the sign-in form.
+        hideCannotAccessYourAccount:
           type:
           - boolean
           - 'null'
-          description: true if this is the initial domain associated with the tenant; otherwise, false.
-        name:
+          description: Option to hide the self-service password reset (SSPR) 'Can't access your account?' hyperlink on the sign-in form.
+        hideForgotMyPassword:
           type:
-          - string
+          - boolean
           - 'null'
-          description: The domain name; for example, contoso.com.
-        type:
+          description: Option to hide the self-service password reset (SSPR) 'Forgot my password' hyperlink on the sign-in form.
+        hidePrivacyAndCookies:
           type:
-          - string
+          - boolean
           - 'null'
-          description: For example, Managed.
+          description: Option to hide the 'Privacy & Cookies' hyperlink in the footer.
+        hideResetItNow:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the self-service password reset (SSPR) 'reset it now' hyperlink on the sign-in form.
+        hideTermsOfUse:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the 'Terms of Use' hyperlink in the footer.
       additionalProperties:
         type: object
-    microsoft.graph.organizationalBrandingLocalization:
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.keyValue:
+      title: keyValue
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Key for the key-value pair.
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value for the key-value pair.
+      additionalProperties:
+        type: object
+    microsoft.graph.organizationalBranding:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.organizationalBrandingProperties'
-      - title: organizationalBrandingLocalization
-        type: object
-        additionalProperties:
-          type: object
-    microsoft.graph.certificateBasedAuthConfiguration:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: certificateBasedAuthConfiguration
+      - title: organizationalBranding
         type: object
         properties:
-          certificateAuthorities:
+          localizations:
             type: array
             items:
-              $ref: '#/components/schemas/microsoft.graph.certificateAuthority'
-            description: Collection of certificate authorities which creates a trusted certificate chain.
+              $ref: '#/components/schemas/microsoft.graph.organizationalBrandingLocalization'
+            description: Add different branding based on a locale.
+            x-ms-navigationProperty: true
         additionalProperties:
           type: object
-    microsoft.graph.directoryObject:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: directoryObject
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
         type: object
-        properties:
-          deletedDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
-            format: date-time
-        additionalProperties:
-          type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
     microsoft.graph.provisionedPlan:
       title: provisionedPlan
       type: object
@@ -534,32 +716,6 @@ components:
           - string
           - 'null'
           description: The name of the service; for example, 'AccessControlS2S'.
-      additionalProperties:
-        type: object
-    microsoft.graph.contentCustomization:
-      title: contentCustomization
-      type: object
-      properties:
-        attributeCollection:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.keyValue'
-          description: Represents the content options of External Identities to be customized throughout the authentication flow for a tenant.
-        attributeCollectionRelativeUrl:
-          type:
-          - string
-          - 'null'
-          description: A relative URL for the content options of External Identities to be customized throughout the authentication flow for a tenant.
-        registrationCampaign:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.keyValue'
-          description: Represents content options to customize during MFA proofup interruptions.
-        registrationCampaignRelativeUrl:
-          type:
-          - string
-          - 'null'
-          description: The relative URL of the content options to customize during MFA proofup interruptions.
       additionalProperties:
         type: object
     microsoft.graph.organizationalBrandingProperties:
@@ -725,22 +881,6 @@ components:
             description: A string that shows as the hint in the username textbox on the sign-in screen. This text must be a Unicode, without links or code, and can't exceed 64 characters.
         additionalProperties:
           type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
     microsoft.graph.loginPageLayoutConfiguration:
       title: loginPageLayoutConfiguration
       type: object
@@ -759,224 +899,84 @@ components:
           $ref: '#/components/schemas/microsoft.graph.layoutTemplateType'
       additionalProperties:
         type: object
-    microsoft.graph.organizationCollectionResponse:
-      title: Collection of organization
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.organization'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.keyValue:
-      title: keyValue
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: Key for the key-value pair.
-        value:
-          type:
-          - string
-          - 'null'
-          description: Value for the key-value pair.
-      additionalProperties:
-        type: object
-    microsoft.graph.layoutTemplateType:
-      title: layoutTemplateType
-      enum:
-      - default
-      - verticalSplit
-      - unknownFutureValue
-      type: string
-    microsoft.graph.mdmAuthority:
-      title: mdmAuthority
-      enum:
-      - unknown
-      - intune
-      - sccm
-      - office365
-      type: string
-      description: Mobile device management authority.
-      x-ms-enum:
-        name: mdmAuthority
-        modelAsString: false
-        values:
-        - value: unknown
-          description: Unknown
-          name: unknown
-        - value: intune
-          description: Intune
-          name: intune
-        - value: sccm
-          description: SCCM
-          name: sccm
-        - value: office365
-          description: Office365
-          name: office365
-    microsoft.graph.extension:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: extension
-        type: object
-        additionalProperties:
-          type: object
-    microsoft.graph.loginPageTextVisibilitySettings:
-      title: loginPageTextVisibilitySettings
-      type: object
-      properties:
-        hideAccountResetCredentials:
-          type:
-          - boolean
-          - 'null'
-          description: Option to hide the self-service password reset (SSPR) hyperlinks such as 'Can't access your account?', 'Forgot my password' and 'Reset it now' on the sign-in form.
-        hideCannotAccessYourAccount:
-          type:
-          - boolean
-          - 'null'
-          description: Option to hide the self-service password reset (SSPR) 'Can't access your account?' hyperlink on the sign-in form.
-        hideForgotMyPassword:
-          type:
-          - boolean
-          - 'null'
-          description: Option to hide the self-service password reset (SSPR) 'Forgot my password' hyperlink on the sign-in form.
-        hidePrivacyAndCookies:
-          type:
-          - boolean
-          - 'null'
-          description: Option to hide the 'Privacy & Cookies' hyperlink in the footer.
-        hideResetItNow:
-          type:
-          - boolean
-          - 'null'
-          description: Option to hide the self-service password reset (SSPR) 'reset it now' hyperlink on the sign-in form.
-        hideTermsOfUse:
-          type:
-          - boolean
-          - 'null'
-          description: Option to hide the 'Terms of Use' hyperlink in the footer.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.MainError:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
-          type:
-          - string
-          - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
     ODataCountResponse:
       type: integer
       format: int32
-    microsoft.graph.certificateAuthority:
-      title: certificateAuthority
+    microsoft.graph.verifiedDomain:
+      title: verifiedDomain
       type: object
       properties:
-        certificate:
-          type: string
-          description: Required. The base64 encoded string representing the public certificate.
-          format: base64url
-        certificateRevocationListUrl:
+        capabilities:
           type:
           - string
           - 'null'
-          description: The URL of the certificate revocation list.
-        deltaCertificateRevocationListUrl:
+          description: For example, Email, OfficeCommunicationsOnline.
+        isDefault:
+          type:
+          - boolean
+          - 'null'
+          description: true if this is the default domain associated with the tenant; otherwise, false.
+        isInitial:
+          type:
+          - boolean
+          - 'null'
+          description: true if this is the initial domain associated with the tenant; otherwise, false.
+        name:
           type:
           - string
           - 'null'
-          description: The URL contains the list of all revoked certificates since the last time a full certificate revocaton list was created.
-        isRootAuthority:
-          type: boolean
-          description: Required. true if the trusted certificate is a root authority, false if the trusted certificate is an intermediate authority.
-        issuer:
-          type: string
-          description: The issuer of the certificate, calculated from the certificate value. Read-only.
-        issuerSki:
-          type: string
-          description: The subject key identifier of the certificate, calculated from the certificate value. Read-only.
+          description: The domain name; for example, contoso.com.
+        type:
+          type:
+          - string
+          - 'null'
+          description: For example, Managed.
       additionalProperties:
         type: object
-    microsoft.graph.assignedPlan:
-      title: assignedPlan
-      type: object
-      properties:
-        assignedDateTime:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-          type:
-          - string
-          - 'null'
-          description: The date and time at which the plan was assigned. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
-          format: date-time
-        capabilityStatus:
-          type:
-          - string
-          - 'null'
-          description: Condition of the capability assignment. The possible values are Enabled, Warning, Suspended, Deleted, LockedOut. See a detailed description of each value.
-        service:
-          type:
-          - string
-          - 'null'
-          description: The name of the service; for example, exchange.
-        servicePlanId:
-          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
-          type:
-          - string
-          - 'null'
-          description: A GUID that identifies the service plan. For a complete list of GUIDs and their equivalent friendly service names, see Product names and service plan identifiers for licensing.
-          format: uuid
-      additionalProperties:
-        type: object
-  responses:
-    microsoft.graph.organizationCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.organizationCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+  parameters:
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
   securitySchemes:
     azureaadv2:
       type: oauth2

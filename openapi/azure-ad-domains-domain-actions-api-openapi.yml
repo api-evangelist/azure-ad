@@ -117,99 +117,49 @@ paths:
           $ref: '#/components/responses/error'
       x-ms-docs-operation-type: action
 components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   schemas:
-    microsoft.graph.internalDomainFederation:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.samlOrWsFedProvider'
-      - title: internalDomainFederation
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
         type: object
-        properties:
-          activeSignInUri:
-            type:
-            - string
-            - 'null'
-            description: URL of the endpoint used by active clients when authenticating with federated domains set up for single sign-on in Microsoft Entra ID. Corresponds to the ActiveLogOnUri property of the Set-EntraDomainFederationSettings PowerShell cmdlet.
-          federatedIdpMfaBehavior:
-            $ref: '#/components/schemas/microsoft.graph.federatedIdpMfaBehavior'
-          isSignedAuthenticationRequestRequired:
-            type:
-            - boolean
-            - 'null'
-            description: If true, when SAML authentication requests are sent to the federated SAML IdP, Microsoft Entra ID will sign those requests using the OrgID signing key. If false (default), the SAML authentication requests sent to the federated IdP aren't signed.
-          nextSigningCertificate:
-            type:
-            - string
-            - 'null'
-            description: Fallback token signing certificate that can also be used to sign tokens, for example when the primary signing certificate expires. Formatted as Base64 encoded strings of the public portion of the federated IdP's token signing certificate. Needs to be compatible with the X509Certificate2 class. Much like the signingCertificate, the nextSigningCertificate property is used if a rollover is required outside of the auto-rollover update, a new federation service is being set up, or if the new token signing certificate isn't present in the federation properties after the federation service certificate has been updated.
-          passwordResetUri:
-            type:
-            - string
-            - 'null'
-          promptLoginBehavior:
-            $ref: '#/components/schemas/microsoft.graph.promptLoginBehavior'
-          signingCertificateUpdateStatus:
-            $ref: '#/components/schemas/microsoft.graph.signingCertificateUpdateStatus'
-          signOutUri:
-            type:
-            - string
-            - 'null'
-            description: URI that clients are redirected to when they sign out of Microsoft Entra services. Corresponds to the LogOffUri property of the Set-EntraDomainFederationSettings PowerShell cmdlet.
-        additionalProperties:
-          type: object
-    microsoft.graph.promptLoginBehavior:
-      title: promptLoginBehavior
-      enum:
-      - translateToFreshPasswordAuthentication
-      - nativeSupport
-      - disabled
-      - unknownFutureValue
-      type: string
     microsoft.graph.ODataErrors.InnerError:
       type: object
       additionalProperties:
         type: object
       description: The structure of this object is service-specific
-    microsoft.graph.domainState:
-      title: domainState
-      type: object
-      properties:
-        lastActionDateTime:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-          type:
-          - string
-          - 'null'
-          description: Timestamp for when the last activity occurred. The value is updated when an operation is scheduled, the asynchronous task starts, and when the operation completes.
-          format: date-time
-        operation:
-          type:
-          - string
-          - 'null'
-          description: Type of asynchronous operation. The values can be ForceDelete or Verification.
-        status:
-          type:
-          - string
-          - 'null'
-          description: Current status of the operation.  Scheduled - Operation is scheduled but hasn't started.  InProgress - Task is in progress.  Failed - The operation failed.
-      additionalProperties:
+    microsoft.graph.identityProviderBase:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: identityProviderBase
         type: object
-    microsoft.graph.signingCertificateUpdateStatus:
-      title: signingCertificateUpdateStatus
-      type: object
-      properties:
-        certificateUpdateResult:
-          type:
-          - string
-          - 'null'
-          description: Status of the last certificate update. Read-only. For a list of statuses, see certificateUpdateResult status.
-        lastRunDateTime:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-          type:
-          - string
-          - 'null'
-          description: Date and time in ISO 8601 format and in UTC time when the certificate was last updated. Read-only.
-          format: date-time
-      additionalProperties:
-        type: object
+        properties:
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The display name of the identity provider.
+        additionalProperties:
+          type: object
+    microsoft.graph.federatedIdpMfaBehavior:
+      title: federatedIdpMfaBehavior
+      enum:
+      - acceptIfMfaDoneByFederatedIdp
+      - enforceMfaByFederatedIdp
+      - rejectMfaByFederatedIdp
+      - unknownFutureValue
+      type: string
     microsoft.graph.directoryObject:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -225,19 +175,15 @@ components:
             format: date-time
         additionalProperties:
           type: object
-    microsoft.graph.identityProviderBase:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: identityProviderBase
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
         type: object
-        properties:
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: The display name of the identity provider.
-        additionalProperties:
-          type: object
     microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
@@ -277,6 +223,14 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
+    microsoft.graph.promptLoginBehavior:
+      title: promptLoginBehavior
+      enum:
+      - translateToFreshPasswordAuthentication
+      - nativeSupport
+      - disabled
+      - unknownFutureValue
+      type: string
     microsoft.graph.samlOrWsFedProvider:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.identityProviderBase'
@@ -395,39 +349,85 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
+    microsoft.graph.signingCertificateUpdateStatus:
+      title: signingCertificateUpdateStatus
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+        certificateUpdateResult:
+          type:
+          - string
+          - 'null'
+          description: Status of the last certificate update. Read-only. For a list of statuses, see certificateUpdateResult status.
+        lastRunDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Date and time in ISO 8601 format and in UTC time when the certificate was last updated. Read-only.
+          format: date-time
       additionalProperties:
         type: object
-    microsoft.graph.entity:
-      title: entity
+    microsoft.graph.internalDomainFederation:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.samlOrWsFedProvider'
+      - title: internalDomainFederation
+        type: object
+        properties:
+          activeSignInUri:
+            type:
+            - string
+            - 'null'
+            description: URL of the endpoint used by active clients when authenticating with federated domains set up for single sign-on in Microsoft Entra ID. Corresponds to the ActiveLogOnUri property of the Set-EntraDomainFederationSettings PowerShell cmdlet.
+          federatedIdpMfaBehavior:
+            $ref: '#/components/schemas/microsoft.graph.federatedIdpMfaBehavior'
+          isSignedAuthenticationRequestRequired:
+            type:
+            - boolean
+            - 'null'
+            description: If true, when SAML authentication requests are sent to the federated SAML IdP, Microsoft Entra ID will sign those requests using the OrgID signing key. If false (default), the SAML authentication requests sent to the federated IdP aren't signed.
+          nextSigningCertificate:
+            type:
+            - string
+            - 'null'
+            description: Fallback token signing certificate that can also be used to sign tokens, for example when the primary signing certificate expires. Formatted as Base64 encoded strings of the public portion of the federated IdP's token signing certificate. Needs to be compatible with the X509Certificate2 class. Much like the signingCertificate, the nextSigningCertificate property is used if a rollover is required outside of the auto-rollover update, a new federation service is being set up, or if the new token signing certificate isn't present in the federation properties after the federation service certificate has been updated.
+          passwordResetUri:
+            type:
+            - string
+            - 'null'
+          promptLoginBehavior:
+            $ref: '#/components/schemas/microsoft.graph.promptLoginBehavior'
+          signingCertificateUpdateStatus:
+            $ref: '#/components/schemas/microsoft.graph.signingCertificateUpdateStatus'
+          signOutUri:
+            type:
+            - string
+            - 'null'
+            description: URI that clients are redirected to when they sign out of Microsoft Entra services. Corresponds to the LogOffUri property of the Set-EntraDomainFederationSettings PowerShell cmdlet.
+        additionalProperties:
+          type: object
+    microsoft.graph.domainState:
+      title: domainState
       type: object
       properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
+        lastActionDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Timestamp for when the last activity occurred. The value is updated when an operation is scheduled, the asynchronous task starts, and when the operation completes.
+          format: date-time
+        operation:
+          type:
+          - string
+          - 'null'
+          description: Type of asynchronous operation. The values can be ForceDelete or Verification.
+        status:
+          type:
+          - string
+          - 'null'
+          description: Current status of the operation.  Scheduled - Operation is scheduled but hasn't started.  InProgress - Task is in progress.  Failed - The operation failed.
       additionalProperties:
         type: object
-    microsoft.graph.federatedIdpMfaBehavior:
-      title: federatedIdpMfaBehavior
-      enum:
-      - acceptIfMfaDoneByFederatedIdp
-      - enforceMfaByFederatedIdp
-      - rejectMfaByFederatedIdp
-      - unknownFutureValue
-      type: string
-    microsoft.graph.authenticationProtocol:
-      title: authenticationProtocol
-      enum:
-      - wsFed
-      - saml
-      - unknownFutureValue
-      type: string
     microsoft.graph.domainDnsRecord:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -456,13 +456,13 @@ components:
             format: int32
         additionalProperties:
           type: object
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.authenticationProtocol:
+      title: authenticationProtocol
+      enum:
+      - wsFed
+      - saml
+      - unknownFutureValue
+      type: string
   securitySchemes:
     azureaadv2:
       type: oauth2

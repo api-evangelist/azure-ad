@@ -166,21 +166,65 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
+  parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
   schemas:
-    microsoft.graph.bitlocker:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: bitlocker
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
         type: object
-        properties:
-          recoveryKeys:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.bitlockerRecoveryKey'
-            description: The recovery keys associated with the bitlocker entity.
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
     microsoft.graph.volumeType:
       title: volumeType
       enum:
@@ -189,22 +233,27 @@ components:
       - removableDataVolume
       - unknownFutureValue
       type: string
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.ODataErrors.ErrorDetails:
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.ODataErrors.ODataError:
       required:
-      - code
-      - message
+      - error
       type: object
       properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.bitlockerRecoveryKeyCollectionResponse:
+      title: Collection of bitlockerRecoveryKey
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.bitlockerRecoveryKey'
+        '@odata.nextLink':
           type:
           - string
           - 'null'
@@ -256,85 +305,36 @@ components:
             $ref: '#/components/schemas/microsoft.graph.volumeType'
         additionalProperties:
           type: object
-    microsoft.graph.bitlockerRecoveryKeyCollectionResponse:
-      title: Collection of bitlockerRecoveryKey
+    microsoft.graph.bitlocker:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: bitlocker
+        type: object
+        properties:
+          recoveryKeys:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.bitlockerRecoveryKey'
+            description: The recovery keys associated with the bitlocker entity.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
       type: object
       properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.bitlockerRecoveryKey'
-        '@odata.nextLink':
+        code:
+          type: string
+        message:
+          type: string
+        target:
           type:
           - string
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-  parameters:
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases
-      style: form
-      explode: false
-      schema:
-        type: string
   responses:
     error:
       description: error

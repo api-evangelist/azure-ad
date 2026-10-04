@@ -797,107 +797,43 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  parameters:
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases
-      style: form
-      explode: false
-      schema:
-        type: string
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.webApplicationFirewallVerificationModelCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModelCollectionResponse'
+    microsoft.graph.fraudProtectionProviderCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.fraudProtectionProviderCollectionResponse'
+    microsoft.graph.webApplicationFirewallProviderCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProviderCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
   schemas:
-    microsoft.graph.webApplicationFirewallVerificationModel:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: webApplicationFirewallVerificationModel
-        type: object
-        properties:
-          providerType:
-            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProviderType'
-          verificationResult:
-            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationResult'
-          verifiedDetails:
-            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerifiedDetails'
-          verifiedHost:
-            type:
-            - string
-            - 'null'
-            description: The host (domain or subdomain) that was verified as part of this verification operation.
-          provider:
-            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
-        additionalProperties:
-          type: object
-    microsoft.graph.webApplicationFirewallProvider:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: webApplicationFirewallProvider
-        type: object
-        properties:
-          displayName:
-            type: string
-            description: The display name of the WAF provider.
-        additionalProperties:
-          type: object
-    microsoft.graph.webApplicationFirewallVerificationStatus:
-      title: webApplicationFirewallVerificationStatus
-      enum:
-      - success
-      - warning
-      - failure
-      - unknownFutureValue
-      type: string
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
+    microsoft.graph.ODataErrors.InnerError:
       type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
-    microsoft.graph.webApplicationFirewallProviderType:
-      title: webApplicationFirewallProviderType
-      enum:
-      - akamai
-      - cloudflare
-      - unknownFutureValue
-      type: string
+      description: The structure of this object is service-specific
     microsoft.graph.riskPreventionContainer:
       title: riskPreventionContainer
       type: object
@@ -922,94 +858,6 @@ components:
           x-ms-navigationProperty: true
       additionalProperties:
         type: object
-    microsoft.graph.fraudProtectionProvider:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: fraudProtectionProvider
-        type: object
-        properties:
-          displayName:
-            type: string
-            description: The display name of the fraud protection provider configuration.
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.webApplicationFirewallVerificationModelCollectionResponse:
-      title: Collection of webApplicationFirewallVerificationModel
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModel'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.fraudProtectionProviderCollectionResponse:
-      title: Collection of fraudProtectionProvider
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.fraudProtectionProvider'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.webApplicationFirewallVerifiedDetails:
-      title: webApplicationFirewallVerifiedDetails
-      type: object
-      properties:
-        dnsConfiguration:
-          $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallDnsConfiguration'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.webApplicationFirewallProviderCollectionResponse:
-      title: Collection of webApplicationFirewallProvider
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.webApplicationFirewallDnsRecordType:
-      title: webApplicationFirewallDnsRecordType
-      enum:
-      - cname
-      - unknownFutureValue
-      type: string
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -1031,6 +879,49 @@ components:
             $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
         innerError:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.webApplicationFirewallVerificationModel:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: webApplicationFirewallVerificationModel
+        type: object
+        properties:
+          providerType:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProviderType'
+          verificationResult:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationResult'
+          verifiedDetails:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerifiedDetails'
+          verifiedHost:
+            type:
+            - string
+            - 'null'
+            description: The host (domain or subdomain) that was verified as part of this verification operation.
+          provider:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
+        additionalProperties:
+          type: object
+    microsoft.graph.webApplicationFirewallVerificationModelCollectionResponse:
+      title: Collection of webApplicationFirewallVerificationModel
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModel'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.webApplicationFirewallVerifiedDetails:
+      title: webApplicationFirewallVerifiedDetails
+      type: object
+      properties:
+        dnsConfiguration:
+          $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallDnsConfiguration'
       additionalProperties:
         type: object
     microsoft.graph.genericError:
@@ -1072,6 +963,40 @@ components:
           description: List of warnings produced during verification.
       additionalProperties:
         type: object
+    microsoft.graph.webApplicationFirewallProvider:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: webApplicationFirewallProvider
+        type: object
+        properties:
+          displayName:
+            type: string
+            description: The display name of the WAF provider.
+        additionalProperties:
+          type: object
+    microsoft.graph.fraudProtectionProviderCollectionResponse:
+      title: Collection of fraudProtectionProvider
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.fraudProtectionProvider'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
     microsoft.graph.webApplicationFirewallDnsConfiguration:
       title: webApplicationFirewallDnsConfiguration
       type: object
@@ -1096,6 +1021,30 @@ components:
           description: The value of the DNS record.
       additionalProperties:
         type: object
+    microsoft.graph.webApplicationFirewallVerificationStatus:
+      title: webApplicationFirewallVerificationStatus
+      enum:
+      - success
+      - warning
+      - failure
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
     microsoft.graph.entity:
       title: entity
       type: object
@@ -1105,40 +1054,91 @@ components:
           description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
+    microsoft.graph.fraudProtectionProvider:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: fraudProtectionProvider
+        type: object
+        properties:
+          displayName:
+            type: string
+            description: The display name of the fraud protection provider configuration.
+        additionalProperties:
+          type: object
+    microsoft.graph.webApplicationFirewallProviderCollectionResponse:
+      title: Collection of webApplicationFirewallProvider
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProvider'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.webApplicationFirewallDnsRecordType:
+      title: webApplicationFirewallDnsRecordType
+      enum:
+      - cname
+      - unknownFutureValue
+      type: string
+    microsoft.graph.webApplicationFirewallProviderType:
+      title: webApplicationFirewallProviderType
+      enum:
+      - akamai
+      - cloudflare
+      - unknownFutureValue
+      type: string
     ODataCountResponse:
       type: integer
       format: int32
-  responses:
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.fraudProtectionProviderCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.fraudProtectionProviderCollectionResponse'
-    microsoft.graph.webApplicationFirewallProviderCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallProviderCollectionResponse'
-    microsoft.graph.webApplicationFirewallVerificationModelCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.webApplicationFirewallVerificationModelCollectionResponse'
+  parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
   securitySchemes:
     azureaadv2:
       type: oauth2

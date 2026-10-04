@@ -902,58 +902,274 @@ paths:
           $ref: '#/components/responses/error'
       x-ms-docs-operation-type: action
 components:
-  parameters:
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases
-      style: form
-      explode: false
-      schema:
-        type: string
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.crossTenantAccessPolicyConfigurationPartnerCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyConfigurationPartnerCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
   schemas:
-    microsoft.graph.serviceProviderConstraints:
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.multiTenantOrganizationIdentitySyncPolicyTemplate:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: serviceProviderConstraints
+      - title: multiTenantOrganizationIdentitySyncPolicyTemplate
         type: object
+        properties:
+          templateApplicationLevel:
+            $ref: '#/components/schemas/microsoft.graph.templateApplicationLevel'
+          userSyncInbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantUserSyncInbound'
         additionalProperties:
           type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.templateApplicationLevel:
+      title: templateApplicationLevel
+      enum:
+      - none
+      - newPartners
+      - existingPartners
+      - unknownFutureValue
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.crossTenantAccessPolicyConfigurationDefault:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: crossTenantAccessPolicyConfigurationDefault
+        type: object
+        properties:
+          appServiceConnectInbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyAppServiceConnectSetting'
+          automaticUserConsentSettings:
+            $ref: '#/components/schemas/microsoft.graph.inboundOutboundPolicyConfiguration'
+          b2bCollaborationInbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+          b2bCollaborationOutbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+          b2bDirectConnectInbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+          b2bDirectConnectOutbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+          inboundTrust:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyInboundTrust'
+          invitationRedemptionIdentityProviderConfiguration:
+            $ref: '#/components/schemas/microsoft.graph.defaultInvitationRedemptionIdentityProviderConfiguration'
+          isServiceDefault:
+            type:
+            - boolean
+            - 'null'
+            description: If true, the default configuration is set to the system default configuration. If false, the default settings are customized.
+          m365CollaborationInbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyM365CollaborationInboundSetting'
+          m365CollaborationOutbound:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyM365CollaborationOutboundSetting'
+          tenantRestrictions:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTenantRestrictions'
+        additionalProperties:
+          type: object
+    microsoft.graph.policyBase:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: policyBase
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: Description for this policy. Required.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Display name for this policy. Required.
+        additionalProperties:
+          type: object
+    microsoft.graph.crossTenantAccessPolicyTargetConfiguration:
+      title: crossTenantAccessPolicyTargetConfiguration
+      type: object
+      properties:
+        accessType:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfigurationAccessType'
+        targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTarget'
+          description: Specifies whether to target users, groups, or applications with this rule.
+      additionalProperties:
+        type: object
+    microsoft.graph.crossTenantAccessPolicyInboundTrust:
+      title: crossTenantAccessPolicyInboundTrust
+      type: object
+      properties:
+        isCompliantDeviceAccepted:
+          type:
+          - boolean
+          - 'null'
+          description: Specifies whether compliant devices from external Microsoft Entra organizations are trusted.
+        isHybridAzureADJoinedDeviceAccepted:
+          type:
+          - boolean
+          - 'null'
+          description: Specifies whether Microsoft Entra hybrid joined devices from external Microsoft Entra organizations are trusted.
+        isMfaAccepted:
+          type:
+          - boolean
+          - 'null'
+          description: Specifies whether MFA from external Microsoft Entra organizations is trusted.
+      additionalProperties:
+        type: object
+    microsoft.graph.crossTenantAccessPolicyB2BSetting:
+      title: crossTenantAccessPolicyB2BSetting
+      type: object
+      properties:
+        applications:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
+        usersAndGroups:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
+      additionalProperties:
+        type: object
+    microsoft.graph.crossTenantAccessPolicyM365CollaborationInboundSetting:
+      title: crossTenantAccessPolicyM365CollaborationInboundSetting
+      type: object
+      properties:
+        users:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
+      additionalProperties:
+        type: object
+    microsoft.graph.crossTenantAccessPolicyTargetConfigurationAccessType:
+      title: crossTenantAccessPolicyTargetConfigurationAccessType
+      enum:
+      - allowed
+      - blocked
+      - unknownFutureValue
+      type: string
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.policyTemplate:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: policyTemplate
+        type: object
+        properties:
+          multiTenantOrganizationIdentitySynchronization:
+            $ref: '#/components/schemas/microsoft.graph.multiTenantOrganizationIdentitySyncPolicyTemplate'
+          multiTenantOrganizationPartnerConfiguration:
+            $ref: '#/components/schemas/microsoft.graph.multiTenantOrganizationPartnerConfigurationTemplate'
+        additionalProperties:
+          type: object
+    microsoft.graph.crossTenantAccessPolicyTarget:
+      title: crossTenantAccessPolicyTarget
+      type: object
+      properties:
+        target:
+          type:
+          - string
+          - 'null'
+          description: 'Defines the target for cross-tenant access policy settings and can have one of the following values:  The unique identifier of the user, group, or application  AllUsers  AllApplications - Refers to any Microsoft cloud application.  Office365 - Includes the applications mentioned as part of the Office 365 suite.'
+        targetType:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetType'
+      additionalProperties:
+        type: object
+    microsoft.graph.crossTenantAccessPolicyM365CollaborationOutboundSetting:
+      title: crossTenantAccessPolicyM365CollaborationOutboundSetting
+      type: object
+      properties:
+        usersAndGroups:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
+      additionalProperties:
+        type: object
+    microsoft.graph.crossTenantAccessPolicyAppServiceConnectSetting:
+      title: crossTenantAccessPolicyAppServiceConnectSetting
+      type: object
+      properties:
+        applications:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
+      additionalProperties:
+        type: object
+    microsoft.graph.crossTenantAccessPolicyConfigurationPartnerCollectionResponse:
+      title: Collection of crossTenantAccessPolicyConfigurationPartner
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyConfigurationPartner'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.inboundOutboundPolicyConfiguration:
+      title: inboundOutboundPolicyConfiguration
+      type: object
+      properties:
+        inboundAllowed:
+          type:
+          - boolean
+          - 'null'
+          description: Defines whether external users coming inbound are allowed.
+        outboundAllowed:
+          type:
+          - boolean
+          - 'null'
+          description: Defines whether internal users are allowed to go outbound.
+      additionalProperties:
+        type: object
     microsoft.graph.ODataErrors.ODataError:
       required:
       - error
@@ -963,29 +1179,44 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
-    microsoft.graph.defaultInvitationRedemptionIdentityProviderConfiguration:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.invitationRedemptionIdentityProviderConfiguration'
-      - title: defaultInvitationRedemptionIdentityProviderConfiguration
-        type: object
-        additionalProperties:
-          type: object
-    microsoft.graph.crossTenantAccessPolicyTenantRestrictions:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
-      - title: crossTenantAccessPolicyTenantRestrictions
-        type: object
-        properties:
-          devices:
-            $ref: '#/components/schemas/microsoft.graph.devicesFilter'
-        additionalProperties:
-          type: object
-    microsoft.graph.crossTenantAccessPolicyM365CollaborationInboundSetting:
-      title: crossTenantAccessPolicyM365CollaborationInboundSetting
+    microsoft.graph.crossTenantUserSyncInbound:
+      title: crossTenantUserSyncInbound
       type: object
       properties:
-        users:
-          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
+        isSyncAllowed:
+          type:
+          - boolean
+          - 'null'
+          description: Defines whether user objects should be synchronized from the partner tenant. false causes any current user synchronization from the source tenant to the target tenant to stop. This property has no impact on existing users who have already been synchronized.
+      additionalProperties:
+        type: object
+    microsoft.graph.devicesFilter:
+      title: devicesFilter
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfigurationAccessType'
+        rule:
+          type:
+          - string
+          - 'null'
+          description: Defines the rule to filter the devices. For example, device.deviceAttribute2 -eq 'PrivilegedAccessWorkstation'.
+      additionalProperties:
+        type: object
+    microsoft.graph.crossTenantIdentitySyncPolicyPartner:
+      title: crossTenantIdentitySyncPolicyPartner
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: Display name for the cross-tenant user synchronization policy. Use the name of the partner Microsoft Entra tenant to easily identify the policy. Optional.
+        tenantId:
+          type: string
+          description: Tenant identifier for the partner Microsoft Entra organization. Read-only.
+        userSyncInbound:
+          $ref: '#/components/schemas/microsoft.graph.crossTenantUserSyncInbound'
       additionalProperties:
         type: object
     microsoft.graph.crossTenantAccessPolicy:
@@ -1011,19 +1242,26 @@ components:
             $ref: '#/components/schemas/microsoft.graph.policyTemplate'
         additionalProperties:
           type: object
-    microsoft.graph.crossTenantAccessPolicyTargetType:
-      title: crossTenantAccessPolicyTargetType
-      enum:
-      - user
-      - group
-      - application
-      - unknownFutureValue
-      type: string
-    microsoft.graph.ODataErrors.InnerError:
+    microsoft.graph.invitationRedemptionIdentityProviderConfiguration:
+      title: invitationRedemptionIdentityProviderConfiguration
       type: object
+      properties:
+        fallbackIdentityProvider:
+          $ref: '#/components/schemas/microsoft.graph.b2bIdentityProvidersType'
+        primaryIdentityProviderPrecedenceOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.b2bIdentityProvidersType'
+          description: 'Collection of identity providers in priority order of preference to be used for guest invitation redemption. The possible values are: azureActiveDirectory, externalFederation, or socialIdentityProviders.'
       additionalProperties:
         type: object
-      description: The structure of this object is service-specific
+    microsoft.graph.defaultInvitationRedemptionIdentityProviderConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.invitationRedemptionIdentityProviderConfiguration'
+      - title: defaultInvitationRedemptionIdentityProviderConfiguration
+        type: object
+        additionalProperties:
+          type: object
     microsoft.graph.multiTenantOrganizationPartnerConfigurationTemplate:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -1046,97 +1284,6 @@ components:
             $ref: '#/components/schemas/microsoft.graph.templateApplicationLevel'
         additionalProperties:
           type: object
-    microsoft.graph.directoryObject:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: directoryObject
-        type: object
-        properties:
-          deletedDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
-            format: date-time
-        additionalProperties:
-          type: object
-    microsoft.graph.crossTenantAccessPolicyTargetConfigurationAccessType:
-      title: crossTenantAccessPolicyTargetConfigurationAccessType
-      enum:
-      - allowed
-      - blocked
-      - unknownFutureValue
-      type: string
-    microsoft.graph.invitationRedemptionIdentityProviderConfiguration:
-      title: invitationRedemptionIdentityProviderConfiguration
-      type: object
-      properties:
-        fallbackIdentityProvider:
-          $ref: '#/components/schemas/microsoft.graph.b2bIdentityProvidersType'
-        primaryIdentityProviderPrecedenceOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.b2bIdentityProvidersType'
-          description: 'Collection of identity providers in priority order of preference to be used for guest invitation redemption. The possible values are: azureActiveDirectory, externalFederation, or socialIdentityProviders.'
-      additionalProperties:
-        type: object
-    microsoft.graph.crossTenantAccessPolicyConfigurationPartnerCollectionResponse:
-      title: Collection of crossTenantAccessPolicyConfigurationPartner
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyConfigurationPartner'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.crossTenantAccessPolicyTargetConfiguration:
-      title: crossTenantAccessPolicyTargetConfiguration
-      type: object
-      properties:
-        accessType:
-          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfigurationAccessType'
-        targets:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTarget'
-          description: Specifies whether to target users, groups, or applications with this rule.
-      additionalProperties:
-        type: object
-    microsoft.graph.crossTenantAccessPolicyTarget:
-      title: crossTenantAccessPolicyTarget
-      type: object
-      properties:
-        target:
-          type:
-          - string
-          - 'null'
-          description: 'Defines the target for cross-tenant access policy settings and can have one of the following values:  The unique identifier of the user, group, or application  AllUsers  AllApplications - Refers to any Microsoft cloud application.  Office365 - Includes the applications mentioned as part of the Office 365 suite.'
-        targetType:
-          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetType'
-      additionalProperties:
-        type: object
-    microsoft.graph.crossTenantIdentitySyncPolicyPartner:
-      title: crossTenantIdentitySyncPolicyPartner
-      type: object
-      properties:
-        displayName:
-          type:
-          - string
-          - 'null'
-          description: Display name for the cross-tenant user synchronization policy. Use the name of the partner Microsoft Entra tenant to easily identify the policy. Optional.
-        tenantId:
-          type: string
-          description: Tenant identifier for the partner Microsoft Entra organization. Read-only.
-        userSyncInbound:
-          $ref: '#/components/schemas/microsoft.graph.crossTenantUserSyncInbound'
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
@@ -1153,53 +1300,46 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.policyBase:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
-      - title: policyBase
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
         type: object
-        properties:
-          description:
-            type:
-            - string
-            - 'null'
-            description: Description for this policy. Required.
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: Display name for this policy. Required.
+    microsoft.graph.serviceProviderConstraints:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: serviceProviderConstraints
+        type: object
         additionalProperties:
           type: object
-    microsoft.graph.crossTenantAccessPolicyAppServiceConnectSetting:
-      title: crossTenantAccessPolicyAppServiceConnectSetting
-      type: object
-      properties:
-        applications:
-          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
-      additionalProperties:
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.crossTenantAccessPolicyTenantRestrictions:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
+      - title: crossTenantAccessPolicyTenantRestrictions
         type: object
-    microsoft.graph.templateApplicationLevel:
-      title: templateApplicationLevel
+        properties:
+          devices:
+            $ref: '#/components/schemas/microsoft.graph.devicesFilter'
+        additionalProperties:
+          type: object
+    microsoft.graph.b2bIdentityProvidersType:
+      title: b2bIdentityProvidersType
       enum:
-      - none
-      - newPartners
-      - existingPartners
+      - azureActiveDirectory
+      - externalFederation
+      - socialIdentityProviders
+      - emailOneTimePasscode
+      - microsoftAccount
+      - defaultConfiguredIdp
       - unknownFutureValue
       type: string
-      x-ms-enum-flags:
-        isFlags: true
-    microsoft.graph.crossTenantUserSyncInbound:
-      title: crossTenantUserSyncInbound
-      type: object
-      properties:
-        isSyncAllowed:
-          type:
-          - boolean
-          - 'null'
-          description: Defines whether user objects should be synchronized from the partner tenant. false causes any current user synchronization from the source tenant to the target tenant to stop. This property has no impact on existing users who have already been synchronized.
-      additionalProperties:
-        type: object
     microsoft.graph.crossTenantAccessPolicyConfigurationPartner:
       title: crossTenantAccessPolicyConfigurationPartner
       type: object
@@ -1243,198 +1383,58 @@ components:
           $ref: '#/components/schemas/microsoft.graph.serviceProviderConstraints'
       additionalProperties:
         type: object
-    microsoft.graph.crossTenantAccessPolicyInboundTrust:
-      title: crossTenantAccessPolicyInboundTrust
-      type: object
-      properties:
-        isCompliantDeviceAccepted:
-          type:
-          - boolean
-          - 'null'
-          description: Specifies whether compliant devices from external Microsoft Entra organizations are trusted.
-        isHybridAzureADJoinedDeviceAccepted:
-          type:
-          - boolean
-          - 'null'
-          description: Specifies whether Microsoft Entra hybrid joined devices from external Microsoft Entra organizations are trusted.
-        isMfaAccepted:
-          type:
-          - boolean
-          - 'null'
-          description: Specifies whether MFA from external Microsoft Entra organizations is trusted.
-      additionalProperties:
-        type: object
-    microsoft.graph.b2bIdentityProvidersType:
-      title: b2bIdentityProvidersType
+    microsoft.graph.crossTenantAccessPolicyTargetType:
+      title: crossTenantAccessPolicyTargetType
       enum:
-      - azureActiveDirectory
-      - externalFederation
-      - socialIdentityProviders
-      - emailOneTimePasscode
-      - microsoftAccount
-      - defaultConfiguredIdp
+      - user
+      - group
+      - application
       - unknownFutureValue
       type: string
-    microsoft.graph.devicesFilter:
-      title: devicesFilter
-      type: object
-      properties:
-        mode:
-          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfigurationAccessType'
-        rule:
-          type:
-          - string
-          - 'null'
-          description: Defines the rule to filter the devices. For example, device.deviceAttribute2 -eq 'PrivilegedAccessWorkstation'.
-      additionalProperties:
-        type: object
-    microsoft.graph.inboundOutboundPolicyConfiguration:
-      title: inboundOutboundPolicyConfiguration
-      type: object
-      properties:
-        inboundAllowed:
-          type:
-          - boolean
-          - 'null'
-          description: Defines whether external users coming inbound are allowed.
-        outboundAllowed:
-          type:
-          - boolean
-          - 'null'
-          description: Defines whether internal users are allowed to go outbound.
-      additionalProperties:
-        type: object
-    microsoft.graph.crossTenantAccessPolicyConfigurationDefault:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: crossTenantAccessPolicyConfigurationDefault
-        type: object
-        properties:
-          appServiceConnectInbound:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyAppServiceConnectSetting'
-          automaticUserConsentSettings:
-            $ref: '#/components/schemas/microsoft.graph.inboundOutboundPolicyConfiguration'
-          b2bCollaborationInbound:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
-          b2bCollaborationOutbound:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
-          b2bDirectConnectInbound:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
-          b2bDirectConnectOutbound:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyB2BSetting'
-          inboundTrust:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyInboundTrust'
-          invitationRedemptionIdentityProviderConfiguration:
-            $ref: '#/components/schemas/microsoft.graph.defaultInvitationRedemptionIdentityProviderConfiguration'
-          isServiceDefault:
-            type:
-            - boolean
-            - 'null'
-            description: If true, the default configuration is set to the system default configuration. If false, the default settings are customized.
-          m365CollaborationInbound:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyM365CollaborationInboundSetting'
-          m365CollaborationOutbound:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyM365CollaborationOutboundSetting'
-          tenantRestrictions:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTenantRestrictions'
-        additionalProperties:
-          type: object
-    microsoft.graph.policyTemplate:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: policyTemplate
-        type: object
-        properties:
-          multiTenantOrganizationIdentitySynchronization:
-            $ref: '#/components/schemas/microsoft.graph.multiTenantOrganizationIdentitySyncPolicyTemplate'
-          multiTenantOrganizationPartnerConfiguration:
-            $ref: '#/components/schemas/microsoft.graph.multiTenantOrganizationPartnerConfigurationTemplate'
-        additionalProperties:
-          type: object
-    microsoft.graph.crossTenantAccessPolicyB2BSetting:
-      title: crossTenantAccessPolicyB2BSetting
-      type: object
-      properties:
-        applications:
-          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
-        usersAndGroups:
-          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
-      additionalProperties:
-        type: object
-    microsoft.graph.crossTenantAccessPolicyM365CollaborationOutboundSetting:
-      title: crossTenantAccessPolicyM365CollaborationOutboundSetting
-      type: object
-      properties:
-        usersAndGroups:
-          $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyTargetConfiguration'
-      additionalProperties:
-        type: object
-    microsoft.graph.multiTenantOrganizationIdentitySyncPolicyTemplate:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: multiTenantOrganizationIdentitySyncPolicyTemplate
-        type: object
-        properties:
-          templateApplicationLevel:
-            $ref: '#/components/schemas/microsoft.graph.templateApplicationLevel'
-          userSyncInbound:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantUserSyncInbound'
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.MainError:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
-          type:
-          - string
-          - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-  responses:
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.crossTenantAccessPolicyConfigurationPartnerCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.crossTenantAccessPolicyConfigurationPartnerCollectionResponse'
+  parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
   securitySchemes:
     azureaadv2:
       type: oauth2

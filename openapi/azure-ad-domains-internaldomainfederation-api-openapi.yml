@@ -269,174 +269,31 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  parameters:
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases
-      style: form
-      explode: false
-      schema:
-        type: string
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
-  schemas:
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.internalDomainFederation:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.samlOrWsFedProvider'
-      - title: internalDomainFederation
-        type: object
-        properties:
-          activeSignInUri:
-            type:
-            - string
-            - 'null'
-            description: URL of the endpoint used by active clients when authenticating with federated domains set up for single sign-on in Microsoft Entra ID. Corresponds to the ActiveLogOnUri property of the Set-EntraDomainFederationSettings PowerShell cmdlet.
-          federatedIdpMfaBehavior:
-            $ref: '#/components/schemas/microsoft.graph.federatedIdpMfaBehavior'
-          isSignedAuthenticationRequestRequired:
-            type:
-            - boolean
-            - 'null'
-            description: If true, when SAML authentication requests are sent to the federated SAML IdP, Microsoft Entra ID will sign those requests using the OrgID signing key. If false (default), the SAML authentication requests sent to the federated IdP aren't signed.
-          nextSigningCertificate:
-            type:
-            - string
-            - 'null'
-            description: Fallback token signing certificate that can also be used to sign tokens, for example when the primary signing certificate expires. Formatted as Base64 encoded strings of the public portion of the federated IdP's token signing certificate. Needs to be compatible with the X509Certificate2 class. Much like the signingCertificate, the nextSigningCertificate property is used if a rollover is required outside of the auto-rollover update, a new federation service is being set up, or if the new token signing certificate isn't present in the federation properties after the federation service certificate has been updated.
-          passwordResetUri:
-            type:
-            - string
-            - 'null'
-          promptLoginBehavior:
-            $ref: '#/components/schemas/microsoft.graph.promptLoginBehavior'
-          signingCertificateUpdateStatus:
-            $ref: '#/components/schemas/microsoft.graph.signingCertificateUpdateStatus'
-          signOutUri:
-            type:
-            - string
-            - 'null'
-            description: URI that clients are redirected to when they sign out of Microsoft Entra services. Corresponds to the LogOffUri property of the Set-EntraDomainFederationSettings PowerShell cmdlet.
-        additionalProperties:
-          type: object
-    microsoft.graph.promptLoginBehavior:
-      title: promptLoginBehavior
-      enum:
-      - translateToFreshPasswordAuthentication
-      - nativeSupport
-      - disabled
-      - unknownFutureValue
-      type: string
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
     microsoft.graph.internalDomainFederationCollectionResponse:
-      title: Collection of internalDomainFederation
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.internalDomainFederation'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.internalDomainFederationCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+  schemas:
     microsoft.graph.ODataErrors.InnerError:
       type: object
       additionalProperties:
         type: object
       description: The structure of this object is service-specific
-    microsoft.graph.federatedIdpMfaBehavior:
-      title: federatedIdpMfaBehavior
-      enum:
-      - acceptIfMfaDoneByFederatedIdp
-      - enforceMfaByFederatedIdp
-      - rejectMfaByFederatedIdp
-      - unknownFutureValue
-      type: string
-    microsoft.graph.authenticationProtocol:
-      title: authenticationProtocol
-      enum:
-      - wsFed
-      - saml
-      - unknownFutureValue
-      type: string
-    microsoft.graph.signingCertificateUpdateStatus:
-      title: signingCertificateUpdateStatus
-      type: object
-      properties:
-        certificateUpdateResult:
-          type:
-          - string
-          - 'null'
-          description: Status of the last certificate update. Read-only. For a list of statuses, see certificateUpdateResult status.
-        lastRunDateTime:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-          type:
-          - string
-          - 'null'
-          description: Date and time in ISO 8601 format and in UTC time when the certificate was last updated. Read-only.
-          format: date-time
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
     microsoft.graph.identityProviderBase:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -503,6 +360,102 @@ components:
             description: 'Current certificate used to sign tokens passed to the Microsoft identity platform. The certificate is formatted as a Base64 encoded string of the public portion of the federated IdP''s token signing certificate and must be compatible with the X509Certificate2 class.   This property is used in the following scenarios:  if a rollover is required outside of the autorollover update a new federation service is being set up  if the new token signing certificate isn''t present in the federation properties after the federation service certificate has been updated.   Microsoft Entra ID updates certificates via an autorollover process in which it attempts to retrieve a new certificate from the federation service metadata, 30 days before expiry of the current certificate. If a new certificate isn''t available, Microsoft Entra ID monitors the metadata daily and will update the federation settings for the domain when a new certificate is available.'
         additionalProperties:
           type: object
+    microsoft.graph.authenticationProtocol:
+      title: authenticationProtocol
+      enum:
+      - wsFed
+      - saml
+      - unknownFutureValue
+      type: string
+    microsoft.graph.promptLoginBehavior:
+      title: promptLoginBehavior
+      enum:
+      - translateToFreshPasswordAuthentication
+      - nativeSupport
+      - disabled
+      - unknownFutureValue
+      type: string
+    microsoft.graph.signingCertificateUpdateStatus:
+      title: signingCertificateUpdateStatus
+      type: object
+      properties:
+        certificateUpdateResult:
+          type:
+          - string
+          - 'null'
+          description: Status of the last certificate update. Read-only. For a list of statuses, see certificateUpdateResult status.
+        lastRunDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Date and time in ISO 8601 format and in UTC time when the certificate was last updated. Read-only.
+          format: date-time
+      additionalProperties:
+        type: object
+    microsoft.graph.internalDomainFederation:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.samlOrWsFedProvider'
+      - title: internalDomainFederation
+        type: object
+        properties:
+          activeSignInUri:
+            type:
+            - string
+            - 'null'
+            description: URL of the endpoint used by active clients when authenticating with federated domains set up for single sign-on in Microsoft Entra ID. Corresponds to the ActiveLogOnUri property of the Set-EntraDomainFederationSettings PowerShell cmdlet.
+          federatedIdpMfaBehavior:
+            $ref: '#/components/schemas/microsoft.graph.federatedIdpMfaBehavior'
+          isSignedAuthenticationRequestRequired:
+            type:
+            - boolean
+            - 'null'
+            description: If true, when SAML authentication requests are sent to the federated SAML IdP, Microsoft Entra ID will sign those requests using the OrgID signing key. If false (default), the SAML authentication requests sent to the federated IdP aren't signed.
+          nextSigningCertificate:
+            type:
+            - string
+            - 'null'
+            description: Fallback token signing certificate that can also be used to sign tokens, for example when the primary signing certificate expires. Formatted as Base64 encoded strings of the public portion of the federated IdP's token signing certificate. Needs to be compatible with the X509Certificate2 class. Much like the signingCertificate, the nextSigningCertificate property is used if a rollover is required outside of the auto-rollover update, a new federation service is being set up, or if the new token signing certificate isn't present in the federation properties after the federation service certificate has been updated.
+          passwordResetUri:
+            type:
+            - string
+            - 'null'
+          promptLoginBehavior:
+            $ref: '#/components/schemas/microsoft.graph.promptLoginBehavior'
+          signingCertificateUpdateStatus:
+            $ref: '#/components/schemas/microsoft.graph.signingCertificateUpdateStatus'
+          signOutUri:
+            type:
+            - string
+            - 'null'
+            description: URI that clients are redirected to when they sign out of Microsoft Entra services. Corresponds to the LogOffUri property of the Set-EntraDomainFederationSettings PowerShell cmdlet.
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
     microsoft.graph.entity:
       title: entity
       type: object
@@ -512,28 +465,75 @@ components:
           description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
+    microsoft.graph.federatedIdpMfaBehavior:
+      title: federatedIdpMfaBehavior
+      enum:
+      - acceptIfMfaDoneByFederatedIdp
+      - enforceMfaByFederatedIdp
+      - rejectMfaByFederatedIdp
+      - unknownFutureValue
+      type: string
+    microsoft.graph.internalDomainFederationCollectionResponse:
+      title: Collection of internalDomainFederation
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.internalDomainFederation'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
     ODataCountResponse:
       type: integer
       format: int32
-  responses:
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.internalDomainFederationCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.internalDomainFederationCollectionResponse'
+  parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
   securitySchemes:
     azureaadv2:
       type: oauth2

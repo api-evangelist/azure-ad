@@ -8844,297 +8844,88 @@ paths:
         nextLinkName: '@odata.nextLink'
         operationName: listMore
 components:
-  schemas:
-    microsoft.graph.expirationPatternType:
-      title: expirationPatternType
-      enum:
-      - notSpecified
-      - noExpiration
-      - afterDateTime
-      - afterDuration
-      type: string
-    microsoft.graph.unifiedRoleScheduleInstanceBase:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: unifiedRoleScheduleInstanceBase
-        type: object
-        properties:
-          appScopeId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the app-specific scope when the assignment or role eligibility is scoped to an app. The scope of an assignment or role eligibility determines the set of resources for which the principal has been granted access. App scopes are scopes that are defined and understood by this application only. Use / for tenant-wide app scopes. Use directoryScopeId to limit the scope to particular directory objects, for example, administrative units.
-          directoryScopeId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the directory object representing the scope of the assignment or role eligibility. The scope of an assignment or role eligibility determines the set of resources for which the principal has been granted access. Directory scopes are shared scopes stored in the directory that are understood by multiple applications. Use / for tenant-wide scope. Use appScopeId to limit the scope to an application only.
-          principalId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the principal that has been granted the role assignment or that's eligible for a role.
-          roleDefinitionId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the unifiedRoleDefinition object that is being assigned to the principal or that the principal is eligible for.
-          appScope:
-            $ref: '#/components/schemas/microsoft.graph.appScope'
-          directoryScope:
-            $ref: '#/components/schemas/microsoft.graph.directoryObject'
-          principal:
-            $ref: '#/components/schemas/microsoft.graph.directoryObject'
-          roleDefinition:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinition'
-        additionalProperties:
-          type: object
-    microsoft.graph.unifiedRoleScheduleRequestActions:
-      title: unifiedRoleScheduleRequestActions
-      enum:
-      - adminAssign
-      - adminUpdate
-      - adminRemove
-      - selfActivate
-      - selfDeactivate
-      - adminExtend
-      - adminRenew
-      - selfExtend
-      - selfRenew
-      - unknownFutureValue
-      type: string
-    microsoft.graph.unifiedRoleEligibilityScheduleInstance:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.unifiedRoleScheduleInstanceBase'
-      - title: unifiedRoleEligibilityScheduleInstance
-        type: object
-        properties:
-          endDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: The end date of the schedule instance.
-            format: date-time
-          memberType:
-            type:
-            - string
-            - 'null'
-            description: How the role eligibility is inherited. It can either be Inherited, Direct, or Group. It can further imply whether the unifiedRoleEligibilitySchedule can be managed by the caller. Supports $filter (eq, ne).
-          roleEligibilityScheduleId:
-            type:
-            - string
-            - 'null'
-            description: The identifier of the unifiedRoleEligibilitySchedule object from which this instance was created. Supports $filter (eq, ne).
-          startDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: When this instance starts.
-            format: date-time
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.roleEligibilityScheduleFilterByCurrentUserOptions:
-      title: roleEligibilityScheduleFilterByCurrentUserOptions
-      enum:
-      - principal
-      - unknownFutureValue
-      type: string
-    microsoft.graph.expirationPattern:
-      title: expirationPattern
-      type: object
-      properties:
-        duration:
-          pattern: ^-?P([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+([.][0-9]+)?S)?)?$
-          type:
-          - string
-          - 'null'
-          description: The requestor's desired duration of access represented in ISO 8601 format for durations. For example, PT3H refers to three hours.  If specified in a request, endDateTime should not be present and the type property should be set to afterDuration.
-          format: duration
-        endDateTime:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-          type:
-          - string
-          - 'null'
-          description: Timestamp of date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
-          format: date-time
-        type:
-          $ref: '#/components/schemas/microsoft.graph.expirationPatternType'
-      additionalProperties:
-        type: object
-    microsoft.graph.unifiedRoleEligibilitySchedule:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.unifiedRoleScheduleBase'
-      - title: unifiedRoleEligibilitySchedule
-        type: object
-        properties:
-          memberType:
-            type:
-            - string
-            - 'null'
-            description: How the role eligibility is inherited. It can either be Inherited, Direct, or Group. It can further imply whether the unifiedRoleEligibilitySchedule can be managed by the caller. Supports $filter (eq, ne).
-          scheduleInfo:
-            $ref: '#/components/schemas/microsoft.graph.requestSchedule'
-        additionalProperties:
-          type: object
-    microsoft.graph.unifiedRoleAssignmentScheduleInstance:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.unifiedRoleScheduleInstanceBase'
-      - title: unifiedRoleAssignmentScheduleInstance
-        type: object
-        properties:
-          assignmentType:
-            type:
-            - string
-            - 'null'
-            description: The type of the assignment that can either be Assigned or Activated. Supports $filter (eq, ne).
-          endDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: The end date of the schedule instance.
-            format: date-time
-          memberType:
-            type:
-            - string
-            - 'null'
-            description: How the assignment is inherited. It can either be Inherited, Direct, or Group. It can further imply whether the unifiedRoleAssignmentSchedule can be managed by the caller. Supports $filter (eq, ne).
-          roleAssignmentOriginId:
-            type:
-            - string
-            - 'null'
-            description: The identifier of the role assignment in Microsoft Entra. Supports $filter (eq, ne).
-          roleAssignmentScheduleId:
-            type:
-            - string
-            - 'null'
-            description: The identifier of the unifiedRoleAssignmentSchedule object from which this instance was created. Supports $filter (eq, ne).
-          startDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: When this instance starts.
-            format: date-time
-          activatedUsing:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilityScheduleInstance'
-        additionalProperties:
-          type: object
-    microsoft.graph.request:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: request
-        type: object
-        properties:
-          approvalId:
-            type:
-            - string
-            - 'null'
-            description: The identifier of the approval of the request.
-          completedDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: The request completion date time.
-            format: date-time
-          createdBy:
-            $ref: '#/components/schemas/microsoft.graph.identitySet'
-          createdDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: The request creation date time.
-            format: date-time
-          customData:
-            type:
-            - string
-            - 'null'
-            description: Free text field to define any custom data for the request. Not used.
-          status:
-            type: string
-            description: 'The status of the request. Not nullable. The possible values are: Canceled, Denied, Failed, Granted, PendingAdminDecision, PendingApproval, PendingProvisioning, PendingScheduleCreation, Provisioned, Revoked, and ScheduleCreated. Not nullable.'
-        additionalProperties:
-          type: object
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.unifiedRoleEligibilityScheduleInstanceCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilityScheduleInstanceCollectionResponse'
+    microsoft.graph.unifiedRoleAssignmentScheduleRequestCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentScheduleRequestCollectionResponse'
+    microsoft.graph.unifiedRbacResourceActionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRbacResourceActionCollectionResponse'
+    microsoft.graph.unifiedRoleDefinitionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinitionCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.unifiedRbacResourceNamespaceCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRbacResourceNamespaceCollectionResponse'
+    microsoft.graph.unifiedRoleAssignmentScheduleInstanceCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentScheduleInstanceCollectionResponse'
+    microsoft.graph.unifiedRoleEligibilityScheduleRequestCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilityScheduleRequestCollectionResponse'
+    microsoft.graph.unifiedRoleAssignmentScheduleCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentScheduleCollectionResponse'
+    microsoft.graph.unifiedRoleEligibilityScheduleCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilityScheduleCollectionResponse'
     microsoft.graph.unifiedRoleAssignmentCollectionResponse:
-      title: Collection of unifiedRoleAssignment
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignment'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.recurrencePattern:
-      title: recurrencePattern
-      type: object
-      properties:
-        dayOfMonth:
-          maximum: 2147483647
-          minimum: -2147483648
-          type: number
-          description: The day of the month on which the event occurs. Required if type is absoluteMonthly or absoluteYearly.
-          format: int32
-        daysOfWeek:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.dayOfWeek'
-          description: 'A collection of the days of the week on which the event occurs. The possible values are: sunday, monday, tuesday, wednesday, thursday, friday, saturday. If type is relativeMonthly or relativeYearly, and daysOfWeek specifies more than one day, the event falls on the first day that satisfies the pattern.  Required if type is weekly, relativeMonthly, or relativeYearly.'
-        firstDayOfWeek:
-          $ref: '#/components/schemas/microsoft.graph.dayOfWeek'
-        index:
-          $ref: '#/components/schemas/microsoft.graph.weekIndex'
-        interval:
-          maximum: 2147483647
-          minimum: -2147483648
-          type: number
-          description: The number of units between occurrences, where units can be in days, weeks, months, or years, depending on the type. Required.
-          format: int32
-        month:
-          maximum: 2147483647
-          minimum: -2147483648
-          type: number
-          description: The month in which the event occurs.  This is a number from 1 to 12.
-          format: int32
-        type:
-          $ref: '#/components/schemas/microsoft.graph.recurrencePatternType'
-      additionalProperties:
-        type: object
-    microsoft.graph.roleAssignmentScheduleInstanceFilterByCurrentUserOptions:
-      title: roleAssignmentScheduleInstanceFilterByCurrentUserOptions
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentCollectionResponse'
+  schemas:
+    microsoft.graph.roleAssignmentScheduleRequestFilterByCurrentUserOptions:
+      title: roleAssignmentScheduleRequestFilterByCurrentUserOptions
       enum:
       - principal
+      - createdBy
+      - approver
       - unknownFutureValue
       type: string
-    microsoft.graph.identitySet:
-      title: identitySet
-      type: object
-      properties:
-        application:
-          $ref: '#/components/schemas/microsoft.graph.identity'
-        device:
-          $ref: '#/components/schemas/microsoft.graph.identity'
-        user:
-          $ref: '#/components/schemas/microsoft.graph.identity'
-      additionalProperties:
-        type: object
     microsoft.graph.unifiedRoleScheduleBase:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -9195,73 +8986,286 @@ components:
             $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinition'
         additionalProperties:
           type: object
-    microsoft.graph.unifiedRoleDefinition:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: unifiedRoleDefinition
+    microsoft.graph.recurrenceRangeType:
+      title: recurrenceRangeType
+      enum:
+      - endDate
+      - noEnd
+      - numbered
+      type: string
+    microsoft.graph.unifiedRolePermission:
+      title: unifiedRolePermission
+      type: object
+      properties:
+        allowedResourceActions:
+          type: array
+          items:
+            type: string
+          description: Set of tasks that can be performed on a resource. Required.
+        condition:
+          type:
+          - string
+          - 'null'
+          description: Optional constraints that must be met for the permission to be effective. Not supported for custom roles.
+        excludedResourceActions:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: Set of tasks that may not be performed on a resource. Not yet supported.
+      additionalProperties:
         type: object
-        properties:
-          description:
-            type:
-            - string
-            - 'null'
-            description: The description for the unifiedRoleDefinition. Read-only when isBuiltIn is true.
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: The display name for the unifiedRoleDefinition. Read-only when isBuiltIn is true. Required.  Supports $filter (eq, in).
-          isBuiltIn:
-            type:
-            - boolean
-            - 'null'
-            description: Flag indicating whether the role definition is part of the default set included in Microsoft Entra or a custom definition. Read-only. Supports $filter (eq, in).
-          isEnabled:
-            type:
-            - boolean
-            - 'null'
-            description: Flag indicating whether the role is enabled for assignment. If false the role is not available for assignment. Read-only when isBuiltIn is true.
-          resourceScopes:
-            type: array
-            items:
-              type: string
-            description: List of the scopes or permissions the role definition applies to. Currently only / is supported. Read-only when isBuiltIn is true. DO NOT USE. This will be deprecated soon. Attach scope to role assignment.
-          rolePermissions:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.unifiedRolePermission'
-            description: List of permissions included in the role. Read-only when isBuiltIn is true. Required.
-          templateId:
-            type:
-            - string
-            - 'null'
-            description: Custom template identifier that can be set when isBuiltIn is false but is read-only when isBuiltIn is true. This identifier is typically used if one needs an identifier to be the same across different directories.
-          version:
-            type:
-            - string
-            - 'null'
-            description: Indicates version of the role definition. Read-only when isBuiltIn is true.
-          inheritsPermissionsFrom:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinition'
-            description: Read-only collection of role definitions that the given role definition inherits from. Only Microsoft Entra built-in roles (isBuiltIn is true) support this attribute. Supports $expand.
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
     microsoft.graph.ODataErrors.InnerError:
       type: object
       additionalProperties:
         type: object
       description: The structure of this object is service-specific
-    microsoft.graph.roleAssignmentScheduleRequestFilterByCurrentUserOptions:
-      title: roleAssignmentScheduleRequestFilterByCurrentUserOptions
+    microsoft.graph.unifiedRoleAssignmentSchedule:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.unifiedRoleScheduleBase'
+      - title: unifiedRoleAssignmentSchedule
+        type: object
+        properties:
+          assignmentType:
+            type:
+            - string
+            - 'null'
+            description: The type of the assignment that can either be Assigned or Activated. Supports $filter (eq, ne).
+          memberType:
+            type:
+            - string
+            - 'null'
+            description: How the assignment is inherited. It can either be Inherited, Direct, or Group. It can further imply whether the unifiedRoleAssignmentSchedule can be managed by the caller. Supports $filter (eq, ne).
+          scheduleInfo:
+            $ref: '#/components/schemas/microsoft.graph.requestSchedule'
+          activatedUsing:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilitySchedule'
+        additionalProperties:
+          type: object
+    microsoft.graph.unifiedRbacResourceAction:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: unifiedRbacResourceAction
+        type: object
+        properties:
+          actionVerb:
+            type:
+            - string
+            - 'null'
+          authenticationContextId:
+            type:
+            - string
+            - 'null'
+          description:
+            type:
+            - string
+            - 'null'
+          isAuthenticationContextSettable:
+            type:
+            - boolean
+            - 'null'
+          name:
+            type: string
+          resourceScopeId:
+            type:
+            - string
+            - 'null'
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.roleEligibilityScheduleRequestFilterByCurrentUserOptions:
+      title: roleEligibilityScheduleRequestFilterByCurrentUserOptions
       enum:
       - principal
       - createdBy
       - approver
       - unknownFutureValue
       type: string
+    microsoft.graph.unifiedRoleEligibilityScheduleRequestCollectionResponse:
+      title: Collection of unifiedRoleEligibilityScheduleRequest
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilityScheduleRequest'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleAssignmentScheduleCollectionResponse:
+      title: Collection of unifiedRoleAssignmentSchedule
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentSchedule'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleEligibilitySchedule:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.unifiedRoleScheduleBase'
+      - title: unifiedRoleEligibilitySchedule
+        type: object
+        properties:
+          memberType:
+            type:
+            - string
+            - 'null'
+            description: How the role eligibility is inherited. It can either be Inherited, Direct, or Group. It can further imply whether the unifiedRoleEligibilitySchedule can be managed by the caller. Supports $filter (eq, ne).
+          scheduleInfo:
+            $ref: '#/components/schemas/microsoft.graph.requestSchedule'
+        additionalProperties:
+          type: object
+    microsoft.graph.appScope:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: appScope
+        type: object
+        properties:
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Provides the display name of the app-specific resource represented by the app scope. Read-only.
+          type:
+            type:
+            - string
+            - 'null'
+            description: Describes the type of app-specific resource represented by the app scope. Read-only.
+        additionalProperties:
+          type: object
+    microsoft.graph.recurrenceRange:
+      title: recurrenceRange
+      type: object
+      properties:
+        endDate:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
+          type:
+          - string
+          - 'null'
+          description: The date to stop applying the recurrence pattern. Depending on the recurrence pattern of the event, the last occurrence of the meeting may not be this date. Required if type is endDate.
+          format: date
+        numberOfOccurrences:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: The number of times to repeat the event. Required and must be positive if type is numbered.
+          format: int32
+        recurrenceTimeZone:
+          type:
+          - string
+          - 'null'
+          description: Time zone for the startDate and endDate properties. Optional. If not specified, the time zone of the event is used.
+        startDate:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
+          type:
+          - string
+          - 'null'
+          description: The date to start applying the recurrence pattern. The first occurrence of the meeting may be this date or later, depending on the recurrence pattern of the event. Must be the same value as the start property of the recurring event. Required.
+          format: date
+        type:
+          $ref: '#/components/schemas/microsoft.graph.recurrenceRangeType'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleEligibilityScheduleInstance:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.unifiedRoleScheduleInstanceBase'
+      - title: unifiedRoleEligibilityScheduleInstance
+        type: object
+        properties:
+          endDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The end date of the schedule instance.
+            format: date-time
+          memberType:
+            type:
+            - string
+            - 'null'
+            description: How the role eligibility is inherited. It can either be Inherited, Direct, or Group. It can further imply whether the unifiedRoleEligibilitySchedule can be managed by the caller. Supports $filter (eq, ne).
+          roleEligibilityScheduleId:
+            type:
+            - string
+            - 'null'
+            description: The identifier of the unifiedRoleEligibilitySchedule object from which this instance was created. Supports $filter (eq, ne).
+          startDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: When this instance starts.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.unifiedRoleScheduleInstanceBase:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: unifiedRoleScheduleInstanceBase
+        type: object
+        properties:
+          appScopeId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the app-specific scope when the assignment or role eligibility is scoped to an app. The scope of an assignment or role eligibility determines the set of resources for which the principal has been granted access. App scopes are scopes that are defined and understood by this application only. Use / for tenant-wide app scopes. Use directoryScopeId to limit the scope to particular directory objects, for example, administrative units.
+          directoryScopeId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the directory object representing the scope of the assignment or role eligibility. The scope of an assignment or role eligibility determines the set of resources for which the principal has been granted access. Directory scopes are shared scopes stored in the directory that are understood by multiple applications. Use / for tenant-wide scope. Use appScopeId to limit the scope to an application only.
+          principalId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the principal that has been granted the role assignment or that's eligible for a role.
+          roleDefinitionId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the unifiedRoleDefinition object that is being assigned to the principal or that the principal is eligible for.
+          appScope:
+            $ref: '#/components/schemas/microsoft.graph.appScope'
+          directoryScope:
+            $ref: '#/components/schemas/microsoft.graph.directoryObject'
+          principal:
+            $ref: '#/components/schemas/microsoft.graph.directoryObject'
+          roleDefinition:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinition'
+        additionalProperties:
+          type: object
     microsoft.graph.unifiedRoleEligibilityScheduleRequest:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.request'
@@ -9321,6 +9325,26 @@ components:
             $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilitySchedule'
         additionalProperties:
           type: object
+    microsoft.graph.unifiedRoleDefinitionCollectionResponse:
+      title: Collection of unifiedRoleDefinition
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinition'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.roleEligibilityScheduleInstanceFilterByCurrentUserOptions:
+      title: roleEligibilityScheduleInstanceFilterByCurrentUserOptions
+      enum:
+      - principal
+      - unknownFutureValue
+      type: string
     microsoft.graph.directoryObject:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -9336,303 +9360,6 @@ components:
             format: date-time
         additionalProperties:
           type: object
-    microsoft.graph.weekIndex:
-      title: weekIndex
-      enum:
-      - first
-      - second
-      - third
-      - fourth
-      - last
-      type: string
-    microsoft.graph.roleEligibilityScheduleInstanceFilterByCurrentUserOptions:
-      title: roleEligibilityScheduleInstanceFilterByCurrentUserOptions
-      enum:
-      - principal
-      - unknownFutureValue
-      type: string
-    microsoft.graph.unifiedRoleAssignmentScheduleCollectionResponse:
-      title: Collection of unifiedRoleAssignmentSchedule
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentSchedule'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.unifiedRoleAssignmentScheduleRequestCollectionResponse:
-      title: Collection of unifiedRoleAssignmentScheduleRequest
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentScheduleRequest'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.requestSchedule:
-      title: requestSchedule
-      type: object
-      properties:
-        expiration:
-          $ref: '#/components/schemas/microsoft.graph.expirationPattern'
-        recurrence:
-          $ref: '#/components/schemas/microsoft.graph.patternedRecurrence'
-        startDateTime:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-          type:
-          - string
-          - 'null'
-          description: When the  eligible or active assignment becomes active.
-          format: date-time
-      additionalProperties:
-        type: object
-    microsoft.graph.unifiedRoleAssignment:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: unifiedRoleAssignment
-        type: object
-        properties:
-          appScopeId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the app specific scope when the assignment scope is app specific. The scope of an assignment determines the set of resources for which the principal has been granted access. App scopes are scopes that are defined and understood by a resource application only. For the entitlement management provider, use this property to specify a catalog. For example, /AccessPackageCatalog/beedadfe-01d5-4025-910b-84abb9369997. Supports $filter (eq, in). For example, /roleManagement/entitlementManagement/roleAssignments?$filter=appScopeId eq '/AccessPackageCatalog/{catalog id}'.
-          condition:
-            type:
-            - string
-            - 'null'
-          directoryScopeId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the directory object representing the scope of the assignment. The scope of an assignment determines the set of resources for which the principal has been granted access. Directory scopes are shared scopes stored in the directory that are understood by multiple applications, unlike app scopes that are defined and understood by a resource application only. Supports $filter (eq, in).
-          principalId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the principal to which the assignment is granted. Supported principals are users, role-assignable groups, and service principals. Supports $filter (eq, in).
-          principalOrganizationId:
-            type:
-            - string
-            - 'null'
-          roleDefinitionId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the unifiedRoleDefinition the assignment is for. Read-only. Supports $filter (eq, in).
-          appScope:
-            $ref: '#/components/schemas/microsoft.graph.appScope'
-          directoryScope:
-            $ref: '#/components/schemas/microsoft.graph.directoryObject'
-          principal:
-            $ref: '#/components/schemas/microsoft.graph.directoryObject'
-          roleDefinition:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinition'
-        additionalProperties:
-          type: object
-    microsoft.graph.unifiedRoleAssignmentSchedule:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.unifiedRoleScheduleBase'
-      - title: unifiedRoleAssignmentSchedule
-        type: object
-        properties:
-          assignmentType:
-            type:
-            - string
-            - 'null'
-            description: The type of the assignment that can either be Assigned or Activated. Supports $filter (eq, ne).
-          memberType:
-            type:
-            - string
-            - 'null'
-            description: How the assignment is inherited. It can either be Inherited, Direct, or Group. It can further imply whether the unifiedRoleAssignmentSchedule can be managed by the caller. Supports $filter (eq, ne).
-          scheduleInfo:
-            $ref: '#/components/schemas/microsoft.graph.requestSchedule'
-          activatedUsing:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilitySchedule'
-        additionalProperties:
-          type: object
-    microsoft.graph.identity:
-      title: identity
-      type: object
-      properties:
-        displayName:
-          type:
-          - string
-          - 'null'
-          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
-      additionalProperties:
-        type: object
-    microsoft.graph.ticketInfo:
-      title: ticketInfo
-      type: object
-      properties:
-        ticketNumber:
-          type:
-          - string
-          - 'null'
-          description: The ticket number.
-        ticketSystem:
-          type:
-          - string
-          - 'null'
-          description: The description of the ticket system.
-      additionalProperties:
-        type: object
-    microsoft.graph.unifiedRoleEligibilityScheduleRequestCollectionResponse:
-      title: Collection of unifiedRoleEligibilityScheduleRequest
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilityScheduleRequest'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.unifiedRoleAssignmentScheduleInstanceCollectionResponse:
-      title: Collection of unifiedRoleAssignmentScheduleInstance
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentScheduleInstance'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.recurrenceRange:
-      title: recurrenceRange
-      type: object
-      properties:
-        endDate:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
-          type:
-          - string
-          - 'null'
-          description: The date to stop applying the recurrence pattern. Depending on the recurrence pattern of the event, the last occurrence of the meeting may not be this date. Required if type is endDate.
-          format: date
-        numberOfOccurrences:
-          maximum: 2147483647
-          minimum: -2147483648
-          type: number
-          description: The number of times to repeat the event. Required and must be positive if type is numbered.
-          format: int32
-        recurrenceTimeZone:
-          type:
-          - string
-          - 'null'
-          description: Time zone for the startDate and endDate properties. Optional. If not specified, the time zone of the event is used.
-        startDate:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
-          type:
-          - string
-          - 'null'
-          description: The date to start applying the recurrence pattern. The first occurrence of the meeting may be this date or later, depending on the recurrence pattern of the event. Must be the same value as the start property of the recurring event. Required.
-          format: date
-        type:
-          $ref: '#/components/schemas/microsoft.graph.recurrenceRangeType'
-      additionalProperties:
-        type: object
-    microsoft.graph.unifiedRolePermission:
-      title: unifiedRolePermission
-      type: object
-      properties:
-        allowedResourceActions:
-          type: array
-          items:
-            type: string
-          description: Set of tasks that can be performed on a resource. Required.
-        condition:
-          type:
-          - string
-          - 'null'
-          description: Optional constraints that must be met for the permission to be effective. Not supported for custom roles.
-        excludedResourceActions:
-          type: array
-          items:
-            type:
-            - string
-            - 'null'
-          description: Set of tasks that may not be performed on a resource. Not yet supported.
-      additionalProperties:
-        type: object
-    microsoft.graph.patternedRecurrence:
-      title: patternedRecurrence
-      type: object
-      properties:
-        pattern:
-          $ref: '#/components/schemas/microsoft.graph.recurrencePattern'
-        range:
-          $ref: '#/components/schemas/microsoft.graph.recurrenceRange'
-      additionalProperties:
-        type: object
-    microsoft.graph.unifiedRbacResourceNamespace:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: unifiedRbacResourceNamespace
-        type: object
-        properties:
-          name:
-            type: string
-          resourceActions:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.unifiedRbacResourceAction'
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.unifiedRbacResourceActionCollectionResponse:
-      title: Collection of unifiedRbacResourceAction
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRbacResourceAction'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
     microsoft.graph.dayOfWeek:
       title: dayOfWeek
       enum:
@@ -9644,147 +9371,6 @@ components:
       - friday
       - saturday
       type: string
-    microsoft.graph.roleEligibilityScheduleRequestFilterByCurrentUserOptions:
-      title: roleEligibilityScheduleRequestFilterByCurrentUserOptions
-      enum:
-      - principal
-      - createdBy
-      - approver
-      - unknownFutureValue
-      type: string
-    microsoft.graph.unifiedRoleEligibilityScheduleInstanceCollectionResponse:
-      title: Collection of unifiedRoleEligibilityScheduleInstance
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilityScheduleInstance'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.unifiedRbacResourceNamespaceCollectionResponse:
-      title: Collection of unifiedRbacResourceNamespace
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRbacResourceNamespace'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.unifiedRoleDefinitionCollectionResponse:
-      title: Collection of unifiedRoleDefinition
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinition'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.unifiedRbacResourceAction:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: unifiedRbacResourceAction
-        type: object
-        properties:
-          actionVerb:
-            type:
-            - string
-            - 'null'
-          authenticationContextId:
-            type:
-            - string
-            - 'null'
-          description:
-            type:
-            - string
-            - 'null'
-          isAuthenticationContextSettable:
-            type:
-            - boolean
-            - 'null'
-          name:
-            type: string
-          resourceScopeId:
-            type:
-            - string
-            - 'null'
-        additionalProperties:
-          type: object
-    microsoft.graph.unifiedRoleAssignmentScheduleRequest:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.request'
-      - title: unifiedRoleAssignmentScheduleRequest
-        type: object
-        properties:
-          action:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleScheduleRequestActions'
-          appScopeId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the app-specific scope when the assignment is scoped to an app. The scope of an assignment determines the set of resources for which the principal has been granted access. App scopes are scopes that are defined and understood by this application only. Use / for tenant-wide app scopes. Use directoryScopeId to limit the scope to particular directory objects, for example, administrative units. Supports $filter (eq, ne, and on null values).
-          directoryScopeId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the directory object representing the scope of the assignment. The scope of an assignment determines the set of resources for which the principal has been granted access. Directory scopes are shared scopes stored in the directory that are understood by multiple applications. Use / for tenant-wide scope. Use appScopeId to limit the scope to an application only. Supports $filter (eq, ne, and on null values).
-          isValidationOnly:
-            type:
-            - boolean
-            - 'null'
-            description: Determines whether the call is a validation or an actual call. Only set this property if you want to check whether an activation is subject to additional rules like MFA before actually submitting the request.
-          justification:
-            type:
-            - string
-            - 'null'
-            description: A message provided by users and administrators when create they create the unifiedRoleAssignmentScheduleRequest object.
-          principalId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the principal that has been granted the assignment. Can be a user, role-assignable group, or a service principal. Supports $filter (eq, ne).
-          roleDefinitionId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the unifiedRoleDefinition object that is being assigned to the principal. Supports $filter (eq, ne).
-          scheduleInfo:
-            $ref: '#/components/schemas/microsoft.graph.requestSchedule'
-          targetScheduleId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the schedule object that's linked to the assignment request. Supports $filter (eq, ne).
-          ticketInfo:
-            $ref: '#/components/schemas/microsoft.graph.ticketInfo'
-          activatedUsing:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilitySchedule'
-          appScope:
-            $ref: '#/components/schemas/microsoft.graph.appScope'
-          directoryScope:
-            $ref: '#/components/schemas/microsoft.graph.directoryObject'
-          principal:
-            $ref: '#/components/schemas/microsoft.graph.directoryObject'
-          roleDefinition:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinition'
-          targetSchedule:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentSchedule'
-        additionalProperties:
-          type: object
     microsoft.graph.rbacApplication:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -9846,54 +9432,6 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
-    microsoft.graph.appScope:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: appScope
-        type: object
-        properties:
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: Provides the display name of the app-specific resource represented by the app scope. Read-only.
-          type:
-            type:
-            - string
-            - 'null'
-            description: Describes the type of app-specific resource represented by the app scope. Read-only.
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.MainError:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
-          type:
-          - string
-          - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
-        type: object
-    microsoft.graph.recurrenceRangeType:
-      title: recurrenceRangeType
-      enum:
-      - endDate
-      - noEnd
-      - numbered
-      type: string
     microsoft.graph.unifiedRoleEligibilityScheduleCollectionResponse:
       title: Collection of unifiedRoleEligibilitySchedule
       type: object
@@ -9908,6 +9446,139 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    microsoft.graph.unifiedRoleScheduleRequestActions:
+      title: unifiedRoleScheduleRequestActions
+      enum:
+      - adminAssign
+      - adminUpdate
+      - adminRemove
+      - selfActivate
+      - selfDeactivate
+      - adminExtend
+      - adminRenew
+      - selfExtend
+      - selfRenew
+      - unknownFutureValue
+      type: string
+    microsoft.graph.expirationPatternType:
+      title: expirationPatternType
+      enum:
+      - notSpecified
+      - noExpiration
+      - afterDateTime
+      - afterDuration
+      type: string
+    microsoft.graph.roleAssignmentScheduleInstanceFilterByCurrentUserOptions:
+      title: roleAssignmentScheduleInstanceFilterByCurrentUserOptions
+      enum:
+      - principal
+      - unknownFutureValue
+      type: string
+    microsoft.graph.recurrencePattern:
+      title: recurrencePattern
+      type: object
+      properties:
+        dayOfMonth:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: The day of the month on which the event occurs. Required if type is absoluteMonthly or absoluteYearly.
+          format: int32
+        daysOfWeek:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.dayOfWeek'
+          description: 'A collection of the days of the week on which the event occurs. The possible values are: sunday, monday, tuesday, wednesday, thursday, friday, saturday. If type is relativeMonthly or relativeYearly, and daysOfWeek specifies more than one day, the event falls on the first day that satisfies the pattern.  Required if type is weekly, relativeMonthly, or relativeYearly.'
+        firstDayOfWeek:
+          $ref: '#/components/schemas/microsoft.graph.dayOfWeek'
+        index:
+          $ref: '#/components/schemas/microsoft.graph.weekIndex'
+        interval:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: The number of units between occurrences, where units can be in days, weeks, months, or years, depending on the type. Required.
+          format: int32
+        month:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: The month in which the event occurs.  This is a number from 1 to 12.
+          format: int32
+        type:
+          $ref: '#/components/schemas/microsoft.graph.recurrencePatternType'
+      additionalProperties:
+        type: object
+    microsoft.graph.patternedRecurrence:
+      title: patternedRecurrence
+      type: object
+      properties:
+        pattern:
+          $ref: '#/components/schemas/microsoft.graph.recurrencePattern'
+        range:
+          $ref: '#/components/schemas/microsoft.graph.recurrenceRange'
+      additionalProperties:
+        type: object
+    microsoft.graph.identity:
+      title: identity
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleAssignment:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: unifiedRoleAssignment
+        type: object
+        properties:
+          appScopeId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the app specific scope when the assignment scope is app specific. The scope of an assignment determines the set of resources for which the principal has been granted access. App scopes are scopes that are defined and understood by a resource application only. For the entitlement management provider, use this property to specify a catalog. For example, /AccessPackageCatalog/beedadfe-01d5-4025-910b-84abb9369997. Supports $filter (eq, in). For example, /roleManagement/entitlementManagement/roleAssignments?$filter=appScopeId eq '/AccessPackageCatalog/{catalog id}'.
+          condition:
+            type:
+            - string
+            - 'null'
+          directoryScopeId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the directory object representing the scope of the assignment. The scope of an assignment determines the set of resources for which the principal has been granted access. Directory scopes are shared scopes stored in the directory that are understood by multiple applications, unlike app scopes that are defined and understood by a resource application only. Supports $filter (eq, in).
+          principalId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the principal to which the assignment is granted. Supported principals are users, role-assignable groups, and service principals. Supports $filter (eq, in).
+          principalOrganizationId:
+            type:
+            - string
+            - 'null'
+          roleDefinitionId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the unifiedRoleDefinition the assignment is for. Read-only. Supports $filter (eq, in).
+          appScope:
+            $ref: '#/components/schemas/microsoft.graph.appScope'
+          directoryScope:
+            $ref: '#/components/schemas/microsoft.graph.directoryObject'
+          principal:
+            $ref: '#/components/schemas/microsoft.graph.directoryObject'
+          roleDefinition:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinition'
+        additionalProperties:
+          type: object
     microsoft.graph.recurrencePatternType:
       title: recurrencePatternType
       enum:
@@ -9918,6 +9589,175 @@ components:
       - absoluteYearly
       - relativeYearly
       type: string
+    microsoft.graph.unifiedRbacResourceNamespaceCollectionResponse:
+      title: Collection of unifiedRbacResourceNamespace
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRbacResourceNamespace'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleDefinition:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: unifiedRoleDefinition
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: The description for the unifiedRoleDefinition. Read-only when isBuiltIn is true.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The display name for the unifiedRoleDefinition. Read-only when isBuiltIn is true. Required.  Supports $filter (eq, in).
+          isBuiltIn:
+            type:
+            - boolean
+            - 'null'
+            description: Flag indicating whether the role definition is part of the default set included in Microsoft Entra or a custom definition. Read-only. Supports $filter (eq, in).
+          isEnabled:
+            type:
+            - boolean
+            - 'null'
+            description: Flag indicating whether the role is enabled for assignment. If false the role is not available for assignment. Read-only when isBuiltIn is true.
+          resourceScopes:
+            type: array
+            items:
+              type: string
+            description: List of the scopes or permissions the role definition applies to. Currently only / is supported. Read-only when isBuiltIn is true. DO NOT USE. This will be deprecated soon. Attach scope to role assignment.
+          rolePermissions:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.unifiedRolePermission'
+            description: List of permissions included in the role. Read-only when isBuiltIn is true. Required.
+          templateId:
+            type:
+            - string
+            - 'null'
+            description: Custom template identifier that can be set when isBuiltIn is false but is read-only when isBuiltIn is true. This identifier is typically used if one needs an identifier to be the same across different directories.
+          version:
+            type:
+            - string
+            - 'null'
+            description: Indicates version of the role definition. Read-only when isBuiltIn is true.
+          inheritsPermissionsFrom:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinition'
+            description: Read-only collection of role definitions that the given role definition inherits from. Only Microsoft Entra built-in roles (isBuiltIn is true) support this attribute. Supports $expand.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.expirationPattern:
+      title: expirationPattern
+      type: object
+      properties:
+        duration:
+          pattern: ^-?P([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+([.][0-9]+)?S)?)?$
+          type:
+          - string
+          - 'null'
+          description: The requestor's desired duration of access represented in ISO 8601 format for durations. For example, PT3H refers to three hours.  If specified in a request, endDateTime should not be present and the type property should be set to afterDuration.
+          format: duration
+        endDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: Timestamp of date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+          format: date-time
+        type:
+          $ref: '#/components/schemas/microsoft.graph.expirationPatternType'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleAssignmentScheduleRequestCollectionResponse:
+      title: Collection of unifiedRoleAssignmentScheduleRequest
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentScheduleRequest'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.roleAssignmentScheduleFilterByCurrentUserOptions:
+      title: roleAssignmentScheduleFilterByCurrentUserOptions
+      enum:
+      - principal
+      - unknownFutureValue
+      type: string
+    microsoft.graph.unifiedRoleAssignmentScheduleInstance:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.unifiedRoleScheduleInstanceBase'
+      - title: unifiedRoleAssignmentScheduleInstance
+        type: object
+        properties:
+          assignmentType:
+            type:
+            - string
+            - 'null'
+            description: The type of the assignment that can either be Assigned or Activated. Supports $filter (eq, ne).
+          endDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The end date of the schedule instance.
+            format: date-time
+          memberType:
+            type:
+            - string
+            - 'null'
+            description: How the assignment is inherited. It can either be Inherited, Direct, or Group. It can further imply whether the unifiedRoleAssignmentSchedule can be managed by the caller. Supports $filter (eq, ne).
+          roleAssignmentOriginId:
+            type:
+            - string
+            - 'null'
+            description: The identifier of the role assignment in Microsoft Entra. Supports $filter (eq, ne).
+          roleAssignmentScheduleId:
+            type:
+            - string
+            - 'null'
+            description: The identifier of the unifiedRoleAssignmentSchedule object from which this instance was created. Supports $filter (eq, ne).
+          startDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: When this instance starts.
+            format: date-time
+          activatedUsing:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilityScheduleInstance'
+        additionalProperties:
+          type: object
+    microsoft.graph.roleEligibilityScheduleFilterByCurrentUserOptions:
+      title: roleEligibilityScheduleFilterByCurrentUserOptions
+      enum:
+      - principal
+      - unknownFutureValue
+      type: string
     microsoft.graph.entity:
       title: entity
       type: object
@@ -9927,97 +9767,268 @@ components:
           description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
+    microsoft.graph.unifiedRoleAssignmentScheduleRequest:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.request'
+      - title: unifiedRoleAssignmentScheduleRequest
+        type: object
+        properties:
+          action:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleScheduleRequestActions'
+          appScopeId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the app-specific scope when the assignment is scoped to an app. The scope of an assignment determines the set of resources for which the principal has been granted access. App scopes are scopes that are defined and understood by this application only. Use / for tenant-wide app scopes. Use directoryScopeId to limit the scope to particular directory objects, for example, administrative units. Supports $filter (eq, ne, and on null values).
+          directoryScopeId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the directory object representing the scope of the assignment. The scope of an assignment determines the set of resources for which the principal has been granted access. Directory scopes are shared scopes stored in the directory that are understood by multiple applications. Use / for tenant-wide scope. Use appScopeId to limit the scope to an application only. Supports $filter (eq, ne, and on null values).
+          isValidationOnly:
+            type:
+            - boolean
+            - 'null'
+            description: Determines whether the call is a validation or an actual call. Only set this property if you want to check whether an activation is subject to additional rules like MFA before actually submitting the request.
+          justification:
+            type:
+            - string
+            - 'null'
+            description: A message provided by users and administrators when create they create the unifiedRoleAssignmentScheduleRequest object.
+          principalId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the principal that has been granted the assignment. Can be a user, role-assignable group, or a service principal. Supports $filter (eq, ne).
+          roleDefinitionId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the unifiedRoleDefinition object that is being assigned to the principal. Supports $filter (eq, ne).
+          scheduleInfo:
+            $ref: '#/components/schemas/microsoft.graph.requestSchedule'
+          targetScheduleId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the schedule object that's linked to the assignment request. Supports $filter (eq, ne).
+          ticketInfo:
+            $ref: '#/components/schemas/microsoft.graph.ticketInfo'
+          activatedUsing:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilitySchedule'
+          appScope:
+            $ref: '#/components/schemas/microsoft.graph.appScope'
+          directoryScope:
+            $ref: '#/components/schemas/microsoft.graph.directoryObject'
+          principal:
+            $ref: '#/components/schemas/microsoft.graph.directoryObject'
+          roleDefinition:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinition'
+          targetSchedule:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentSchedule'
+        additionalProperties:
+          type: object
+    microsoft.graph.request:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: request
+        type: object
+        properties:
+          approvalId:
+            type:
+            - string
+            - 'null'
+            description: The identifier of the approval of the request.
+          completedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The request completion date time.
+            format: date-time
+          createdBy:
+            $ref: '#/components/schemas/microsoft.graph.identitySet'
+          createdDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: The request creation date time.
+            format: date-time
+          customData:
+            type:
+            - string
+            - 'null'
+            description: Free text field to define any custom data for the request. Not used.
+          status:
+            type: string
+            description: 'The status of the request. Not nullable. The possible values are: Canceled, Denied, Failed, Granted, PendingAdminDecision, PendingApproval, PendingProvisioning, PendingScheduleCreation, Provisioned, Revoked, and ScheduleCreated. Not nullable.'
+        additionalProperties:
+          type: object
+    microsoft.graph.identitySet:
+      title: identitySet
+      type: object
+      properties:
+        application:
+          $ref: '#/components/schemas/microsoft.graph.identity'
+        device:
+          $ref: '#/components/schemas/microsoft.graph.identity'
+        user:
+          $ref: '#/components/schemas/microsoft.graph.identity'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleEligibilityScheduleInstanceCollectionResponse:
+      title: Collection of unifiedRoleEligibilityScheduleInstance
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilityScheduleInstance'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
     ODataCountResponse:
       type: integer
       format: int32
-    microsoft.graph.roleAssignmentScheduleFilterByCurrentUserOptions:
-      title: roleAssignmentScheduleFilterByCurrentUserOptions
+    microsoft.graph.weekIndex:
+      title: weekIndex
       enum:
-      - principal
-      - unknownFutureValue
+      - first
+      - second
+      - third
+      - fourth
+      - last
       type: string
-  responses:
-    microsoft.graph.unifiedRoleEligibilityScheduleInstanceCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilityScheduleInstanceCollectionResponse'
-    microsoft.graph.unifiedRoleEligibilityScheduleCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilityScheduleCollectionResponse'
-    microsoft.graph.unifiedRoleAssignmentScheduleRequestCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentScheduleRequestCollectionResponse'
-    microsoft.graph.unifiedRoleEligibilityScheduleRequestCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleEligibilityScheduleRequestCollectionResponse'
-    microsoft.graph.unifiedRbacResourceNamespaceCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRbacResourceNamespaceCollectionResponse'
-    microsoft.graph.unifiedRoleDefinitionCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleDefinitionCollectionResponse'
-    microsoft.graph.unifiedRbacResourceActionCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRbacResourceActionCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.unifiedRoleAssignmentScheduleCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentScheduleCollectionResponse'
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.unifiedRoleAssignmentScheduleInstanceCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentScheduleInstanceCollectionResponse'
     microsoft.graph.unifiedRoleAssignmentCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentCollectionResponse'
+      title: Collection of unifiedRoleAssignment
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignment'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRbacResourceActionCollectionResponse:
+      title: Collection of unifiedRbacResourceAction
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRbacResourceAction'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ticketInfo:
+      title: ticketInfo
+      type: object
+      properties:
+        ticketNumber:
+          type:
+          - string
+          - 'null'
+          description: The ticket number.
+        ticketSystem:
+          type:
+          - string
+          - 'null'
+          description: The description of the ticket system.
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRoleAssignmentScheduleInstanceCollectionResponse:
+      title: Collection of unifiedRoleAssignmentScheduleInstance
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.unifiedRoleAssignmentScheduleInstance'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.unifiedRbacResourceNamespace:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: unifiedRbacResourceNamespace
+        type: object
+        properties:
+          name:
+            type: string
+          resourceActions:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.unifiedRbacResourceAction'
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.requestSchedule:
+      title: requestSchedule
+      type: object
+      properties:
+        expiration:
+          $ref: '#/components/schemas/microsoft.graph.expirationPattern'
+        recurrence:
+          $ref: '#/components/schemas/microsoft.graph.patternedRecurrence'
+        startDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type:
+          - string
+          - 'null'
+          description: When the  eligible or active assignment becomes active.
+          format: date-time
+      additionalProperties:
+        type: object
   parameters:
-    count:
-      name: $count
+    top:
+      name: $top
       in: query
-      description: Include count of items
+      description: Show only the first n items
       style: form
       explode: false
       schema:
-        type: boolean
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
     filter:
       name: $filter
       in: query
@@ -10034,25 +10045,14 @@ components:
       explode: false
       schema:
         type: string
-    skip:
-      name: $skip
+    count:
+      name: $count
       in: query
-      description: Skip the first n items
+      description: Include count of items
       style: form
       explode: false
       schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
+        type: boolean
   securitySchemes:
     azureaadv2:
       type: oauth2

@@ -88,7 +88,23 @@ paths:
           $ref: '#/components/responses/error'
       x-ms-docs-operation-type: operation
 components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   schemas:
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
     microsoft.graph.ODataErrors.InnerError:
       type: object
       additionalProperties:
@@ -117,20 +133,24 @@ components:
             format: date-time
         additionalProperties:
           type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
+    microsoft.graph.rootDomains:
+      title: rootDomains
+      enum:
+      - none
+      - all
+      - allFederated
+      - allManaged
+      - enumerated
+      - allManagedAndEnumeratedFederated
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.ODataError:
       required:
-      - code
-      - message
+      - error
       type: object
       properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
     microsoft.graph.ODataErrors.MainError:
@@ -166,42 +186,22 @@ components:
             $ref: '#/components/schemas/microsoft.graph.validatingDomains'
         additionalProperties:
           type: object
-    microsoft.graph.ODataErrors.ODataError:
+    microsoft.graph.ODataErrors.ErrorDetails:
       required:
-      - error
+      - code
+      - message
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
+        code:
           type: string
-          description: The unique identifier for an entity. Read-only.
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.rootDomains:
-      title: rootDomains
-      enum:
-      - none
-      - all
-      - allFederated
-      - allManaged
-      - enumerated
-      - allManagedAndEnumeratedFederated
-      - unknownFutureValue
-      type: string
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

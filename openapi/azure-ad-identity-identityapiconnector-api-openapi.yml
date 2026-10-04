@@ -267,7 +267,40 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.identityApiConnectorCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.identityApiConnectorCollectionResponse'
   schemas:
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
     microsoft.graph.identityApiConnectorCollectionResponse:
       title: Collection of identityApiConnector
       type: object
@@ -282,27 +315,40 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.InnerError:
+    microsoft.graph.apiAuthenticationConfigurationBase:
+      title: apiAuthenticationConfigurationBase
       type: object
       additionalProperties:
         type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.ODataErrors.ErrorDetails:
+    microsoft.graph.ODataErrors.ODataError:
       required:
-      - code
-      - message
+      - error
       type: object
       properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
+    microsoft.graph.identityApiConnector:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: identityApiConnector
+        type: object
+        properties:
+          authenticationConfiguration:
+            $ref: '#/components/schemas/microsoft.graph.apiAuthenticationConfigurationBase'
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The name of the API connector.
+          targetUrl:
+            type:
+            - string
+            - 'null'
+            description: The URL of the API endpoint to call.
+        additionalProperties:
+          type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -326,53 +372,42 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.identityApiConnector:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: identityApiConnector
-        type: object
-        properties:
-          authenticationConfiguration:
-            $ref: '#/components/schemas/microsoft.graph.apiAuthenticationConfigurationBase'
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: The name of the API connector.
-          targetUrl:
-            type:
-            - string
-            - 'null'
-            description: The URL of the API endpoint to call.
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
     ODataCountResponse:
       type: integer
       format: int32
-    microsoft.graph.apiAuthenticationConfigurationBase:
-      title: apiAuthenticationConfigurationBase
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
       type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
       additionalProperties:
         type: object
   parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
     skip:
       name: $skip
       in: query
@@ -392,14 +427,6 @@ components:
         minimum: 0
         type: integer
       example: 50
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
     filter:
       name: $filter
       in: query
@@ -408,33 +435,6 @@ components:
       explode: false
       schema:
         type: string
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases
-      style: form
-      explode: false
-      schema:
-        type: string
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.identityApiConnectorCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.identityApiConnectorCollectionResponse'
   securitySchemes:
     azureaadv2:
       type: oauth2
