@@ -4533,6 +4533,9 @@ apis:
   - type: Documentation
     url: https://learn.microsoft.com/en-us/graph/change-notifications-overview
 common:
+- type: CapabilityMap
+  url: capabilities/azure-ad-capability-edges.yml
+  name: Microsoft Entra ID (formerly Azure AD) Business Capability Map
 - type: Overlay
   url: overlays/azure-ad-graph-applications-overlay.yaml
 - type: Overlay

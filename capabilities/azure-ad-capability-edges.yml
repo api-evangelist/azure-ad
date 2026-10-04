@@ -1,0 +1,1049 @@
+slug: azure-ad
+provider: Microsoft Entra ID (formerly Azure AD)
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 106
+edges:
+- tag: identity.conditionalAccessRoot
+  spec_file: azure-ad-identity-conditionalaccessroot-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.95
+  evidence: microsoft.graph.conditionalAccessPolicy, microsoft.graph.authenticationStrengthPolicy
+  reason: Manages conditional access policies, authentication contexts and authentication strength/method
+    modes — access policy administration for sign-in. Unambiguously identity and access management.
+- tag: policies.conditionalAccessPolicy
+  spec_file: azure-ad-policies-conditionalaccesspolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.95
+  evidence: Create new navigation property to conditionalAccessPolicies for policies; microsoft.graph.conditionalAccessConditionSet,
+    microsoft.graph.conditionalAccessSessionControls
+  reason: CRUD over conditional access policies governing who can access which applications under which
+    conditions — unambiguously identity and access management.
+- tag: applications.federatedIdentityCredential
+  spec_file: azure-ad-applications-federatedidentitycredential-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.92
+  evidence: POST /applications/{application-id}/federatedIdentityCredentials  Create federatedIdentityCredential
+  reason: Lifecycle of federated identity credentials used for workload identity federation — unambiguously
+    identity and access management (federation).
+- tag: groups.appRoleAssignment
+  spec_file: azure-ad-groups-approleassignment-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.92
+  evidence: POST /groups/{group-id}/appRoleAssignments  'Grant an appRoleAssignment to a group'
+  reason: Granting and revoking application role assignments to directory groups is directly the assignment
+    of application access rights — core Identity & Access Management.
+- tag: servicePrincipals.appRoleAssignment
+  spec_file: azure-ad-serviceprincipals-approleassignment-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.92
+  evidence: POST /servicePrincipals/{id}/appRoleAssignedTo  'Grant an appRoleAssignment for a service
+    principal'
+  reason: Granting and revoking app role assignments to identities is access rights administration — Identity
+    & Access Management.
+- tag: Users authentication
+  spec_file: azure-ad-users-authentication-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: POST /users/{user-id}/authentication/emailMethods "Create emailMethod"; schemas microsoft.graph.fido2AuthenticationMethod,
+    microsoft.graph.softwareOathAuthenticationMethod
+  reason: Operations manage per-user authentication methods (FIDO2, WebAuthn, OATH, email) — registration
+    and lifecycle of credentials used to sign in. Squarely Identity & Access Management.
+- tag: directoryRoles.directoryObject
+  spec_file: azure-ad-directoryroles-directoryobject-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: GET /directoryRoles/{directoryRole-id}/members  directoryRole_ListMember  List members of
+    a directory role; POST .../members/$ref  Add directory role member
+  reason: Operations add, list and remove members (users, groups, service principals) of administrative
+    directory roles — role assignment, i.e. identity and access management.
+- tag: directoryRoles.directoryRole
+  spec_file: azure-ad-directoryroles-directoryrole-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: POST /directoryRoles  directoryRole_CreateDirectoryRole  Activate directoryRole; GET /directoryRoles(roleTemplateId='{roleTemplateId}')
+  reason: CRUD over administrative directory roles in the identity tenant — core role/privilege administration
+    within Identity & Access Management.
+- tag: directoryRoles.scopedRoleMembership
+  spec_file: azure-ad-directoryroles-scopedrolemembership-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: GET /directoryRoles/{directoryRole-id}/scopedMembers  List scopedMembers for a directory role
+  reason: Manages administrative-unit-scoped role memberships (scopedRoleMembership) — delegated privilege
+    assignment, squarely Identity & Access Management.
+- tag: groups.resourceSpecificPermissionGrant
+  spec_file: azure-ad-groups-resourcespecificpermissiongrant-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: GET /groups/{group-id}/permissionGrants  group_ListPermissionGrant  List permissionGrants
+    of a group
+  reason: CRUD over resource-specific permission grants held by a group — i.e. administration of what
+    applications are authorised to access a group's resources. That is squarely identity and access management.
+- tag: identity.identityProviderBase
+  spec_file: azure-ad-identity-identityproviderbase-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: POST /identity/identityProviders  identity_CreateIdentityProvider  Create identityProvider
+  reason: Lifecycle of configured identity providers for federated sign-in, including an availableProviderTypes
+    function. This is federation configuration, explicitly within Identity & Access Management.
+- tag: identityGovernance.accessPackageCatalog
+  spec_file: azure-ad-identitygovernance-accesspackagecatalog-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: GET /identityGovernance/catalogs/{accessPackageCatalog-id}/accessPackages  identityGovernance.catalog_ListAccessPackage
+  reason: Access package catalogs under identityGovernance are entitlement/access governance constructs
+    — squarely Identity & Access Management.
+- tag: identityGovernance.accessReviewSet
+  spec_file: azure-ad-identitygovernance-accessreviewset-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: GET /identityGovernance/accessReviews/definitions  identityGovernance.accessReview_ListDefinition;
+    microsoft.graph.accessReviewScheduleDefinition
+  reason: Scheduling and executing periodic access reviews and recording reviewer decisions is access
+    certification, a core Identity & Access Management activity.
+- tag: identityGovernance.entitlementManagement
+  spec_file: azure-ad-identitygovernance-entitlementmanagement-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: GET /identityGovernance/entitlementManagement/accessPackageAssignmentApprovals ... List approval
+    stages
+  reason: 'Entitlement management: access package assignments, approvals and lifecycle of user entitlements
+    — Identity & Access Management.'
+- tag: identityGovernance.privilegedAccessRoot
+  spec_file: azure-ad-identitygovernance-privilegedaccessroot-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: GET /identityGovernance/privilegedAccess/group/assignmentApprovals; microsoft.graph.privilegedAccessGroupEligibilityScheduleInstance
+  reason: Privileged access eligibility schedules and assignment approvals are privileged access management,
+    named within Identity & Access Management.
+- tag: policies.authenticationMethodsPolicy
+  spec_file: azure-ad-policies-authenticationmethodspolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: Get authenticationMethodsPolicy; Create new navigation property to authenticationMethodConfigurations;
+    microsoft.graph.authenticationMethodsRegistrationCampaign
+  reason: Governs which authentication methods (MFA, external methods) users may register and use — plainly
+    identity and access management.
+- tag: policies.authenticationStrengthPolicy
+  spec_file: azure-ad-policies-authenticationstrengthpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: List authenticationStrengthPolicies; Invoke action updateAllowedCombinations; microsoft.graph.authenticationMethodModes
+  reason: Defines allowed authentication method combinations enforced by conditional access — authentication
+    strength control, an IAM capability.
+- tag: policies.authorizationPolicy
+  spec_file: azure-ad-policies-authorizationpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: Get authorizationPolicy; microsoft.graph.defaultUserRolePermissions, microsoft.graph.allowInvitesFrom
+  reason: Configures tenant-wide default user role permissions and guest invitation rights — directory
+    authorization settings, core identity and access management.
+- tag: policies.homeRealmDiscoveryPolicy
+  spec_file: azure-ad-policies-homerealmdiscoverypolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: List homeRealmDiscoveryPolicies; schema "microsoft.graph.stsPolicy"
+  reason: Home realm discovery policies control how users are routed to federated identity providers at
+    sign-in — directly identity and access management.
+- tag: roleManagement.rbacApplication
+  spec_file: azure-ad-rolemanagement-rbacapplication-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: 'schemas: microsoft.graph.unifiedRoleDefinition, microsoft.graph.unifiedRoleEligibilitySchedule,
+    microsoft.graph.unifiedRoleAssignmentScheduleInstance; GET /roleManagement/directory/resourceNamespaces/.../resourceActions'
+  reason: Operations manage RBAC role definitions, role assignments and eligibility schedules in the directory
+    — classic privileged identity and access management, not a business-domain role concept.
+- tag: servicePrincipals.servicePrincipal
+  spec_file: azure-ad-serviceprincipals-serviceprincipal-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: POST /servicePrincipals  servicePrincipal_CreateServicePrincipal  'Create servicePrincipal'
+  reason: Full CRUD lifecycle of service principals — the application/workload identity objects in the
+    directory — which is core Identity & Access Management.
+- tag: users.appRoleAssignment
+  spec_file: azure-ad-users-approleassignment-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: POST /users/{user-id}/appRoleAssignments  user_CreateAppRoleAssignment  Create appRoleAssignment;
+    schema microsoft.graph.appRoleAssignment
+  reason: Grants and revokes application role assignments for user identities — direct entitlement/access
+    provisioning, the essence of Identity & Access Management.
+- tag: directory.identityProviderBase
+  spec_file: azure-ad-directory-identityproviderbase-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: GET /directory/federationConfigurations  directory_ListFederationConfiguration; DELETE ...
+    Delete samlOrWsFedExternalDomainFederation
+  reason: Configuration of external identity providers and SAML/WS-Fed domain federation is squarely identity
+    federation, an IAM capability.
+- tag: domains.internalDomainFederation
+  spec_file: azure-ad-domains-internaldomainfederation-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: 'POST /domains/{domain-id}/federationConfiguration  domain_CreateFederationConfiguration  Create
+    internalDomainFederation (schemas: samlOrWsFedProvider, federatedIdpMfaBehavior, authenticationProtocol)'
+  reason: Configures SAML/WS-Fed federation and MFA behaviour for a domain's identity provider — federation
+    configuration is explicitly part of Identity & Access Management.
+- tag: policies.identitySecurityDefaultsEnforcementPolicy
+  spec_file: azure-ad-policies-identitysecuritydefaultsenforcementpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: Get identitySecurityDefaultsEnforcementPolicy / Update identitySecurityDefaultsEnforcementPolicy
+  reason: Enforces baseline identity security defaults (e.g. MFA requirements) for a tenant — identity
+    and access control configuration.
+- tag: policies.permissionGrantPolicy
+  spec_file: azure-ad-policies-permissiongrantpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: List permissionGrantPolicies; "Create permissionGrantConditionSet in excludes collection of…"
+  reason: Policies governing which application permission grants/consents are allowed — access authorisation
+    governance within IAM.
+- tag: policies.unifiedRoleManagementPolicy
+  spec_file: azure-ad-policies-unifiedrolemanagementpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: List roleManagementPolicies; "List rules (for a role management policy)" with schema "microsoft.graph.unifiedRoleManagementPolicyRule"
+  reason: Role management (PIM) policies define activation, approval and expiry rules for privileged directory
+    roles — privileged access management within IAM.
+- tag: policies.unifiedRoleManagementPolicyAssignment
+  spec_file: azure-ad-policies-unifiedrolemanagementpolicyassignment-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: List roleManagementPolicyAssignments; schema "microsoft.graph.unifiedRoleManagementPolicyAssignment"
+  reason: Binds role management (privileged access) policies to role-scope pairs — administration of privileged
+    role access controls.
+- tag: servicePrincipals.federatedIdentityCredential
+  spec_file: azure-ad-serviceprincipals-federatedidentitycredential-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: POST /servicePrincipals/{id}/federatedIdentityCredentials  servicePrincipal_CreateFederatedIdentityCredential
+  reason: Lifecycle of federated identity credentials enabling external issuers to obtain tokens as the
+    application identity — identity federation and credential management.
+- tag: servicePrincipals.oAuth2PermissionGrant
+  spec_file: azure-ad-serviceprincipals-oauth2permissiongrant-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: GET /servicePrincipals/{id}/oauth2PermissionGrants  'List oauth2PermissionGrants granted to
+    a service principal'
+  reason: OAuth2 delegated permission grants represent consented access rights held by an application
+    identity — access rights administration (IAM).
+- tag: Users
+  spec_file: azure-ad-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /users createUser "Create a user"; GET /users/{id}/manager "Get a user's manager" in
+    "Microsoft Graph is the primary REST API for accessing Azure Active Directory (Microsoft Entra ID)"
+  reason: Directory user lifecycle CRUD in an identity provider — create/update/delete user identities
+    and read org relationships. This is identity administration (joiners-movers-leavers), not HR records,
+    since the system of record is the IdP directory.
+- tag: Users user
+  spec_file: azure-ad-users-user-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /users user_CreateUser "Create User"; GET /users(userPrincipalName='{userPrincipalName}')
+    "Get a user"
+  reason: Directory account CRUD keyed by userPrincipalName in Entra ID — provisioning and maintenance
+    of user identities, i.e. identity administration.
+- tag: applications.homeRealmDiscoveryPolicy
+  spec_file: azure-ad-applications-homerealmdiscoverypolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /applications/{application-id}/homeRealmDiscoveryPolicies  Get homeRealmDiscoveryPolicies
+    from applications; schema microsoft.graph.stsPolicy
+  reason: Home realm discovery policies govern how sign-in requests are routed to identity providers for
+    an application — authentication/federation policy, i.e. identity and access management.
+- tag: applications.tokenIssuancePolicy
+  spec_file: azure-ad-applications-tokenissuancepolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /applications/{application-id}/tokenIssuancePolicies/$ref  Assign tokenIssuancePolicy;
+    schema microsoft.graph.stsPolicy
+  reason: Assigns security-token issuance policies to application registrations — configuration of authentication
+    token behaviour, squarely identity and access management.
+- tag: applications.tokenLifetimePolicy
+  spec_file: azure-ad-applications-tokenlifetimepolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /applications/{application-id}/tokenLifetimePolicies/$ref  Assign tokenLifetimePolicy
+  reason: Assigns token lifetime policies to applications, controlling session/token validity for authentication
+    — identity and access management.
+- tag: devices.directoryObject
+  spec_file: azure-ad-devices-directoryobject-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /devices/{device-id}/memberOf  List device memberships; GET /devices/{device-id}/registeredOwners  List
+    registeredOwners
+  reason: Manages device identity relationships in the directory — group/administrative-unit memberships
+    and registered owners/users — core identity and access management surface of Entra ID.
+- tag: directory.administrativeUnit
+  spec_file: azure-ad-directory-administrativeunit-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /directory/administrativeUnits  directory_CreateAdministrativeUnit  Create administrativeUnit;
+    GET /directory/administrativeUnits/{administrativeUnit-id}/members  List members
+  reason: Administrative units scope delegated directory administration and membership in Entra ID — identity
+    and access administration, matching IAM within Cybersecurity Management.
+- tag: directoryRoles.directoryRole.Actions
+  spec_file: azure-ad-directoryroles-directoryrole-actions-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /directoryRoles/{directoryRole-id}/microsoft.graph.checkMemberGroups  Invoke action checkMemberGroups
+  reason: Actions evaluate and retrieve role membership (checkMemberGroups, getMemberObjects) and restore
+    deleted role objects — access-evaluation operations on directory roles, i.e. IAM.
+- tag: identity.authenticationEventListener
+  spec_file: azure-ad-identity-authenticationeventlistener-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /identity/authenticationEventListeners  identity_CreateAuthenticationEventListener  Create
+    authenticationEventListener
+  reason: Configures listeners that hook into authentication events (schemas microsoft.graph.authenticationConditionsApplications,
+    authenticationEventListener). This is configuration of the sign-in/authentication pipeline, i.e. IAM,
+    not generic webhook plumbing for a business process.
+- tag: identity.authenticationEventsFlow
+  spec_file: azure-ad-identity-authenticationeventsflow-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: microsoft.graph.externalUsersSelfServiceSignUpEventsFlowCollectionResponse
+  reason: Manages authentication event flows including external-user self-service sign-up, attribute collection
+    pages and application scoping — configuration of user authentication/registration journeys, an identity
+    and access management function.
+- tag: identity.b2xIdentityUserFlow
+  spec_file: azure-ad-identity-b2xidentityuserflow-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /identity/b2xUserFlows  identity_ListB2xUserFlow  List b2xIdentityUserFlows
+  reason: Lifecycle of B2X sign-up/sign-in user flows with identity providers, user flow attribute assignments
+    and API connectors — configuration of external identity authentication journeys, i.e. IAM.
+- tag: identity.customAuthenticationExtension
+  spec_file: azure-ad-identity-customauthenticationextension-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /identity/customAuthenticationExtensions/{customAuthenticationExtension-id}/microsoft.graph.validateAuthenticationConfiguration
+  reason: Creates and validates custom authentication extensions (customExtensionAuthenticationConfiguration)
+    that extend the token/sign-in pipeline — authentication configuration, hence IAM.
+- tag: identityGovernance.appConsentApprovalRoute
+  spec_file: azure-ad-identitygovernance-appconsentapprovalroute-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: List appConsentRequests ... identityGovernance.appConsent.appConsentRequest_ListUserConsentRequest  List
+    userConsentRequests
+  reason: Approval routing of user/app consent requests governs which applications obtain access to directory
+    resources — access request and approval within IAM.
+- tag: identityProtection.riskDetection
+  spec_file: azure-ad-identityprotection-riskdetection-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.85
+  evidence: GET /identityProtection/riskDetections  identityProtection_ListRiskDetection  List riskDetections
+  reason: Sign-in and user risk detections (risk level, risk state, sign-in location) are security threat
+    detection signals, not business risk management.
+- tag: identityProtection.riskyServicePrincipal
+  spec_file: azure-ad-identityprotection-riskyserviceprincipal-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.85
+  evidence: List history (risk history of riskyServicePrincipal); microsoft.graph.riskServicePrincipalActivity
+  reason: Detection and tracking of compromised/risky service principals is security threat detection
+    and response over machine identities.
+- tag: oauth2PermissionGrants.oAuth2PermissionGrant
+  spec_file: azure-ad-oauth2permissiongrants-oauth2permissiongrant-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: List oauth2PermissionGrants (delegated permission grants) ... Create oAuth2PermissionGrant
+    (a delegated permission grant)
+  reason: Management of delegated permission grants is directly the administration of access rights to
+    resources — Identity & Access Management.
+- tag: policies.activityBasedTimeoutPolicy
+  spec_file: azure-ad-policies-activitybasedtimeoutpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: List activityBasedTimeoutPolicies; policy_CreateActivityBasedTimeoutPolicy; microsoft.graph.stsPolicy
+  reason: Manages sign-in session idle-timeout policies applied to directory objects in an identity provider
+    — an access control / session governance surface of IAM.
+- tag: policies.authenticationFlowsPolicy
+  spec_file: azure-ad-policies-authenticationflowspolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: Get authenticationFlowsPolicy; microsoft.graph.selfServiceSignUpAuthenticationFlowConfiguration
+  reason: Controls which authentication/self-service sign-up flows are enabled in the tenant — authentication
+    configuration within identity and access management.
+- tag: policies.claimsMappingPolicy
+  spec_file: azure-ad-policies-claimsmappingpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: Create claimsMappingPolicy; microsoft.graph.claimsMappingPolicy, microsoft.graph.stsPolicy
+  reason: Manages policies shaping claims issued in security tokens for applications by the STS — token/federation
+    configuration within IAM.
+- tag: policies.crossTenantAccessPolicy
+  spec_file: azure-ad-policies-crosstenantaccesspolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: Create crossTenantAccessPolicyConfigurationPartner; microsoft.graph.crossTenantAccessPolicyTenantRestrictions,
+    microsoft.graph.crossTenantIdentitySyncPolicyPartner
+  reason: Configures inbound/outbound B2B collaboration and trust settings with partner tenants, including
+    identity sync and tenant restrictions — federation and external access control within IAM.
+- tag: policies.federatedTokenValidationPolicy
+  spec_file: azure-ad-policies-federatedtokenvalidationpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /policies/federatedTokenValidationPolicy; schemas "microsoft.graph.validatingDomains",
+    "microsoft.graph.rootDomains"
+  reason: Configures validation of federated authentication tokens across domains — core identity federation/access
+    control configuration.
+- tag: policies.tokenIssuancePolicy
+  spec_file: azure-ad-policies-tokenissuancepolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: Create tokenIssuancePolicy; schema "microsoft.graph.stsPolicy"
+  reason: Controls SAML/security-token issuance behaviour for applications — authentication token policy,
+    part of identity and access management.
+- tag: policies.tokenLifetimePolicy
+  spec_file: azure-ad-policies-tokenlifetimepolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: List tokenLifetimePolicies; schema "microsoft.graph.tokenLifetimePolicy" applied via appliesTo
+    directoryObject
+  reason: Governs lifetime of issued access/refresh tokens for applications — session and access-token
+    control within IAM.
+- tag: servicePrincipals.servicePrincipal.Actions
+  spec_file: azure-ad-serviceprincipals-serviceprincipal-actions-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /servicePrincipals/{servicePrincipal-id}/microsoft.graph.addKey … addPassword … addTokenSigningCertificate;
+    schemas microsoft.graph.keyCredential, microsoft.graph.passwordCredential
+  reason: Operations manage credentials (keys, passwords, signing certificates) and group-membership checks
+    for service principals — machine identity credential and access administration, squarely Identity
+    & Access Management.
+- tag: users.scopedRoleMembership
+  spec_file: azure-ad-users-scopedrolemembership-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /users/{user-id}/scopedRoleMemberOf; schema microsoft.graph.scopedRoleMembership
+  reason: Manages a user's administrative-unit-scoped directory role memberships — i.e. assignment and
+    revocation of administrative privileges. Unambiguously Identity & Access Management.
+- tag: directory.publicKeyInfrastructureRoot
+  spec_file: azure-ad-directory-publickeyinfrastructureroot-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: POST /directory/publicKeyInfrastructure/certificateBasedAuthConfigurations  Create certificateBasedAuthPki;
+    Create certificateAuthorityDetail
+  reason: Manages certificate-based authentication PKI and certificate authorities used for user authentication
+    — authentication/credential infrastructure within IAM.
+- tag: directoryRoleTemplates.directoryRoleTemplate
+  spec_file: azure-ad-directoryroletemplates-directoryroletemplate-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: GET /directoryRoleTemplates  directoryRoleTemplate_ListDirectoryRoleTemplate  List directoryRoleTemplates;
+    schema microsoft.graph.directoryRoleTemplate
+  reason: Directory role templates define the administrative roles that can be activated and assigned
+    — role definition management, a core IAM function.
+- tag: identityGovernance.lifecycleWorkflowsContainer
+  spec_file: azure-ad-identitygovernance-lifecycleworkflowscontainer-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: GET /identityGovernance/lifecycleWorkflows ... List customTaskExtensions
+  reason: Lifecycle workflows automate joiner-mover-leaver identity tasks within identity governance,
+    explicitly part of Identity & Access Management.
+- tag: identityProviders.identityProvider
+  spec_file: azure-ad-identityproviders-identityprovider-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: POST /identityProviders  identityProvider_CreateIdentityProvider  Create identityProvider
+  reason: CRUD over configured identity providers (federation sources for sign-in) is identity and access
+    management configuration, matching BC-620.20 'federation'.
+- tag: organization.certificateBasedAuthConfiguration
+  spec_file: azure-ad-organization-certificatebasedauthconfiguration-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: POST /organization/{organization-id}/certificateBasedAuthConfiguration  Create certificateBasedAuthConfiguration
+    ... microsoft.graph.certificateAuthority
+  reason: Configuration of certificate-based authentication (trusted certificate authorities for sign-in)
+    is authentication/identity administration under Identity & Access Management.
+- tag: servicePrincipals.homeRealmDiscoveryPolicy
+  spec_file: azure-ad-serviceprincipals-homerealmdiscoverypolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: POST /servicePrincipals/{id}/homeRealmDiscoveryPolicies/$ref  'Assign homeRealmDiscoveryPolicy'
+  reason: Home realm discovery policies control sign-in routing to federated identity providers for an
+    application — authentication/federation configuration under IAM.
+- tag: Applications application
+  spec_file: azure-ad-applications-application-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /applications application_CreateApplication Create application; schemas microsoft.graph.passwordCredential,
+    microsoft.graph.keyCredentialConfiguration, microsoft.graph.tokenLifetimePolicy
+  reason: Full lifecycle of Entra ID app registrations with client secrets, key credentials and token
+    lifetime policies is directory/IAM administration of application identities, matching Identity & Access
+    Management.
+- tag: Groups group
+  spec_file: azure-ad-groups-group-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /groups group_CreateGroup Create group; PATCH /groups/{group-id} group_UpdateGroup Upsert
+    group; DELETE /groups/{group-id} group_DeleteGroup Delete group
+  reason: Full CRUD lifecycle over Entra ID directory groups, the core access-grouping object of the IAM
+    service — Identity & Access Management.
+- tag: applications.application.Actions
+  spec_file: azure-ad-applications-application-actions-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /applications/{application-id}/microsoft.graph.addKey ... addPassword ... removeKey ...
+    setVerifiedPublisher; schema microsoft.graph.keyCredential, microsoft.graph.passwordCredential
+  reason: Operations manage credentials (keys, passwords) and publisher verification on Entra ID application
+    registrations, plus group-membership checks — core identity and access administration rather than
+    any business-domain function.
+- tag: applications.directoryObject
+  spec_file: azure-ad-applications-directoryobject-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: GET /applications/{application-id}/owners  application_ListOwner  List owners of an application;
+    POST /applications/{application-id}/owners/$ref  Add owner
+  reason: Manages ownership relationships between directory objects (users, service principals) and application
+    registrations in the identity directory — identity and access administration.
+- tag: groups.directoryObject
+  spec_file: azure-ad-groups-directoryobject-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: GET /groups/{group-id}/memberOf  'List group memberships'; GET /groups/{group-id}/acceptedSenders
+  reason: Management of directory object relationships — group memberships, owners, senders — within Entra
+    ID. This is directory group/membership administration, i.e. Identity & Access Management.
+- tag: identity.identityVerifiedIdRoot
+  spec_file: azure-ad-identity-identityverifiedidroot-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /identity/verifiedId/profiles  identity.verifiedId_CreateProfile  Create verifiedIdProfile
+  reason: Manages Verified ID profiles with claim validation, claim bindings and faceCheckConfiguration
+    — issuance/verification of credentials used to establish identity, an identity and access management
+    function.
+- tag: policies.adminConsentRequestPolicy
+  spec_file: azure-ad-policies-adminconsentrequestpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: Get adminConsentRequestPolicy; microsoft.graph.adminConsentRequestPolicy, microsoft.graph.accessReviewReviewerScope
+  reason: Configures the workflow by which users request admin consent for application permissions, including
+    reviewer scope — an access-request/approval control within identity and access management.
+- tag: policies.appManagementPolicy
+  spec_file: azure-ad-policies-appmanagementpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: Create appManagementPolicy; microsoft.graph.keyCredentialConfiguration, microsoft.graph.passwordCredentialConfiguration,
+    microsoft.graph.appCredentialRestrictionType
+  reason: Defines restrictions on application credentials (keys, passwords, identifier URIs) for app identities
+    in the directory — credential governance, a core IAM control.
+- tag: policies.tenantAppManagementPolicy
+  spec_file: azure-ad-policies-tenantappmanagementpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: Get tenantAppManagementPolicy; schemas "microsoft.graph.keyCredentialConfiguration", "microsoft.graph.passwordCredentialConfiguration",
+    "microsoft.graph.appCredentialRestrictionType"
+  reason: Tenant-wide restrictions on application/service-principal credentials and identifier URIs —
+    governance of application identity credentials, an IAM control.
+- tag: servicePrincipals.claimsMappingPolicy
+  spec_file: azure-ad-serviceprincipals-claimsmappingpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /servicePrincipals/{id}/claimsMappingPolicies/$ref  'Assign claimsMappingPolicy'; schema
+    microsoft.graph.stsPolicy
+  reason: Assigning token claims-mapping (STS) policies to application service principals governs the
+    tokens issued during sign-in — federation/SSO configuration within IAM.
+- tag: servicePrincipals.synchronization
+  spec_file: azure-ad-serviceprincipals-synchronization-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /servicePrincipals/{servicePrincipal-id}/synchronization/jobs  servicePrincipal.synchronization_CreateJob  Create
+    synchronizationJob; schemas microsoft.graph.synchronizationRule, microsoft.graph.bulkUpload, microsoft.graph.attributeMappingSource
+  reason: Identity provisioning/synchronisation jobs that push directory accounts and attribute mappings
+    into applications — joiners-movers-leavers provisioning, a core IAM function.
+- tag: servicePrincipals.tokenIssuancePolicy
+  spec_file: azure-ad-serviceprincipals-tokenissuancepolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: GET /servicePrincipals/{servicePrincipal-id}/tokenIssuancePolicies; schema microsoft.graph.tokenIssuancePolicy,
+    microsoft.graph.stsPolicy
+  reason: Assignment of SAML/STS token issuance policies to application service principals — configuration
+    of federated authentication behaviour, i.e. identity and access management.
+- tag: servicePrincipals.tokenLifetimePolicy
+  spec_file: azure-ad-serviceprincipals-tokenlifetimepolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /servicePrincipals/{servicePrincipal-id}/tokenLifetimePolicies/$ref  Add tokenLifetimePolicy;
+    schema microsoft.graph.tokenLifetimePolicy
+  reason: Assigning token lifetime (session/token validity) policies to application identities is authentication
+    session governance within Identity & Access Management.
+- tag: users.oAuth2PermissionGrant
+  spec_file: azure-ad-users-oauth2permissiongrant-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: GET /users/{user-id}/oauth2PermissionGrants — "List a user's oauth2PermissionGrants"; schema
+    microsoft.graph.oAuth2PermissionGrant
+  reason: Enumerates the delegated OAuth2 permission (consent) grants held on behalf of a user — directly
+    identity and access governance for an IAM platform, so Identity & Access Management is the honest
+    fit.
+- tag: directory.directoryObject
+  spec_file: azure-ad-directory-directoryobject-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: GET /directory/deletedItems  directory_ListDeletedItem  Get deleted item (directory object);
+    POST .../microsoft.graph.restore  Invoke action restore
+  reason: Lifecycle of directory objects (users, groups, applications, devices) including soft-delete
+    and restore in an identity directory — directory/identity administration under IAM.
+- tag: directoryObjects.directoryObject
+  spec_file: azure-ad-directoryobjects-directoryobject-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: GET /directoryObjects/{directoryObject-id}  directoryObject_GetDirectoryObject  Get directoryObject
+  reason: CRUD over the base directory object type of an identity directory — core identity directory
+    administration under IAM.
+- tag: informationProtection.threatAssessmentRequest
+  spec_file: azure-ad-informationprotection-threatassessmentrequest-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.78
+  evidence: POST /informationProtection/threatAssessmentRequests  Create threatAssessmentRequest ... microsoft.graph.threatCategory,
+    microsoft.graph.threatAssessmentResult
+  reason: Submission and retrieval of threat assessments (threat category, assessment result) for suspected
+    malicious content is security threat detection and response work.
+- tag: servicePrincipals.delegatedPermissionClassification
+  spec_file: azure-ad-serviceprincipals-delegatedpermissionclassification-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: POST /servicePrincipals/{id}/delegatedPermissionClassifications 'Create delegatedPermissionClassification';
+    schema microsoft.graph.permissionClassificationType
+  reason: Classifying delegated permissions (low-impact vs not) governs what users may consent to — permission/consent
+    administration, part of identity and access management.
+- tag: Applications synchronization
+  spec_file: azure-ad-applications-synchronization-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: GET /applications/{application-id}/synchronization/jobs application.synchronization_ListJob;
+    schemas microsoft.graph.synchronizationJob, microsoft.graph.attributeMappingSource, microsoft.graph.bulkUpload
+  reason: Entra provisioning synchronisation jobs push user/group identities and attribute mappings into
+    applications — automated joiner-mover-leaver provisioning, i.e. Identity & Access Management. Some
+    ambiguity with tenant identity federation, but this is the IdP's own provisioning engine.
+- tag: directory.customSecurityAttributeDefinition
+  spec_file: azure-ad-directory-customsecurityattributedefinition-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /directory/customSecurityAttributeDefinitions  Create customSecurityAttributeDefinition;
+    microsoft.graph.allowedValue
+  reason: Defines custom security attributes and their allowed values used for attribute-based access
+    control on directory objects in Entra ID — identity and access management administration.
+- tag: directory.deviceLocalCredentialInfo
+  spec_file: azure-ad-directory-devicelocalcredentialinfo-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: GET /directory/deviceLocalCredentials  directory_ListDeviceLocalCredential  List deviceLocalCredentialInfo;
+    schema microsoft.graph.deviceLocalCredential
+  reason: Manages local administrator credentials for directory-joined devices within an identity service
+    — credential stewardship, i.e. Identity & Access Management. Slight ambiguity with endpoint management
+    keeps confidence moderate.
+- tag: directory.onPremisesDirectorySynchronization
+  spec_file: azure-ad-directory-onpremisesdirectorysynchronization-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: GET /directory/onPremisesSynchronization  directory_ListOnPremisesSynchronization  Get onPremisesDirectorySynchronization;
+    schema microsoft.graph.onPremisesDirectorySynchronizationConfiguration
+  reason: Configures synchronisation of on-premises identity directory into the cloud directory — identity
+    directory administration (IAM), not generic data integration.
+- tag: groupLifecyclePolicies.groupLifecyclePolicy
+  spec_file: azure-ad-grouplifecyclepolicies-grouplifecyclepolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /groupLifecyclePolicies  groupLifecyclePolicy_CreateGroupLifecyclePolicy  Create groupLifecyclePolicy
+  reason: CRUD over policies governing expiration/renewal of directory groups — security-group lifecycle
+    governance, which falls under Identity & Access Management; some ambiguity as it could be read as
+    generic policy management.
+- tag: groups.group.Actions
+  spec_file: azure-ad-groups-group-actions-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /groups/{group-id}/microsoft.graph.assignLicense; POST /groups/{group-id}/microsoft.graph.checkMemberGroups;
+    'Invoke action checkGrantedPermissionsForApp'
+  reason: Actions on directory groups including license assignment, membership evaluation and permission
+    checks — administration of identities and their entitlements in Entra ID.
+- tag: groups.groupLifecyclePolicy
+  spec_file: azure-ad-groups-grouplifecyclepolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: GET /groups/{group-id}/groupLifecyclePolicies  'List groupLifecyclePolicies'; 'Invoke action
+    addGroup' / 'removeGroup'
+  reason: Policies governing expiration and renewal of directory groups — governance of identity objects
+    and their memberships within the IAM directory.
+- tag: identity.identityApiConnector
+  spec_file: azure-ad-identity-identityapiconnector-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: GET /identity/apiConnectors  identity_ListApiConnector  List identityApiConnectors
+  reason: Manages identity API connectors (with apiAuthenticationConfigurationBase and client certificate
+    upload) used inside identity user flows. It is integration plumbing, but scoped specifically to the
+    identity sign-up/sign-in pipeline, so IAM is the honest mapping at moderate confidence.
+- tag: identity.identityContainer
+  spec_file: azure-ad-identity-identitycontainer-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: microsoft.graph.conditionalAccessRoot, microsoft.graph.authenticationStrengthPolicy, microsoft.graph.identityProviderBase
+  reason: Root container read/update whose schema surface is conditional access, authentication strength
+    policies, identity providers and user flows. Generic container endpoint, but its contents are plainly
+    identity and access administration.
+- tag: identity.riskPreventionContainer
+  spec_file: azure-ad-identity-riskpreventioncontainer-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.75
+  evidence: List fraudProtectionProviders / List webApplicationFirewallProvider objects; schema microsoft.graph.riskPreventionContainer
+  reason: Configuration of fraud-protection and web-application-firewall providers attached to the identity
+    service is security control/protection tooling, i.e. Cybersecurity Management; the split between threat
+    detection and security architecture is ambiguous so no L2 asserted.
+- tag: identityProtection.identityProtectionRoot
+  spec_file: azure-ad-identityprotection-identityprotectionroot-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.75
+  evidence: GET /identityProtection; schemas microsoft.graph.riskDetection, microsoft.graph.riskyUser,
+    microsoft.graph.riskLevel
+  reason: Root of the Identity Protection surface exposing risk detections and risky users — security
+    threat detection on identities; only two generic operations limits confidence.
+- tag: policies.deviceRegistrationPolicy
+  spec_file: azure-ad-policies-deviceregistrationpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: Get deviceRegistrationPolicy; microsoft.graph.azureADJoinPolicy, microsoft.graph.multiFactorAuthConfiguration,
+    microsoft.graph.localAdminSettings
+  reason: Reads the policy governing which users may join/register devices to the directory and associated
+    MFA and local admin settings — device identity registration control within IAM.
+- tag: users.directoryObject
+  spec_file: azure-ad-users-directoryobject-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: GET /users/{user-id}/createdObjects … GET /users/{user-id}/directReports  user_ListDirectReport;
+    schema microsoft.graph.directoryObject
+  reason: Navigates the directory object graph hanging off user identities (created objects, direct reports,
+    owned/member objects) in an IAM directory. Directory identity data administration rather than HR records.
+- tag: Invitations invitation
+  spec_file: azure-ad-invitations-invitation-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: POST /invitations invitation_CreateInvitation Create invitation
+  reason: Creates B2B guest-user invitations in the tenant directory, i.e. provisioning external identities
+    and their access — IAM joiner process, not marketing or event invitations.
+- tag: directoryObjects.directoryObject.Actions
+  spec_file: azure-ad-directoryobjects-directoryobject-actions-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: POST /directoryObjects/{directoryObject-id}/microsoft.graph.checkMemberGroups  Invoke action
+    checkMemberGroups
+  reason: Group-membership evaluation and restore actions on identity directory objects support access
+    determination — IAM. Partly generic OData plumbing (validateProperties, getByIds), so confidence tempered.
+- tag: identityProtection.riskyUser
+  spec_file: azure-ad-identityprotection-riskyuser-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.72
+  evidence: GET /identityProtection/riskyUsers ... schemas microsoft.graph.riskLevel, microsoft.graph.riskDetail,
+    microsoft.graph.riskState
+  reason: 'Entra Identity Protection risky-user detection: surfaces risk level/state/detail and risk history
+    for user identities, i.e. detection and triage of compromised-identity threats. Sub-capability choice
+    between threat detection/response and IAM is somewhat ambiguous, hence moderate confidence.'
+- tag: identityProtection.servicePrincipalRiskDetection
+  spec_file: azure-ad-identityprotection-serviceprincipalriskdetection-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.72
+  evidence: List servicePrincipalRiskDetections ... microsoft.graph.riskDetectionTimingType, microsoft.graph.riskLevel,
+    microsoft.graph.signInLocation
+  reason: Risk detections for service principals with risk level, detection timing and sign-in location
+    are security threat detections on workload identities — cybersecurity threat detection rather than
+    any business capability.
+- tag: servicePrincipals.directoryObject
+  spec_file: azure-ad-serviceprincipals-directoryobject-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: GET /servicePrincipals/{id}/memberOf  'List servicePrincipal memberOf'; GET /servicePrincipals/{id}/createdObjects
+  reason: Navigation over directory objects, group/role memberships and owned objects of a service principal
+    — directory identity data within the IAM platform.
+- tag: Directory
+  spec_file: azure-ad-directory-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: GET /directoryRoles listDirectoryRoles List directory roles
+  reason: The only operation enumerates directory (administrative) roles in Entra ID, which is role/privilege
+    administration within Identity & Access Management. Single thin endpoint, so 0.7.
+- tag: applications.appManagementPolicy
+  spec_file: azure-ad-applications-appmanagementpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: application_ListAppManagementPolicy "Get appManagementPolicies from applications"; microsoft.graph.keyCredentialConfiguration,
+    microsoft.graph.appCredentialRestrictionType
+  reason: Assigns policies restricting application credentials (key/password credential configuration)
+    to app registrations — governance of non-human identity credentials. Could also read as security governance,
+    so confidence moderate.
+- tag: contacts.orgContact.Actions
+  spec_file: azure-ad-contacts-orgcontact-actions-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /contacts/{orgContact-id}/microsoft.graph.checkMemberGroups  Invoke action checkMemberGroups;
+    POST /contacts/{orgContact-id}/microsoft.graph.restore
+  reason: Actions evaluate group membership and restore/validate directory contact objects — directory
+    identity administration, not customer relationship management.
+- tag: contacts.orgContact.Functions
+  spec_file: azure-ad-contacts-orgcontact-functions-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: 'GET /contacts/microsoft.graph.delta() … schemas: microsoft.graph.orgContact, microsoft.graph.onPremisesSyncBehavior,
+    microsoft.graph.directoryObject'
+  reason: Organisational contact directory objects in Entra ID's directory management surface; delta sync
+    of directory identity objects falls under identity and access management. Thin surface (single delta
+    function), so moderate confidence.
+- tag: groupLifecyclePolicies.groupLifecyclePolicy.Actions
+  spec_file: azure-ad-grouplifecyclepolicies-grouplifecyclepolicy-actions-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /groupLifecyclePolicies/{groupLifecyclePolicy-id}/microsoft.graph.addGroup  groupLifecyclePolicy_addGroup
+  reason: Adds and removes directory groups from a group expiration policy — administration of group (access
+    container) lifecycle within the identity directory.
+- tag: identity.identityUserFlowAttribute
+  spec_file: azure-ad-identity-identityuserflowattribute-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /identity/userFlowAttributes  identity_CreateUserFlowAttribute  Create identityUserFlowAttribute
+  reason: Defines the attributes collected from users during identity user flows (identityUserFlowAttributeType/DataType).
+    Attribute schema definition for sign-up journeys is part of identity administration rather than customer
+    master data management.
+- tag: policies.policyRoot
+  spec_file: azure-ad-policies-policyroot-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: GET /policies; schemas include "microsoft.graph.conditionalAccessPolicy", "microsoft.graph.tokenLifetimePolicy",
+    "microsoft.graph.unifiedRoleManagementPolicy"
+  reason: Root container exposing the tenant's identity policy set (conditional access, token lifetime,
+    role management), so it realises identity and access management, albeit as a generic aggregate endpoint.
+- tag: servicePrincipals.appManagementPolicy
+  spec_file: azure-ad-serviceprincipals-appmanagementpolicy-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: servicePrincipal_ListAppManagementPolicy; schemas microsoft.graph.keyCredentialConfiguration,
+    microsoft.graph.passwordCredentialConfiguration, microsoft.graph.appCredentialRestrictionType
+  reason: Policies restricting application credentials (keys, passwords, identifier URIs) attached to
+    service principals — governance of application identity credentials, an IAM control. Slight ambiguity
+    with general security governance.
+- tag: servicePrincipals.remoteDesktopSecurityConfiguration
+  spec_file: azure-ad-serviceprincipals-remotedesktopsecurityconfiguration-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: '''Create approvedClientApp''; ''List targetDeviceGroups''; schema microsoft.graph.remoteDesktopSecurityConfiguration'
+  reason: Configures which client apps and device groups may obtain SSO access to remote desktop resources
+    — access control configuration within the identity platform.
