@@ -4533,6 +4533,8 @@ apis:
   - type: Documentation
     url: https://learn.microsoft.com/en-us/graph/change-notifications-overview
 common:
+- type: FinOps
+  url: finops/azure-ad-finops.yml
 - type: CapabilityMap
   url: capabilities/azure-ad-capability-edges.yml
   name: Microsoft Entra ID (formerly Azure AD) Business Capability Map
