@@ -133,3 +133,92 @@ plans:
 plan_count: 10
 free_tier: true
 enterprise_only: false
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - seat
+  - subscription
+  units:
+  - seat
+  plans:
+  - name: Microsoft Entra ID Free
+    access: free
+    model: free
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra ID P1
+    access: paid
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra ID P2
+    access: paid
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra Suite
+    access: paid
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra ID Governance
+    access: paid
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra Workload ID
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Microsoft Entra Internet Access
+    access: paid
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra Private Access
+    access: paid
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra External ID
+    access: freemium
+    model: free
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra Verified ID
+    access: free
+    model: free
+    model_how: derived
+    units: []
+    periods:
+    - month

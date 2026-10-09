@@ -97,3 +97,19 @@ other_microsoft_mcp_servers:
   note: A live first-party Microsoft MCP server, but its subject is Microsoft Learn documentation search,
     not the Entra ID / Graph directory surface this record describes. Recorded here as context, not claimed
     as this provider's agent surface.
+rfc9728:
+  endpoint: https://mcp.svc.cloud.microsoft/enterprise
+  metadata_url: https://mcp.svc.cloud.microsoft/.well-known/oauth-protected-resource/enterprise
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp.svc.cloud.microsoft/enterprise
+    authorization_servers:
+    - https://login.microsoftonline.com/organizations/v2.0
+    scopes_supported:
+    - api://e8c77dc2-69b3-43f4-bc51-3213c9d915b4/.default
+    bearer_methods_supported:
+    - header
+    resource_name: MCP Server for Enterprise
