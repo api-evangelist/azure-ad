@@ -282,27 +282,6 @@ paths:
       x-operation-id-original: identity.customAuthenticationExtension_validateAuthenticationConfiguration
 components:
   schemas:
-    microsoft.graph.authenticationConfigurationValidation:
-      title: authenticationConfigurationValidation
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.genericError'
-          description: Errors in the validation result of a customAuthenticationExtension.
-        warnings:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.genericError'
-          description: Warnings in the validation result of a customAuthenticationExtension.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -331,23 +310,36 @@ components:
       type: object
       additionalProperties:
         type: object
-    microsoft.graph.customExtensionBehaviorOnError:
-      title: customExtensionBehaviorOnError
+    microsoft.graph.customExtensionAuthenticationConfiguration:
+      title: customExtensionAuthenticationConfiguration
       type: object
       additionalProperties:
         type: object
-    microsoft.graph.customAuthenticationExtensionCollectionResponse:
-      title: Collection of customAuthenticationExtension
+    microsoft.graph.customExtensionClientConfiguration:
+      title: customExtensionClientConfiguration
       type: object
       properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.customAuthenticationExtension'
-        '@odata.nextLink':
+        maximumRetries:
+          maximum: 2147483647
+          minimum: -2147483648
           type:
-          - string
+          - number
           - 'null'
+          description: The max number of retries that Microsoft Entra ID makes to the external API. Values of 0 or 1 are supported. If null, the default for the service applies.
+          format: int32
+        timeoutInMilliseconds:
+          maximum: 2147483647
+          minimum: -2147483648
+          type:
+          - number
+          - 'null'
+          description: The max duration in milliseconds that Microsoft Entra ID waits for a response from the external app before it shuts down the connection. The valid range is between 200 and 2000 milliseconds. Default duration is 1000.
+          format: int32
+      additionalProperties:
+        type: object
+    microsoft.graph.customExtensionBehaviorOnError:
+      title: customExtensionBehaviorOnError
+      type: object
       additionalProperties:
         type: object
     microsoft.graph.customCalloutExtension:
@@ -374,6 +366,50 @@ components:
             $ref: '#/components/schemas/microsoft.graph.customExtensionEndpointConfiguration'
         additionalProperties:
           type: object
+    microsoft.graph.authenticationConfigurationValidation:
+      title: authenticationConfigurationValidation
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.genericError'
+          description: Errors in the validation result of a customAuthenticationExtension.
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.genericError'
+          description: Warnings in the validation result of a customAuthenticationExtension.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.customAuthenticationExtensionCollectionResponse:
+      title: Collection of customAuthenticationExtension
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.customAuthenticationExtension'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
     microsoft.graph.genericError:
       title: genericError
       type: object
@@ -390,28 +426,9 @@ components:
           description: The error message.
       additionalProperties:
         type: object
-    microsoft.graph.customExtensionClientConfiguration:
-      title: customExtensionClientConfiguration
-      type: object
-      properties:
-        maximumRetries:
-          maximum: 2147483647
-          minimum: -2147483648
-          type:
-          - number
-          - 'null'
-          description: The max number of retries that Microsoft Entra ID makes to the external API. Values of 0 or 1 are supported. If null, the default for the service applies.
-          format: int32
-        timeoutInMilliseconds:
-          maximum: 2147483647
-          minimum: -2147483648
-          type:
-          - number
-          - 'null'
-          description: The max duration in milliseconds that Microsoft Entra ID waits for a response from the external app before it shuts down the connection. The valid range is between 200 and 2000 milliseconds. Default duration is 1000.
-          format: int32
-      additionalProperties:
-        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
     microsoft.graph.ODataErrors.ODataError:
       required:
       - error
@@ -437,20 +454,6 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.customExtensionAuthenticationConfiguration:
-      title: customExtensionAuthenticationConfiguration
-      type: object
-      additionalProperties:
-        type: object
     microsoft.graph.customAuthenticationExtension:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.customCalloutExtension'
@@ -461,28 +464,6 @@ components:
             $ref: '#/components/schemas/microsoft.graph.customExtensionBehaviorOnError'
         additionalProperties:
           type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.customAuthenticationExtensionCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.customAuthenticationExtensionCollectionResponse'
   parameters:
     top:
       name: $top
@@ -494,6 +475,14 @@ components:
         minimum: 0
         type: integer
       example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
     skip:
       name: $skip
       in: query
@@ -503,14 +492,6 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
     search:
       name: $search
       in: query
@@ -519,14 +500,33 @@ components:
       explode: false
       schema:
         type: string
-    count:
-      name: $count
+    filter:
+      name: $filter
       in: query
-      description: Include count of items
+      description: Filter items by property values
       style: form
       explode: false
       schema:
-        type: boolean
+        type: string
+  responses:
+    microsoft.graph.customAuthenticationExtensionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.customAuthenticationExtensionCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

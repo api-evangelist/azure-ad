@@ -220,25 +220,6 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.identityUserFlowAttributeCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.identityUserFlowAttributeCollectionResponse'
   schemas:
     microsoft.graph.identityUserFlowAttributeCollectionResponse:
       title: Collection of identityUserFlowAttribute
@@ -252,39 +233,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.identityUserFlowAttributeDataType:
-      title: identityUserFlowAttributeDataType
-      enum:
-      - string
-      - boolean
-      - int64
-      - stringCollection
-      - dateTime
-      - unknownFutureValue
-      type: string
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
     microsoft.graph.ODataErrors.MainError:
@@ -310,6 +258,25 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.identityUserFlowAttributeDataType:
+      title: identityUserFlowAttributeDataType
+      enum:
+      - string
+      - boolean
+      - int64
+      - stringCollection
+      - dateTime
+      - unknownFutureValue
+      type: string
     microsoft.graph.identityUserFlowAttribute:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -332,17 +299,6 @@ components:
             $ref: '#/components/schemas/microsoft.graph.identityUserFlowAttributeType'
         additionalProperties:
           type: object
-    microsoft.graph.identityUserFlowAttributeType:
-      title: identityUserFlowAttributeType
-      enum:
-      - builtIn
-      - custom
-      - required
-      - unknownFutureValue
-      type: string
-    ODataCountResponse:
-      type: integer
-      format: int32
     microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
@@ -359,6 +315,31 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.identityUserFlowAttributeType:
+      title: identityUserFlowAttributeType
+      enum:
+      - builtIn
+      - custom
+      - required
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
   parameters:
     search:
       name: $search
@@ -376,6 +357,14 @@ components:
       explode: false
       schema:
         type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
     top:
       name: $top
       in: query
@@ -395,14 +384,25 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.identityUserFlowAttributeCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.identityUserFlowAttributeCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
   securitySchemes:
     azureaadv2:
       type: oauth2

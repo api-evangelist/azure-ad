@@ -86,66 +86,21 @@ paths:
         nextLinkName: '@odata.nextLink'
         operationName: listMore
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   schemas:
-    microsoft.graph.entity:
-      title: entity
+    microsoft.graph.identity:
+      title: identity
       type: object
       properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
         id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.scopedRoleMembership:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: scopedRoleMembership
-        type: object
-        properties:
-          administrativeUnitId:
-            type: string
-            description: Unique identifier for the administrative unit that the directory role is scoped to
-          roleId:
-            type: string
-            description: Unique identifier for the directory role that the member is in.
-          roleMemberInfo:
-            $ref: '#/components/schemas/microsoft.graph.identity'
-        additionalProperties:
-          type: object
-    microsoft.graph.directoryObject:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: directoryObject
-        type: object
-        properties:
-          deletedDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
-            format: date-time
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
       additionalProperties:
         type: object
     microsoft.graph.ODataErrors.MainError:
@@ -169,6 +124,62 @@ components:
             $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
         innerError:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.scopedRoleMembership:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: scopedRoleMembership
+        type: object
+        properties:
+          administrativeUnitId:
+            type: string
+            description: Unique identifier for the administrative unit that the directory role is scoped to
+          roleId:
+            type: string
+            description: Unique identifier for the directory role that the member is in.
+          roleMemberInfo:
+            $ref: '#/components/schemas/microsoft.graph.identity'
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
       additionalProperties:
         type: object
     microsoft.graph.directoryRole:
@@ -206,39 +217,29 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
-    microsoft.graph.identity:
-      title: identity
-      type: object
-      properties:
-        displayName:
-          type:
-          - string
-          - 'null'
-          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
+    microsoft.graph.ODataErrors.ODataError:
       required:
-      - code
-      - message
+      - error
       type: object
       properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
   parameters:
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
     count:
       name: $count
       in: query
@@ -247,10 +248,10 @@ components:
       explode: false
       schema:
         type: boolean
-    search:
-      name: $search
+    filter:
+      name: $filter
       in: query
-      description: Search items by search phrases
+      description: Filter items by property values
       style: form
       explode: false
       schema:
@@ -274,14 +275,13 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

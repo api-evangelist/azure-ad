@@ -515,51 +515,7 @@ paths:
           $ref: '#/components/responses/error'
       x-ms-docs-operation-type: action
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.riskyServicePrincipalHistoryItemCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.riskyServicePrincipalHistoryItemCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.riskyServicePrincipalCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.riskyServicePrincipalCollectionResponse'
   schemas:
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.riskyServicePrincipalHistoryItemCollectionResponse:
-      title: Collection of riskyServicePrincipalHistoryItem
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.riskyServicePrincipalHistoryItem'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -583,31 +539,6 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.riskyServicePrincipalHistoryItem:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.riskyServicePrincipal'
-      - title: riskyServicePrincipalHistoryItem
-        type: object
-        properties:
-          activity:
-            $ref: '#/components/schemas/microsoft.graph.riskServicePrincipalActivity'
-          initiatedBy:
-            type:
-            - string
-            - 'null'
-            description: The identifier of the actor of the operation.
-        additionalProperties:
-          type: object
-    microsoft.graph.riskLevel:
-      title: riskLevel
-      enum:
-      - low
-      - medium
-      - high
-      - hidden
-      - none
-      - unknownFutureValue
-      type: string
     microsoft.graph.riskServicePrincipalActivity:
       title: riskServicePrincipalActivity
       type: object
@@ -623,6 +554,21 @@ components:
           description: 'The type of risk event detected. The possible values are: investigationsThreatIntelligence, generic, adminConfirmedServicePrincipalCompromised, suspiciousSignins, leakedCredentials, anomalousServicePrincipalActivity, maliciousApplication, suspiciousApplication.'
       additionalProperties:
         type: object
+    microsoft.graph.riskyServicePrincipalHistoryItem:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.riskyServicePrincipal'
+      - title: riskyServicePrincipalHistoryItem
+        type: object
+        properties:
+          activity:
+            $ref: '#/components/schemas/microsoft.graph.riskServicePrincipalActivity'
+          initiatedBy:
+            type:
+            - string
+            - 'null'
+            description: The identifier of the actor of the operation.
+        additionalProperties:
+          type: object
     microsoft.graph.riskState:
       title: riskState
       enum:
@@ -634,13 +580,32 @@ components:
       - confirmedCompromised
       - unknownFutureValue
       type: string
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.entity:
+      title: entity
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.riskyServicePrincipalHistoryItemCollectionResponse:
+      title: Collection of riskyServicePrincipalHistoryItem
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.riskyServicePrincipalHistoryItem'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
       additionalProperties:
         type: object
     microsoft.graph.riskyServicePrincipalCollectionResponse:
@@ -657,31 +622,9 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
     microsoft.graph.riskyServicePrincipal:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -734,6 +677,15 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
     microsoft.graph.riskDetail:
       title: riskDetail
       enum:
@@ -757,9 +709,57 @@ components:
       - adminConfirmedAccountSafe
       - microsoftRevokedSessions
       type: string
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.riskLevel:
+      title: riskLevel
+      enum:
+      - low
+      - medium
+      - high
+      - hidden
+      - none
+      - unknownFutureValue
+      type: string
+  responses:
+    microsoft.graph.riskyServicePrincipalHistoryItemCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.riskyServicePrincipalHistoryItemCollectionResponse'
+    microsoft.graph.riskyServicePrincipalCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.riskyServicePrincipalCollectionResponse'
     ODataCountResponse:
-      type: integer
-      format: int32
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   parameters:
     top:
       name: $top
@@ -771,6 +771,14 @@ components:
         minimum: 0
         type: integer
       example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
     skip:
       name: $skip
       in: query
@@ -780,14 +788,6 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
     search:
       name: $search
       in: query
@@ -796,14 +796,14 @@ components:
       explode: false
       schema:
         type: string
-    count:
-      name: $count
+    filter:
+      name: $filter
       in: query
-      description: Include count of items
+      description: Filter items by property values
       style: form
       explode: false
       schema:
-        type: boolean
+        type: string
   securitySchemes:
     azureaadv2:
       type: oauth2

@@ -2585,38 +2585,400 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.directoryDefinitionCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.directoryDefinitionCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.synchronizationJobCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.synchronizationJobCollectionResponse'
-    microsoft.graph.synchronizationTemplateCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.synchronizationTemplateCollectionResponse'
   schemas:
+    microsoft.graph.synchronizationMetadataEntry:
+      title: synchronizationMetadataEntry
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationMetadata'
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value of the metadata property.
+      additionalProperties:
+        type: object
+    microsoft.graph.stringKeyStringValuePair:
+      title: stringKeyStringValuePair
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Key.
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value.
+      additionalProperties:
+        type: object
+    microsoft.graph.publicErrorDetail:
+      title: publicErrorDetail
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The error code.
+        message:
+          type:
+          - string
+          - 'null'
+          description: The error message.
+        target:
+          type:
+          - string
+          - 'null'
+          description: The target of the error.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationProgress:
+      title: synchronizationProgress
+      type: object
+      properties:
+        completedUnits:
+          type: number
+          description: The numerator of a progress ratio; the number of units of changes already processed.
+          format: int64
+        progressObservationDateTime:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          type: string
+          description: The time of a progress observation as an offset in minutes from UTC.
+          format: date-time
+        totalUnits:
+          type: number
+          description: The denominator of a progress ratio; a number of units of changes to be processed to accomplish synchronization.
+          format: int64
+        units:
+          type:
+          - string
+          - 'null'
+          description: An optional description of the units.
+      additionalProperties:
+        type: object
+    microsoft.graph.bulkUpload:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: bulkUpload
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.synchronizationJobApplicationParameters:
+      title: synchronizationJobApplicationParameters
+      type: object
+      properties:
+        ruleId:
+          type:
+          - string
+          - 'null'
+          description: The identifier of the synchronizationRule to be applied. This rule ID is defined in the schema for a given synchronization job or template.
+        subjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationJobSubject'
+          description: The identifiers of one or more objects to which a synchronizationJob is to be applied.
+      additionalProperties:
+        type: object
+    microsoft.graph.attributeFlowBehavior:
+      title: attributeFlowBehavior
+      enum:
+      - FlowWhenChanged
+      - FlowAlways
+      type: string
+    microsoft.graph.attributeDefinition:
+      title: attributeDefinition
+      type: object
+      properties:
+        anchor:
+          type: boolean
+          description: true if the attribute should be used as the anchor for the object. Anchor attributes must have a unique value identifying an object, and must be immutable. Default is false. One, and only one, of the object's attributes must be designated as the anchor to support synchronization.
+        apiExpressions:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.stringKeyStringValuePair'
+        caseExact:
+          type: boolean
+          description: true if value of this attribute should be treated as case-sensitive. This setting affects how the synchronization engine detects changes for the attribute.
+        defaultValue:
+          type:
+          - string
+          - 'null'
+          description: The default value of the attribute.
+        flowNullValues:
+          type: boolean
+          description: '''true'' to allow null values for attributes.'
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.attributeDefinitionMetadataEntry'
+          description: Metadata for the given object.
+        multivalued:
+          type: boolean
+          description: true if an attribute can have multiple values. Default is false.
+        mutability:
+          $ref: '#/components/schemas/microsoft.graph.mutability'
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the attribute. Must be unique within the object definition. Not nullable.
+        referencedObjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.referencedObject'
+          description: For attributes with reference type, lists referenced objects (for example, the manager attribute would list User as the referenced object).
+        required:
+          type: boolean
+          description: true if attribute is required. Object can not be created if any of the required attributes are missing. If during synchronization, the required attribute has no value, the default value will be used. If default the value was not set, synchronization will record an error.
+        type:
+          $ref: '#/components/schemas/microsoft.graph.attributeType'
+      additionalProperties:
+        type: object
+    microsoft.graph.scopeOperatorMultiValuedComparisonType:
+      title: scopeOperatorMultiValuedComparisonType
+      enum:
+      - All
+      - Any
+      type: string
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.synchronizationScheduleState:
+      title: synchronizationScheduleState
+      enum:
+      - Active
+      - Disabled
+      - Paused
+      type: string
+    microsoft.graph.directoryDefinitionDiscoverabilities:
+      title: directoryDefinitionDiscoverabilities
+      enum:
+      - None
+      - AttributeNames
+      - AttributeDataTypes
+      - AttributeReadOnly
+      - ReferenceAttributes
+      - UnknownFutureValue
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.attributeDefinitionMetadata:
+      title: attributeDefinitionMetadata
+      enum:
+      - BaseAttributeName
+      - ComplexObjectDefinition
+      - IsContainer
+      - IsCustomerDefined
+      - IsDomainQualified
+      - LinkPropertyNames
+      - LinkTypeName
+      - MaximumLength
+      - ReferencedProperty
+      type: string
+    microsoft.graph.synchronizationJobSubject:
+      title: synchronizationJobSubject
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationLinkedObjects'
+        objectId:
+          type:
+          - string
+          - 'null'
+          description: 'The identifier of an object to which a synchronizationJob is to be applied. Can be one of the following: An onPremisesDistinguishedName for synchronization from Active Directory to Azure AD.The user ID for synchronization from Microsoft Entra ID to a third-party.The Worker ID of the Workday worker for synchronization from Workday to either Active Directory or Microsoft Entra ID.'
+        objectTypeName:
+          type:
+          - string
+          - 'null'
+          description: 'The type of the object to which a synchronizationJob is to be applied. Can be one of the following: user for synchronizing between Active Directory and Azure AD.User for synchronizing a user between Microsoft Entra ID and a third-party application. Worker for synchronization a user between Workday and either Active Directory or Microsoft Entra ID.Group for synchronizing a group between Microsoft Entra ID and a third-party application.'
+      additionalProperties:
+        type: object
+    microsoft.graph.objectDefinitionMetadata:
+      title: objectDefinitionMetadata
+      enum:
+      - PropertyNameAccountEnabled
+      - PropertyNameSoftDeleted
+      - IsSoftDeletionSupported
+      - IsSynchronizeAllSupported
+      - ConnectorDataStorageRequired
+      - Extensions
+      - BaseObjectName
+      type: string
+    microsoft.graph.objectDefinition:
+      title: objectDefinition
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.attributeDefinition'
+          description: Defines attributes of the object.
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.objectDefinitionMetadataEntry'
+          description: Metadata for the given object.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the object. Must be unique within a directory definition. Not nullable.
+        supportedApis:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: The API that the provisioning service queries to retrieve data for synchronization.
+      additionalProperties:
+        type: object
+    microsoft.graph.objectMappingMetadataEntry:
+      title: objectMappingMetadataEntry
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/microsoft.graph.objectMappingMetadata'
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value of the metadata property.
+      additionalProperties:
+        type: object
+    microsoft.graph.objectFlowTypes:
+      title: objectFlowTypes
+      enum:
+      - None
+      - Add
+      - Update
+      - Delete
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.filterOperand:
+      title: filterOperand
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+          description: Collection of values.
+      additionalProperties:
+        type: object
+    microsoft.graph.publicError:
+      title: publicError
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: Represents the error code.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.publicErrorDetail'
+          description: Details of the error.
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.publicInnerError'
+        message:
+          type:
+          - string
+          - 'null'
+          description: A non-localized message for the developer.
+        target:
+          type:
+          - string
+          - 'null'
+          description: The target of the error.
+      additionalProperties:
+        type: object
+    microsoft.graph.expressionInputObject:
+      title: expressionInputObject
+      type: object
+      properties:
+        definition:
+          $ref: '#/components/schemas/microsoft.graph.objectDefinition'
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.stringKeyObjectValuePair'
+          description: Property values of the test object.
+      additionalProperties:
+        type: object
+    microsoft.graph.filterClause:
+      title: filterClause
+      type: object
+      properties:
+        operatorName:
+          type:
+          - string
+          - 'null'
+          description: Name of the operator to be applied to the source and target operands. Must be one of the supported operators. Supported operators can be discovered.
+        sourceOperandName:
+          type:
+          - string
+          - 'null'
+          description: Name of source operand (the operand being tested). The source operand name must match one of the attribute names on the source object.
+        targetOperand:
+          $ref: '#/components/schemas/microsoft.graph.filterOperand'
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationMetadata:
+      title: synchronizationMetadata
+      enum:
+      - GalleryApplicationIdentifier
+      - GalleryApplicationKey
+      - IsOAuthEnabled
+      - IsSynchronizationAgentAssignmentRequired
+      - IsSynchronizationAgentRequired
+      - IsSynchronizationInPreview
+      - OAuthSettings
+      - SynchronizationLearnMoreIbizaFwLink
+      - ConfigurationFields
+      type: string
+    microsoft.graph.filterOperatorSchema:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: filterOperatorSchema
+        type: object
+        properties:
+          arity:
+            $ref: '#/components/schemas/microsoft.graph.scopeOperatorType'
+          multivaluedComparisonType:
+            $ref: '#/components/schemas/microsoft.graph.scopeOperatorMultiValuedComparisonType'
+          supportedAttributeTypes:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.attributeType'
+            description: 'Attribute types supported by the operator. The possible values are: Boolean, Binary, Reference, Integer, String.'
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
     microsoft.graph.synchronizationTaskExecutionResult:
       title: synchronizationTaskExecutionResult
       enum:
@@ -2624,75 +2986,60 @@ components:
       - Failed
       - EntryLevelErrors
       type: string
-    microsoft.graph.ODataErrors.MainError:
-      required:
-      - code
-      - message
+    microsoft.graph.attributeMappingSource:
+      title: attributeMappingSource
       type: object
       properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
+        expression:
           type:
           - string
           - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
-        type: object
-    microsoft.graph.scopeOperatorType:
-      title: scopeOperatorType
-      enum:
-      - Binary
-      - Unary
-      type: string
-    microsoft.graph.synchronizationLinkedObjects:
-      title: synchronizationLinkedObjects
-      type: object
-      properties:
-        manager:
-          $ref: '#/components/schemas/microsoft.graph.synchronizationJobSubject'
-        members:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.synchronizationJobSubject'
-          description: All group members that you would like to provision.
-        owners:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.synchronizationJobSubject'
-      additionalProperties:
-        type: object
-    microsoft.graph.keyValuePair:
-      title: keyValuePair
-      type: object
-      properties:
+          description: Equivalent expression representation of this attributeMappingSource object.
         name:
-          type: string
-          description: Name for this key-value pair
-        value:
           type:
           - string
           - 'null'
-          description: Value for this key-value pair
+          description: Name parameter of the mapping source. Depending on the type property value, this can be the name of the function, the name of the source attribute, or a constant value to be used.
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.stringKeyAttributeMappingSourceValuePair'
+          description: If this object represents a function, lists function parameters. Parameters consist of attributeMappingSource objects themselves, allowing for complex expressions. If type isn't Function, this property is null/empty array.
+        type:
+          $ref: '#/components/schemas/microsoft.graph.attributeMappingSourceType'
       additionalProperties:
         type: object
-    microsoft.graph.attributeFlowType:
-      title: attributeFlowType
-      enum:
-      - Always
-      - ObjectAddOnly
-      - MultiValueAddOnly
-      - ValueAddOnly
-      - AttributeAddOnly
-      type: string
+    microsoft.graph.attributeMapping:
+      title: attributeMapping
+      type: object
+      properties:
+        defaultValue:
+          type:
+          - string
+          - 'null'
+          description: Default value to be used in case the source property was evaluated to null. Optional.
+        exportMissingReferences:
+          type: boolean
+          description: For internal use only.
+        flowBehavior:
+          $ref: '#/components/schemas/microsoft.graph.attributeFlowBehavior'
+        flowType:
+          $ref: '#/components/schemas/microsoft.graph.attributeFlowType'
+        matchingPriority:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: If higher than 0, this attribute will be used to perform an initial match of the objects between source and target directories. The synchronization engine will try to find the matching object using attribute with lowest value of matching priority first. If not found, the attribute with the next matching priority will be used, and so on a until match is found or no more matching attributes are left. Only attributes that are expected to have unique values, such as email, should be used as matching attributes.
+          format: int32
+        source:
+          $ref: '#/components/schemas/microsoft.graph.attributeMappingSource'
+        targetAttributeName:
+          type:
+          - string
+          - 'null'
+          description: Name of the attribute on the target object.
+      additionalProperties:
+        type: object
     microsoft.graph.synchronizationTaskExecution:
       title: synchronizationTaskExecution
       type: object
@@ -2754,100 +3101,6 @@ components:
           format: date-time
       additionalProperties:
         type: object
-    microsoft.graph.attributeType:
-      title: attributeType
-      enum:
-      - String
-      - Integer
-      - Reference
-      - Binary
-      - Boolean
-      - DateTime
-      type: string
-    microsoft.graph.synchronizationSecret:
-      title: synchronizationSecret
-      enum:
-      - None
-      - UserName
-      - Password
-      - SecretToken
-      - AppKey
-      - BaseAddress
-      - ClientIdentifier
-      - ClientSecret
-      - SingleSignOnType
-      - Sandbox
-      - Url
-      - Domain
-      - ConsumerKey
-      - ConsumerSecret
-      - TokenKey
-      - TokenExpiration
-      - Oauth2AccessToken
-      - Oauth2AccessTokenCreationTime
-      - Oauth2RefreshToken
-      - SyncAll
-      - InstanceName
-      - Oauth2ClientId
-      - Oauth2ClientSecret
-      - CompanyId
-      - UpdateKeyOnSoftDelete
-      - SynchronizationSchedule
-      - SystemOfRecord
-      - SandboxName
-      - EnforceDomain
-      - SyncNotificationSettings
-      - SkipOutOfScopeDeletions
-      - Oauth2AuthorizationCode
-      - Oauth2RedirectUri
-      - ApplicationTemplateIdentifier
-      - Oauth2TokenExchangeUri
-      - Oauth2AuthorizationUri
-      - AuthenticationType
-      - Server
-      - PerformInboundEntitlementGrants
-      - HardDeletesEnabled
-      - SyncAgentCompatibilityKey
-      - SyncAgentADContainer
-      - ValidateDomain
-      - TestReferences
-      - ConnectionString
-      type: string
-    microsoft.graph.attributeMappingSourceType:
-      title: attributeMappingSourceType
-      enum:
-      - Attribute
-      - Constant
-      - Function
-      type: string
-    microsoft.graph.publicError:
-      title: publicError
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: Represents the error code.
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.publicErrorDetail'
-          description: Details of the error.
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.publicInnerError'
-        message:
-          type:
-          - string
-          - 'null'
-          description: A non-localized message for the developer.
-        target:
-          type:
-          - string
-          - 'null'
-          description: The target of the error.
-      additionalProperties:
-        type: object
     microsoft.graph.publicInnerError:
       title: publicInnerError
       type: object
@@ -2874,67 +3127,95 @@ components:
           description: The target of the error.
       additionalProperties:
         type: object
-    microsoft.graph.synchronizationJobRestartCriteria:
-      title: synchronizationJobRestartCriteria
-      type: object
-      properties:
-        resetScope:
-          $ref: '#/components/schemas/microsoft.graph.synchronizationJobRestartScope'
-      additionalProperties:
+    microsoft.graph.synchronizationTemplate:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: synchronizationTemplate
         type: object
-    microsoft.graph.stringKeyStringValuePair:
-      title: stringKeyStringValuePair
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: Key.
-        value:
-          type:
-          - string
-          - 'null'
-          description: Value.
-      additionalProperties:
-        type: object
-    microsoft.graph.synchronizationMetadataEntry:
-      title: synchronizationMetadataEntry
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/microsoft.graph.synchronizationMetadata'
-        value:
-          type:
-          - string
-          - 'null'
-          description: Value of the metadata property.
-      additionalProperties:
-        type: object
-    microsoft.graph.scopeOperatorMultiValuedComparisonType:
-      title: scopeOperatorMultiValuedComparisonType
+        properties:
+          applicationId:
+            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+            type: string
+            description: Identifier of the application this template belongs to.
+            format: uuid
+          default:
+            type: boolean
+            description: true if this template is recommended to be the default for the application.
+          description:
+            type:
+            - string
+            - 'null'
+            description: Description of the template.
+          discoverable:
+            type: boolean
+            description: true if this template should appear in the collection of templates available for the application instance (service principal).
+          factoryTag:
+            type:
+            - string
+            - 'null'
+            description: One of the well-known factory tags supported by the synchronization engine. The factoryTag tells the synchronization engine which implementation to use when processing jobs based on this template.
+          metadata:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationMetadataEntry'
+            description: Additional extension properties. Unless mentioned explicitly, metadata values should not be changed.
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationSchema'
+        additionalProperties:
+          type: object
+    microsoft.graph.scopeOperatorType:
+      title: scopeOperatorType
       enum:
-      - All
-      - Any
+      - Binary
+      - Unary
       type: string
-    microsoft.graph.synchronizationSchedule:
-      title: synchronizationSchedule
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
       type: object
       properties:
-        expiration:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
           type:
           - string
           - 'null'
-          description: Date and time when this job expires. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
-          format: date-time
-        interval:
-          pattern: ^-?P([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+([.][0-9]+)?S)?)?$
-          type: string
-          description: The interval between synchronization iterations. The value is represented in ISO 8601  format for durations. For example, P1M represents a period of one month and PT1M represents a period of one minute.
-          format: duration
-        state:
-          $ref: '#/components/schemas/microsoft.graph.synchronizationScheduleState'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.attributeFlowType:
+      title: attributeFlowType
+      enum:
+      - Always
+      - ObjectAddOnly
+      - MultiValueAddOnly
+      - ValueAddOnly
+      - AttributeAddOnly
+      type: string
+    microsoft.graph.synchronizationLinkedObjects:
+      title: synchronizationLinkedObjects
+      type: object
+      properties:
+        manager:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationJobSubject'
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationJobSubject'
+          description: All group members that you would like to provision.
+        owners:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationJobSubject'
       additionalProperties:
         type: object
     microsoft.graph.synchronizationRule:
@@ -2986,52 +3267,25 @@ components:
           description: Name of the target directory. Must match one of the directory definitions in synchronizationSchema.
       additionalProperties:
         type: object
-    microsoft.graph.directoryDefinition:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: directoryDefinition
-        type: object
-        properties:
-          discoverabilities:
-            $ref: '#/components/schemas/microsoft.graph.directoryDefinitionDiscoverabilities'
-          discoveryDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: Represents the discovery date and time using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
-            format: date-time
-          name:
-            type:
-            - string
-            - 'null'
-            description: Name of the directory. Must be unique within the synchronization schema. Not nullable.
-          objects:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.objectDefinition'
-            description: Collection of objects supported by the directory.
-          readOnly:
-            type: boolean
-            description: Whether this object is read-only.
-          version:
-            type:
-            - string
-            - 'null'
-            description: Read only value that indicates version discovered. null if discovery hasn't yet occurred.
-        additionalProperties:
-          type: object
-    microsoft.graph.attributeDefinitionMetadataEntry:
-      title: attributeDefinitionMetadataEntry
+    microsoft.graph.filter:
+      title: filter
       type: object
       properties:
-        key:
-          $ref: '#/components/schemas/microsoft.graph.attributeDefinitionMetadata'
-        value:
-          type:
-          - string
-          - 'null'
-          description: Value of the metadata property.
+        categoryFilterGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.filterGroup'
+          description: '*Experimental* Filter group set used to decide whether given object belongs and should be processed as part of this object mapping. An object is considered in scope if ANY of the groups in the collection is evaluated to true.'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.filterGroup'
+          description: Filter group set used to decide whether given object is in scope for provisioning. This is the filter which should be used in most cases. If an object used to satisfy this filter at a given moment, and then the object or the filter was changed so that filter isn't satisfied any longer, such object will get deprovisioned'. An object is considered in scope if ANY of the groups in the collection is evaluated to true.
+        inputFilterGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.filterGroup'
+          description: '*Experimental* Filter group set used to filter out objects at the early stage of reading them from the directory. If an object doesn''t satisfy this filter, then it will not be processed further. Important to understand is that if an object used to satisfy this filter at a given moment, and then the object or the filter was changed so that filter is no longer satisfied, such object will NOT get deprovisioned. An object is considered in scope if ANY of the groups in the collection is evaluated to true.'
       additionalProperties:
         type: object
     microsoft.graph.synchronization:
@@ -3059,54 +3313,66 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
-    microsoft.graph.synchronizationMetadata:
-      title: synchronizationMetadata
-      enum:
-      - GalleryApplicationIdentifier
-      - GalleryApplicationKey
-      - IsOAuthEnabled
-      - IsSynchronizationAgentAssignmentRequired
-      - IsSynchronizationAgentRequired
-      - IsSynchronizationInPreview
-      - OAuthSettings
-      - SynchronizationLearnMoreIbizaFwLink
-      - ConfigurationFields
-      type: string
-    microsoft.graph.objectDefinitionMetadata:
-      title: objectDefinitionMetadata
-      enum:
-      - PropertyNameAccountEnabled
-      - PropertyNameSoftDeleted
-      - IsSoftDeletionSupported
-      - IsSynchronizeAllSupported
-      - ConnectorDataStorageRequired
-      - Extensions
-      - BaseObjectName
-      type: string
-    microsoft.graph.attributeDefinitionMetadata:
-      title: attributeDefinitionMetadata
-      enum:
-      - BaseAttributeName
-      - ComplexObjectDefinition
-      - IsContainer
-      - IsCustomerDefined
-      - IsDomainQualified
-      - LinkPropertyNames
-      - LinkTypeName
-      - MaximumLength
-      - ReferencedProperty
-      type: string
-    microsoft.graph.filterOperand:
-      title: filterOperand
+    microsoft.graph.attributeDefinitionMetadataEntry:
+      title: attributeDefinitionMetadataEntry
       type: object
       properties:
-        values:
+        key:
+          $ref: '#/components/schemas/microsoft.graph.attributeDefinitionMetadata'
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value of the metadata property.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationJobRestartScope:
+      title: synchronizationJobRestartScope
+      enum:
+      - None
+      - ConnectorDataStore
+      - Escrows
+      - Watermark
+      - QuarantineState
+      - Full
+      - ForceDeletes
+      type: string
+      x-ms-enum-flags:
+        isFlags: true
+    microsoft.graph.parseExpressionResponse:
+      title: parseExpressionResponse
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.publicError'
+        evaluationResult:
           type: array
           items:
             type:
             - string
             - 'null'
-          description: Collection of values.
+          description: A collection of values produced by the evaluation of the expression.
+        evaluationSucceeded:
+          type: boolean
+          description: true if the evaluation was successful.
+        parsedExpression:
+          $ref: '#/components/schemas/microsoft.graph.attributeMappingSource'
+        parsingSucceeded:
+          type: boolean
+          description: true if the expression was parsed successfully.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationSecretKeyStringValuePair:
+      title: synchronizationSecretKeyStringValuePair
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationSecret'
+        value:
+          type:
+          - string
+          - 'null'
+          description: The value of the secret.
       additionalProperties:
         type: object
     microsoft.graph.synchronizationJobCollectionResponse:
@@ -3123,62 +3389,6 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.quarantineReason:
-      title: quarantineReason
-      enum:
-      - EncounteredBaseEscrowThreshold
-      - EncounteredTotalEscrowThreshold
-      - EncounteredEscrowProportionThreshold
-      - EncounteredQuarantineException
-      - Unknown
-      - QuarantinedOnDemand
-      - TooManyDeletes
-      - IngestionInterrupted
-      type: string
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.containerFilter:
-      title: containerFilter
-      type: object
-      properties:
-        includedContainers:
-          type: array
-          items:
-            type:
-            - string
-            - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.stringKeyLongValuePair:
-      title: stringKeyLongValuePair
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The mapping of the user type from the source system to the target system. For example:User to User - For Microsoft Entra ID to Microsoft Entra ID synchronization worker to user - For Workday to Microsoft Entra synchronization.
-        value:
-          type: number
-          description: Total number of synchronized objects.
-          format: int64
-      additionalProperties:
-        type: object
-    microsoft.graph.mutability:
-      title: mutability
-      enum:
-      - ReadWrite
-      - ReadOnly
-      - Immutable
-      - WriteOnly
-      type: string
     microsoft.graph.synchronizationError:
       title: synchronizationError
       type: object
@@ -3198,86 +3408,14 @@ components:
           description: The action to take to resolve the error. For example, false.
       additionalProperties:
         type: object
-    microsoft.graph.synchronizationJobRestartScope:
-      title: synchronizationJobRestartScope
-      enum:
-      - None
-      - ConnectorDataStore
-      - Escrows
-      - Watermark
-      - QuarantineState
-      - Full
-      - ForceDeletes
-      type: string
-      x-ms-enum-flags:
-        isFlags: true
-    microsoft.graph.attributeMapping:
-      title: attributeMapping
+    microsoft.graph.synchronizationJobRestartCriteria:
+      title: synchronizationJobRestartCriteria
       type: object
       properties:
-        defaultValue:
-          type:
-          - string
-          - 'null'
-          description: Default value to be used in case the source property was evaluated to null. Optional.
-        exportMissingReferences:
-          type: boolean
-          description: For internal use only.
-        flowBehavior:
-          $ref: '#/components/schemas/microsoft.graph.attributeFlowBehavior'
-        flowType:
-          $ref: '#/components/schemas/microsoft.graph.attributeFlowType'
-        matchingPriority:
-          maximum: 2147483647
-          minimum: -2147483648
-          type: number
-          description: If higher than 0, this attribute will be used to perform an initial match of the objects between source and target directories. The synchronization engine will try to find the matching object using attribute with lowest value of matching priority first. If not found, the attribute with the next matching priority will be used, and so on a until match is found or no more matching attributes are left. Only attributes that are expected to have unique values, such as email, should be used as matching attributes.
-          format: int32
-        source:
-          $ref: '#/components/schemas/microsoft.graph.attributeMappingSource'
-        targetAttributeName:
-          type:
-          - string
-          - 'null'
-          description: Name of the attribute on the target object.
+        resetScope:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationJobRestartScope'
       additionalProperties:
         type: object
-    microsoft.graph.objectMappingMetadataEntry:
-      title: objectMappingMetadataEntry
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/microsoft.graph.objectMappingMetadata'
-        value:
-          type:
-          - string
-          - 'null'
-          description: Value of the metadata property.
-      additionalProperties:
-        type: object
-    microsoft.graph.bulkUpload:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: bulkUpload
-        type: object
-        additionalProperties:
-          type: object
-    microsoft.graph.synchronizationStatusCode:
-      title: synchronizationStatusCode
-      enum:
-      - NotConfigured
-      - NotRun
-      - Active
-      - Paused
-      - Quarantine
-      type: string
-    microsoft.graph.synchronizationScheduleState:
-      title: synchronizationScheduleState
-      enum:
-      - Active
-      - Disabled
-      - Paused
-      type: string
     microsoft.graph.objectMappingMetadata:
       title: objectMappingMetadata
       enum:
@@ -3289,27 +3427,149 @@ components:
       - ExcludeFromReporting
       - Unsynchronized
       type: string
-    microsoft.graph.attributeMappingSource:
-      title: attributeMappingSource
+    microsoft.graph.mutability:
+      title: mutability
+      enum:
+      - ReadWrite
+      - ReadOnly
+      - Immutable
+      - WriteOnly
+      type: string
+    microsoft.graph.quarantineReason:
+      title: quarantineReason
+      enum:
+      - EncounteredBaseEscrowThreshold
+      - EncounteredTotalEscrowThreshold
+      - EncounteredEscrowProportionThreshold
+      - EncounteredQuarantineException
+      - Unknown
+      - QuarantinedOnDemand
+      - TooManyDeletes
+      - IngestionInterrupted
+      type: string
+    microsoft.graph.synchronizationTemplateCollectionResponse:
+      title: Collection of synchronizationTemplate
       type: object
       properties:
-        expression:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationTemplate'
+        '@odata.nextLink':
           type:
           - string
           - 'null'
-          description: Equivalent expression representation of this attributeMappingSource object.
+      additionalProperties:
+        type: object
+    microsoft.graph.objectMapping:
+      title: objectMapping
+      type: object
+      properties:
+        attributeMappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.attributeMapping'
+          description: Attribute mappings define which attributes to map from the source object into the target object and how they should flow. A number of functions are available to support the transformation of the original source values.
+        enabled:
+          type: boolean
+          description: When true, this object mapping will be processed during synchronization. When false, this object mapping will be skipped.
+        flowTypes:
+          $ref: '#/components/schemas/microsoft.graph.objectFlowTypes'
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.objectMappingMetadataEntry'
+          description: Additional extension properties. Unless mentioned explicitly, metadata values should not be changed.
         name:
           type:
           - string
           - 'null'
-          description: Name parameter of the mapping source. Depending on the type property value, this can be the name of the function, the name of the source attribute, or a constant value to be used.
-        parameters:
+          description: Human-friendly name of the object mapping.
+        scope:
+          $ref: '#/components/schemas/microsoft.graph.filter'
+        sourceObjectName:
+          type:
+          - string
+          - 'null'
+          description: Name of the object in the source directory. Must match the object name from the source directory definition.
+        targetObjectName:
+          type:
+          - string
+          - 'null'
+          description: Name of the object in target directory. Must match the object name from the target directory definition.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationSecret:
+      title: synchronizationSecret
+      enum:
+      - None
+      - UserName
+      - Password
+      - SecretToken
+      - AppKey
+      - BaseAddress
+      - ClientIdentifier
+      - ClientSecret
+      - SingleSignOnType
+      - Sandbox
+      - Url
+      - Domain
+      - ConsumerKey
+      - ConsumerSecret
+      - TokenKey
+      - TokenExpiration
+      - Oauth2AccessToken
+      - Oauth2AccessTokenCreationTime
+      - Oauth2RefreshToken
+      - SyncAll
+      - InstanceName
+      - Oauth2ClientId
+      - Oauth2ClientSecret
+      - CompanyId
+      - UpdateKeyOnSoftDelete
+      - SynchronizationSchedule
+      - SystemOfRecord
+      - SandboxName
+      - EnforceDomain
+      - SyncNotificationSettings
+      - SkipOutOfScopeDeletions
+      - Oauth2AuthorizationCode
+      - Oauth2RedirectUri
+      - ApplicationTemplateIdentifier
+      - Oauth2TokenExchangeUri
+      - Oauth2AuthorizationUri
+      - AuthenticationType
+      - Server
+      - PerformInboundEntitlementGrants
+      - HardDeletesEnabled
+      - SyncAgentCompatibilityKey
+      - SyncAgentADContainer
+      - ValidateDomain
+      - TestReferences
+      - ConnectionString
+      type: string
+    microsoft.graph.groupFilter:
+      title: groupFilter
+      type: object
+      properties:
+        includedGroups:
           type: array
           items:
-            $ref: '#/components/schemas/microsoft.graph.stringKeyAttributeMappingSourceValuePair'
-          description: If this object represents a function, lists function parameters. Parameters consist of attributeMappingSource objects themselves, allowing for complex expressions. If type isn't Function, this property is null/empty array.
-        type:
-          $ref: '#/components/schemas/microsoft.graph.attributeMappingSourceType'
+            type:
+            - string
+            - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.containerFilter:
+      title: containerFilter
+      type: object
+      properties:
+        includedContainers:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
       additionalProperties:
         type: object
     microsoft.graph.synchronizationQuarantine:
@@ -3341,154 +3601,24 @@ components:
           format: int64
       additionalProperties:
         type: object
-    microsoft.graph.attributeDefinition:
-      title: attributeDefinition
+    microsoft.graph.synchronizationSchedule:
+      title: synchronizationSchedule
       type: object
       properties:
-        anchor:
-          type: boolean
-          description: true if the attribute should be used as the anchor for the object. Anchor attributes must have a unique value identifying an object, and must be immutable. Default is false. One, and only one, of the object's attributes must be designated as the anchor to support synchronization.
-        apiExpressions:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.stringKeyStringValuePair'
-        caseExact:
-          type: boolean
-          description: true if value of this attribute should be treated as case-sensitive. This setting affects how the synchronization engine detects changes for the attribute.
-        defaultValue:
+        expiration:
+          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
           type:
           - string
           - 'null'
-          description: The default value of the attribute.
-        flowNullValues:
-          type: boolean
-          description: '''true'' to allow null values for attributes.'
-        metadata:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.attributeDefinitionMetadataEntry'
-          description: Metadata for the given object.
-        multivalued:
-          type: boolean
-          description: true if an attribute can have multiple values. Default is false.
-        mutability:
-          $ref: '#/components/schemas/microsoft.graph.mutability'
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the attribute. Must be unique within the object definition. Not nullable.
-        referencedObjects:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.referencedObject'
-          description: For attributes with reference type, lists referenced objects (for example, the manager attribute would list User as the referenced object).
-        required:
-          type: boolean
-          description: true if attribute is required. Object can not be created if any of the required attributes are missing. If during synchronization, the required attribute has no value, the default value will be used. If default the value was not set, synchronization will record an error.
-        type:
-          $ref: '#/components/schemas/microsoft.graph.attributeType'
-      additionalProperties:
-        type: object
-    microsoft.graph.filterOperatorSchema:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: filterOperatorSchema
-        type: object
-        properties:
-          arity:
-            $ref: '#/components/schemas/microsoft.graph.scopeOperatorType'
-          multivaluedComparisonType:
-            $ref: '#/components/schemas/microsoft.graph.scopeOperatorMultiValuedComparisonType'
-          supportedAttributeTypes:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.attributeType'
-            description: 'Attribute types supported by the operator. The possible values are: Boolean, Binary, Reference, Integer, String.'
-        additionalProperties:
-          type: object
-    microsoft.graph.filter:
-      title: filter
-      type: object
-      properties:
-        categoryFilterGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.filterGroup'
-          description: '*Experimental* Filter group set used to decide whether given object belongs and should be processed as part of this object mapping. An object is considered in scope if ANY of the groups in the collection is evaluated to true.'
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.filterGroup'
-          description: Filter group set used to decide whether given object is in scope for provisioning. This is the filter which should be used in most cases. If an object used to satisfy this filter at a given moment, and then the object or the filter was changed so that filter isn't satisfied any longer, such object will get deprovisioned'. An object is considered in scope if ANY of the groups in the collection is evaluated to true.
-        inputFilterGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.filterGroup'
-          description: '*Experimental* Filter group set used to filter out objects at the early stage of reading them from the directory. If an object doesn''t satisfy this filter, then it will not be processed further. Important to understand is that if an object used to satisfy this filter at a given moment, and then the object or the filter was changed so that filter is no longer satisfied, such object will NOT get deprovisioned. An object is considered in scope if ANY of the groups in the collection is evaluated to true.'
-      additionalProperties:
-        type: object
-    microsoft.graph.filterClause:
-      title: filterClause
-      type: object
-      properties:
-        operatorName:
-          type:
-          - string
-          - 'null'
-          description: Name of the operator to be applied to the source and target operands. Must be one of the supported operators. Supported operators can be discovered.
-        sourceOperandName:
-          type:
-          - string
-          - 'null'
-          description: Name of source operand (the operand being tested). The source operand name must match one of the attribute names on the source object.
-        targetOperand:
-          $ref: '#/components/schemas/microsoft.graph.filterOperand'
-      additionalProperties:
-        type: object
-    microsoft.graph.synchronizationTemplate:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: synchronizationTemplate
-        type: object
-        properties:
-          applicationId:
-            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
-            type: string
-            description: Identifier of the application this template belongs to.
-            format: uuid
-          default:
-            type: boolean
-            description: true if this template is recommended to be the default for the application.
-          description:
-            type:
-            - string
-            - 'null'
-            description: Description of the template.
-          discoverable:
-            type: boolean
-            description: true if this template should appear in the collection of templates available for the application instance (service principal).
-          factoryTag:
-            type:
-            - string
-            - 'null'
-            description: One of the well-known factory tags supported by the synchronization engine. The factoryTag tells the synchronization engine which implementation to use when processing jobs based on this template.
-          metadata:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.synchronizationMetadataEntry'
-            description: Additional extension properties. Unless mentioned explicitly, metadata values should not be changed.
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.synchronizationSchema'
-        additionalProperties:
-          type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
+          description: Date and time when this job expires. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+          format: date-time
+        interval:
+          pattern: ^-?P([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+([.][0-9]+)?S)?)?$
           type: string
-          description: The unique identifier for an entity. Read-only.
+          description: The interval between synchronization iterations. The value is represented in ISO 8601  format for durations. For example, P1M represents a period of one month and PT1M represents a period of one minute.
+          format: duration
+        state:
+          $ref: '#/components/schemas/microsoft.graph.synchronizationScheduleState'
       additionalProperties:
         type: object
     microsoft.graph.referencedObject:
@@ -3507,99 +3637,6 @@ components:
           description: Currently not supported. Name of the property in the referenced object, the value for which is used as the reference.
       additionalProperties:
         type: object
-    microsoft.graph.stringKeyAttributeMappingSourceValuePair:
-      title: stringKeyAttributeMappingSourceValuePair
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The name of the parameter.
-        value:
-          $ref: '#/components/schemas/microsoft.graph.attributeMappingSource'
-      additionalProperties:
-        type: object
-    microsoft.graph.synchronizationJob:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: synchronizationJob
-        type: object
-        properties:
-          schedule:
-            $ref: '#/components/schemas/microsoft.graph.synchronizationSchedule'
-          status:
-            $ref: '#/components/schemas/microsoft.graph.synchronizationStatus'
-          synchronizationJobSettings:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.keyValuePair'
-            description: Settings associated with the job. Some settings are inherited from the template.
-          templateId:
-            type:
-            - string
-            - 'null'
-            description: Identifier of the synchronization template this job is based on.
-          bulkUpload:
-            $ref: '#/components/schemas/microsoft.graph.bulkUpload'
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.synchronizationSchema'
-        additionalProperties:
-          type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.groupFilter:
-      title: groupFilter
-      type: object
-      properties:
-        includedGroups:
-          type: array
-          items:
-            type:
-            - string
-            - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.synchronizationSchema:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: synchronizationSchema
-        type: object
-        properties:
-          synchronizationRules:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.synchronizationRule'
-            description: A collection of synchronization rules configured for the synchronizationJob or synchronizationTemplate.
-          version:
-            type:
-            - string
-            - 'null'
-            description: The version of the schema, updated automatically with every schema change.
-          directories:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
-            description: Contains the collection of directories and all of their objects.
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.objectFlowTypes:
-      title: objectFlowTypes
-      enum:
-      - None
-      - Add
-      - Update
-      - Delete
-      type: string
-      x-ms-enum-flags:
-        isFlags: true
     microsoft.graph.directoryDefinitionCollectionResponse:
       title: Collection of directoryDefinition
       type: object
@@ -3612,43 +3649,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.stringKeyObjectValuePair:
-      title: stringKeyObjectValuePair
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: Key.
-      additionalProperties:
-        type: object
-    microsoft.graph.synchronizationSecretKeyStringValuePair:
-      title: synchronizationSecretKeyStringValuePair
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/microsoft.graph.synchronizationSecret'
-        value:
-          type:
-          - string
-          - 'null'
-          description: The value of the secret.
-      additionalProperties:
-        type: object
-    microsoft.graph.expressionInputObject:
-      title: expressionInputObject
-      type: object
-      properties:
-        definition:
-          $ref: '#/components/schemas/microsoft.graph.objectDefinition'
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.stringKeyObjectValuePair'
-          description: Property values of the test object.
       additionalProperties:
         type: object
     microsoft.graph.synchronizationStatus:
@@ -3699,87 +3699,119 @@ components:
           description: In the event of an error, the URL with the troubleshooting steps for the issue.
       additionalProperties:
         type: object
-    microsoft.graph.attributeFlowBehavior:
-      title: attributeFlowBehavior
+    microsoft.graph.stringKeyObjectValuePair:
+      title: stringKeyObjectValuePair
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Key.
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryDefinition:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryDefinition
+        type: object
+        properties:
+          discoverabilities:
+            $ref: '#/components/schemas/microsoft.graph.directoryDefinitionDiscoverabilities'
+          discoveryDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Represents the discovery date and time using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+            format: date-time
+          name:
+            type:
+            - string
+            - 'null'
+            description: Name of the directory. Must be unique within the synchronization schema. Not nullable.
+          objects:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.objectDefinition'
+            description: Collection of objects supported by the directory.
+          readOnly:
+            type: boolean
+            description: Whether this object is read-only.
+          version:
+            type:
+            - string
+            - 'null'
+            description: Read only value that indicates version discovered. null if discovery hasn't yet occurred.
+        additionalProperties:
+          type: object
+    microsoft.graph.stringKeyAttributeMappingSourceValuePair:
+      title: stringKeyAttributeMappingSourceValuePair
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The name of the parameter.
+        value:
+          $ref: '#/components/schemas/microsoft.graph.attributeMappingSource'
+      additionalProperties:
+        type: object
+    microsoft.graph.stringKeyLongValuePair:
+      title: stringKeyLongValuePair
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The mapping of the user type from the source system to the target system. For example:User to User - For Microsoft Entra ID to Microsoft Entra ID synchronization worker to user - For Workday to Microsoft Entra synchronization.
+        value:
+          type: number
+          description: Total number of synchronized objects.
+          format: int64
+      additionalProperties:
+        type: object
+    microsoft.graph.attributeMappingSourceType:
+      title: attributeMappingSourceType
       enum:
-      - FlowWhenChanged
-      - FlowAlways
+      - Attribute
+      - Constant
+      - Function
       type: string
-    microsoft.graph.synchronizationJobApplicationParameters:
-      title: synchronizationJobApplicationParameters
+    microsoft.graph.keyValuePair:
+      title: keyValuePair
       type: object
       properties:
-        ruleId:
-          type:
-          - string
-          - 'null'
-          description: The identifier of the synchronizationRule to be applied. This rule ID is defined in the schema for a given synchronization job or template.
-        subjects:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.synchronizationJobSubject'
-          description: The identifiers of one or more objects to which a synchronizationJob is to be applied.
-      additionalProperties:
-        type: object
-    microsoft.graph.publicErrorDetail:
-      title: publicErrorDetail
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: The error code.
-        message:
-          type:
-          - string
-          - 'null'
-          description: The error message.
-        target:
-          type:
-          - string
-          - 'null'
-          description: The target of the error.
-      additionalProperties:
-        type: object
-    microsoft.graph.objectMapping:
-      title: objectMapping
-      type: object
-      properties:
-        attributeMappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.attributeMapping'
-          description: Attribute mappings define which attributes to map from the source object into the target object and how they should flow. A number of functions are available to support the transformation of the original source values.
-        enabled:
-          type: boolean
-          description: When true, this object mapping will be processed during synchronization. When false, this object mapping will be skipped.
-        flowTypes:
-          $ref: '#/components/schemas/microsoft.graph.objectFlowTypes'
-        metadata:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.objectMappingMetadataEntry'
-          description: Additional extension properties. Unless mentioned explicitly, metadata values should not be changed.
         name:
+          type: string
+          description: Name for this key-value pair
+        value:
           type:
           - string
           - 'null'
-          description: Human-friendly name of the object mapping.
-        scope:
-          $ref: '#/components/schemas/microsoft.graph.filter'
-        sourceObjectName:
-          type:
-          - string
-          - 'null'
-          description: Name of the object in the source directory. Must match the object name from the source directory definition.
-        targetObjectName:
-          type:
-          - string
-          - 'null'
-          description: Name of the object in target directory. Must match the object name from the target directory definition.
+          description: Value for this key-value pair
       additionalProperties:
         type: object
+    microsoft.graph.attributeMappingFunctionSchema:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: attributeMappingFunctionSchema
+        type: object
+        properties:
+          parameters:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.attributeMappingParameterSchema'
+            description: Collection of function parameters.
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
     microsoft.graph.attributeMappingParameterSchema:
       title: attributeMappingParameterSchema
       type: object
@@ -3815,6 +3847,79 @@ components:
           description: Human-readable name of the filter group.
       additionalProperties:
         type: object
+    microsoft.graph.attributeType:
+      title: attributeType
+      enum:
+      - String
+      - Integer
+      - Reference
+      - Binary
+      - Boolean
+      - DateTime
+      type: string
+    microsoft.graph.synchronizationJob:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: synchronizationJob
+        type: object
+        properties:
+          schedule:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationSchedule'
+          status:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationStatus'
+          synchronizationJobSettings:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.keyValuePair'
+            description: Settings associated with the job. Some settings are inherited from the template.
+          templateId:
+            type:
+            - string
+            - 'null'
+            description: Identifier of the synchronization template this job is based on.
+          bulkUpload:
+            $ref: '#/components/schemas/microsoft.graph.bulkUpload'
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationSchema'
+        additionalProperties:
+          type: object
+    microsoft.graph.objectDefinitionMetadataEntry:
+      title: objectDefinitionMetadataEntry
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/microsoft.graph.objectDefinitionMetadata'
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value of the metadata property.
+      additionalProperties:
+        type: object
+    microsoft.graph.synchronizationSchema:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: synchronizationSchema
+        type: object
+        properties:
+          synchronizationRules:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.synchronizationRule'
+            description: A collection of synchronization rules configured for the synchronizationJob or synchronizationTemplate.
+          version:
+            type:
+            - string
+            - 'null'
+            description: The version of the schema, updated automatically with every schema change.
+          directories:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryDefinition'
+            description: Contains the collection of directories and all of their objects.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
     microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
@@ -3831,160 +3936,47 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.directoryDefinitionDiscoverabilities:
-      title: directoryDefinitionDiscoverabilities
+    microsoft.graph.synchronizationStatusCode:
+      title: synchronizationStatusCode
       enum:
-      - None
-      - AttributeNames
-      - AttributeDataTypes
-      - AttributeReadOnly
-      - ReferenceAttributes
-      - UnknownFutureValue
+      - NotConfigured
+      - NotRun
+      - Active
+      - Paused
+      - Quarantine
       type: string
-      x-ms-enum-flags:
-        isFlags: true
-    microsoft.graph.parseExpressionResponse:
-      title: parseExpressionResponse
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.publicError'
-        evaluationResult:
-          type: array
-          items:
-            type:
-            - string
-            - 'null'
-          description: A collection of values produced by the evaluation of the expression.
-        evaluationSucceeded:
-          type: boolean
-          description: true if the evaluation was successful.
-        parsedExpression:
-          $ref: '#/components/schemas/microsoft.graph.attributeMappingSource'
-        parsingSucceeded:
-          type: boolean
-          description: true if the expression was parsed successfully.
-      additionalProperties:
-        type: object
-    microsoft.graph.objectDefinitionMetadataEntry:
-      title: objectDefinitionMetadataEntry
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/microsoft.graph.objectDefinitionMetadata'
-        value:
-          type:
-          - string
-          - 'null'
-          description: Value of the metadata property.
-      additionalProperties:
-        type: object
-    microsoft.graph.objectDefinition:
-      title: objectDefinition
-      type: object
-      properties:
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.attributeDefinition'
-          description: Defines attributes of the object.
-        metadata:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.objectDefinitionMetadataEntry'
-          description: Metadata for the given object.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the object. Must be unique within a directory definition. Not nullable.
-        supportedApis:
-          type: array
-          items:
-            type:
-            - string
-            - 'null'
-          description: The API that the provisioning service queries to retrieve data for synchronization.
-      additionalProperties:
-        type: object
-    microsoft.graph.synchronizationProgress:
-      title: synchronizationProgress
-      type: object
-      properties:
-        completedUnits:
-          type: number
-          description: The numerator of a progress ratio; the number of units of changes already processed.
-          format: int64
-        progressObservationDateTime:
-          pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-          type: string
-          description: The time of a progress observation as an offset in minutes from UTC.
-          format: date-time
-        totalUnits:
-          type: number
-          description: The denominator of a progress ratio; a number of units of changes to be processed to accomplish synchronization.
-          format: int64
-        units:
-          type:
-          - string
-          - 'null'
-          description: An optional description of the units.
-      additionalProperties:
-        type: object
+  responses:
     microsoft.graph.synchronizationTemplateCollectionResponse:
-      title: Collection of synchronizationTemplate
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.synchronizationTemplate'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.synchronizationJobSubject:
-      title: synchronizationJobSubject
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/microsoft.graph.synchronizationLinkedObjects'
-        objectId:
-          type:
-          - string
-          - 'null'
-          description: 'The identifier of an object to which a synchronizationJob is to be applied. Can be one of the following: An onPremisesDistinguishedName for synchronization from Active Directory to Azure AD.The user ID for synchronization from Microsoft Entra ID to a third-party.The Worker ID of the Workday worker for synchronization from Workday to either Active Directory or Microsoft Entra ID.'
-        objectTypeName:
-          type:
-          - string
-          - 'null'
-          description: 'The type of the object to which a synchronizationJob is to be applied. Can be one of the following: user for synchronizing between Active Directory and Azure AD.User for synchronizing a user between Microsoft Entra ID and a third-party application. Worker for synchronization a user between Workday and either Active Directory or Microsoft Entra ID.Group for synchronizing a group between Microsoft Entra ID and a third-party application.'
-      additionalProperties:
-        type: object
-    microsoft.graph.attributeMappingFunctionSchema:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: attributeMappingFunctionSchema
-        type: object
-        properties:
-          parameters:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.attributeMappingParameterSchema'
-            description: Collection of function parameters.
-        additionalProperties:
-          type: object
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationTemplateCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.directoryDefinitionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.directoryDefinitionCollectionResponse'
+    microsoft.graph.synchronizationJobCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.synchronizationJobCollectionResponse'
   parameters:
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
     skip:
       name: $skip
       in: query
@@ -3994,14 +3986,14 @@ components:
       schema:
         minimum: 0
         type: integer
-    count:
-      name: $count
+    search:
+      name: $search
       in: query
-      description: Include count of items
+      description: Search items by search phrases
       style: form
       explode: false
       schema:
-        type: boolean
+        type: string
     top:
       name: $top
       in: query
@@ -4012,10 +4004,18 @@ components:
         minimum: 0
         type: integer
       example: 50
-    search:
-      name: $search
+    count:
+      name: $count
       in: query
-      description: Search items by search phrases
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
       style: form
       explode: false
       schema:

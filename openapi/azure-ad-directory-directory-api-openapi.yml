@@ -70,132 +70,27 @@ paths:
           $ref: '#/components/responses/error'
       x-ms-docs-operation-type: operation
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   schemas:
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.extension:
+    microsoft.graph.deviceLocalCredential:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: extension
-        type: object
-        additionalProperties:
-          type: object
-    microsoft.graph.identityProviderBase:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: identityProviderBase
+      - title: deviceLocalCredential
         type: object
         properties:
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: The display name of the identity provider.
-        additionalProperties:
-          type: object
-    microsoft.graph.deviceLocalCredentialInfo:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: deviceLocalCredentialInfo
-        type: object
-        properties:
-          credentials:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.deviceLocalCredential'
-            description: The credentials of the device's local administrator account backed up to Azure Active Directory.
-          deviceName:
+          accountName:
             type: string
-            description: Display name of the device that the local credentials are associated with.
-          lastBackupDateTime:
+            description: The name of the local admin account for which LAPS is enabled.
+          accountSid:
+            type: string
+            description: The SID of the local admin account for which LAPS is enabled.
+          backupDateTime:
             pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
             type: string
-            description: When the local administrator account credential was backed up to Azure Active Directory.
+            description: When the local administrator account credential for the device object was backed up to Azure Active Directory.
             format: date-time
-          refreshDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+          passwordBase64:
             type: string
-            description: When the local administrator account credential will be refreshed and backed up to Azure Active Directory.
-            format: date-time
-        additionalProperties:
-          type: object
-    microsoft.graph.entraRecoveryServices.snapshot:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: snapshot
-        type: object
-        properties:
-          createdDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type: string
-            format: date-time
-          totalChangedObjects:
-            maximum: 2147483647
-            minimum: -2147483648
-            type:
-            - number
-            - 'null'
-            format: int32
-          recoveryJobs:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJob'
-            x-ms-navigationProperty: true
-          recoveryPreviewJobs:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryPreviewJob'
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.entraRecoveryServices.recoveryJobBase:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: recoveryJobBase
-        type: object
-        properties:
-          filteringCriteria:
-            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobFilteringCriteriaBase'
-          jobCompletionDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            format: date-time
-          jobStartDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type: string
-            format: date-time
-          status:
-            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryStatus'
-          targetStateDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type: string
-            format: date-time
-          totalChangedLinksCalculated:
-            maximum: 2147483647
-            minimum: -2147483648
-            type:
-            - number
-            - 'null'
-            format: int32
-          totalChangedObjectsCalculated:
-            maximum: 2147483647
-            minimum: -2147483648
-            type:
-            - number
-            - 'null'
-            format: int32
+            description: The password for the local administrator account that is backed up to Azure Active Directory and returned as a Base64 encoded value.
         additionalProperties:
           type: object
     microsoft.graph.ODataErrors.MainError:
@@ -221,38 +116,13 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.onPremisesDirectorySynchronization:
+    microsoft.graph.entraRecoveryServices.recoveryPreviewJob:
       allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: onPremisesDirectorySynchronization
+      - $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
+      - title: recoveryPreviewJob
         type: object
-        properties:
-          configuration:
-            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationConfiguration'
-          features:
-            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationFeature'
         additionalProperties:
           type: object
-    microsoft.graph.entraRecoveryServices.recoveryJobFilteringCriteriaBase:
-      title: recoveryJobFilteringCriteriaBase
-      type: object
-      additionalProperties:
-        type: object
-    microsoft.graph.certificateAuthorityType:
-      title: certificateAuthorityType
-      enum:
-      - root
-      - intermediate
-      - unknownFutureValue
-      type: string
-    microsoft.graph.onPremisesDirectorySynchronizationDeletionPreventionType:
-      title: onPremisesDirectorySynchronizationDeletionPreventionType
-      enum:
-      - disabled
-      - enabledForCount
-      - enabledForPercentage
-      - unknownFutureValue
-      type: string
     microsoft.graph.companySubscription:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -328,6 +198,22 @@ components:
             format: int32
         additionalProperties:
           type: object
+    microsoft.graph.onPremisesAccidentalDeletionPrevention:
+      title: onPremisesAccidentalDeletionPrevention
+      type: object
+      properties:
+        alertThreshold:
+          maximum: 2147483647
+          minimum: -2147483648
+          type:
+          - number
+          - 'null'
+          description: Threshold value which triggers accidental deletion prevention. The threshold is either an absolute number of objects or a percentage number of objects.
+          format: int32
+        synchronizationPreventionType:
+          $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationDeletionPreventionType'
+      additionalProperties:
+        type: object
     microsoft.graph.administrativeUnit:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.directoryObject'
@@ -389,6 +275,36 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.onPremisesDirectorySynchronizationDeletionPreventionType:
+      title: onPremisesDirectorySynchronizationDeletionPreventionType
+      enum:
+      - disabled
+      - enabledForCount
+      - enabledForPercentage
+      - unknownFutureValue
+      type: string
+    microsoft.graph.extension:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: extension
+        type: object
+        additionalProperties:
+          type: object
     microsoft.graph.scopedRoleMembership:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -405,152 +321,49 @@ components:
             $ref: '#/components/schemas/microsoft.graph.identity'
         additionalProperties:
           type: object
-    microsoft.graph.directoryObject:
+    microsoft.graph.entraRecoveryServices.recoveryJobBase:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: directoryObject
+      - title: recoveryJobBase
         type: object
         properties:
-          deletedDateTime:
+          filteringCriteria:
+            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobFilteringCriteriaBase'
+          jobCompletionDateTime:
             pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
             type:
             - string
             - 'null'
-            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
             format: date-time
-        additionalProperties:
-          type: object
-    microsoft.graph.certificateBasedAuthPki:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
-      - title: certificateBasedAuthPki
-        type: object
-        properties:
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: The name of the object. Maximum length is 256 characters.
-          lastModifiedDateTime:
+          jobStartDateTime:
             pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
             type: string
-            description: The date and time when the object was created or last modified.
             format: date-time
           status:
-            type:
-            - string
-            - 'null'
-            description: The status of any asynchronous jobs runs on the object which can be upload or delete.
-          statusDetails:
-            type:
-            - string
-            - 'null'
-            description: The status details of the upload/deleted operation of PKI (Public Key Infrastructure).
-          certificateAuthorities:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.certificateAuthorityDetail'
-            description: The collection of certificate authorities contained in this public key infrastructure resource.
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.deviceLocalCredential:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: deviceLocalCredential
-        type: object
-        properties:
-          accountName:
-            type: string
-            description: The name of the local admin account for which LAPS is enabled.
-          accountSid:
-            type: string
-            description: The SID of the local admin account for which LAPS is enabled.
-          backupDateTime:
+            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryStatus'
+          targetStateDateTime:
             pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
             type: string
-            description: When the local administrator account credential for the device object was backed up to Azure Active Directory.
             format: date-time
-          passwordBase64:
-            type: string
-            description: The password for the local administrator account that is backed up to Azure Active Directory and returned as a Base64 encoded value.
+          totalChangedLinksCalculated:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            format: int32
+          totalChangedObjectsCalculated:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            format: int32
         additionalProperties:
           type: object
-    microsoft.graph.entraRecoveryServices.recoveryPreviewJob:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
-      - title: recoveryPreviewJob
-        type: object
-        additionalProperties:
-          type: object
-    microsoft.graph.identity:
-      title: identity
+    microsoft.graph.entraRecoveryServices.recoveryJobFilteringCriteriaBase:
+      title: recoveryJobFilteringCriteriaBase
       type: object
-      properties:
-        displayName:
-          type:
-          - string
-          - 'null'
-          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
-      additionalProperties:
-        type: object
-    microsoft.graph.onPremisesDirectorySynchronizationConfiguration:
-      title: onPremisesDirectorySynchronizationConfiguration
-      type: object
-      properties:
-        accidentalDeletionPrevention:
-          $ref: '#/components/schemas/microsoft.graph.onPremisesAccidentalDeletionPrevention'
-      additionalProperties:
-        type: object
-    microsoft.graph.remoteTenantGroup:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
-      - title: remoteTenantGroup
-        type: object
-        properties:
-          remoteGroupDisplayName:
-            type:
-            - string
-            - 'null'
-            description: Display name of the group in the remote tenant.
-          remoteGroupId:
-            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
-            type:
-            - string
-            - 'null'
-            description: Unique identifier of the group in the remote tenant.
-            format: uuid
-          remoteTenantDisplayName:
-            type:
-            - string
-            - 'null'
-            description: Display name of the remote tenant.
-          remoteTenantId:
-            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
-            type:
-            - string
-            - 'null'
-            description: Unique identifier of the remote tenant.
-            format: uuid
-          remoteTenantPrimaryDomain:
-            type:
-            - string
-            - 'null'
-            description: Primary domain name of the remote tenant.
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
     microsoft.graph.certificateAuthorityDetail:
@@ -611,318 +424,38 @@ components:
             description: The thumbprint of certificate authority certificate. Supports $filter (eq, startswith).
         additionalProperties:
           type: object
-    microsoft.graph.allowedValue:
+    microsoft.graph.certificateBasedAuthPki:
       allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: allowedValue
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: certificateBasedAuthPki
         type: object
         properties:
-          isActive:
-            type:
-            - boolean
-            - 'null'
-            description: Indicates whether the predefined value is active or deactivated. If set to false, this predefined value can't be assigned to any other supported directory objects.
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.publicKeyInfrastructureRoot:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: publicKeyInfrastructureRoot
-        type: object
-        properties:
-          certificateBasedAuthConfigurations:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.certificateBasedAuthPki'
-            description: The collection of public key infrastructure instances for the certificate-based authentication feature for users.
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.customSecurityAttributeDefinition:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: customSecurityAttributeDefinition
-        type: object
-        properties:
-          attributeSet:
-            type: string
-            description: Name of the attribute set. Case insensitive.
-          description:
+          displayName:
             type:
             - string
             - 'null'
-            description: Description of the custom security attribute. Can be up to 128 characters long and include Unicode characters. Can be changed later.
-          isCollection:
-            type: boolean
-            description: Indicates whether multiple values can be assigned to the custom security attribute. Cannot be changed later. If type is set to Boolean, isCollection cannot be set to true.
-          isSearchable:
-            type:
-            - boolean
-            - 'null'
-            description: Indicates whether custom security attribute values are indexed for searching on objects that are assigned attribute values. Cannot be changed later.
-          name:
+            description: The name of the object. Maximum length is 256 characters.
+          lastModifiedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
             type: string
-            description: Name of the custom security attribute. Must be unique within an attribute set. Can be up to 32 characters long and include Unicode characters. Cannot contain spaces or special characters. Cannot be changed later. Case insensitive.
+            description: The date and time when the object was created or last modified.
+            format: date-time
           status:
-            type: string
-            description: 'Specifies whether the custom security attribute is active or deactivated. Acceptable values are: Available and Deprecated. Can be changed later.'
-          type:
-            type: string
-            description: 'Data type for the custom security attribute values. Supported types are: Boolean, Integer, and String. Cannot be changed later.'
-          usePreDefinedValuesOnly:
-            type:
-            - boolean
-            - 'null'
-            description: Indicates whether only predefined values can be assigned to the custom security attribute. If set to false, free-form values are allowed. Can later be changed from true to false, but cannot be changed from false to true. If type is set to Boolean, usePreDefinedValuesOnly cannot be set to true.
-          allowedValues:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.allowedValue'
-            description: Values that are predefined for this custom security attribute. This navigation property is not returned by default and must be specified in an $expand query. For example, /directory/customSecurityAttributeDefinitions?$expand=allowedValues.
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.entraRecoveryServices.recoveryJob:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
-      - title: recoveryJob
-        type: object
-        properties:
-          totalFailedChanges:
-            maximum: 2147483647
-            minimum: -2147483648
-            type:
-            - number
-            - 'null'
-            format: int32
-          totalLinksModified:
-            maximum: 2147483647
-            minimum: -2147483648
-            type:
-            - number
-            - 'null'
-            format: int32
-          totalObjectsModified:
-            maximum: 2147483647
-            minimum: -2147483648
-            type:
-            - number
-            - 'null'
-            format: int32
-        additionalProperties:
-          type: object
-    microsoft.graph.directory:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: directory
-        type: object
-        properties:
-          administrativeUnits:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.administrativeUnit'
-            description: Conceptual container for user and group directory objects.
-            x-ms-navigationProperty: true
-          attributeSets:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.attributeSet'
-            description: Group of related custom security attribute definitions.
-            x-ms-navigationProperty: true
-          customSecurityAttributeDefinitions:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeDefinition'
-            description: Schema of a custom security attributes (key-value pairs).
-            x-ms-navigationProperty: true
-          deletedItems:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.directoryObject'
-            description: Recently deleted items. Read-only. Nullable.
-            x-ms-navigationProperty: true
-          deviceLocalCredentials:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.deviceLocalCredentialInfo'
-            description: The credentials of the device's local administrator account backed up to Microsoft Entra ID.
-            x-ms-navigationProperty: true
-          federationConfigurations:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.identityProviderBase'
-            description: Configure domain federation with organizations whose identity provider (IdP) supports either the SAML or WS-Fed protocol.
-            x-ms-navigationProperty: true
-          onPremisesSynchronization:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronization'
-            description: A container for on-premises directory synchronization functionalities that are available for the organization.
-            x-ms-navigationProperty: true
-          publicKeyInfrastructure:
-            $ref: '#/components/schemas/microsoft.graph.publicKeyInfrastructureRoot'
-          recovery:
-            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recovery'
-          remoteTenantGroups:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.remoteTenantGroup'
-            description: Collection of groups in remote Microsoft Entra tenants that are available in the directory.
-            x-ms-navigationProperty: true
-          subscriptions:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.companySubscription'
-            description: List of commercial subscriptions that an organization acquired.
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.entraRecoveryServices.recovery:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: recovery
-        type: object
-        properties:
-          jobs:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
-            x-ms-navigationProperty: true
-          snapshots:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.snapshot'
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.onPremisesAccidentalDeletionPrevention:
-      title: onPremisesAccidentalDeletionPrevention
-      type: object
-      properties:
-        alertThreshold:
-          maximum: 2147483647
-          minimum: -2147483648
-          type:
-          - number
-          - 'null'
-          description: Threshold value which triggers accidental deletion prevention. The threshold is either an absolute number of objects or a percentage number of objects.
-          format: int32
-        synchronizationPreventionType:
-          $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationDeletionPreventionType'
-      additionalProperties:
-        type: object
-    microsoft.graph.servicePlanInfo:
-      title: servicePlanInfo
-      type: object
-      properties:
-        appliesTo:
-          type:
-          - string
-          - 'null'
-          description: The object the service plan can be assigned to. The possible values are:User - service plan can be assigned to individual users.Company - service plan can be assigned to the entire tenant.
-        provisioningStatus:
-          type:
-          - string
-          - 'null'
-          description: The provisioning status of the service plan. The possible values are:Success - Service is fully provisioned.Disabled - Service is disabled.Error - The service plan isn't provisioned and is in an error state.PendingInput - The service isn't provisioned and is awaiting service confirmation.PendingActivation - The service is provisioned but requires explicit activation by an administrator (for example, Intune_O365 service plan)PendingProvisioning - Microsoft has added a new service to the product SKU and it isn't activated in the tenant.
-        servicePlanId:
-          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
-          type:
-          - string
-          - 'null'
-          description: The unique identifier of the service plan.
-          format: uuid
-        servicePlanName:
-          type:
-          - string
-          - 'null'
-          description: The name of the service plan.
-      additionalProperties:
-        type: object
-    microsoft.graph.entraRecoveryServices.recoveryStatus:
-      title: recoveryStatus
-      enum:
-      - initialized
-      - running
-      - successful
-      - failed
-      - abandoned
-      - unknownFutureValue
-      - calculating
-      - loadingData
-      type: string
-      x-ms-enum:
-        name: recoveryStatus
-        modelAsString: false
-        values:
-        - value: initialized
-          description: Represents a job that has been initialized but has not been started yet
-          name: initialized
-        - value: running
-          description: Represents a job that is in progress
-          name: running
-        - value: successful
-          description: Represents a job that ran successfully and is now complete
-          name: successful
-        - value: failed
-          description: Represents a job that we were not able to run successfully
-          name: failed
-        - value: abandoned
-          description: Represents a job that was abandoned by the user
-          name: abandoned
-        - value: unknownFutureValue
-          description: This will help in making this enum evolable and adding more values in the future-
-          name: unknownFutureValue
-        - value: calculating
-          description: Represents a job for which we have started calculating the diff/preview.
-          name: calculating
-        - value: loadingData
-          description: Represents a job for which we have started loading data of the snapshot.
-          name: loadingData
-    microsoft.graph.attributeSet:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: attributeSet
-        type: object
-        properties:
-          description:
             type:
             - string
             - 'null'
-            description: Description of the attribute set. Can be up to 128 characters long and include Unicode characters. Can be changed later.
-          maxAttributesPerSet:
-            maximum: 2147483647
-            minimum: -2147483648
+            description: The status of any asynchronous jobs runs on the object which can be upload or delete.
+          statusDetails:
             type:
-            - number
+            - string
             - 'null'
-            description: Maximum number of custom security attributes that can be defined in this attribute set. Default value is null. If not specified, the administrator can add up to the maximum of 500 active attributes per tenant. Can be changed later.
-            format: int32
+            description: The status details of the upload/deleted operation of PKI (Public Key Infrastructure).
+          certificateAuthorities:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.certificateAuthorityDetail'
+            description: The collection of certificate authorities contained in this public key infrastructure resource.
+            x-ms-navigationProperty: true
         additionalProperties:
           type: object
     microsoft.graph.onPremisesDirectorySynchronizationFeature:
@@ -1031,6 +564,473 @@ components:
           description: Used to indicate that user writeback is enabled.
       additionalProperties:
         type: object
+    microsoft.graph.servicePlanInfo:
+      title: servicePlanInfo
+      type: object
+      properties:
+        appliesTo:
+          type:
+          - string
+          - 'null'
+          description: The object the service plan can be assigned to. The possible values are:User - service plan can be assigned to individual users.Company - service plan can be assigned to the entire tenant.
+        provisioningStatus:
+          type:
+          - string
+          - 'null'
+          description: The provisioning status of the service plan. The possible values are:Success - Service is fully provisioned.Disabled - Service is disabled.Error - The service plan isn't provisioned and is in an error state.PendingInput - The service isn't provisioned and is awaiting service confirmation.PendingActivation - The service is provisioned but requires explicit activation by an administrator (for example, Intune_O365 service plan)PendingProvisioning - Microsoft has added a new service to the product SKU and it isn't activated in the tenant.
+        servicePlanId:
+          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+          type:
+          - string
+          - 'null'
+          description: The unique identifier of the service plan.
+          format: uuid
+        servicePlanName:
+          type:
+          - string
+          - 'null'
+          description: The name of the service plan.
+      additionalProperties:
+        type: object
+    microsoft.graph.certificateAuthorityType:
+      title: certificateAuthorityType
+      enum:
+      - root
+      - intermediate
+      - unknownFutureValue
+      type: string
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.directory:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directory
+        type: object
+        properties:
+          administrativeUnits:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.administrativeUnit'
+            description: Conceptual container for user and group directory objects.
+            x-ms-navigationProperty: true
+          attributeSets:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.attributeSet'
+            description: Group of related custom security attribute definitions.
+            x-ms-navigationProperty: true
+          customSecurityAttributeDefinitions:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.customSecurityAttributeDefinition'
+            description: Schema of a custom security attributes (key-value pairs).
+            x-ms-navigationProperty: true
+          deletedItems:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.directoryObject'
+            description: Recently deleted items. Read-only. Nullable.
+            x-ms-navigationProperty: true
+          deviceLocalCredentials:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.deviceLocalCredentialInfo'
+            description: The credentials of the device's local administrator account backed up to Microsoft Entra ID.
+            x-ms-navigationProperty: true
+          federationConfigurations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.identityProviderBase'
+            description: Configure domain federation with organizations whose identity provider (IdP) supports either the SAML or WS-Fed protocol.
+            x-ms-navigationProperty: true
+          onPremisesSynchronization:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronization'
+            description: A container for on-premises directory synchronization functionalities that are available for the organization.
+            x-ms-navigationProperty: true
+          publicKeyInfrastructure:
+            $ref: '#/components/schemas/microsoft.graph.publicKeyInfrastructureRoot'
+          recovery:
+            $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recovery'
+          remoteTenantGroups:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.remoteTenantGroup'
+            description: Collection of groups in remote Microsoft Entra tenants that are available in the directory.
+            x-ms-navigationProperty: true
+          subscriptions:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.companySubscription'
+            description: List of commercial subscriptions that an organization acquired.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.entraRecoveryServices.snapshot:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: snapshot
+        type: object
+        properties:
+          createdDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type: string
+            format: date-time
+          totalChangedObjects:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            format: int32
+          recoveryJobs:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJob'
+            x-ms-navigationProperty: true
+          recoveryPreviewJobs:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryPreviewJob'
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.entraRecoveryServices.recoveryJob:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
+      - title: recoveryJob
+        type: object
+        properties:
+          totalFailedChanges:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            format: int32
+          totalLinksModified:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            format: int32
+          totalObjectsModified:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            format: int32
+        additionalProperties:
+          type: object
+    microsoft.graph.entraRecoveryServices.recoveryStatus:
+      title: recoveryStatus
+      enum:
+      - initialized
+      - running
+      - successful
+      - failed
+      - abandoned
+      - unknownFutureValue
+      - calculating
+      - loadingData
+      type: string
+      x-ms-enum:
+        name: recoveryStatus
+        modelAsString: false
+        values:
+        - value: initialized
+          description: Represents a job that has been initialized but has not been started yet
+          name: initialized
+        - value: running
+          description: Represents a job that is in progress
+          name: running
+        - value: successful
+          description: Represents a job that ran successfully and is now complete
+          name: successful
+        - value: failed
+          description: Represents a job that we were not able to run successfully
+          name: failed
+        - value: abandoned
+          description: Represents a job that was abandoned by the user
+          name: abandoned
+        - value: unknownFutureValue
+          description: This will help in making this enum evolable and adding more values in the future-
+          name: unknownFutureValue
+        - value: calculating
+          description: Represents a job for which we have started calculating the diff/preview.
+          name: calculating
+        - value: loadingData
+          description: Represents a job for which we have started loading data of the snapshot.
+          name: loadingData
+    microsoft.graph.publicKeyInfrastructureRoot:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: publicKeyInfrastructureRoot
+        type: object
+        properties:
+          certificateBasedAuthConfigurations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.certificateBasedAuthPki'
+            description: The collection of public key infrastructure instances for the certificate-based authentication feature for users.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.customSecurityAttributeDefinition:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: customSecurityAttributeDefinition
+        type: object
+        properties:
+          attributeSet:
+            type: string
+            description: Name of the attribute set. Case insensitive.
+          description:
+            type:
+            - string
+            - 'null'
+            description: Description of the custom security attribute. Can be up to 128 characters long and include Unicode characters. Can be changed later.
+          isCollection:
+            type: boolean
+            description: Indicates whether multiple values can be assigned to the custom security attribute. Cannot be changed later. If type is set to Boolean, isCollection cannot be set to true.
+          isSearchable:
+            type:
+            - boolean
+            - 'null'
+            description: Indicates whether custom security attribute values are indexed for searching on objects that are assigned attribute values. Cannot be changed later.
+          name:
+            type: string
+            description: Name of the custom security attribute. Must be unique within an attribute set. Can be up to 32 characters long and include Unicode characters. Cannot contain spaces or special characters. Cannot be changed later. Case insensitive.
+          status:
+            type: string
+            description: 'Specifies whether the custom security attribute is active or deactivated. Acceptable values are: Available and Deprecated. Can be changed later.'
+          type:
+            type: string
+            description: 'Data type for the custom security attribute values. Supported types are: Boolean, Integer, and String. Cannot be changed later.'
+          usePreDefinedValuesOnly:
+            type:
+            - boolean
+            - 'null'
+            description: Indicates whether only predefined values can be assigned to the custom security attribute. If set to false, free-form values are allowed. Can later be changed from true to false, but cannot be changed from false to true. If type is set to Boolean, usePreDefinedValuesOnly cannot be set to true.
+          allowedValues:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.allowedValue'
+            description: Values that are predefined for this custom security attribute. This navigation property is not returned by default and must be specified in an $expand query. For example, /directory/customSecurityAttributeDefinitions?$expand=allowedValues.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.allowedValue:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: allowedValue
+        type: object
+        properties:
+          isActive:
+            type:
+            - boolean
+            - 'null'
+            description: Indicates whether the predefined value is active or deactivated. If set to false, this predefined value can't be assigned to any other supported directory objects.
+        additionalProperties:
+          type: object
+    microsoft.graph.onPremisesDirectorySynchronizationConfiguration:
+      title: onPremisesDirectorySynchronizationConfiguration
+      type: object
+      properties:
+        accidentalDeletionPrevention:
+          $ref: '#/components/schemas/microsoft.graph.onPremisesAccidentalDeletionPrevention'
+      additionalProperties:
+        type: object
+    microsoft.graph.identity:
+      title: identity
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.identityProviderBase:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: identityProviderBase
+        type: object
+        properties:
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The display name of the identity provider.
+        additionalProperties:
+          type: object
+    microsoft.graph.remoteTenantGroup:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: remoteTenantGroup
+        type: object
+        properties:
+          remoteGroupDisplayName:
+            type:
+            - string
+            - 'null'
+            description: Display name of the group in the remote tenant.
+          remoteGroupId:
+            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+            type:
+            - string
+            - 'null'
+            description: Unique identifier of the group in the remote tenant.
+            format: uuid
+          remoteTenantDisplayName:
+            type:
+            - string
+            - 'null'
+            description: Display name of the remote tenant.
+          remoteTenantId:
+            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+            type:
+            - string
+            - 'null'
+            description: Unique identifier of the remote tenant.
+            format: uuid
+          remoteTenantPrimaryDomain:
+            type:
+            - string
+            - 'null'
+            description: Primary domain name of the remote tenant.
+        additionalProperties:
+          type: object
+    microsoft.graph.onPremisesDirectorySynchronization:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: onPremisesDirectorySynchronization
+        type: object
+        properties:
+          configuration:
+            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationConfiguration'
+          features:
+            $ref: '#/components/schemas/microsoft.graph.onPremisesDirectorySynchronizationFeature'
+        additionalProperties:
+          type: object
+    microsoft.graph.deviceLocalCredentialInfo:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: deviceLocalCredentialInfo
+        type: object
+        properties:
+          credentials:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.deviceLocalCredential'
+            description: The credentials of the device's local administrator account backed up to Azure Active Directory.
+          deviceName:
+            type: string
+            description: Display name of the device that the local credentials are associated with.
+          lastBackupDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type: string
+            description: When the local administrator account credential was backed up to Azure Active Directory.
+            format: date-time
+          refreshDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type: string
+            description: When the local administrator account credential will be refreshed and backed up to Azure Active Directory.
+            format: date-time
+        additionalProperties:
+          type: object
+    microsoft.graph.entraRecoveryServices.recovery:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: recovery
+        type: object
+        properties:
+          jobs:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.recoveryJobBase'
+            x-ms-navigationProperty: true
+          snapshots:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.entraRecoveryServices.snapshot'
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.attributeSet:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: attributeSet
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: Description of the attribute set. Can be up to 128 characters long and include Unicode characters. Can be changed later.
+          maxAttributesPerSet:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            description: Maximum number of custom security attributes that can be defined in this attribute set. Default value is null. If not specified, the administrator can add up to the maximum of 500 active attributes per tenant. Can be changed later.
+            format: int32
+        additionalProperties:
+          type: object
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

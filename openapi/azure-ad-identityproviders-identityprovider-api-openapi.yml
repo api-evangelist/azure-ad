@@ -256,86 +256,7 @@ paths:
         version: 2021-05/identityProvider
         description: The identityProvider API is deprecated and will stop returning data on March 2023. Please use the new identityProviderBase API.
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.identityProviderCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.identityProviderCollectionResponse'
   schemas:
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.identityProviderCollectionResponse:
-      title: Collection of identityProvider
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.identityProvider'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.MainError:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
-          type:
-          - string
-          - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
-        type: object
     microsoft.graph.identityProvider:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -364,9 +285,52 @@ components:
             description: 'The identity provider type is a required field. For B2B scenario: Google, Facebook. For B2C scenario: Microsoft, Google, Amazon, LinkedIn, Facebook, GitHub, Twitter, Weibo, QQ, WeChat, OpenIDConnect. Not nullable.'
         additionalProperties:
           type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.identityProviderCollectionResponse:
+      title: Collection of identityProvider
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.identityProvider'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
     microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
@@ -383,6 +347,23 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
   parameters:
     search:
       name: $search
@@ -400,6 +381,14 @@ components:
       explode: false
       schema:
         type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
     top:
       name: $top
       in: query
@@ -419,14 +408,25 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.identityProviderCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.identityProviderCollectionResponse'
   securitySchemes:
     azureaadv2:
       type: oauth2

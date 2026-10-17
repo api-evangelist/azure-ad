@@ -280,65 +280,7 @@ paths:
           $ref: '#/components/responses/error'
       x-ms-docs-operation-type: function
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.licenseDetailsCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.licenseDetailsCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
   schemas:
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.licenseDetails:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: licenseDetails
-        type: object
-        properties:
-          servicePlans:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.servicePlanInfo'
-            description: Information about the service plans assigned with the license. Read-only. Not nullable.
-          skuId:
-            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
-            type:
-            - string
-            - 'null'
-            description: Unique identifier (GUID) for the service SKU. Equal to the skuId property on the related subscribedSku object. Read-only.
-            format: uuid
-          skuPartNumber:
-            type:
-            - string
-            - 'null'
-            description: Unique SKU display name. Equal to the skuPartNumber on the related subscribedSku object; for example, AAD_Premium. Read-only.
-        additionalProperties:
-          type: object
     microsoft.graph.licenseDetailsCollectionResponse:
       title: Collection of licenseDetails
       type: object
@@ -351,15 +293,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
     microsoft.graph.ODataErrors.MainError:
@@ -385,37 +318,40 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.servicePlanInfo:
-      title: servicePlanInfo
+    microsoft.graph.entity:
+      title: entity
       type: object
       properties:
-        appliesTo:
-          type:
-          - string
-          - 'null'
-          description: The object the service plan can be assigned to. The possible values are:User - service plan can be assigned to individual users.Company - service plan can be assigned to the entire tenant.
-        provisioningStatus:
-          type:
-          - string
-          - 'null'
-          description: The provisioning status of the service plan. The possible values are:Success - Service is fully provisioned.Disabled - Service is disabled.Error - The service plan isn't provisioned and is in an error state.PendingInput - The service isn't provisioned and is awaiting service confirmation.PendingActivation - The service is provisioned but requires explicit activation by an administrator (for example, Intune_O365 service plan)PendingProvisioning - Microsoft has added a new service to the product SKU and it isn't activated in the tenant.
-        servicePlanId:
-          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
-          type:
-          - string
-          - 'null'
-          description: The unique identifier of the service plan.
-          format: uuid
-        servicePlanName:
-          type:
-          - string
-          - 'null'
-          description: The name of the service plan.
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
+    microsoft.graph.licenseDetails:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: licenseDetails
+        type: object
+        properties:
+          servicePlans:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.servicePlanInfo'
+            description: Information about the service plans assigned with the license. Read-only. Not nullable.
+          skuId:
+            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+            type:
+            - string
+            - 'null'
+            description: Unique identifier (GUID) for the service SKU. Equal to the skuId property on the related subscribedSku object. Read-only.
+            format: uuid
+          skuPartNumber:
+            type:
+            - string
+            - 'null'
+            description: Unique SKU display name. Equal to the skuPartNumber on the related subscribedSku object; for example, AAD_Premium. Read-only.
+        additionalProperties:
+          type: object
     microsoft.graph.teamsLicensingDetails:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -445,6 +381,70 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.servicePlanInfo:
+      title: servicePlanInfo
+      type: object
+      properties:
+        appliesTo:
+          type:
+          - string
+          - 'null'
+          description: The object the service plan can be assigned to. The possible values are:User - service plan can be assigned to individual users.Company - service plan can be assigned to the entire tenant.
+        provisioningStatus:
+          type:
+          - string
+          - 'null'
+          description: The provisioning status of the service plan. The possible values are:Success - Service is fully provisioned.Disabled - Service is disabled.Error - The service plan isn't provisioned and is in an error state.PendingInput - The service isn't provisioned and is awaiting service confirmation.PendingActivation - The service is provisioned but requires explicit activation by an administrator (for example, Intune_O365 service plan)PendingProvisioning - Microsoft has added a new service to the product SKU and it isn't activated in the tenant.
+        servicePlanId:
+          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+          type:
+          - string
+          - 'null'
+          description: The unique identifier of the service plan.
+          format: uuid
+        servicePlanName:
+          type:
+          - string
+          - 'null'
+          description: The name of the service plan.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+  responses:
+    microsoft.graph.licenseDetailsCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.licenseDetailsCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
   parameters:
     search:
       name: $search
@@ -462,15 +462,14 @@ components:
       explode: false
       schema:
         type: boolean
-    skip:
-      name: $skip
+    filter:
+      name: $filter
       in: query
-      description: Skip the first n items
+      description: Filter items by property values
       style: form
       explode: false
       schema:
-        minimum: 0
-        type: integer
+        type: string
     top:
       name: $top
       in: query
@@ -481,14 +480,15 @@ components:
         minimum: 0
         type: integer
       example: 50
-    filter:
-      name: $filter
+    skip:
+      name: $skip
       in: query
-      description: Filter items by property values
+      description: Skip the first n items
       style: form
       explode: false
       schema:
-        type: string
+        minimum: 0
+        type: integer
   securitySchemes:
     azureaadv2:
       type: oauth2

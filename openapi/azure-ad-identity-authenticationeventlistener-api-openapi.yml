@@ -220,31 +220,7 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.authenticationEventListenerCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.authenticationEventListenerCollectionResponse'
   schemas:
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -268,6 +244,28 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
+    microsoft.graph.authenticationEventListenerCollectionResponse:
+      title: Collection of authenticationEventListener
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.authenticationEventListener'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationConditions:
+      title: authenticationConditions
+      type: object
+      properties:
+        applications:
+          $ref: '#/components/schemas/microsoft.graph.authenticationConditionsApplications'
+      additionalProperties:
+        type: object
     microsoft.graph.authenticationEventListener:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -288,17 +286,23 @@ components:
             description: The display name of the listener.
         additionalProperties:
           type: object
-    microsoft.graph.authenticationConditionsApplications:
-      title: authenticationConditionsApplications
+    microsoft.graph.ODataErrors.InnerError:
       type: object
-      properties:
-        includeApplications:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.authenticationConditionApplication'
-          x-ms-navigationProperty: true
       additionalProperties:
         type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
     microsoft.graph.ODataErrors.ODataError:
       required:
       - error
@@ -317,14 +321,6 @@ components:
           description: The identifier for an application corresponding to a condition which will trigger an authenticationEventListener.
       additionalProperties:
         type: object
-    microsoft.graph.authenticationConditions:
-      title: authenticationConditions
-      type: object
-      properties:
-        applications:
-          $ref: '#/components/schemas/microsoft.graph.authenticationConditionsApplications'
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
@@ -341,30 +337,15 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.entity:
-      title: entity
+    microsoft.graph.authenticationConditionsApplications:
+      title: authenticationConditionsApplications
       type: object
       properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-    microsoft.graph.authenticationEventListenerCollectionResponse:
-      title: Collection of authenticationEventListener
-      type: object
-      properties:
-        value:
+        includeApplications:
           type: array
           items:
-            $ref: '#/components/schemas/microsoft.graph.authenticationEventListener'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
+            $ref: '#/components/schemas/microsoft.graph.authenticationConditionApplication'
+          x-ms-navigationProperty: true
       additionalProperties:
         type: object
   parameters:
@@ -378,6 +359,14 @@ components:
         minimum: 0
         type: integer
       example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
     skip:
       name: $skip
       in: query
@@ -387,14 +376,6 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
     search:
       name: $search
       in: query
@@ -403,14 +384,33 @@ components:
       explode: false
       schema:
         type: string
-    count:
-      name: $count
+    filter:
+      name: $filter
       in: query
-      description: Include count of items
+      description: Filter items by property values
       style: form
       explode: false
       schema:
-        type: boolean
+        type: string
+  responses:
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.authenticationEventListenerCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.authenticationEventListenerCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

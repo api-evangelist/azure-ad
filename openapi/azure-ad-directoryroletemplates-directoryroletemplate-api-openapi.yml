@@ -208,96 +208,51 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.directoryRoleTemplateCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.directoryRoleTemplateCollectionResponse'
+  parameters:
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
   schemas:
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.directoryRoleTemplate:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
-      - title: directoryRoleTemplate
-        type: object
-        properties:
-          description:
-            type:
-            - string
-            - 'null'
-            description: The description to set for the directory role. Read-only.
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: The display name to set for the directory role. Read-only.
-        additionalProperties:
-          type: object
-    microsoft.graph.directoryObject:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: directoryObject
-        type: object
-        properties:
-          deletedDateTime:
-            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
-            type:
-            - string
-            - 'null'
-            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
-            format: date-time
-        additionalProperties:
-          type: object
-    microsoft.graph.directoryRoleTemplateCollectionResponse:
-      title: Collection of directoryRoleTemplate
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.directoryRoleTemplate'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -321,9 +276,30 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.directoryObject:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: directoryObject
+        type: object
+        properties:
+          deletedDateTime:
+            pattern: ^[0-9]{4,}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]([.][0-9]{1,12})?(Z|[+-][0-9][0-9]:[0-9][0-9])$
+            type:
+            - string
+            - 'null'
+            description: Date and time when this object was deleted. Always null when the object hasn't been deleted.
+            format: date-time
+        additionalProperties:
+          type: object
     microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
@@ -340,50 +316,74 @@ components:
           - 'null'
       additionalProperties:
         type: object
-  parameters:
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases
-      style: form
-      explode: false
-      schema:
-        type: string
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
+    microsoft.graph.directoryRoleTemplateCollectionResponse:
+      title: Collection of directoryRoleTemplate
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.directoryRoleTemplate'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.directoryRoleTemplate:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.directoryObject'
+      - title: directoryRoleTemplate
+        type: object
+        properties:
+          description:
+            type:
+            - string
+            - 'null'
+            description: The description to set for the directory role. Read-only.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The display name to set for the directory role. Read-only.
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+  responses:
+    microsoft.graph.directoryRoleTemplateCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.directoryRoleTemplateCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
   securitySchemes:
     azureaadv2:
       type: oauth2

@@ -539,40 +539,30 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.appRoleAssignmentCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.appRoleAssignmentCollectionResponse'
   schemas:
-    microsoft.graph.entity:
-      title: entity
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
       type: object
       properties:
-        id:
+        code:
           type: string
-          description: The unique identifier for an entity. Read-only.
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
     microsoft.graph.directoryObject:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -588,6 +578,31 @@ components:
             format: date-time
         additionalProperties:
           type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
     microsoft.graph.appRoleAssignment:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.directoryObject'
@@ -637,38 +652,9 @@ components:
             format: uuid
         additionalProperties:
           type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.MainError:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
-          type:
-          - string
-          - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
-        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
     microsoft.graph.appRoleAssignmentCollectionResponse:
       title: Collection of appRoleAssignment
       type: object
@@ -683,34 +669,40 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-    microsoft.graph.ODataErrors.ErrorDetails:
+    microsoft.graph.ODataErrors.ODataError:
       required:
-      - code
-      - message
+      - error
       type: object
       properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+  responses:
+    microsoft.graph.appRoleAssignmentCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.appRoleAssignmentCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
   parameters:
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
     search:
       name: $search
       in: query
@@ -719,15 +711,22 @@ components:
       explode: false
       schema:
         type: string
-    skip:
-      name: $skip
+    count:
+      name: $count
       in: query
-      description: Skip the first n items
+      description: Include count of items
       style: form
       explode: false
       schema:
-        minimum: 0
-        type: integer
+        type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
     top:
       name: $top
       in: query
@@ -738,14 +737,15 @@ components:
         minimum: 0
         type: integer
       example: 50
-    filter:
-      name: $filter
+    skip:
+      name: $skip
       in: query
-      description: Filter items by property values
+      description: Skip the first n items
       style: form
       explode: false
       schema:
-        type: string
+        minimum: 0
+        type: integer
   securitySchemes:
     azureaadv2:
       type: oauth2

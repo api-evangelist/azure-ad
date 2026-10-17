@@ -251,56 +251,7 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.extensionCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.extensionCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
   schemas:
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.extension:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: extension
-        type: object
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -324,6 +275,22 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.extension:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: extension
+        type: object
+        additionalProperties:
+          type: object
     microsoft.graph.extensionCollectionResponse:
       title: Collection of extension
       type: object
@@ -338,9 +305,6 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
     microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
@@ -357,7 +321,34 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
   parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+      example: 50
     search:
       name: $search
       in: query
@@ -374,6 +365,14 @@ components:
       explode: false
       schema:
         type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
     skip:
       name: $skip
       in: query
@@ -383,24 +382,25 @@ components:
       schema:
         minimum: 0
         type: integer
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
-      example: 50
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.extensionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.extensionCollectionResponse'
   securitySchemes:
     azureaadv2:
       type: oauth2

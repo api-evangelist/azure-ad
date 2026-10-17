@@ -942,78 +942,7 @@ paths:
           $ref: '#/components/responses/error'
       x-ms-docs-operation-type: operation
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.profilePropertySettingCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.profilePropertySettingCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.profileSourceCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.profileSourceCollectionResponse'
-    microsoft.graph.profileCardPropertyCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.profileCardPropertyCollectionResponse'
   schemas:
-    microsoft.graph.profileCardProperty:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: profileCardProperty
-        type: object
-        properties:
-          annotations:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.profileCardAnnotation'
-            description: Allows an administrator to set a custom display label for the directory property and localize it for the users in their tenant.
-          directoryPropertyName:
-            type:
-            - string
-            - 'null'
-            description: 'Identifies a profileCardProperty resource in Get, Update, or Delete operations. Allows an administrator to surface hidden Microsoft Entra ID properties on the Microsoft 365 profile card within their tenant. When present, the Microsoft Entra ID field referenced in this property is visible to all users in your tenant on the contact pane of the profile card. Allowed values for this field are: UserPrincipalName, Fax, StreetAddress, PostalCode, StateOrProvince, Alias, CustomAttribute1,  CustomAttribute2, CustomAttribute3, CustomAttribute4, CustomAttribute5, CustomAttribute6, CustomAttribute7, CustomAttribute8, CustomAttribute9, CustomAttribute10, CustomAttribute11, CustomAttribute12, CustomAttribute13, CustomAttribute14, CustomAttribute15.'
-          isVisible:
-            type: boolean
-            description: Indicates whether the given directory property should be shown on a user’s profile card.
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.profileSourceCollectionResponse:
-      title: Collection of profileSource
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.profileSource'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -1037,20 +966,41 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.profileCardAnnotation:
-      title: profileCardAnnotation
+    microsoft.graph.profileSourceLocalization:
+      title: profileSourceLocalization
       type: object
       properties:
         displayName:
           type:
           - string
           - 'null'
-          description: If present, the value of this field is used by the profile card as the default property label in the experience (for example, 'Cost Center').
-        localizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.displayNameLocalization'
-          description: Each resource in this collection represents the localized value of the attribute name for a given language, used as the default label for that locale. For example, a user with a nb-NO client gets 'Kostnadssenter' as the attribute label, rather than 'Cost Center.'
+          description: Localized display name.
+        languageTag:
+          type:
+          - string
+          - 'null'
+          description: Language locale.
+        webUrl:
+          type:
+          - string
+          - 'null'
+          description: Localized profile source URL.
+      additionalProperties:
+        type: object
+    microsoft.graph.displayNameLocalization:
+      title: displayNameLocalization
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: If present, the value of this field contains the displayName string that has been set for the language present in the languageTag field.
+        languageTag:
+          type:
+          - string
+          - 'null'
+          description: Provides the language culture-code and friendly name of the language that the displayName field has been provided in.
       additionalProperties:
         type: object
     microsoft.graph.insightsSettings:
@@ -1071,43 +1021,11 @@ components:
             description: true if insights of the specified type are enabled for the organization; false if insights of the specified type are disabled for all users without exceptions. The default value is true. Optional.
         additionalProperties:
           type: object
-    microsoft.graph.profilePropertySetting:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: profilePropertySetting
-        type: object
-        properties:
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: Name of the property-level setting.
-          name:
-            type:
-            - string
-            - 'null'
-            description: Other name of the property-level setting. For backward compatibility.
-          prioritizedSourceUrls:
-            type: array
-            items:
-              type: string
-            description: A collection of prioritized profile source URLs ordered by data precedence within an organization.
-        additionalProperties:
-          type: object
-    microsoft.graph.profilePropertySettingCollectionResponse:
-      title: Collection of profilePropertySetting
+    microsoft.graph.ODataErrors.InnerError:
       type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.profilePropertySetting'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
       additionalProperties:
         type: object
+      description: The structure of this object is service-specific
     microsoft.graph.peopleAdminSettings:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -1138,6 +1056,121 @@ components:
             $ref: '#/components/schemas/microsoft.graph.pronounsSettings'
         additionalProperties:
           type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.profileSourceCollectionResponse:
+      title: Collection of profileSource
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.profileSource'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.pronounsSettings:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: pronounsSettings
+        type: object
+        properties:
+          isEnabledInOrganization:
+            type: boolean
+            description: true to enable pronouns in the organization; otherwise, false. The default value is false, and pronouns are disabled.
+        additionalProperties:
+          type: object
+    microsoft.graph.profileCardPropertyCollectionResponse:
+      title: Collection of profileCardProperty
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.profileCardProperty'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.profilePropertySetting:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: profilePropertySetting
+        type: object
+        properties:
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Name of the property-level setting.
+          name:
+            type:
+            - string
+            - 'null'
+            description: Other name of the property-level setting. For backward compatibility.
+          prioritizedSourceUrls:
+            type: array
+            items:
+              type: string
+            description: A collection of prioritized profile source URLs ordered by data precedence within an organization.
+        additionalProperties:
+          type: object
+    microsoft.graph.profileCardAnnotation:
+      title: profileCardAnnotation
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: If present, the value of this field is used by the profile card as the default property label in the experience (for example, 'Cost Center').
+        localizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.displayNameLocalization'
+          description: Each resource in this collection represents the localized value of the attribute name for a given language, used as the default label for that locale. For example, a user with a nb-NO client gets 'Kostnadssenter' as the attribute label, rather than 'Cost Center.'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
     microsoft.graph.profileSource:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -1171,99 +1204,35 @@ components:
             description: Web URL of the profile source that directs users to the page view of the profile data.
         additionalProperties:
           type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.pronounsSettings:
+    microsoft.graph.profileCardProperty:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: pronounsSettings
+      - title: profileCardProperty
         type: object
         properties:
-          isEnabledInOrganization:
+          annotations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.profileCardAnnotation'
+            description: Allows an administrator to set a custom display label for the directory property and localize it for the users in their tenant.
+          directoryPropertyName:
+            type:
+            - string
+            - 'null'
+            description: 'Identifies a profileCardProperty resource in Get, Update, or Delete operations. Allows an administrator to surface hidden Microsoft Entra ID properties on the Microsoft 365 profile card within their tenant. When present, the Microsoft Entra ID field referenced in this property is visible to all users in your tenant on the contact pane of the profile card. Allowed values for this field are: UserPrincipalName, Fax, StreetAddress, PostalCode, StateOrProvince, Alias, CustomAttribute1,  CustomAttribute2, CustomAttribute3, CustomAttribute4, CustomAttribute5, CustomAttribute6, CustomAttribute7, CustomAttribute8, CustomAttribute9, CustomAttribute10, CustomAttribute11, CustomAttribute12, CustomAttribute13, CustomAttribute14, CustomAttribute15.'
+          isVisible:
             type: boolean
-            description: true to enable pronouns in the organization; otherwise, false. The default value is false, and pronouns are disabled.
+            description: Indicates whether the given directory property should be shown on a user’s profile card.
         additionalProperties:
           type: object
-    microsoft.graph.displayNameLocalization:
-      title: displayNameLocalization
-      type: object
-      properties:
-        displayName:
-          type:
-          - string
-          - 'null'
-          description: If present, the value of this field contains the displayName string that has been set for the language present in the languageTag field.
-        languageTag:
-          type:
-          - string
-          - 'null'
-          description: Provides the language culture-code and friendly name of the language that the displayName field has been provided in.
-      additionalProperties:
-        type: object
-    microsoft.graph.profileSourceLocalization:
-      title: profileSourceLocalization
-      type: object
-      properties:
-        displayName:
-          type:
-          - string
-          - 'null'
-          description: Localized display name.
-        languageTag:
-          type:
-          - string
-          - 'null'
-          description: Language locale.
-        webUrl:
-          type:
-          - string
-          - 'null'
-          description: Localized profile source URL.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-    microsoft.graph.profileCardPropertyCollectionResponse:
-      title: Collection of profileCardProperty
+    microsoft.graph.profilePropertySettingCollectionResponse:
+      title: Collection of profilePropertySetting
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/microsoft.graph.profileCardProperty'
+            $ref: '#/components/schemas/microsoft.graph.profilePropertySetting'
         '@odata.nextLink':
           type:
           - string
@@ -1281,6 +1250,14 @@ components:
         minimum: 0
         type: integer
       example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
     skip:
       name: $skip
       in: query
@@ -1290,14 +1267,6 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
     search:
       name: $search
       in: query
@@ -1306,14 +1275,45 @@ components:
       explode: false
       schema:
         type: string
-    count:
-      name: $count
+    filter:
+      name: $filter
       in: query
-      description: Include count of items
+      description: Filter items by property values
       style: form
       explode: false
       schema:
-        type: boolean
+        type: string
+  responses:
+    microsoft.graph.profileCardPropertyCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.profileCardPropertyCollectionResponse'
+    microsoft.graph.profilePropertySettingCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.profilePropertySettingCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.profileSourceCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.profileSourceCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

@@ -298,40 +298,29 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.authenticationMethodConfigurationCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.authenticationMethodConfigurationCollectionResponse'
   schemas:
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.excludeTarget:
-      title: excludeTarget
+    microsoft.graph.authenticationMethodsRegistrationCampaign:
+      title: authenticationMethodsRegistrationCampaign
       type: object
       properties:
-        id:
-          type: string
-          description: The object identifier of a Microsoft Entra user or group.
-        targetType:
-          $ref: '#/components/schemas/microsoft.graph.authenticationMethodTargetType'
+        excludeTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.excludeTarget'
+          description: Users and groups of users that are excluded from being prompted to set up the authentication method.
+        includeTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodsRegistrationCampaignIncludeTarget'
+          description: Users and groups of users that are prompted to set up the authentication method.
+        snoozeDurationInDays:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: number
+          description: 'Specifies the number of days that the user sees a prompt again if they select ''Not now'' and snoozes the prompt. Minimum: 0 days. Maximum: 14 days. If the value is ''0'', the user is prompted during every MFA attempt.'
+          format: int32
+        state:
+          $ref: '#/components/schemas/microsoft.graph.advancedConfigState'
       additionalProperties:
         type: object
     microsoft.graph.ODataErrors.MainError:
@@ -357,20 +346,12 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.authenticationMethodsRegistrationCampaignIncludeTarget:
-      title: authenticationMethodsRegistrationCampaignIncludeTarget
+    microsoft.graph.registrationEnforcement:
+      title: registrationEnforcement
       type: object
       properties:
-        id:
-          type: string
-          description: The object identifier of a Microsoft Entra user or group.
-        targetedAuthenticationMethod:
-          type:
-          - string
-          - 'null'
-          description: The authentication method that the user is prompted to register. The value can be Fido2 or microsoftAuthenticator.
-        targetType:
-          $ref: '#/components/schemas/microsoft.graph.authenticationMethodTargetType'
+        authenticationMethodsRegistrationCampaign:
+          $ref: '#/components/schemas/microsoft.graph.authenticationMethodsRegistrationCampaign'
       additionalProperties:
         type: object
     microsoft.graph.authenticationMethodConfigurationCollectionResponse:
@@ -387,6 +368,31 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    microsoft.graph.excludeTarget:
+      title: excludeTarget
+      type: object
+      properties:
+        id:
+          type: string
+          description: The object identifier of a Microsoft Entra user or group.
+        targetType:
+          $ref: '#/components/schemas/microsoft.graph.authenticationMethodTargetType'
+      additionalProperties:
+        type: object
+    microsoft.graph.advancedConfigState:
+      title: advancedConfigState
+      enum:
+      - default
+      - enabled
+      - disabled
+      - unknownFutureValue
+      type: string
+    microsoft.graph.authenticationMethodState:
+      title: authenticationMethodState
+      enum:
+      - enabled
+      - disabled
+      type: string
     microsoft.graph.authenticationMethodTargetType:
       title: authenticationMethodTargetType
       enum:
@@ -394,6 +400,11 @@ components:
       - group
       - unknownFutureValue
       type: string
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
     microsoft.graph.authenticationMethodConfiguration:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -409,52 +420,18 @@ components:
             $ref: '#/components/schemas/microsoft.graph.authenticationMethodState'
         additionalProperties:
           type: object
-    microsoft.graph.authenticationMethodsRegistrationCampaign:
-      title: authenticationMethodsRegistrationCampaign
+    microsoft.graph.entity:
+      title: entity
       type: object
       properties:
-        excludeTargets:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.excludeTarget'
-          description: Users and groups of users that are excluded from being prompted to set up the authentication method.
-        includeTargets:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.authenticationMethodsRegistrationCampaignIncludeTarget'
-          description: Users and groups of users that are prompted to set up the authentication method.
-        snoozeDurationInDays:
-          maximum: 2147483647
-          minimum: -2147483648
-          type: number
-          description: 'Specifies the number of days that the user sees a prompt again if they select ''Not now'' and snoozes the prompt. Minimum: 0 days. Maximum: 14 days. If the value is ''0'', the user is prompted during every MFA attempt.'
-          format: int32
-        state:
-          $ref: '#/components/schemas/microsoft.graph.advancedConfigState'
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
-    microsoft.graph.authenticationMethodState:
-      title: authenticationMethodState
-      enum:
-      - enabled
-      - disabled
-      type: string
-    microsoft.graph.advancedConfigState:
-      title: advancedConfigState
-      enum:
-      - default
-      - enabled
-      - disabled
-      - unknownFutureValue
-      type: string
-    microsoft.graph.registrationEnforcement:
-      title: registrationEnforcement
-      type: object
-      properties:
-        authenticationMethodsRegistrationCampaign:
-          $ref: '#/components/schemas/microsoft.graph.authenticationMethodsRegistrationCampaign'
-      additionalProperties:
-        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
     microsoft.graph.ODataErrors.ODataError:
       required:
       - error
@@ -462,6 +439,22 @@ components:
       properties:
         error:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationMethodsRegistrationCampaignIncludeTarget:
+      title: authenticationMethodsRegistrationCampaignIncludeTarget
+      type: object
+      properties:
+        id:
+          type: string
+          description: The object identifier of a Microsoft Entra user or group.
+        targetedAuthenticationMethod:
+          type:
+          - string
+          - 'null'
+          description: The authentication method that the user is prompted to register. The value can be Fido2 or microsoftAuthenticator.
+        targetType:
+          $ref: '#/components/schemas/microsoft.graph.authenticationMethodTargetType'
       additionalProperties:
         type: object
     microsoft.graph.ODataErrors.ErrorDetails:
@@ -480,15 +473,6 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
     microsoft.graph.authenticationMethodsPolicyMigrationState:
       title: authenticationMethodsPolicyMigrationState
       enum:
@@ -497,9 +481,6 @@ components:
       - migrationComplete
       - unknownFutureValue
       type: string
-    ODataCountResponse:
-      type: integer
-      format: int32
     microsoft.graph.authenticationMethodsPolicy:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -547,6 +528,25 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
+  responses:
+    microsoft.graph.authenticationMethodConfigurationCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.authenticationMethodConfigurationCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   parameters:
     top:
       name: $top
@@ -558,6 +558,14 @@ components:
         minimum: 0
         type: integer
       example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
     skip:
       name: $skip
       in: query
@@ -567,14 +575,6 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
     search:
       name: $search
       in: query
@@ -583,14 +583,14 @@ components:
       explode: false
       schema:
         type: string
-    count:
-      name: $count
+    filter:
+      name: $filter
       in: query
-      description: Include count of items
+      description: Filter items by property values
       style: form
       explode: false
       schema:
-        type: boolean
+        type: string
   securitySchemes:
     azureaadv2:
       type: oauth2

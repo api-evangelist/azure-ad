@@ -480,57 +480,7 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    StringCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/StringCollectionResponse'
-    microsoft.graph.featureRolloutPolicyCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.featureRolloutPolicyCollectionResponse'
-    microsoft.graph.directoryObjectCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.directoryObjectCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
   schemas:
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    StringCollectionResponse:
-      title: Collection of string
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            type: string
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -554,6 +504,13 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
+    ReferenceCreate:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+      additionalProperties:
+        type: object
     microsoft.graph.directoryObject:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -569,13 +526,62 @@ components:
             format: date-time
         additionalProperties:
           type: object
-    ReferenceCreate:
+    microsoft.graph.directoryObjectCollectionResponse:
+      title: Collection of directoryObject
       type: object
       properties:
-        '@odata.id':
-          type: string
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.directoryObject'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
       additionalProperties:
         type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    StringCollectionResponse:
+      title: Collection of string
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            type: string
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.stagedFeatureName:
+      title: stagedFeatureName
+      enum:
+      - passthroughAuthentication
+      - seamlessSso
+      - passwordHashSync
+      - emailAsAlternateId
+      - unknownFutureValue
+      - certificateBasedAuthentication
+      - multiFactorAuthentication
+      type: string
     microsoft.graph.ODataErrors.ODataError:
       required:
       - error
@@ -583,6 +589,20 @@ components:
       properties:
         error:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.featureRolloutPolicyCollectionResponse:
+      title: Collection of featureRolloutPolicy
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.featureRolloutPolicy'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
       additionalProperties:
         type: object
     microsoft.graph.featureRolloutPolicy:
@@ -631,57 +651,6 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.stagedFeatureName:
-      title: stagedFeatureName
-      enum:
-      - passthroughAuthentication
-      - seamlessSso
-      - passwordHashSync
-      - emailAsAlternateId
-      - unknownFutureValue
-      - certificateBasedAuthentication
-      - multiFactorAuthentication
-      type: string
-    microsoft.graph.featureRolloutPolicyCollectionResponse:
-      title: Collection of featureRolloutPolicy
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.featureRolloutPolicy'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-    microsoft.graph.directoryObjectCollectionResponse:
-      title: Collection of directoryObject
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.directoryObject'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
   parameters:
     top:
       name: $top
@@ -693,6 +662,14 @@ components:
         minimum: 0
         type: integer
       example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
     skip:
       name: $skip
       in: query
@@ -702,14 +679,6 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
     search:
       name: $search
       in: query
@@ -718,14 +687,14 @@ components:
       explode: false
       schema:
         type: string
-    count:
-      name: $count
+    filter:
+      name: $filter
       in: query
-      description: Include count of items
+      description: Filter items by property values
       style: form
       explode: false
       schema:
-        type: boolean
+        type: string
   requestBodies:
     refPostBody:
       description: New navigation property ref value
@@ -734,6 +703,37 @@ components:
           schema:
             $ref: '#/components/schemas/ReferenceCreate'
       required: true
+  responses:
+    microsoft.graph.featureRolloutPolicyCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.featureRolloutPolicyCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.directoryObjectCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.directoryObjectCollectionResponse'
+    StringCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StringCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   securitySchemes:
     azureaadv2:
       type: oauth2

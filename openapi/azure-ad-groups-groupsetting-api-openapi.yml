@@ -265,88 +265,7 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.groupSettingCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.groupSettingCollectionResponse'
   schemas:
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.groupSetting:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: groupSetting
-        type: object
-        properties:
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: Display name of this group of settings, which comes from the associated template.
-          templateId:
-            type:
-            - string
-            - 'null'
-            description: Unique identifier for the tenant-level groupSettingTemplates object that's been customized for this group-level settings object. Read-only.
-          values:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.settingValue'
-            description: Collection of name-value pairs corresponding to the name and defaultValue properties in the referenced groupSettingTemplates object.
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.settingValue:
-      title: settingValue
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the setting (as defined by the groupSettingTemplate).
-        value:
-          type:
-          - string
-          - 'null'
-          description: Value of the setting.
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -370,6 +289,56 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.settingValue:
+      title: settingValue
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the setting (as defined by the groupSettingTemplate).
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value of the setting.
+      additionalProperties:
+        type: object
     microsoft.graph.groupSettingCollectionResponse:
       title: Collection of groupSetting
       type: object
@@ -387,23 +356,43 @@ components:
     ODataCountResponse:
       type: integer
       format: int32
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
+    microsoft.graph.groupSetting:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: groupSetting
+        type: object
+        properties:
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: Display name of this group of settings, which comes from the associated template.
+          templateId:
+            type:
+            - string
+            - 'null'
+            description: Unique identifier for the tenant-level groupSettingTemplates object that's been customized for this group-level settings object. Read-only.
+          values:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.settingValue'
+            description: Collection of name-value pairs corresponding to the name and defaultValue properties in the referenced groupSettingTemplates object.
+        additionalProperties:
+          type: object
+    microsoft.graph.ODataErrors.InnerError:
       type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
       additionalProperties:
         type: object
+      description: The structure of this object is service-specific
   parameters:
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
     count:
       name: $count
       in: query
@@ -412,10 +401,10 @@ components:
       explode: false
       schema:
         type: boolean
-    search:
-      name: $search
+    filter:
+      name: $filter
       in: query
-      description: Search items by search phrases
+      description: Filter items by property values
       style: form
       explode: false
       schema:
@@ -439,14 +428,25 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
+  responses:
+    microsoft.graph.groupSettingCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.groupSettingCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
   securitySchemes:
     azureaadv2:
       type: oauth2

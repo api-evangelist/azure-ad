@@ -2349,64 +2349,7 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.organizationalBrandingLocalizationCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.organizationalBrandingLocalizationCollectionResponse'
   schemas:
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.contentCustomization:
-      title: contentCustomization
-      type: object
-      properties:
-        attributeCollection:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.keyValue'
-          description: Represents the content options of External Identities to be customized throughout the authentication flow for a tenant.
-        attributeCollectionRelativeUrl:
-          type:
-          - string
-          - 'null'
-          description: A relative URL for the content options of External Identities to be customized throughout the authentication flow for a tenant.
-        registrationCampaign:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.keyValue'
-          description: Represents content options to customize during MFA proofup interruptions.
-        registrationCampaignRelativeUrl:
-          type:
-          - string
-          - 'null'
-          description: The relative URL of the content options to customize during MFA proofup interruptions.
-      additionalProperties:
-        type: object
-    microsoft.graph.organizationalBrandingLocalization:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.organizationalBrandingProperties'
-      - title: organizationalBrandingLocalization
-        type: object
-        additionalProperties:
-          type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -2428,113 +2371,6 @@ components:
             $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
         innerError:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
-      additionalProperties:
-        type: object
-    microsoft.graph.layoutTemplateType:
-      title: layoutTemplateType
-      enum:
-      - default
-      - verticalSplit
-      - unknownFutureValue
-      type: string
-    microsoft.graph.loginPageTextVisibilitySettings:
-      title: loginPageTextVisibilitySettings
-      type: object
-      properties:
-        hideAccountResetCredentials:
-          type:
-          - boolean
-          - 'null'
-          description: Option to hide the self-service password reset (SSPR) hyperlinks such as 'Can't access your account?', 'Forgot my password' and 'Reset it now' on the sign-in form.
-        hideCannotAccessYourAccount:
-          type:
-          - boolean
-          - 'null'
-          description: Option to hide the self-service password reset (SSPR) 'Can't access your account?' hyperlink on the sign-in form.
-        hideForgotMyPassword:
-          type:
-          - boolean
-          - 'null'
-          description: Option to hide the self-service password reset (SSPR) 'Forgot my password' hyperlink on the sign-in form.
-        hidePrivacyAndCookies:
-          type:
-          - boolean
-          - 'null'
-          description: Option to hide the 'Privacy & Cookies' hyperlink in the footer.
-        hideResetItNow:
-          type:
-          - boolean
-          - 'null'
-          description: Option to hide the self-service password reset (SSPR) 'reset it now' hyperlink on the sign-in form.
-        hideTermsOfUse:
-          type:
-          - boolean
-          - 'null'
-          description: Option to hide the 'Terms of Use' hyperlink in the footer.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.keyValue:
-      title: keyValue
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: Key for the key-value pair.
-        value:
-          type:
-          - string
-          - 'null'
-          description: Value for the key-value pair.
-      additionalProperties:
-        type: object
-    microsoft.graph.organizationalBranding:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.organizationalBrandingProperties'
-      - title: organizationalBranding
-        type: object
-        properties:
-          localizations:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.organizationalBrandingLocalization'
-            description: Add different branding based on a locale.
-            x-ms-navigationProperty: true
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
     microsoft.graph.organizationalBrandingProperties:
@@ -2700,18 +2536,60 @@ components:
             description: A string that shows as the hint in the username textbox on the sign-in screen. This text must be a Unicode, without links or code, and can't exceed 64 characters.
         additionalProperties:
           type: object
-    microsoft.graph.organizationalBrandingLocalizationCollectionResponse:
-      title: Collection of organizationalBrandingLocalization
+    microsoft.graph.keyValue:
+      title: keyValue
       type: object
       properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.organizationalBrandingLocalization'
-        '@odata.nextLink':
+        key:
           type:
           - string
           - 'null'
+          description: Key for the key-value pair.
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value for the key-value pair.
+      additionalProperties:
+        type: object
+    microsoft.graph.layoutTemplateType:
+      title: layoutTemplateType
+      enum:
+      - default
+      - verticalSplit
+      - unknownFutureValue
+      type: string
+    microsoft.graph.organizationalBrandingLocalization:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.organizationalBrandingProperties'
+      - title: organizationalBrandingLocalization
+        type: object
+        additionalProperties:
+          type: object
+    microsoft.graph.contentCustomization:
+      title: contentCustomization
+      type: object
+      properties:
+        attributeCollection:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.keyValue'
+          description: Represents the content options of External Identities to be customized throughout the authentication flow for a tenant.
+        attributeCollectionRelativeUrl:
+          type:
+          - string
+          - 'null'
+          description: A relative URL for the content options of External Identities to be customized throughout the authentication flow for a tenant.
+        registrationCampaign:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.keyValue'
+          description: Represents content options to customize during MFA proofup interruptions.
+        registrationCampaignRelativeUrl:
+          type:
+          - string
+          - 'null'
+          description: The relative URL of the content options to customize during MFA proofup interruptions.
       additionalProperties:
         type: object
     microsoft.graph.loginPageLayoutConfiguration:
@@ -2732,9 +2610,131 @@ components:
           $ref: '#/components/schemas/microsoft.graph.layoutTemplateType'
       additionalProperties:
         type: object
+    microsoft.graph.organizationalBrandingLocalizationCollectionResponse:
+      title: Collection of organizationalBrandingLocalization
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.organizationalBrandingLocalization'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.loginPageTextVisibilitySettings:
+      title: loginPageTextVisibilitySettings
+      type: object
+      properties:
+        hideAccountResetCredentials:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the self-service password reset (SSPR) hyperlinks such as 'Can't access your account?', 'Forgot my password' and 'Reset it now' on the sign-in form.
+        hideCannotAccessYourAccount:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the self-service password reset (SSPR) 'Can't access your account?' hyperlink on the sign-in form.
+        hideForgotMyPassword:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the self-service password reset (SSPR) 'Forgot my password' hyperlink on the sign-in form.
+        hidePrivacyAndCookies:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the 'Privacy & Cookies' hyperlink in the footer.
+        hideResetItNow:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the self-service password reset (SSPR) 'reset it now' hyperlink on the sign-in form.
+        hideTermsOfUse:
+          type:
+          - boolean
+          - 'null'
+          description: Option to hide the 'Terms of Use' hyperlink in the footer.
+      additionalProperties:
+        type: object
     ODataCountResponse:
       type: integer
       format: int32
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.organizationalBranding:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.organizationalBrandingProperties'
+      - title: organizationalBranding
+        type: object
+        properties:
+          localizations:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.organizationalBrandingLocalization'
+            description: Add different branding based on a locale.
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+  responses:
+    microsoft.graph.organizationalBrandingLocalizationCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.organizationalBrandingLocalizationCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   parameters:
     top:
       name: $top
@@ -2746,6 +2746,14 @@ components:
         minimum: 0
         type: integer
       example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
     skip:
       name: $skip
       in: query
@@ -2755,14 +2763,6 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
     search:
       name: $search
       in: query
@@ -2771,14 +2771,14 @@ components:
       explode: false
       schema:
         type: string
-    count:
-      name: $count
+    filter:
+      name: $filter
       in: query
-      description: Include count of items
+      description: Filter items by property values
       style: form
       explode: false
       schema:
-        type: boolean
+        type: string
   securitySchemes:
     azureaadv2:
       type: oauth2

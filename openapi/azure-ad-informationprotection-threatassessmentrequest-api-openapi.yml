@@ -452,37 +452,7 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.threatAssessmentRequestCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.threatAssessmentRequestCollectionResponse'
-    microsoft.graph.threatAssessmentResultCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.threatAssessmentResultCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
   schemas:
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -506,20 +476,30 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.threatCategory:
-      title: threatCategory
-      enum:
-      - undefined
-      - spam
-      - phishing
-      - malware
-      - unknownFutureValue
-      type: string
     microsoft.graph.threatExpectedAssessment:
       title: threatExpectedAssessment
       enum:
       - block
       - unblock
+      type: string
+    microsoft.graph.identitySet:
+      title: identitySet
+      type: object
+      properties:
+        application:
+          $ref: '#/components/schemas/microsoft.graph.identity'
+        device:
+          $ref: '#/components/schemas/microsoft.graph.identity'
+        user:
+          $ref: '#/components/schemas/microsoft.graph.identity'
+      additionalProperties:
+        type: object
+    microsoft.graph.threatAssessmentContentType:
+      title: threatAssessmentContentType
+      enum:
+      - mail
+      - url
+      - file
       type: string
     microsoft.graph.threatAssessmentStatus:
       title: threatAssessmentStatus
@@ -527,6 +507,37 @@ components:
       - pending
       - completed
       type: string
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
+    microsoft.graph.threatAssessmentResultCollectionResponse:
+      title: Collection of threatAssessmentResult
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.threatAssessmentResult'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
     microsoft.graph.threatAssessmentRequestCollectionResponse:
       title: Collection of threatAssessmentRequest
       type: object
@@ -541,6 +552,70 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.threatCategory:
+      title: threatCategory
+      enum:
+      - undefined
+      - spam
+      - phishing
+      - malware
+      - unknownFutureValue
+      type: string
+    microsoft.graph.identity:
+      title: identity
+      type: object
+      properties:
+        displayName:
+          type:
+          - string
+          - 'null'
+          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
+      additionalProperties:
+        type: object
+    microsoft.graph.threatAssessmentRequestSource:
+      title: threatAssessmentRequestSource
+      enum:
+      - undefined
+      - user
+      - administrator
+      type: string
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.threatAssessmentResultType:
+      title: threatAssessmentResultType
+      enum:
+      - checkPolicy
+      - rescan
+      - unknownFutureValue
+      type: string
     microsoft.graph.threatAssessmentRequest:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -574,43 +649,6 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
-    microsoft.graph.threatAssessmentResultCollectionResponse:
-      title: Collection of threatAssessmentResult
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.threatAssessmentResult'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.identity:
-      title: identity
-      type: object
-      properties:
-        displayName:
-          type:
-          - string
-          - 'null'
-          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
-      additionalProperties:
-        type: object
-    microsoft.graph.threatAssessmentRequestSource:
-      title: threatAssessmentRequestSource
-      enum:
-      - undefined
-      - user
-      - administrator
-      type: string
     microsoft.graph.threatAssessmentResult:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -633,69 +671,6 @@ components:
             $ref: '#/components/schemas/microsoft.graph.threatAssessmentResultType'
         additionalProperties:
           type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.threatAssessmentContentType:
-      title: threatAssessmentContentType
-      enum:
-      - mail
-      - url
-      - file
-      type: string
-    microsoft.graph.threatAssessmentResultType:
-      title: threatAssessmentResultType
-      enum:
-      - checkPolicy
-      - rescan
-      - unknownFutureValue
-      type: string
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.identitySet:
-      title: identitySet
-      type: object
-      properties:
-        application:
-          $ref: '#/components/schemas/microsoft.graph.identity'
-        device:
-          $ref: '#/components/schemas/microsoft.graph.identity'
-        user:
-          $ref: '#/components/schemas/microsoft.graph.identity'
-      additionalProperties:
-        type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
   parameters:
     top:
       name: $top
@@ -707,27 +682,10 @@ components:
         minimum: 0
         type: integer
       example: 50
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items
-      style: form
-      explode: false
-      schema:
-        minimum: 0
-        type: integer
     filter:
       name: $filter
       in: query
       description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases
       style: form
       explode: false
       schema:
@@ -740,6 +698,48 @@ components:
       explode: false
       schema:
         type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items
+      style: form
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
+  responses:
+    microsoft.graph.threatAssessmentRequestCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.threatAssessmentRequestCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.threatAssessmentResultCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.threatAssessmentResultCollectionResponse'
   securitySchemes:
     azureaadv2:
       type: oauth2

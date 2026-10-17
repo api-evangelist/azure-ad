@@ -317,52 +317,7 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.companySubscriptionCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.companySubscriptionCollectionResponse'
   schemas:
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    ODataCountResponse:
-      type: integer
-      format: int32
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -386,32 +341,13 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.servicePlanInfo:
-      title: servicePlanInfo
+    microsoft.graph.entity:
+      title: entity
       type: object
       properties:
-        appliesTo:
-          type:
-          - string
-          - 'null'
-          description: The object the service plan can be assigned to. The possible values are:User - service plan can be assigned to individual users.Company - service plan can be assigned to the entire tenant.
-        provisioningStatus:
-          type:
-          - string
-          - 'null'
-          description: The provisioning status of the service plan. The possible values are:Success - Service is fully provisioned.Disabled - Service is disabled.Error - The service plan isn't provisioned and is in an error state.PendingInput - The service isn't provisioned and is awaiting service confirmation.PendingActivation - The service is provisioned but requires explicit activation by an administrator (for example, Intune_O365 service plan)PendingProvisioning - Microsoft has added a new service to the product SKU and it isn't activated in the tenant.
-        servicePlanId:
-          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
-          type:
-          - string
-          - 'null'
-          description: The unique identifier of the service plan.
-          format: uuid
-        servicePlanName:
-          type:
-          - string
-          - 'null'
-          description: The name of the service plan.
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
     microsoft.graph.companySubscriptionCollectionResponse:
@@ -428,6 +364,25 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
     microsoft.graph.companySubscription:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.entity'
@@ -503,23 +458,57 @@ components:
             format: int32
         additionalProperties:
           type: object
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
+    microsoft.graph.servicePlanInfo:
+      title: servicePlanInfo
       type: object
       properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
+        appliesTo:
           type:
           - string
           - 'null'
+          description: The object the service plan can be assigned to. The possible values are:User - service plan can be assigned to individual users.Company - service plan can be assigned to the entire tenant.
+        provisioningStatus:
+          type:
+          - string
+          - 'null'
+          description: The provisioning status of the service plan. The possible values are:Success - Service is fully provisioned.Disabled - Service is disabled.Error - The service plan isn't provisioned and is in an error state.PendingInput - The service isn't provisioned and is awaiting service confirmation.PendingActivation - The service is provisioned but requires explicit activation by an administrator (for example, Intune_O365 service plan)PendingProvisioning - Microsoft has added a new service to the product SKU and it isn't activated in the tenant.
+        servicePlanId:
+          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+          type:
+          - string
+          - 'null'
+          description: The unique identifier of the service plan.
+          format: uuid
+        servicePlanName:
+          type:
+          - string
+          - 'null'
+          description: The name of the service plan.
       additionalProperties:
         type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
   parameters:
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
     count:
       name: $count
       in: query
@@ -528,10 +517,10 @@ components:
       explode: false
       schema:
         type: boolean
-    search:
-      name: $search
+    filter:
+      name: $filter
       in: query
-      description: Search items by search phrases
+      description: Filter items by property values
       style: form
       explode: false
       schema:
@@ -555,14 +544,25 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
+  responses:
+    microsoft.graph.companySubscriptionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.companySubscriptionCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
   securitySchemes:
     azureaadv2:
       type: oauth2

@@ -196,43 +196,7 @@ paths:
           $ref: '#/components/responses/error'
       x-ms-docs-operation-type: operation
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.subscriptionCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.subscriptionCollectionResponse'
   schemas:
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -254,6 +218,15 @@ components:
             $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
         innerError:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
     microsoft.graph.subscription:
@@ -328,20 +301,6 @@ components:
             description: Required. Specifies the resource that is monitored for changes. Don't include the base URL (https://graph.microsoft.com/v1.0/). See the possible resource path values for each supported resource.
         additionalProperties:
           type: object
-    microsoft.graph.subscriptionCollectionResponse:
-      title: Collection of subscription
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.subscription'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
@@ -358,7 +317,56 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    microsoft.graph.subscriptionCollectionResponse:
+      title: Collection of subscription
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.subscription'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+  responses:
+    microsoft.graph.subscriptionCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.subscriptionCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
   parameters:
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
     count:
       name: $count
       in: query
@@ -367,10 +375,10 @@ components:
       explode: false
       schema:
         type: boolean
-    search:
-      name: $search
+    filter:
+      name: $filter
       in: query
-      description: Search items by search phrases
+      description: Filter items by property values
       style: form
       explode: false
       schema:
@@ -394,14 +402,6 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
   securitySchemes:
     azureaadv2:
       type: oauth2

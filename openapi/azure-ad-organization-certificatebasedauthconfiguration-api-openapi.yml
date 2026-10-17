@@ -227,6 +227,12 @@ paths:
           $ref: '#/components/responses/error'
 components:
   responses:
+    microsoft.graph.certificateBasedAuthConfigurationCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.certificateBasedAuthConfigurationCollectionResponse'
     error:
       description: error
       content:
@@ -239,13 +245,30 @@ components:
         text/plain:
           schema:
             $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.certificateBasedAuthConfigurationCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.certificateBasedAuthConfigurationCollectionResponse'
   schemas:
+    microsoft.graph.ODataErrors.MainError:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          x-ms-primary-error-message: true
+        target:
+          type:
+          - string
+          - 'null'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
+        innerError:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
+      additionalProperties:
+        type: object
     microsoft.graph.entity:
       title: entity
       type: object
@@ -255,11 +278,52 @@ components:
           description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.InnerError:
+    microsoft.graph.certificateBasedAuthConfigurationCollectionResponse:
+      title: Collection of certificateBasedAuthConfiguration
       type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.certificateBasedAuthConfiguration'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
       additionalProperties:
         type: object
-      description: The structure of this object is service-specific
+    microsoft.graph.ODataErrors.ErrorDetails:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        target:
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.certificateBasedAuthConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: certificateBasedAuthConfiguration
+        type: object
+        properties:
+          certificateAuthorities:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.certificateAuthority'
+            description: Collection of certificate authorities which creates a trusted certificate chain.
+        additionalProperties:
+          type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
     microsoft.graph.certificateAuthority:
       title: certificateAuthority
       type: object
@@ -289,19 +353,6 @@ components:
           description: The subject key identifier of the certificate, calculated from the certificate value. Read-only.
       additionalProperties:
         type: object
-    microsoft.graph.certificateBasedAuthConfiguration:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: certificateBasedAuthConfiguration
-        type: object
-        properties:
-          certificateAuthorities:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.certificateAuthority'
-            description: Collection of certificate authorities which creates a trusted certificate chain.
-        additionalProperties:
-          type: object
     microsoft.graph.ODataErrors.ODataError:
       required:
       - error
@@ -311,63 +362,20 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
       additionalProperties:
         type: object
-    microsoft.graph.ODataErrors.MainError:
-      required:
-      - code
-      - message
+    microsoft.graph.ODataErrors.InnerError:
       type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-          x-ms-primary-error-message: true
-        target:
-          type:
-          - string
-          - 'null'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ErrorDetails'
-        innerError:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.certificateBasedAuthConfigurationCollectionResponse:
-      title: Collection of certificateBasedAuthConfiguration
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.certificateBasedAuthConfiguration'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-    microsoft.graph.ODataErrors.ErrorDetails:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        target:
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
+      description: The structure of this object is service-specific
   parameters:
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
     count:
       name: $count
       in: query
@@ -376,10 +384,10 @@ components:
       explode: false
       schema:
         type: boolean
-    search:
-      name: $search
+    filter:
+      name: $filter
       in: query
-      description: Search items by search phrases
+      description: Filter items by property values
       style: form
       explode: false
       schema:
@@ -403,14 +411,6 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
   securitySchemes:
     azureaadv2:
       type: oauth2

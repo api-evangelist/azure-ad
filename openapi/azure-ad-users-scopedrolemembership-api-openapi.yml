@@ -249,77 +249,21 @@ paths:
         default:
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.scopedRoleMembershipCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.scopedRoleMembershipCollectionResponse'
   schemas:
-    microsoft.graph.entity:
-      title: entity
+    microsoft.graph.identity:
+      title: identity
       type: object
       properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.scopedRoleMembership:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: scopedRoleMembership
-        type: object
-        properties:
-          administrativeUnitId:
-            type: string
-            description: Unique identifier for the administrative unit that the directory role is scoped to
-          roleId:
-            type: string
-            description: Unique identifier for the directory role that the member is in.
-          roleMemberInfo:
-            $ref: '#/components/schemas/microsoft.graph.identity'
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
-    microsoft.graph.scopedRoleMembershipCollectionResponse:
-      title: Collection of scopedRoleMembership
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.scopedRoleMembership'
-        '@odata.nextLink':
+        displayName:
           type:
           - string
           - 'null'
+          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
       additionalProperties:
         type: object
     microsoft.graph.ODataErrors.MainError:
@@ -345,25 +289,31 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-    microsoft.graph.identity:
-      title: identity
+    microsoft.graph.entity:
+      title: entity
       type: object
       properties:
-        displayName:
-          type:
-          - string
-          - 'null'
-          description: The display name of the identity.For drive items, the display name might not always be available or up to date. For example, if a user changes their display name the API might show the new value in a future response, but the items associated with the user don't show up as changed when using delta.
         id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier for the identity or actor. For example, in the access reviews decisions API, this property might record the id of the principal, that is, the group, user, or application that's subject to review.
+          type: string
+          description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
+    microsoft.graph.scopedRoleMembership:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: scopedRoleMembership
+        type: object
+        properties:
+          administrativeUnitId:
+            type: string
+            description: Unique identifier for the administrative unit that the directory role is scoped to
+          roleId:
+            type: string
+            description: Unique identifier for the directory role that the member is in.
+          roleMemberInfo:
+            $ref: '#/components/schemas/microsoft.graph.identity'
+        additionalProperties:
+          type: object
     microsoft.graph.ODataErrors.ErrorDetails:
       required:
       - code
@@ -380,15 +330,57 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.scopedRoleMembershipCollectionResponse:
+      title: Collection of scopedRoleMembership
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.scopedRoleMembership'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+  responses:
+    microsoft.graph.scopedRoleMembershipCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.scopedRoleMembershipCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
   parameters:
-    count:
-      name: $count
-      in: query
-      description: Include count of items
-      style: form
-      explode: false
-      schema:
-        type: boolean
     search:
       name: $search
       in: query
@@ -397,15 +389,22 @@ components:
       explode: false
       schema:
         type: string
-    skip:
-      name: $skip
+    count:
+      name: $count
       in: query
-      description: Skip the first n items
+      description: Include count of items
       style: form
       explode: false
       schema:
-        minimum: 0
-        type: integer
+        type: boolean
+    filter:
+      name: $filter
+      in: query
+      description: Filter items by property values
+      style: form
+      explode: false
+      schema:
+        type: string
     top:
       name: $top
       in: query
@@ -416,14 +415,15 @@ components:
         minimum: 0
         type: integer
       example: 50
-    filter:
-      name: $filter
+    skip:
+      name: $skip
       in: query
-      description: Filter items by property values
+      description: Skip the first n items
       style: form
       explode: false
       schema:
-        type: string
+        minimum: 0
+        type: integer
   securitySchemes:
     azureaadv2:
       type: oauth2

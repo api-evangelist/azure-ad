@@ -184,43 +184,7 @@ paths:
           $ref: '#/components/responses/error'
       x-ms-docs-operation-type: operation
 components:
-  responses:
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.subscribedSkuCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.subscribedSkuCollectionResponse'
   schemas:
-    microsoft.graph.entity:
-      title: entity
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
-      additionalProperties:
-        type: object
     microsoft.graph.ODataErrors.MainError:
       required:
       - code
@@ -244,96 +208,15 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
-    microsoft.graph.servicePlanInfo:
-      title: servicePlanInfo
+    microsoft.graph.entity:
+      title: entity
       type: object
       properties:
-        appliesTo:
-          type:
-          - string
-          - 'null'
-          description: The object the service plan can be assigned to. The possible values are:User - service plan can be assigned to individual users.Company - service plan can be assigned to the entire tenant.
-        provisioningStatus:
-          type:
-          - string
-          - 'null'
-          description: The provisioning status of the service plan. The possible values are:Success - Service is fully provisioned.Disabled - Service is disabled.Error - The service plan isn't provisioned and is in an error state.PendingInput - The service isn't provisioned and is awaiting service confirmation.PendingActivation - The service is provisioned but requires explicit activation by an administrator (for example, Intune_O365 service plan)PendingProvisioning - Microsoft has added a new service to the product SKU and it isn't activated in the tenant.
-        servicePlanId:
-          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
-          type:
-          - string
-          - 'null'
-          description: The unique identifier of the service plan.
-          format: uuid
-        servicePlanName:
-          type:
-          - string
-          - 'null'
-          description: The name of the service plan.
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
       additionalProperties:
         type: object
-    microsoft.graph.subscribedSku:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: subscribedSku
-        type: object
-        properties:
-          accountId:
-            type:
-            - string
-            - 'null'
-            description: The unique ID of the account this SKU belongs to.
-          accountName:
-            type:
-            - string
-            - 'null'
-            description: The name of the account this SKU belongs to.
-          appliesTo:
-            type:
-            - string
-            - 'null'
-            description: 'The target class for this SKU. Only SKUs with target class User are assignable. The possible values are: User, Company.'
-          capabilityStatus:
-            type:
-            - string
-            - 'null'
-            description: 'Enabled indicates that the prepaidUnits property has at least one unit that is enabled. LockedOut indicates that the customer canceled their subscription. The possible values are: Enabled, Warning, Suspended, Deleted, LockedOut.'
-          consumedUnits:
-            maximum: 2147483647
-            minimum: -2147483648
-            type:
-            - number
-            - 'null'
-            description: The number of licenses that have been assigned.
-            format: int32
-          prepaidUnits:
-            $ref: '#/components/schemas/microsoft.graph.licenseUnitsDetail'
-          servicePlans:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.servicePlanInfo'
-            description: Information about the service plans that are available with the SKU. Not nullable.
-          skuId:
-            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
-            type:
-            - string
-            - 'null'
-            description: The unique identifier (GUID) for the service SKU.
-            format: uuid
-          skuPartNumber:
-            type:
-            - string
-            - 'null'
-            description: 'The SKU part number; for example: AAD_PREMIUM or RMSBASIC. To get a list of commercial subscriptions that an organization has acquired, see List subscribedSkus.'
-          subscriptionIds:
-            type: array
-            items:
-              type:
-              - string
-              - 'null'
-            description: A list of all subscription IDs associated with this SKU.
-        additionalProperties:
-          type: object
     microsoft.graph.subscribedSkuCollectionResponse:
       title: Collection of subscribedSku
       type: object
@@ -402,7 +285,119 @@ components:
           - 'null'
       additionalProperties:
         type: object
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.servicePlanInfo:
+      title: servicePlanInfo
+      type: object
+      properties:
+        appliesTo:
+          type:
+          - string
+          - 'null'
+          description: The object the service plan can be assigned to. The possible values are:User - service plan can be assigned to individual users.Company - service plan can be assigned to the entire tenant.
+        provisioningStatus:
+          type:
+          - string
+          - 'null'
+          description: The provisioning status of the service plan. The possible values are:Success - Service is fully provisioned.Disabled - Service is disabled.Error - The service plan isn't provisioned and is in an error state.PendingInput - The service isn't provisioned and is awaiting service confirmation.PendingActivation - The service is provisioned but requires explicit activation by an administrator (for example, Intune_O365 service plan)PendingProvisioning - Microsoft has added a new service to the product SKU and it isn't activated in the tenant.
+        servicePlanId:
+          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+          type:
+          - string
+          - 'null'
+          description: The unique identifier of the service plan.
+          format: uuid
+        servicePlanName:
+          type:
+          - string
+          - 'null'
+          description: The name of the service plan.
+      additionalProperties:
+        type: object
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.subscribedSku:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: subscribedSku
+        type: object
+        properties:
+          accountId:
+            type:
+            - string
+            - 'null'
+            description: The unique ID of the account this SKU belongs to.
+          accountName:
+            type:
+            - string
+            - 'null'
+            description: The name of the account this SKU belongs to.
+          appliesTo:
+            type:
+            - string
+            - 'null'
+            description: 'The target class for this SKU. Only SKUs with target class User are assignable. The possible values are: User, Company.'
+          capabilityStatus:
+            type:
+            - string
+            - 'null'
+            description: 'Enabled indicates that the prepaidUnits property has at least one unit that is enabled. LockedOut indicates that the customer canceled their subscription. The possible values are: Enabled, Warning, Suspended, Deleted, LockedOut.'
+          consumedUnits:
+            maximum: 2147483647
+            minimum: -2147483648
+            type:
+            - number
+            - 'null'
+            description: The number of licenses that have been assigned.
+            format: int32
+          prepaidUnits:
+            $ref: '#/components/schemas/microsoft.graph.licenseUnitsDetail'
+          servicePlans:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.servicePlanInfo'
+            description: Information about the service plans that are available with the SKU. Not nullable.
+          skuId:
+            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+            type:
+            - string
+            - 'null'
+            description: The unique identifier (GUID) for the service SKU.
+            format: uuid
+          skuPartNumber:
+            type:
+            - string
+            - 'null'
+            description: 'The SKU part number; for example: AAD_PREMIUM or RMSBASIC. To get a list of commercial subscriptions that an organization has acquired, see List subscribedSkus.'
+          subscriptionIds:
+            type: array
+            items:
+              type:
+              - string
+              - 'null'
+            description: A list of all subscription IDs associated with this SKU.
+        additionalProperties:
+          type: object
   parameters:
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases
+      style: form
+      explode: false
+      schema:
+        type: string
     count:
       name: $count
       in: query
@@ -411,10 +406,10 @@ components:
       explode: false
       schema:
         type: boolean
-    search:
-      name: $search
+    filter:
+      name: $filter
       in: query
-      description: Search items by search phrases
+      description: Filter items by property values
       style: form
       explode: false
       schema:
@@ -438,14 +433,19 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
+  responses:
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.subscribedSkuCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.subscribedSkuCollectionResponse'
   securitySchemes:
     azureaadv2:
       type: oauth2

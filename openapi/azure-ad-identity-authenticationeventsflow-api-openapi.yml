@@ -1501,11 +1501,6 @@ paths:
           $ref: '#/components/responses/error'
 components:
   schemas:
-    microsoft.graph.onAttributeCollectionSubmitHandler:
-      title: onAttributeCollectionSubmitHandler
-      type: object
-      additionalProperties:
-        type: object
     microsoft.graph.identityUserFlowAttributeCollectionResponse:
       title: Collection of identityUserFlowAttribute
       type: object
@@ -1514,52 +1509,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/microsoft.graph.identityUserFlowAttribute'
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    StringCollectionResponse:
-      title: Collection of string
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            type: string
-        '@odata.nextLink':
-          type:
-          - string
-          - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.identityProviderBase:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: identityProviderBase
-        type: object
-        properties:
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: The display name of the identity provider.
-        additionalProperties:
-          type: object
-    microsoft.graph.ODataErrors.InnerError:
-      type: object
-      additionalProperties:
-        type: object
-      description: The structure of this object is service-specific
-    microsoft.graph.authenticationEventsFlowCollectionResponse:
-      title: Collection of authenticationEventsFlow
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.authenticationEventsFlow'
         '@odata.nextLink':
           type:
           - string
@@ -1589,6 +1538,113 @@ components:
           $ref: '#/components/schemas/microsoft.graph.ODataErrors.InnerError'
       additionalProperties:
         type: object
+    microsoft.graph.onAttributeCollectionSubmitHandler:
+      title: onAttributeCollectionSubmitHandler
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.externalUsersSelfServiceSignUpEventsFlowCollectionResponse:
+      title: Collection of externalUsersSelfServiceSignUpEventsFlow
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.externalUsersSelfServiceSignUpEventsFlow'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.authenticationConditions:
+      title: authenticationConditions
+      type: object
+      properties:
+        applications:
+          $ref: '#/components/schemas/microsoft.graph.authenticationConditionsApplications'
+      additionalProperties:
+        type: object
+    microsoft.graph.onAttributeCollectionStartHandler:
+      title: onAttributeCollectionStartHandler
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.identityUserFlowAttributeType:
+      title: identityUserFlowAttributeType
+      enum:
+      - builtIn
+      - custom
+      - required
+      - unknownFutureValue
+      type: string
+    ReferenceCreate:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+      additionalProperties:
+        type: object
+    microsoft.graph.onAttributeCollectionHandler:
+      title: onAttributeCollectionHandler
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.identityProviderBaseCollectionResponse:
+      title: Collection of identityProviderBase
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.identityProviderBase'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.onInteractiveAuthFlowStartHandler:
+      title: onInteractiveAuthFlowStartHandler
+      type: object
+      additionalProperties:
+        type: object
+    microsoft.graph.onAuthenticationMethodLoadStartExternalUsersSelfServiceSignUp:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.onAuthenticationMethodLoadStartHandler'
+      - title: onAuthenticationMethodLoadStartExternalUsersSelfServiceSignUp
+        type: object
+        properties:
+          identityProviders:
+            type: array
+            items:
+              $ref: '#/components/schemas/microsoft.graph.identityProviderBase'
+            x-ms-navigationProperty: true
+        additionalProperties:
+          type: object
+    microsoft.graph.authenticationEventsFlow:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: authenticationEventsFlow
+        type: object
+        properties:
+          conditions:
+            $ref: '#/components/schemas/microsoft.graph.authenticationConditions'
+          description:
+            type:
+            - string
+            - 'null'
+            description: The description of the events policy.
+          displayName:
+            type: string
+            description: Required. The display name for the events policy.
+        additionalProperties:
+          type: object
+    microsoft.graph.onUserCreateStartHandler:
+      title: onUserCreateStartHandler
+      type: object
+      additionalProperties:
+        type: object
     microsoft.graph.onAttributeCollectionExternalUsersSelfServiceSignUp:
       allOf:
       - $ref: '#/components/schemas/microsoft.graph.onAttributeCollectionHandler'
@@ -1604,25 +1660,6 @@ components:
             x-ms-navigationProperty: true
         additionalProperties:
           type: object
-    microsoft.graph.authenticationConditionsApplications:
-      title: authenticationConditionsApplications
-      type: object
-      properties:
-        includeApplications:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.authenticationConditionApplication'
-          x-ms-navigationProperty: true
-      additionalProperties:
-        type: object
-    microsoft.graph.identityUserFlowAttributeType:
-      title: identityUserFlowAttributeType
-      enum:
-      - builtIn
-      - custom
-      - required
-      - unknownFutureValue
-      type: string
     microsoft.graph.authenticationConditionApplicationCollectionResponse:
       title: Collection of authenticationConditionApplication
       type: object
@@ -1637,16 +1674,48 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.identityUserFlowAttributeDataType:
-      title: identityUserFlowAttributeDataType
-      enum:
-      - string
-      - boolean
-      - int64
-      - stringCollection
-      - dateTime
-      - unknownFutureValue
-      type: string
+    microsoft.graph.ODataErrors.InnerError:
+      type: object
+      additionalProperties:
+        type: object
+      description: The structure of this object is service-specific
+    microsoft.graph.authenticationEventsFlowCollectionResponse:
+      title: Collection of authenticationEventsFlow
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.authenticationEventsFlow'
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    StringCollectionResponse:
+      title: Collection of string
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            type: string
+        '@odata.nextLink':
+          type:
+          - string
+          - 'null'
+      additionalProperties:
+        type: object
+    microsoft.graph.entity:
+      title: entity
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for an entity. Read-only.
+      additionalProperties:
+        type: object
     microsoft.graph.authenticationAttributeCollectionInputType:
       title: authenticationAttributeCollectionInputType
       enum:
@@ -1705,115 +1774,28 @@ components:
           description: Defines whether Microsoft Entra ID stores the value that it collects.
       additionalProperties:
         type: object
-    microsoft.graph.identityUserFlowAttribute:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: identityUserFlowAttribute
-        type: object
-        properties:
-          dataType:
-            $ref: '#/components/schemas/microsoft.graph.identityUserFlowAttributeDataType'
-          description:
-            type:
-            - string
-            - 'null'
-            description: The description of the user flow attribute that's shown to the user at the time of sign up.
-          displayName:
-            type:
-            - string
-            - 'null'
-            description: The display name of the user flow attribute.  Supports $filter (eq, ne).
-          userFlowAttributeType:
-            $ref: '#/components/schemas/microsoft.graph.identityUserFlowAttributeType'
-        additionalProperties:
-          type: object
-    microsoft.graph.onInteractiveAuthFlowStartHandler:
-      title: onInteractiveAuthFlowStartHandler
-      type: object
-      additionalProperties:
-        type: object
-    microsoft.graph.externalUsersSelfServiceSignUpEventsFlowCollectionResponse:
-      title: Collection of externalUsersSelfServiceSignUpEventsFlow
+    ODataCountResponse:
+      type: integer
+      format: int32
+    microsoft.graph.authenticationAttributeCollectionPageViewConfiguration:
+      title: authenticationAttributeCollectionPageViewConfiguration
       type: object
       properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.externalUsersSelfServiceSignUpEventsFlow'
-        '@odata.nextLink':
+        description:
           type:
           - string
           - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.authenticationEventsFlow:
-      allOf:
-      - $ref: '#/components/schemas/microsoft.graph.entity'
-      - title: authenticationEventsFlow
-        type: object
-        properties:
-          conditions:
-            $ref: '#/components/schemas/microsoft.graph.authenticationConditions'
-          description:
-            type:
-            - string
-            - 'null'
-            description: The description of the events policy.
-          displayName:
-            type: string
-            description: Required. The display name for the events policy.
-        additionalProperties:
-          type: object
-    microsoft.graph.onAttributeCollectionStartHandler:
-      title: onAttributeCollectionStartHandler
-      type: object
-      additionalProperties:
-        type: object
-    ReferenceCreate:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-      additionalProperties:
-        type: object
-    microsoft.graph.authenticationConditionApplication:
-      title: authenticationConditionApplication
-      type: object
-      properties:
-        appId:
-          type: string
-          description: The identifier for an application corresponding to a condition which will trigger an authenticationEventListener.
-      additionalProperties:
-        type: object
-    microsoft.graph.authenticationConditions:
-      title: authenticationConditions
-      type: object
-      properties:
-        applications:
-          $ref: '#/components/schemas/microsoft.graph.authenticationConditionsApplications'
-      additionalProperties:
-        type: object
-    microsoft.graph.identityProviderBaseCollectionResponse:
-      title: Collection of identityProviderBase
-      type: object
-      properties:
-        value:
+          description: The description of the page.
+        inputs:
           type: array
           items:
-            $ref: '#/components/schemas/microsoft.graph.identityProviderBase'
-        '@odata.nextLink':
+            $ref: '#/components/schemas/microsoft.graph.authenticationAttributeCollectionInputConfiguration'
+          description: The display configuration of attributes being collected on the attribute collection page. You must specify all attributes that you want to retain, otherwise they're removed from the user flow.
+        title:
           type:
           - string
           - 'null'
-      additionalProperties:
-        type: object
-    microsoft.graph.ODataErrors.ODataError:
-      required:
-      - error
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+          description: The title of the attribute collection page.
       additionalProperties:
         type: object
     microsoft.graph.externalUsersSelfServiceSignUpEventsFlow:
@@ -1836,29 +1818,27 @@ components:
             $ref: '#/components/schemas/microsoft.graph.onUserCreateStartHandler'
         additionalProperties:
           type: object
-    microsoft.graph.onUserCreateStartHandler:
-      title: onUserCreateStartHandler
+    microsoft.graph.ODataErrors.ODataError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/microsoft.graph.ODataErrors.MainError'
+      additionalProperties:
+        type: object
+    microsoft.graph.onAuthenticationMethodLoadStartHandler:
+      title: onAuthenticationMethodLoadStartHandler
       type: object
       additionalProperties:
         type: object
-    microsoft.graph.entity:
-      title: entity
+    microsoft.graph.authenticationConditionApplication:
+      title: authenticationConditionApplication
       type: object
       properties:
-        id:
+        appId:
           type: string
-          description: The unique identifier for an entity. Read-only.
-      additionalProperties:
-        type: object
-    microsoft.graph.authenticationAttributeCollectionPage:
-      title: authenticationAttributeCollectionPage
-      type: object
-      properties:
-        views:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.authenticationAttributeCollectionPageViewConfiguration'
-          description: A collection of displays of the attribute collection page.
+          description: The identifier for an application corresponding to a condition which will trigger an authenticationEventListener.
       additionalProperties:
         type: object
     microsoft.graph.ODataErrors.ErrorDetails:
@@ -1877,9 +1857,15 @@ components:
           - 'null'
       additionalProperties:
         type: object
-    microsoft.graph.onAttributeCollectionHandler:
-      title: onAttributeCollectionHandler
+    microsoft.graph.authenticationAttributeCollectionPage:
+      title: authenticationAttributeCollectionPage
       type: object
+      properties:
+        views:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.authenticationAttributeCollectionPageViewConfiguration'
+          description: A collection of displays of the attribute collection page.
       additionalProperties:
         type: object
     microsoft.graph.authenticationAttributeCollectionOptionConfiguration:
@@ -1894,97 +1880,111 @@ components:
           description: The value of the option that will be stored.
       additionalProperties:
         type: object
-    microsoft.graph.onAuthenticationMethodLoadStartHandler:
-      title: onAuthenticationMethodLoadStartHandler
-      type: object
-      additionalProperties:
-        type: object
-    microsoft.graph.authenticationAttributeCollectionPageViewConfiguration:
-      title: authenticationAttributeCollectionPageViewConfiguration
-      type: object
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-          description: The description of the page.
-        inputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/microsoft.graph.authenticationAttributeCollectionInputConfiguration'
-          description: The display configuration of attributes being collected on the attribute collection page. You must specify all attributes that you want to retain, otherwise they're removed from the user flow.
-        title:
-          type:
-          - string
-          - 'null'
-          description: The title of the attribute collection page.
-      additionalProperties:
-        type: object
-    ODataCountResponse:
-      type: integer
-      format: int32
-    microsoft.graph.onAuthenticationMethodLoadStartExternalUsersSelfServiceSignUp:
+    microsoft.graph.identityProviderBase:
       allOf:
-      - $ref: '#/components/schemas/microsoft.graph.onAuthenticationMethodLoadStartHandler'
-      - title: onAuthenticationMethodLoadStartExternalUsersSelfServiceSignUp
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: identityProviderBase
         type: object
         properties:
-          identityProviders:
-            type: array
-            items:
-              $ref: '#/components/schemas/microsoft.graph.identityProviderBase'
-            x-ms-navigationProperty: true
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The display name of the identity provider.
+        additionalProperties:
+          type: object
+    microsoft.graph.authenticationConditionsApplications:
+      title: authenticationConditionsApplications
+      type: object
+      properties:
+        includeApplications:
+          type: array
+          items:
+            $ref: '#/components/schemas/microsoft.graph.authenticationConditionApplication'
+          x-ms-navigationProperty: true
+      additionalProperties:
+        type: object
+    microsoft.graph.identityUserFlowAttributeDataType:
+      title: identityUserFlowAttributeDataType
+      enum:
+      - string
+      - boolean
+      - int64
+      - stringCollection
+      - dateTime
+      - unknownFutureValue
+      type: string
+    microsoft.graph.identityUserFlowAttribute:
+      allOf:
+      - $ref: '#/components/schemas/microsoft.graph.entity'
+      - title: identityUserFlowAttribute
+        type: object
+        properties:
+          dataType:
+            $ref: '#/components/schemas/microsoft.graph.identityUserFlowAttributeDataType'
+          description:
+            type:
+            - string
+            - 'null'
+            description: The description of the user flow attribute that's shown to the user at the time of sign up.
+          displayName:
+            type:
+            - string
+            - 'null'
+            description: The display name of the user flow attribute.  Supports $filter (eq, ne).
+          userFlowAttributeType:
+            $ref: '#/components/schemas/microsoft.graph.identityUserFlowAttributeType'
         additionalProperties:
           type: object
   responses:
-    microsoft.graph.externalUsersSelfServiceSignUpEventsFlowCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.externalUsersSelfServiceSignUpEventsFlowCollectionResponse'
-    error:
-      description: error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
-    microsoft.graph.authenticationConditionApplicationCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.authenticationConditionApplicationCollectionResponse'
-    StringCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/StringCollectionResponse'
-    ODataCountResponse:
-      description: The count of the resource
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ODataCountResponse'
-    microsoft.graph.authenticationEventsFlowCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.authenticationEventsFlowCollectionResponse'
-    microsoft.graph.identityProviderBaseCollectionResponse:
-      description: Retrieved collection
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/microsoft.graph.identityProviderBaseCollectionResponse'
     microsoft.graph.identityUserFlowAttributeCollectionResponse:
       description: Retrieved collection
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/microsoft.graph.identityUserFlowAttributeCollectionResponse'
+    microsoft.graph.identityProviderBaseCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.identityProviderBaseCollectionResponse'
+    microsoft.graph.authenticationConditionApplicationCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.authenticationConditionApplicationCollectionResponse'
+    ODataCountResponse:
+      description: The count of the resource
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ODataCountResponse'
+    microsoft.graph.externalUsersSelfServiceSignUpEventsFlowCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.externalUsersSelfServiceSignUpEventsFlowCollectionResponse'
+    StringCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StringCollectionResponse'
+    error:
+      description: error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.ODataErrors.ODataError'
+    microsoft.graph.authenticationEventsFlowCollectionResponse:
+      description: Retrieved collection
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/microsoft.graph.authenticationEventsFlowCollectionResponse'
   parameters:
     top:
       name: $top
@@ -1996,6 +1996,14 @@ components:
         minimum: 0
         type: integer
       example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items
+      style: form
+      explode: false
+      schema:
+        type: boolean
     skip:
       name: $skip
       in: query
@@ -2005,14 +2013,6 @@ components:
       schema:
         minimum: 0
         type: integer
-    filter:
-      name: $filter
-      in: query
-      description: Filter items by property values
-      style: form
-      explode: false
-      schema:
-        type: string
     search:
       name: $search
       in: query
@@ -2021,14 +2021,14 @@ components:
       explode: false
       schema:
         type: string
-    count:
-      name: $count
+    filter:
+      name: $filter
       in: query
-      description: Include count of items
+      description: Filter items by property values
       style: form
       explode: false
       schema:
-        type: boolean
+        type: string
   requestBodies:
     refPostBody:
       description: New navigation property ref value
