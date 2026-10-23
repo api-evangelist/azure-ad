@@ -12,6 +12,9 @@ artifacts:
   authentication/azure-ad-authentication.yml:
     method: searched
     evidence: declared in the artifact
+  capabilities/azure-ad-capability-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
   changelog/azure-ad-changelog.yml:
     method: searched
     evidence: declared in the artifact
@@ -75,127 +78,13 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  integrations/_index.yml:
     method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+    evidence: carries an API Evangelist house phrase
+  integrations/azure-ad-integration-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -277,6 +166,21 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-24T161608.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   lifecycle/azure-ad-lifecycle.yml:
@@ -882,6 +786,195 @@ artifacts:
   openapi/azure-ad-users-usersettings-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  overlays/azure-ad-admin-peopleadminsettings-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-agreements-agreement-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-agreements-agreementacceptance-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-agreements-agreementfile-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-agreements-agreementfilelocalization-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applications-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applications-application-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applications-application-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applications-application-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applications-appmanagementpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applications-directoryobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applications-extensionproperty-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applications-federatedidentitycredential-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applications-homerealmdiscoverypolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applications-synchronization-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applications-tokenissuancepolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applications-tokenlifetimepolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applicationtemplates-applicationtemplate-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-applicationtemplates-applicationtemplate-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-contacts-directoryobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-contacts-onpremisessyncbehavior-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-contacts-orgcontact-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-contacts-orgcontact-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-contacts-orgcontact-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-contacts-serviceprovisioningerror-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-contracts-contract-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-contracts-contract-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-contracts-contract-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-datapolicyoperations-datapolicyoperation-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-devices-device-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-devices-device-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-devices-device-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-devices-directoryobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-devices-extension-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-administrativeunit-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-attributeset-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-companysubscription-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-customsecurityattributedefinition-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-devicelocalcredentialinfo-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-directory-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-directoryobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-identityproviderbase-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-onpremisesdirectorysynchronization-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-publickeyinfrastructureroot-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-recovery-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directory-remotetenantgroup-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directoryobjects-directoryobject-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directoryobjects-directoryobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directoryobjects-directoryobject-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directoryroles-directoryobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directoryroles-directoryrole-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directoryroles-directoryrole-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directoryroles-directoryrole-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directoryroles-scopedrolemembership-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directoryroletemplates-directoryroletemplate-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directoryroletemplates-directoryroletemplate-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-directoryroletemplates-directoryroletemplate-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-domains-directoryobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-domains-domain-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-domains-domain-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-domains-domaindnsrecord-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-domains-internaldomainfederation-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/azure-ad-graph-applications-overlay.yaml:
     method: generated
     evidence: declared in the artifact
@@ -904,6 +997,372 @@ artifacts:
     method: generated
     evidence: declared in the artifact
   overlays/azure-ad-graph-users-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-grouplifecyclepolicies-grouplifecyclepolicy-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-grouplifecyclepolicies-grouplifecyclepolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-approleassignment-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-conversation-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-conversationthread-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-directoryobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-extension-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-group-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-group-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-group-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-grouplifecyclepolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-groupsetting-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-onpremisessyncbehavior-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-profilephoto-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-resourcespecificpermissiongrant-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groupsettings-groupsetting-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groupsettingtemplates-groupsettingtemplate-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groupsettingtemplates-groupsettingtemplate-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groupsettingtemplates-groupsettingtemplate-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identity-authenticationeventlistener-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identity-authenticationeventsflow-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identity-b2xidentityuserflow-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identity-conditionalaccessroot-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identity-customauthenticationextension-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identity-identityapiconnector-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identity-identitycontainer-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identity-identityproviderbase-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identity-identityuserflowattribute-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identity-identityverifiedidroot-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identity-riskpreventioncontainer-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identitygovernance-accesspackagecatalog-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identitygovernance-accessreviewset-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identitygovernance-appconsentapprovalroute-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identitygovernance-entitlementmanagement-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identitygovernance-identitygovernance-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identitygovernance-lifecycleworkflowscontainer-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identitygovernance-privilegedaccessroot-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identitygovernance-termsofusecontainer-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identityprotection-identityprotectionroot-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identityprotection-riskdetection-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identityprotection-riskyserviceprincipal-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identityprotection-riskyuser-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identityprotection-serviceprincipalriskdetection-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identityproviders-identityprovider-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-identityproviders-identityprovider-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-informationprotection-bitlocker-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-informationprotection-informationprotection-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-informationprotection-threatassessmentrequest-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-invitations-directoryobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-invitations-invitation-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-invitations-user-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-me-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-oauth2permissiongrants-oauth2permissiongrant-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-oauth2permissiongrants-oauth2permissiongrant-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-organization-certificatebasedauthconfiguration-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-organization-extension-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-organization-organization-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-organization-organization-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-organization-organizationalbranding-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-activitybasedtimeoutpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-adminconsentrequestpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-appmanagementpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-authenticationflowspolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-authenticationmethodspolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-authenticationstrengthpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-authorizationpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-claimsmappingpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-conditionalaccesspolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-crosstenantaccesspolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-deviceregistrationpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-featurerolloutpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-federatedtokenvalidationpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-homerealmdiscoverypolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-identitysecuritydefaultsenforcementpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-ownerlessgrouppolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-permissiongrantpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-policyroot-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-tenantappmanagementpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-tokenissuancepolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-tokenlifetimepolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-unifiedrolemanagementpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-policies-unifiedrolemanagementpolicyassignment-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-rolemanagement-rbacapplication-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-appmanagementpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-approleassignment-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-claimsmappingpolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-delegatedpermissionclassification-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-directoryobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-endpoint-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-federatedidentitycredential-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-homerealmdiscoverypolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-oauth2permissiongrant-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-remotedesktopsecurityconfiguration-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-serviceprincipal-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-serviceprincipal-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-serviceprincipal-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-synchronization-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-tokenissuancepolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-serviceprincipals-tokenlifetimepolicy-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-subscribedskus-subscribedsku-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-subscriptions-subscription-actions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-subscriptions-subscription-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-tenantrelationships-multitenantorganization-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-tenantrelationships-tenantrelationship-functions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-agreementacceptance-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-approleassignment-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-authentication-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-directoryobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-extension-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-iteminsights-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-licensedetails-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-mailboxsettings-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-oauth2permissiongrant-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-onpremisessyncbehavior-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-outlookuser-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-profilephoto-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-scopedrolemembership-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-todo-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-user-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-users-usersettings-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   packages/azure-ad-packages.yml:
