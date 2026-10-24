@@ -9,6 +9,7 @@
     "_original/azure-ad-graph-identity-governance-openapi.yml",
     "_original/azure-ad-graph-identity-signins-openapi.yml",
     "_original/azure-ad-graph-users-openapi.yml",
+    "_original/azure-ad-openapi.json",
     "_original/azure-ad-openapi.yml"
   ],
   "outputs": [
@@ -192,6 +193,7 @@
     "azure-ad-users-todo-api-openapi.yml",
     "azure-ad-users-user-api-openapi.yml",
     "azure-ad-users-usersettings-api-openapi.yml",
+    "azure-ad-webapps-api-openapi.yml",
     "azure-ad-applications-api-openapi.yml",
     "azure-ad-directory-api-openapi.yml",
     "azure-ad-groups-api-openapi.yml",
@@ -202,7 +204,7 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "sourced from openapi/_original/ (9 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sourced from openapi/_original/ (10 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "azure-ad-graph-applications-openapi.yml: upgraded openapi 3.0.4 -> OpenAPI 3.2.0",
     "azure-ad-graph-applications-openapi.yml: declared missing tag: applicationTemplates.applicationTemplate",
     "azure-ad-graph-applications-openapi.yml: declared missing tag: applicationTemplates.applicationTemplate.Actions",
@@ -392,9 +394,11 @@
     "azure-ad-graph-users-openapi.yml: declared missing tag: users.todo",
     "azure-ad-graph-users-openapi.yml: declared missing tag: users.user",
     "azure-ad-graph-users-openapi.yml: declared missing tag: users.userSettings",
+    "azure-ad-openapi.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "azure-ad-openapi.json: declared missing tag: WebApps",
     "azure-ad-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "tag 'directory.publicKeyInfrastructureRoot' spans 2 source specs (azure-ad-graph-directoryobjects-openapi.yml, azure-ad-graph-identity-directorymanagement-openapi.yml): per-path servers applied",
-    "apis.yml register: already-registered"
+    "apis.yml register: written (+1 apis, 187 total)"
   ],
   "skipped": [
     "azure-ad-admin-peopleadminsettings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
