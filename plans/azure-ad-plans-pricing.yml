@@ -1,0 +1,206 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://www.microsoft.com/en-us/security/microsoft-entra-pricing
+sources:
+- https://www.microsoft.com/en-us/security/microsoft-entra-pricing
+- https://azure.microsoft.com/en-us/pricing/details/active-directory/
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T120612
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: per-seat
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+  managed_tier: Microsoft Entra ID P1
+published: true
+note: Per-user monthly prices billed yearly; some standalone products priced via Azure pay-as-you-go pages
+  not shown here.
+plan_count: 13
+currency: USD
+plans:
+- name: Microsoft 365 E7
+  price_text: $99.00 user/month, paid yearly
+  price: 99
+  currency: USD
+  period: month
+  unit: user
+  included_quota: Includes everything in Microsoft 365 E5; Agent 365; Entra Suite capabilities
+- name: Microsoft 365 E7 (No Teams)
+  price_text: $90.45 user/month, paid yearly
+  price: 90.45
+  currency: USD
+  period: month
+  unit: user
+  included_quota: Frontier Suite without Teams
+- name: Microsoft Entra Suite
+  price_text: $12.00 user/month, paid yearly
+  price: 12
+  currency: USD
+  period: month
+  unit: user
+  included_quota: Requires a subscription to Microsoft Entra ID P1 or a plan that includes it
+- name: Microsoft Entra ID P1
+  price_text: $7.00 user/month, paid yearly
+  price: 7
+  currency: USD
+  period: month
+  unit: user
+  included_quota: SSO, MFA, Conditional Access, etc.
+- name: Microsoft Entra ID P2
+  price_text: $10.00 user/month, paid yearly
+  price: 10
+  currency: USD
+  period: month
+  unit: user
+  included_quota: All P1 plus ID Protection, PIM
+- name: Microsoft Entra Internet Access
+  price_text: $5.00 user/month, paid yearly
+  price: 5
+  currency: USD
+  period: month
+  unit: user
+- name: Microsoft Entra Private Access
+  price_text: $5.00 user/month, paid yearly
+  price: 5
+  currency: USD
+  period: month
+  unit: user
+- name: Microsoft Entra ID Governance
+  price_text: $7.00 user/month, paid yearly
+  price: 7
+  currency: USD
+  period: month
+  unit: user
+- name: Microsoft Entra Workload ID
+  price_text: $3.00 user/month, paid yearly
+  price: 3
+  currency: USD
+  period: month
+  unit: user
+- name: Microsoft Entra Verified ID
+  price_text: Pay-as-you-go Azure subscription required.
+  period: per-use
+  included_quota: free up to the first 50,000 transactions per month
+- name: Microsoft Entra External ID
+  price_text: Pay-as-you-go Azure subscription required.
+  period: per-use
+  included_quota: free up to the first 50,000 monthly active usages (MAUs)
+- name: Microsoft Entra Domain Services
+  price_text: Pay-as-you-go Azure subscription required.
+  period: per-use
+- name: Microsoft Entra ID Free
+  price_text: Free
+  period: none
+  included_quota: MFA, unlimited SSO, password self-service; Microsoft Azure subscription required
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - seat
+  units:
+  - seat
+  plans:
+  - name: Microsoft 365 E7
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft 365 E7 (No Teams)
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra Suite
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra ID P1
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra ID P2
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra Internet Access
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra Private Access
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra ID Governance
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra Workload ID
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Microsoft Entra Verified ID
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - other
+  - name: Microsoft Entra External ID
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - other
+  - name: Microsoft Entra Domain Services
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - other
+  - name: Microsoft Entra ID Free
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
