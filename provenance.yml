@@ -80,10 +80,706 @@ artifacts:
   heartbeat/2026-11-02.yml:
     method: unknown
     evidence: no authorship recorded
+  hosts/azure-ad-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
   integrations/_index.yml:
     method: generated
     evidence: carries an API Evangelist house phrase
   integrations/azure-ad-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
+  json-ld/azure-ad-context.jsonld:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-access-package-assignment-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-access-package-assignment-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-access-package-catalog-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-access-package-resource-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-access-package-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-access-review-history-definition-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-access-review-history-instance-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-access-review-instance-decision-item-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-access-review-instance-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-access-review-schedule-definition-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-access-review-stage-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-activity-based-timeout-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-admin-consent-request-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-administrative-unit-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-agreement-acceptance-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-agreement-file-localization-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-agreement-file-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-agreement-file-version-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-agreement-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-allowed-value-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-app-consent-approval-route-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-app-consent-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-app-management-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-app-role-assignment-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-application-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-application-service-principal-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-application-template-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-approval-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-approval-stage-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-approved-client-app-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-assigned-license-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-attachment-base-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-attachment-item-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-attachment-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-attachment-session-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-attribute-definition-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-attribute-set-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-combination-configuration-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-condition-application-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-conditions-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-configuration-validation-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-context-class-reference-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-event-listener-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-events-flow-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-flows-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-method-configuration-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-method-modes-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-methods-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-strength-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authentication-strength-usage-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-authorization-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-b2x-identity-user-flow-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-bitlocker-recovery-key-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-bitlocker-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-certificate-authority-detail-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-certificate-based-auth-configuration-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-certificate-based-auth-pki-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-checklist-item-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-claims-mapping-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-company-subscription-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-conditional-access-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-content-type-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-contract-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-conversation-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-conversation-thread-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-cross-tenant-access-policy-configuration-default-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-cross-tenant-access-policy-configuration-partner-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-cross-tenant-access-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-cross-tenant-identity-sync-policy-partner-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-custom-authentication-extension-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-custom-extension-authentication-configuration-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-custom-extension-endpoint-configuration-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-custom-security-attribute-definition-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-data-policy-operation-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-delegated-permission-classification-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-device-local-credential-info-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-device-registration-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-device-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-directory-definition-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-directory-object-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-directory-role-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-directory-role-template-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-directory-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-domain-dns-record-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-domain-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-endpoint-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-entitlement-management-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-entity-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-entra-recovery-services-recovery-job-base-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-entra-recovery-services-recovery-job-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-entra-recovery-services-recovery-preview-job-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-entra-recovery-services-recovery-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-entra-recovery-services-snapshot-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-extension-property-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-extension-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-external-users-self-service-sign-up-events-flow-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-feature-rollout-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-federated-identity-credential-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-federated-token-validation-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-fido2-authentication-method-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-fraud-protection-provider-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-group-lifecycle-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-group-setting-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-group-setting-template-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-home-realm-discovery-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-api-connector-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-container-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-governance-run-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-governance-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-governance-task-processing-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-governance-task-report-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-governance-user-processing-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-governance-workflow-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-protection-root-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-provider-base-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-provider-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-security-defaults-enforcement-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-user-flow-attribute-assignment-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-user-flow-attribute-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-identity-verified-id-root-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-information-protection-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-insights-settings-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-internal-domain-federation-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-invitation-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-item-activity-stat-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-item-insights-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-key-credential-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-license-details-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-locale-info-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-long-running-operation-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-mailbox-settings-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-multi-tenant-organization-join-request-record-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-multi-tenant-organization-member-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-multi-tenant-organization-partner-configuration-template-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-multi-tenant-organization-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-named-location-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-o-auth2-permission-grant-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-on-attribute-collection-external-users-self-service-sign-up-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-on-authentication-method-load-start-external-users-self-service-sign-up-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-on-premises-directory-synchronization-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-on-premises-sync-behavior-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-org-contact-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-organization-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-organizational-branding-localization-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-organizational-branding-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-outlook-category-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-outlook-user-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-ownerless-group-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-password-credential-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-people-admin-settings-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-permission-grant-condition-set-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-permission-grant-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-phone-authentication-method-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-policy-root-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-policy-template-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-post-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-privileged-access-group-assignment-schedule-instance-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-privileged-access-group-assignment-schedule-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-privileged-access-group-eligibility-schedule-instance-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-privileged-access-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-profile-card-property-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-profile-photo-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-profile-property-setting-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-profile-source-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-pronouns-settings-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-public-key-infrastructure-root-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-rbac-application-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-recipient-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-remote-desktop-security-configuration-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-remote-tenant-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-resource-specific-permission-grant-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-risk-detection-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-risk-prevention-container-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-risky-service-principal-history-item-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-risky-service-principal-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-risky-user-history-item-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-risky-user-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-scoped-role-membership-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-self-signed-certificate-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-service-principal-risk-detection-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-service-principal-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-shared-insight-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-sign-in-conditions-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-subscribed-sku-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-subscription-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-synchronization-job-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-synchronization-schema-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-synchronization-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-synchronization-template-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-target-device-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-teams-licensing-details-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-temporary-access-pass-authentication-method-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-tenant-app-management-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-tenant-information-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-terms-of-use-container-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-threat-assessment-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-threat-assessment-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-time-zone-information-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-todo-task-list-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-todo-task-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-token-issuance-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-token-lifetime-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-trending-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-unified-role-assignment-schedule-instance-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-unified-role-assignment-schedule-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-unified-role-assignment-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-unified-role-definition-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-unified-role-eligibility-schedule-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-unified-role-management-policy-assignment-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-unified-role-management-policy-rule-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-unified-role-management-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-update-allowed-combinations-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-upload-session-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-used-insight-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-user-consent-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-user-flow-language-configuration-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-user-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-user-settings-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-verified-id-profile-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-web-application-firewall-provider-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-web-application-firewall-verification-model-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-windows-setting-instance-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-windows-setting-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-work-hours-and-locations-setting-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-work-plan-occurrence-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-work-plan-recurrence-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-user-schema.json:
     method: unknown
     evidence: no authorship recorded
   kin/checks-2026-10-23T222754.yml:
@@ -158,9 +854,12 @@ artifacts:
   lifecycle/azure-ad-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
+  llms/azure-ad-llms-provenance.yml:
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
   llms/azure-ad-llms.txt:
-    method: generated
-    evidence: declared in the artifact
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
   mcp/azure-ad-mcp.yml:
     method: searched
     evidence: declared in the artifact
@@ -1387,6 +2086,12 @@ artifacts:
     evidence: declared in the artifact
   sla/azure-ad-sla.yml:
     method: generated
+    evidence: declared in the artifact
+  vendors/azure-ad-vendors.yml:
+    method: unknown
+    evidence: no authorship recorded
+  vocabulary/azure-ad-vocabulary.yml:
+    method: derived
     evidence: declared in the artifact
   well-known/azure-ad-login-openid-configuration.json:
     method: unknown

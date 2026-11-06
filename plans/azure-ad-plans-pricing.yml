@@ -2,6 +2,7 @@
 generated: '2026-10-28'
 method: searched
 source: https://www.microsoft.com/en-us/security/microsoft-entra-pricing
+name: Microsoft Entra ID (formerly Azure AD) API Plans
 sources:
 - https://www.microsoft.com/en-us/security/microsoft-entra-pricing
 - https://azure.microsoft.com/en-us/pricing/details/active-directory/
@@ -97,7 +98,7 @@ plans:
   period: none
   included_quota: MFA, unlimited SSO, password self-service; Microsoft Azure subscription required
 x-canonical:
-  generated: '2026-11-02'
+  generated: '2026-11-06'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - seat
