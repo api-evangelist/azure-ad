@@ -14,6 +14,12 @@ artifacts:
   capabilities/azure-ad-capability-edges.yml:
     method: unknown
     evidence: no authorship recorded
+  certification/observations-2026-11-11.jsonl:
+    method: unknown
+    evidence: no authorship recorded
+  certification/status.yml:
+    method: unknown
+    evidence: no authorship recorded
   changelog/azure-ad-changelog.yml:
     method: searched
     evidence: declared in the artifact
@@ -80,6 +86,12 @@ artifacts:
   heartbeat/2026-11-02.yml:
     method: unknown
     evidence: no authorship recorded
+  heartbeat/2026-11-06.yml:
+    method: unknown
+    evidence: no authorship recorded
+  heartbeat/2026-11-13.yml:
+    method: unknown
+    evidence: no authorship recorded
   hosts/azure-ad-hosts.yml:
     method: derived
     evidence: declared in the artifact
@@ -90,6 +102,12 @@ artifacts:
     method: searched
     evidence: declared in the artifact
   json-ld/azure-ad-context.jsonld:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-base-collection-pagination-count-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-base-delta-function-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-group-schema.json:
@@ -131,6 +149,12 @@ artifacts:
   json-schema/azure-ad-microsoft-graph-activity-based-timeout-policy-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-activity-history-item-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-adhoc-call-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-admin-consent-request-policy-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -150,6 +174,18 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-agreement-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-ai-interaction-history-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-ai-interaction-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-ai-online-meeting-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-ai-user-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-allowed-value-schema.json:
@@ -198,6 +234,9 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-attachment-session-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-attendance-record-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-attribute-definition-schema.json:
@@ -260,6 +299,15 @@ artifacts:
   json-schema/azure-ad-microsoft-graph-bitlocker-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-call-ai-insight-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-call-recording-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-call-transcript-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-certificate-authority-detail-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -273,6 +321,24 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-claims-mapping-policy-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-cloud-clipboard-item-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-cloud-clipboard-root-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-cloud-pc-launch-detail-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-cloud-pc-operating-system-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-cloud-pc-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-cloud-pc-user-account-type-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-company-subscription-schema.json:
@@ -293,6 +359,9 @@ artifacts:
   json-schema/azure-ad-microsoft-graph-conversation-thread-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-copy-notebook-model-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-cross-tenant-access-policy-configuration-default-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -303,6 +372,12 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-cross-tenant-identity-sync-policy-partner-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-cross-tenant-migration-cancel-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-cross-tenant-migration-task-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-custom-authentication-extension-schema.json:
@@ -326,10 +401,19 @@ artifacts:
   json-schema/azure-ad-microsoft-graph-device-local-credential-info-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-device-management-troubleshooting-event-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-device-metadata-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-device-registration-policy-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-device-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-directory-audit-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-directory-definition-schema.json:
@@ -381,6 +465,12 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-extension-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-external-connectors-external-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-external-connectors-identity-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-external-users-self-service-sign-up-events-flow-schema.json:
@@ -461,6 +551,12 @@ artifacts:
   json-schema/azure-ad-microsoft-graph-identity-verified-id-root-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-inference-classification-override-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-inference-classification-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-information-protection-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -494,6 +590,15 @@ artifacts:
   json-schema/azure-ad-microsoft-graph-mailbox-settings-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-managed-app-registration-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-meeting-attendance-report-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-meeting-participants-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-multi-tenant-organization-join-request-record-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -509,6 +614,9 @@ artifacts:
   json-schema/azure-ad-microsoft-graph-named-location-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-notebook-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-o-auth2-permission-grant-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -522,6 +630,18 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-on-premises-sync-behavior-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-onenote-page-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-onenote-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-onenote-section-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-online-meeting-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-org-contact-schema.json:
@@ -557,7 +677,31 @@ artifacts:
   json-schema/azure-ad-microsoft-graph-permission-grant-policy-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-person-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-phone-authentication-method-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-planner-assigned-to-task-board-task-format-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-planner-bucket-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-planner-plan-details-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-planner-plan-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-planner-task-details-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-planner-task-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-policy-location-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-policy-root-schema.json:
@@ -567,6 +711,12 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-post-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-presence-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-presence-status-message-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-privileged-access-group-assignment-schedule-instance-schema.json:
@@ -579,6 +729,12 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-privileged-access-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-process-content-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-process-content-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-profile-card-property-schema.json:
@@ -635,7 +791,13 @@ artifacts:
   json-schema/azure-ad-microsoft-graph-scoped-role-membership-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-section-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-self-signed-certificate-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-sensitivity-label-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-service-principal-risk-detection-schema.json:
@@ -681,6 +843,18 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-tenant-information-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-term-store-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-term-store-relation-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-term-store-set-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-term-store-term-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-terms-of-use-container-schema.json:
@@ -743,16 +917,31 @@ artifacts:
   json-schema/azure-ad-microsoft-graph-used-insight-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-user-activity-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-user-consent-request-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-user-data-security-and-governance-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-user-flow-language-configuration-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-user-registration-feature-summary-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-user-registration-method-summary-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-user-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-user-settings-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-user-solution-root-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-verified-id-profile-schema.json:
@@ -773,10 +962,16 @@ artifacts:
   json-schema/azure-ad-microsoft-graph-work-hours-and-locations-setting-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-work-location-type-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-work-plan-occurrence-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-microsoft-graph-work-plan-recurrence-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/azure-ad-microsoft-graph-working-time-schedule-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/azure-ad-user-schema.json:
@@ -785,7 +980,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -851,6 +1046,9 @@ artifacts:
   kin/score-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/azure-ad-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -894,6 +1092,13 @@ artifacts:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
+  openapi/_original/azure-ad-graph-users-groups-applications-serviceprincipals-directory-.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/azure-ad-graph-users-groups-applications-serviceprincipals-directory-.yml.provenance.txt:
+    method: searched
+    evidence: declared in the artifact
   openapi/_original/azure-ad-graph-users-openapi.yml:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
@@ -959,6 +1164,12 @@ artifacts:
   openapi/azure-ad-applicationtemplates-applicationtemplate-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-auditlogs-directoryaudit-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-connections-externalgroup-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-contacts-directoryobject-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -986,7 +1197,13 @@ artifacts:
   openapi/azure-ad-contracts-contract-functions-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-copilot-aiuser-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-datapolicyoperations-datapolicyoperation-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-devicemanagement-manageddevice-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-devices-device-actions-api-openapi.yml:
@@ -1043,6 +1260,9 @@ artifacts:
   openapi/azure-ad-directory-remotetenantgroup-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-directory-tenantgovernance-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-directoryobjects-directoryobject-actions-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -1091,6 +1311,15 @@ artifacts:
   openapi/azure-ad-domains-internaldomainfederation-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-education-educationschool-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-education-educationuser-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-external-externalconnection-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-grouplifecyclepolicies-grouplifecyclepolicy-actions-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -1103,6 +1332,9 @@ artifacts:
   openapi/azure-ad-groups-approleassignment-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-groups-calendar-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-groups-conversation-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -1110,6 +1342,12 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-groups-directoryobject-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-groups-drive-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-groups-event-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-groups-extension-api-openapi.yml:
@@ -1130,13 +1368,28 @@ artifacts:
   openapi/azure-ad-groups-groupsetting-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-groups-onenote-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-groups-onpremisessyncbehavior-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-groups-plannergroup-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-groups-profilephoto-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-groups-resourcespecificpermissiongrant-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-groups-serviceprovisioningerror-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-groups-site-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-groups-team-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-groupsettings-groupsetting-api-openapi.yml:
@@ -1250,6 +1503,12 @@ artifacts:
   openapi/azure-ad-me-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-me-manageddevice-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-me-oauth2permissiongrant-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-oauth2permissiongrants-oauth2permissiongrant-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -1340,6 +1599,9 @@ artifacts:
   openapi/azure-ad-policies-unifiedrolemanagementpolicyassignment-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-reports-authenticationmethodsroot-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-rolemanagement-rbacapplication-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -1391,6 +1653,12 @@ artifacts:
   openapi/azure-ad-serviceprincipals-tokenlifetimepolicy-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-sites-store-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-solutions-migrationsroot-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-subscribedskus-subscribedsku-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -1406,6 +1674,9 @@ artifacts:
   openapi/azure-ad-tenantrelationships-tenantrelationship-functions-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-adhoccall-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-users-agreementacceptance-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -1418,10 +1689,46 @@ artifacts:
   openapi/azure-ad-users-authentication-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-calendar-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-calendargroup-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-chat-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-cloudclipboardroot-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-cloudpc-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-contact-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-contactfolder-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-devicemanagementtroubleshootingevent-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-users-directoryobject-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-drive-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-employeeexperienceuser-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-event-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-users-extension-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-inferenceclassification-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-users-iteminsights-api-openapi.yml:
@@ -1433,7 +1740,28 @@ artifacts:
   openapi/azure-ad-users-mailboxsettings-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-mailfolder-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-managedappregistration-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-manageddevice-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-message-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-note-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-users-oauth2permissiongrant-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-onenote-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-onlinemeeting-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-users-onpremisessyncbehavior-api-openapi.yml:
@@ -1442,19 +1770,58 @@ artifacts:
   openapi/azure-ad-users-outlookuser-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-person-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-planneruser-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-presence-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-users-profilephoto-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-resourcespecificpermissiongrant-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-users-scopedrolemembership-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-serviceprovisioningerror-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-site-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-team-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-users-todo-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-user-actions-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-users-user-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-user-functions-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-useractivity-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-userdatasecurityandgovernance-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/azure-ad-users-usersettings-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-usersolutionroot-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/azure-ad-users-userteamwork-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   overlays/azure-ad-admin-peopleadminsettings-api-phrasing-overlay.yaml:
@@ -2048,6 +2415,9 @@ artifacts:
   plans/azure-ad-price-estimates.yml:
     method: unknown
     evidence: no authorship recorded
+  privacy/azure-ad-privacy-policy.yml:
+    method: harvested
+    evidence: declared in the artifact
   rate-limits/azure-ad-rate-limits.yml:
     method: searched
     evidence: declared in the artifact
