@@ -92,6 +92,9 @@ artifacts:
   heartbeat/2026-11-13.yml:
     method: unknown
     evidence: no authorship recorded
+  heartbeat/2026-11-20.yml:
+    method: unknown
+    evidence: no authorship recorded
   hosts/azure-ad-hosts.yml:
     method: derived
     evidence: declared in the artifact
@@ -980,7 +983,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-06T143934.yml:
+  kin/checks-2026-11-13T214628.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -1047,6 +1050,9 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-13T214628.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   lifecycle/azure-ad-lifecycle.yml:
@@ -1881,6 +1887,12 @@ artifacts:
   overlays/azure-ad-applicationtemplates-applicationtemplate-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/azure-ad-auditlogs-directoryaudit-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-connections-externalgroup-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/azure-ad-contacts-directoryobject-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
@@ -1908,7 +1920,13 @@ artifacts:
   overlays/azure-ad-contracts-contract-functions-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/azure-ad-copilot-aiuser-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/azure-ad-datapolicyoperations-datapolicyoperation-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-devicemanagement-manageddevice-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/azure-ad-devices-device-actions-api-phrasing-overlay.yaml:
@@ -1965,6 +1983,9 @@ artifacts:
   overlays/azure-ad-directory-remotetenantgroup-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/azure-ad-directory-tenantgovernance-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/azure-ad-directoryobjects-directoryobject-actions-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
@@ -2013,6 +2034,15 @@ artifacts:
   overlays/azure-ad-domains-internaldomainfederation-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/azure-ad-education-educationschool-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-education-educationuser-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-external-externalconnection-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/azure-ad-graph-applications-overlay.yaml:
     method: generated
     evidence: declared in the artifact
@@ -2049,6 +2079,9 @@ artifacts:
   overlays/azure-ad-groups-approleassignment-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/azure-ad-groups-calendar-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/azure-ad-groups-conversation-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
@@ -2056,6 +2089,12 @@ artifacts:
     method: generated
     evidence: declared in the artifact
   overlays/azure-ad-groups-directoryobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-drive-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/azure-ad-groups-event-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/azure-ad-groups-extension-api-phrasing-overlay.yaml:
@@ -2452,9 +2491,6 @@ artifacts:
     method: generated
     evidence: declared in the artifact
   skills/azure-ad-subscribe-to-directory-changes.md:
-    method: generated
-    evidence: declared in the artifact
-  sla/azure-ad-sla.yml:
     method: generated
     evidence: declared in the artifact
   vendors/azure-ad-vendors.yml:
